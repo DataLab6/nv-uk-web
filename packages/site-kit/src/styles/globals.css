@@ -1,0 +1,662 @@
+@import "tailwindcss";
+
+/* Tailwind v4 scans from the stylesheet location, including the shared kit and
+   both independently runnable applications. */
+@source "../";
+@source "../../../../apps/la-nieve/src";
+@source "../../../../apps/unimarka/src";
+
+/* next-themes applies .dark to the document instead of relying exclusively on
+   the operating-system media query. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Audited colour exceptions
+ * -------------------------
+ * CSS uses the supplied HEX values as the canonical web notation:
+ * - La Nieve's manual prints an invalid RGB 266 / 64 / 48 and #E24030 for its
+ *   complementary red. colores.txt provides the coherent RGB 236 / 64 / 48
+ *   and #EC4030 used here.
+ * - #ECECEC resolves to RGB 236 / 236 / 236 although colores.txt says 235;
+ *   #FFFFFF resolves to 255 / 255 / 255 although the manual says 225.
+ * - #F9F6C0 resolves to RGB 249 / 246 / 192, not the printed 249 / 249 / 192.
+ * - Several Unimarka RGB rows differ by one unit from their matching HEX rows.
+ *   The PDF and colores.txt agree on the HEX values used below.
+ * Derived surface and foreground colours are intentionally not brand swatches;
+ * they provide readable semantic pairs while preserving every audited colour.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Safe neutral fallback before a brand class is applied. */
+  --background: #ffffff;
+  --foreground: #172e4b;
+  --card: #ffffff;
+  --card-foreground: #172e4b;
+  --popover: #ffffff;
+  --popover-foreground: #172e4b;
+  --muted: #ececec;
+  --muted-foreground: #525151;
+  --border: #d8dde7;
+  --input: #d8dde7;
+  --ring: #27348a;
+  --primary: #27348a;
+  --primary-foreground: #ffffff;
+  --secondary: #6dc6d9;
+  --secondary-foreground: #162d4a;
+  --accent: #19909b;
+  --accent-foreground: #071e23;
+  --destructive: #ec4030;
+  --destructive-foreground: #071019;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+
+  --brand-primary: #27348a;
+  --brand-secondary: #6dc6d9;
+  --brand-tertiary: #19909b;
+  --brand-highlight: #ec4030;
+  --brand-soft: #f9f6c0;
+  --brand-ink: #162d4a;
+
+  --glass: rgb(255 255 255 / 0.7);
+  --glass-strong: rgb(255 255 255 / 0.86);
+  --glass-border: rgb(39 52 138 / 0.14);
+  --shadow-rgb: 22 45 74;
+  --mesh-primary: #27348a;
+  --mesh-secondary: #6dc6d9;
+  --mesh-accent: #ec4030;
+
+  --radius: 0.875rem;
+  --elevation-card: 0 22px 55px -32px rgb(var(--shadow-rgb) / 0.34);
+  --elevation-glass:
+    0 28px 80px -42px rgb(var(--shadow-rgb) / 0.42),
+    inset 0 1px 0 rgb(255 255 255 / 0.5);
+}
+
+/* Distribuciones La Nieve — audited corporate palette. */
+.brand-la-nieve {
+  color-scheme: light;
+
+  --la-nieve-blue: #27348a;
+  --la-nieve-sky: #6dc6d9;
+  --la-nieve-gradient-navy: #172e4b;
+  --la-nieve-type-gray: #3c3c3b;
+  --la-nieve-dark-gray: #525151;
+  --la-nieve-light-gray: #ececec;
+  --la-nieve-white: #ffffff;
+  --la-nieve-red: #ec4030;
+  --la-nieve-yellow: #f9f6c0;
+  --la-nieve-turquoise: #19909b;
+  --la-nieve-navy: #162d4a;
+
+  --brand-primary: var(--la-nieve-blue);
+  --brand-secondary: var(--la-nieve-sky);
+  --brand-tertiary: var(--la-nieve-turquoise);
+  --brand-highlight: var(--la-nieve-red);
+  --brand-soft: var(--la-nieve-yellow);
+  --brand-ink: var(--la-nieve-navy);
+
+  --background: var(--la-nieve-white);
+  --foreground: var(--la-nieve-gradient-navy);
+  --card: var(--la-nieve-white);
+  --card-foreground: var(--la-nieve-gradient-navy);
+  --popover: var(--la-nieve-white);
+  --popover-foreground: var(--la-nieve-gradient-navy);
+  --muted: var(--la-nieve-light-gray);
+  --muted-foreground: var(--la-nieve-dark-gray);
+  --border: #d8dcea;
+  --input: #d8dcea;
+  --ring: var(--la-nieve-blue);
+  --primary: var(--la-nieve-blue);
+  --primary-foreground: var(--la-nieve-white);
+  --secondary: var(--la-nieve-sky);
+  --secondary-foreground: var(--la-nieve-navy);
+  --accent: var(--la-nieve-turquoise);
+  --accent-foreground: #071e23;
+  --destructive: var(--la-nieve-red);
+  --destructive-foreground: #071019;
+  --surface: #f7f9fc;
+  --surface-elevated: var(--la-nieve-white);
+
+  --glass: rgb(255 255 255 / 0.7);
+  --glass-strong: rgb(255 255 255 / 0.86);
+  --glass-border: rgb(39 52 138 / 0.14);
+  --shadow-rgb: 22 45 74;
+  --mesh-primary: var(--la-nieve-blue);
+  --mesh-secondary: var(--la-nieve-sky);
+  --mesh-accent: var(--la-nieve-red);
+}
+
+/* Unimarka — audited corporate palette. */
+.brand-unimarka {
+  color-scheme: light;
+
+  --unimarka-blue: #275fa6;
+  --unimarka-blue-secondary: #377ab3;
+  --unimarka-blue-light: #4faccb;
+  --unimarka-red: #ef4036;
+  --unimarka-red-dark: #bd202d;
+  --unimarka-gray: #535456;
+
+  --brand-primary: var(--unimarka-blue);
+  --brand-secondary: var(--unimarka-blue-secondary);
+  --brand-tertiary: var(--unimarka-blue-light);
+  --brand-highlight: var(--unimarka-red);
+  --brand-soft: #eaf6fa;
+  --brand-ink: var(--unimarka-gray);
+
+  --background: #ffffff;
+  --foreground: var(--unimarka-gray);
+  --card: #ffffff;
+  --card-foreground: #303846;
+  --popover: #ffffff;
+  --popover-foreground: #303846;
+  --muted: #edf4f9;
+  --muted-foreground: var(--unimarka-gray);
+  --border: #d5e1ed;
+  --input: #d5e1ed;
+  --ring: var(--unimarka-blue);
+  --primary: var(--unimarka-blue);
+  --primary-foreground: #ffffff;
+  --secondary: var(--unimarka-blue-secondary);
+  --secondary-foreground: #ffffff;
+  --accent: var(--unimarka-red);
+  --accent-foreground: #101820;
+  --destructive: var(--unimarka-red-dark);
+  --destructive-foreground: #ffffff;
+  --surface: #f7fafc;
+  --surface-elevated: #ffffff;
+
+  --glass: rgb(255 255 255 / 0.7);
+  --glass-strong: rgb(255 255 255 / 0.87);
+  --glass-border: rgb(39 95 166 / 0.15);
+  --shadow-rgb: 39 95 166;
+  --mesh-primary: var(--unimarka-blue);
+  --mesh-secondary: var(--unimarka-blue-light);
+  --mesh-accent: var(--unimarka-red);
+}
+
+/* Neutral fallback for an unbranded document in class-driven dark mode. */
+.dark {
+  color-scheme: dark;
+
+  --background: #0b1827;
+  --foreground: #f7fafc;
+  --card: #13263a;
+  --card-foreground: #f7fafc;
+  --popover: #13263a;
+  --popover-foreground: #f7fafc;
+  --muted: #1d334a;
+  --muted-foreground: #c0cddb;
+  --border: #344d65;
+  --input: #344d65;
+  --ring: #6dc6d9;
+  --primary: #6dc6d9;
+  --primary-foreground: #162d4a;
+  --secondary: #27348a;
+  --secondary-foreground: #ffffff;
+  --accent: #f9f6c0;
+  --accent-foreground: #162d4a;
+  --destructive: #ec4030;
+  --destructive-foreground: #071019;
+  --surface: #101f30;
+  --surface-elevated: #172e4b;
+  --glass: rgb(19 38 58 / 0.72);
+  --glass-strong: rgb(19 38 58 / 0.88);
+  --glass-border: rgb(109 198 217 / 0.2);
+  --shadow-rgb: 0 0 0;
+}
+
+.brand-la-nieve.dark,
+.dark .brand-la-nieve {
+  color-scheme: dark;
+
+  --background: #0b1827;
+  --foreground: var(--la-nieve-white);
+  --card: var(--la-nieve-navy);
+  --card-foreground: var(--la-nieve-white);
+  --popover: var(--la-nieve-navy);
+  --popover-foreground: var(--la-nieve-white);
+  --muted: var(--la-nieve-gradient-navy);
+  --muted-foreground: #c4d3df;
+  --border: #3b566e;
+  --input: #3b566e;
+  --ring: var(--la-nieve-sky);
+  --primary: var(--la-nieve-sky);
+  --primary-foreground: var(--la-nieve-navy);
+  --secondary: var(--la-nieve-blue);
+  --secondary-foreground: var(--la-nieve-white);
+  --accent: var(--la-nieve-yellow);
+  --accent-foreground: var(--la-nieve-navy);
+  --destructive: var(--la-nieve-red);
+  --destructive-foreground: #071019;
+  --surface: #101f30;
+  --surface-elevated: var(--la-nieve-gradient-navy);
+
+  --glass: rgb(22 45 74 / 0.72);
+  --glass-strong: rgb(23 46 75 / 0.88);
+  --glass-border: rgb(109 198 217 / 0.2);
+  --shadow-rgb: 0 0 0;
+  --mesh-primary: var(--la-nieve-sky);
+  --mesh-secondary: var(--la-nieve-blue);
+  --mesh-accent: var(--la-nieve-turquoise);
+}
+
+.brand-unimarka.dark,
+.dark .brand-unimarka {
+  color-scheme: dark;
+
+  --background: #0c1624;
+  --foreground: #f7fafc;
+  --card: #15263b;
+  --card-foreground: #f7fafc;
+  --popover: #15263b;
+  --popover-foreground: #f7fafc;
+  --muted: #1d334b;
+  --muted-foreground: #c2cedb;
+  --border: #354b64;
+  --input: #354b64;
+  --ring: var(--unimarka-blue-light);
+  --primary: var(--unimarka-blue-light);
+  --primary-foreground: #111827;
+  --secondary: var(--unimarka-blue-secondary);
+  --secondary-foreground: #ffffff;
+  --accent: var(--unimarka-red);
+  --accent-foreground: #101820;
+  --destructive: var(--unimarka-red-dark);
+  --destructive-foreground: #ffffff;
+  --surface: #101e30;
+  --surface-elevated: #182b42;
+
+  --glass: rgb(21 38 59 / 0.72);
+  --glass-strong: rgb(24 43 66 / 0.88);
+  --glass-border: rgb(79 172 203 / 0.2);
+  --shadow-rgb: 0 0 0;
+  --mesh-primary: var(--unimarka-blue-light);
+  --mesh-secondary: var(--unimarka-blue);
+  --mesh-accent: var(--unimarka-red);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-glass: var(--glass);
+  --color-glass-strong: var(--glass-strong);
+  --color-glass-border: var(--glass-border);
+
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-tertiary: var(--brand-tertiary);
+  --color-brand-highlight: var(--brand-highlight);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+
+  --radius-sm: calc(var(--radius) - 0.375rem);
+  --radius-md: calc(var(--radius) - 0.1875rem);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.375rem);
+  --radius-2xl: calc(var(--radius) + 0.75rem);
+
+  --shadow-card: var(--elevation-card);
+  --shadow-glass: var(--elevation-glass);
+
+  --font-sans:
+    var(--font-geist-sans, "Inter"), ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display:
+    var(--font-geist-sans, "Inter"), ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:
+    var(--font-geist-mono, "SFMono-Regular"), ui-monospace, "Cascadia Code",
+    "Roboto Mono", monospace;
+
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-marquee: marquee 32s linear infinite;
+}
+
+/* Base and resilient reset on top of Tailwind's preflight. Keeping these rules
+   layered allows component utilities to override them when appropriate. */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    border-color: var(--border);
+  }
+
+  html {
+    min-height: 100%;
+    overflow-x: clip;
+    scroll-behavior: auto; /* Lenis owns enhanced scrolling when it is mounted. */
+    scroll-padding-top: clamp(4.5rem, 9vw, 7rem);
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    overflow-x: clip;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-synthesis: none;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    translate: 0 -200%;
+    border-radius: 0.5rem;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+    transition: translate 180ms ease;
+  }
+
+  .skip-link:focus-visible {
+    translate: 0;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6) {
+    color: var(--card-foreground);
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  :where(p, li, figcaption, blockquote) {
+    text-wrap: pretty;
+  }
+
+  :where(img, picture, video, canvas, svg) {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  :where(img, video) {
+    block-size: auto;
+  }
+
+  :where(button, input, textarea, select) {
+    color: inherit;
+    font: inherit;
+  }
+
+  :where(button, [role="button"], summary) {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :where(a) {
+    color: inherit;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+
+  :where(input, textarea)::placeholder {
+    color: var(--muted-foreground);
+    opacity: 0.78;
+  }
+
+  :where(input[type="checkbox"], input[type="radio"], input[type="range"]) {
+    accent-color: var(--primary);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  /* A single, high-visibility keyboard focus language for both brands. */
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: max(0.1875rem, calc(var(--radius) - 0.625rem));
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 24%, transparent);
+    color: var(--foreground);
+  }
+}
+
+/* Premium mesh that remains entirely brand-token driven. */
+@keyframes mesh-drift {
+  0%,
+  100% {
+    background-position:
+      0% 10%,
+      100% 0%,
+      45% 100%;
+  }
+
+  50% {
+    background-position:
+      12% 28%,
+      86% 14%,
+      58% 82%;
+  }
+}
+
+@layer utilities {
+  .mesh-gradient {
+    background-color: var(--background);
+    background-image:
+      radial-gradient(
+        circle at 16% 24%,
+        color-mix(in srgb, var(--mesh-primary) 18%, transparent) 0,
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 84% 12%,
+        color-mix(in srgb, var(--mesh-secondary) 16%, transparent) 0,
+        transparent 38%
+      ),
+      radial-gradient(
+        circle at 52% 88%,
+        color-mix(in srgb, var(--mesh-accent) 10%, transparent) 0,
+        transparent 40%
+      );
+    background-position:
+      0% 10%,
+      100% 0%,
+      45% 100%;
+    background-repeat: no-repeat;
+    background-size: 125% 125%;
+    animation: mesh-drift 24s var(--ease-premium) infinite;
+  }
+
+  /* Translucent surfaces keep enough opacity to remain readable in both modes. */
+  .glass {
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    box-shadow: var(--elevation-glass);
+    -webkit-backdrop-filter: blur(18px) saturate(145%);
+    backdrop-filter: blur(18px) saturate(145%);
+  }
+
+  .glass-strong {
+    border: 1px solid var(--glass-border);
+    background: var(--glass-strong);
+    box-shadow: var(--elevation-glass);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    backdrop-filter: blur(24px) saturate(150%);
+  }
+}
+
+@supports not (
+  (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))
+) {
+  .glass,
+  .glass-strong {
+    background: var(--card);
+  }
+}
+
+/* Native progress is useful for loading and scroll affordances without custom
+   accessibility plumbing. */
+@layer base {
+  progress {
+    width: 100%;
+    height: 0.375rem;
+    overflow: hidden;
+    border: 0;
+    border-radius: 999px;
+    appearance: none;
+    background: var(--muted);
+    color: var(--primary);
+    vertical-align: middle;
+  }
+
+  progress::-webkit-progress-bar {
+    border-radius: inherit;
+    background: var(--muted);
+  }
+
+  progress::-webkit-progress-value {
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: inline-size 300ms var(--ease-premium);
+  }
+
+  progress::-moz-progress-bar {
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: inline-size 300ms var(--ease-premium);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 32s linear infinite;
+    will-change: transform;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* Thin, subdued scrollbars retain brand focus without competing with content. */
+@layer base {
+  * {
+    scrollbar-color: color-mix(
+        in srgb,
+        var(--muted-foreground) 42%,
+        transparent
+      )
+      transparent;
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--muted-foreground) 42%, transparent);
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--muted-foreground) 62%, transparent);
+    background-clip: padding-box;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-strong {
+    background: var(--card);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .mesh-gradient {
+    animation: none;
+  }
+
+  .animate-marquee {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid CanvasText;
+  }
+
+  .glass,
+  .glass-strong {
+    border-color: CanvasText;
+    background: Canvas;
+    box-shadow: none;
+    forced-color-adjust: auto;
+  }
+
+  progress {
+    border: 1px solid CanvasText;
+    forced-color-adjust: auto;
+  }
+}

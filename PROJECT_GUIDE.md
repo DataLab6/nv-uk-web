@@ -1,155 +1,122 @@
-# La Nieve - V1 Nueva Web (Proof of Concept)
+# Guía del monorepo corporativo
 
-## Guía del Proyecto
+## Objetivo
 
-Este documento sirve como guía de desarrollo y arquitectura para la V1 de la nueva web de **La Nieve**.
+Mantener dos sitios corporativos espejo —Distribuciones La Nieve y Unimarka— como aplicaciones separadas, con identidad y contenido propios, sobre una única implementación compartida.
 
----
+## Principios de arquitectura
 
-## Reglas de Desarrollo
+1. Las aplicaciones viven en `apps/la-nieve` y `apps/unimarka`.
+2. Los componentes, hooks, estilos y plantillas reutilizables viven en `packages/site-kit`.
+3. Cada app conserva sus propios assets, metadata y `site.config.ts`.
+4. Las rutas pueden duplicar solo el archivo de entrada; la interfaz de página no se duplica.
+5. Una nueva ruta corporativa debe crearse en las dos apps y su plantilla debe añadirse una sola vez al paquete compartido.
+6. Ningún componente compartido puede importar directamente la configuración de una marca.
 
-1. **Nunca eliminar código existente** sin verificar dependencias.
-2. **Antes de modificar un componente**, revisar sus dependencias y usos.
-3. **Cada cambio debe mantener**: Accesibilidad, Responsive, Dark Mode, Performance.
-4. **Antes de crear un componente nuevo**, verificar si ya existe uno reutilizable.
-5. **Todas las animaciones deben usar GSAP o Motion** (Framer Motion).
-6. **Nunca utilizar CSS inline.** Usar Tailwind classes o CSS modules.
-7. **No romper la arquitectura.** Seguir la estructura de carpetas establecida.
-8. **Siempre documentar el componente** con un bloque JSDoc.
+## Reglas de contenido
 
----
+1. Los archivos locales del proyecto son la fuente principal.
+2. El sitio público anterior de La Nieve no se usa como fuente visual ni textual.
+3. No se publican años de experiencia, cifras, cobertura, clientes, aliados, marcas, sedes o canales no verificados.
+4. Las cifras, misión, visión y cobertura demo solicitadas para construir esta fase deben identificarse explícitamente como ejemplos pendientes de validación.
+5. Los nombres suministrados de aliados pueden usarse para mapear la interfaz, pero sus imágenes o logotipos requieren assets autorizados antes de publicación.
+6. Los cambios de contenido se realizan en el `site.config.ts` de la marca correspondiente.
+7. El contenido legal provisional no sustituye una revisión jurídica ni debe presentarse como política definitiva.
 
-## Stack Tecnológico
+## Reglas de desarrollo
 
-| Herramienta       | Versión   |
-|-------------------|-----------|
-| Next.js            | 15+ (App Router) |
-| TypeScript         | 5+       |
-| Tailwind CSS       | 4        |
-| GSAP + ScrollTrigger | 3.15   |
-| Framer Motion      | 12+      |
-| Lenis              | 1.3+     |
-| next-themes        | 0.4+     |
-| Lucide React       | 1.24+    |
-| Embla Carousel     | 8.6+     |
+1. Leer `AGENTS.md` y la documentación local de la versión instalada de Next antes de modificar convenciones del framework.
+2. Mantener TypeScript estricto, App Router y Server Components como opción predeterminada.
+3. Aislar en Client Components solo navegación interactiva, tema, Lenis y animaciones.
+4. Mantener accesibilidad, responsive, dark mode, performance y `prefers-reduced-motion`.
+5. Usar `next/image` y `next/link` para imágenes y navegación internas.
+6. Todas las animaciones deben usar GSAP o CSS; cada efecto debe limpiar sus listeners y recursos al desmontarse.
+7. Evitar estilos inline de presentación. Se permiten valores dinámicos imprescindibles para transformaciones o progreso interactivo.
+8. Documentar componentes y hooks exportados con JSDoc.
+9. No eliminar ni alterar assets fuente dentro de `assets/`; las apps usan copias web en su propio `public/`.
 
----
+## Identidad visual
 
-## Estructura del Proyecto
+Los tokens semánticos (`primary`, `accent`, `background`, etc.) se definen por clase de marca:
 
-```
-src/
-├── app/
-│   ├── layout.tsx          # Root layout con providers
-│   ├── page.tsx            # Página principal con todas las secciones
-│   └── globals.css        # Estilos globales + CSS variables + tokens
-├── components/
-│   ├── Hero/               # Sección Hero (fullscreen, glow tracking)
-│   ├── About/             # Quiénes Somos (sticky column)
-│   ├── Brands/             # Marcas (infinite CSS marquee)
-│   ├── Products/          # Categorías (glassmorphism + 3D tilt)
-│   ├── WhyChooseUs/        # ¿Por qué elegirnos? (4 cards)
-│   ├── Coverage/           # Cobertura (SVG Colombia map)
-│   ├── Stats/              # Estadísticas (animated counters)
-│   ├── Clients/            # Clientes (grid + stagger)
-│   ├── CTA/                # Call to Action (glow + blur)
-│   ├── Footer/             # Footer (social bounce)
-│   ├── Navigation/         # Navbar (transparent→solid)
-│   ├── ThemeToggle/        # Toggle dark/light
-│   ├── ui/                 # Componentes UI reutilizables (shadcn)
-│   └── animations/         # Providers (Lenis, Theme, ScrollProgress)
-├── hooks/
-│   ├── useRevealAnimation.ts   # Entrada al viewport (fadeUp/Left/Right/scale/bounce)
-│   ├── useCounterAnimation.ts  # Contador animado (0→N)
-│   ├── useGlowTracking.ts      # Radial gradient glow sigue el mouse
-│   ├── useScrollProgress.ts    # Progreso de scroll (0→1)
-│   ├── useTiltCard.ts          # 3D tilt con perspective
-│   └── useParallax.ts         # Parallax scroll-synced
-├── lib/
-│   ├── utils.ts                    # cn() utility (clsx + tailwind-merge)
-│   └── constants.ts                # Datos del sitio (stats, marcas, etc.)
-└── public/
+- `.brand-la-nieve`
+- `.brand-unimarka`
+
+Los HEX canónicos provienen de `assets/colores.txt` y se contrastaron con los PDF. Las inconsistencias encontradas en los manuales están comentadas en `packages/site-kit/src/styles/globals.css` y documentadas en el registro de fase.
+
+Los componentes compartidos deben consumir tokens semánticos, no colores fijos de una marca. La navegación se muestra transparente al principio de la página y usa el color principal correspondiente después del scroll.
+
+## Navegación y páginas
+
+La navegación compartida usa rutas reales, no anclas, salvo los redirects heredados que apuntan a secciones concretas del Inicio. El estado activo se deriva de `usePathname` y cada página interna genera metadata propia.
+
+```text
+/                            Inicio
+/somos                       Misión, visión, valores y pilares
+/aliados-comerciales         Aliados con espacios de imagen provisionales
+/cultura                     Tips, buenas prácticas y contenido de apoyo
+/contacto                    Contacto
+/trabaja-con-nosotros        Página independiente de oportunidades
+/legal                       Entrada al área legal
+/legal/tratamiento-de-datos  Tratamiento de datos
+/legal/pqrs                  Peticiones, quejas, reclamos y sugerencias
 ```
 
----
+`Legal` tiene un submenú unido visualmente a la barra. En escritorio debe abrir con hover y con foco de teclado, sin exigir un dispositivo apuntador; en móvil sus dos opciones deben aparecer dentro del menú expandible.
 
-## Diseño
+### Compatibilidad con rutas anteriores
 
-### Paleta de Colores
+```text
+/nosotros  → /somos
+/marcas    → /aliados-comerciales
+/productos → /
+/cobertura → /#cobertura
+/clientes  → /#canales
+```
 
-| Token       | Light              | Dark               | Uso                     |
-|-------------|--------------------|--------------------|-------------------------|
-| `--primary` | `hsl(217 91% 55%)` | `hsl(217 91% 60%)` | Azul corporativo        |
-| `--secondary` | `hsl(25 95% 53%)` | `hsl(25 95% 58%)`  | Naranja CTA             |
-| `--background` | `hsl(0 0% 100%)` | `hsl(222 47% 7%)`  | Fondo                   |
-| `--foreground` | `hsl(220 13% 10%)` | `hsl(210 20% 95%)` | Texto                   |
-| `--muted` | `hsl(220 14% 96%)` | `hsl(217 33% 17%)`  | Fondo sutil             |
+Las redirecciones se mantienen como entradas delgadas en ambas aplicaciones. No deben volver a convertirse en páginas con contenido duplicado.
 
-### Principios
+## Inicio compartido
 
-- Minimalista, corporativo, premium.
-- Mucho espacio en blanco, bordes redondeados, sombras suaves.
-- Glassmorphism solo donde aporta valor (cards, navbar, CTA).
-- `prefers-reduced-motion` respetado en CSS global.
+La portada usa una única plantilla con configuración por marca y conserva este orden:
 
-### Dark Mode
+1. `Hero`: evolución interna del bloque `Together`; mantiene su composición aprobada.
+2. `Brands`: carrusel o listado de aliados con placeholders visuales hasta recibir imágenes autorizadas.
+3. `Stats`: cifras de ejemplo, acompañadas de aviso de validación pendiente.
+4. `CoverageMap`: mapa interactivo y accesible; los departamentos actuales son demo.
+5. `CustomerChannels`: Tiendas; Minimercados y Supermercados; Mayoristas; Institucional; Bares y Licoreras; Otros.
+6. `Innovation`: espacio para tecnología e innovación continua con imagen propia por marca.
 
-- `next-themes` con `defaultTheme="system"` y `enableSystem`.
-- Auto-detección de `prefers-color-scheme`.
-- Toggle button persiste la preferencia.
-- `suppressHydrationWarning` en `<html>` para evitar parpadeos.
+El mapa y los canales forman parte de Inicio mediante los identificadores `#cobertura` y `#canales` para recibir enlaces heredados.
 
----
+## Páginas compartidas
 
-## Efectos Implementados
+- `Somos`: misión, visión, valores y pilares configurables por marca.
+- `Aliados comerciales`: nombres configurables y un espacio reservado para cada futura imagen; los iconos o iniciales son provisionales.
+- `Cultura`: contenido de valor para clientes, buenas prácticas y recomendaciones.
+- `Contacto`: canales corporativos, separados de cualquier proceso laboral.
+- `Trabaja con nosotros`: página autónoma para vacantes o recepción futura de perfiles.
+- `Legal`, `Tratamiento de datos` y `PQRS`: rutas independientes, con contenido de muestra sujeto a revisión jurídica y operativa.
 
-| Efecto                      | Dónde                                  | Cómo                         |
-|-----------------------------|----------------------------------------|------------------------------|
-| Lenis Smooth Scroll         | Global                                 | `LenisProvider`             |
-| GSAP ScrollTrigger          | Todas las secciones                    | `useRevealAnimation` hook    |
-| Scroll Entrance + Bounce    | Cada sección                           | `useRevealAnimation` variantes |
-| Scroll Counter              | Stats                                  | `useCounterAnimation` hook  |
-| Infinite CSS Marquee        | Brands                                 | CSS `@keyframes marquee`     |
-| Backdrop Filter Blur        | Cards, CTA, Navbar, Stats              | `.glass` utility class       |
-| Perspective + RotateX/Y     | Product cards, WhyChooseUs cards       | `useTiltCard` hook           |
-| Scroll Scrubbed Progress    | Lateral derecha (desktop)              | `ScrollProgress` component   |
-| Radial Gradient Glow        | Hero, CTA                              | `useGlowTracking` hook       |
-| Footer Social Bounce        | Footer                                 | `useRevealAnimation` bounce   |
+## Assets generados
 
----
+Las fotografías generadas para Somos, Stats, Innovación y Cultura se almacenan dentro de cada app:
 
-## Cómo Reemplazar Contenido
+```text
+apps/<marca>/public/images/
+```
 
-Todo el contenido editable está en `src/lib/constants.ts`:
+Los nombres previstos son `somos-<marca>.png`, `stats-<marca>.png`, `innovacion-<marca>.png` y `cultura-<marca>.png`. Son recursos provisionales locales: no deben confundirse con fotografías documentales de personal, sedes, clientes o procesos reales.
 
-- `STATS` - Estadísticas (valores, sufijos, labels)
-- `PRODUCT_CATEGORIES` - Categorías de productos
-- `WHY_CHOOSE_US` - Razones para elegir La Nieve
-- `BRANDS` - Nombres de marcas para el marquee
-- `CLIENTS` - Nombres de clientes
-- `DEPARTMENTS_WITH_PRESENCE` - Departamentos con presencia
-- `COVERAGE_CITIES` - Ciudades por departamento (para el tooltip del mapa)
+## Verificación obligatoria
 
-**No es necesario modificar componentes para cambiar contenido.**
-
----
-
-## Comandos
+Antes de entregar un cambio se deben ejecutar, sin asumir resultados:
 
 ```bash
-npm run dev      # Servidor de desarrollo
-npm run build    # Build de producción
-npm run lint     # ESLint
-npx prettier --write src/  # Formatear código
+npm run format:check
+npm run lint
+npm run typecheck
+npm run build
 ```
 
----
-
-## Próximos Pasos (V2)
-
-1. Reemplazar placeholders con imágenes reales (`next/image`).
-2. Conectar formulario de contacto con backend.
-3. Añadir más páginas (Blog, Casos de éxito, etc.).
-4. Optimizar LCP con preload de imágenes del Hero.
-5. Añadir sitemap.xml y robots.txt.
-6. Integrar analytics.
+Además se debe revisar manualmente la navegación por teclado, el submenú Legal, el cambio cromático de la barra, el mapa, los redirects y ambas aplicaciones en `3000` y `3001`.

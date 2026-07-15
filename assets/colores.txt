@@ -1,0 +1,101 @@
+PALETA DE COLORES UNIMARKA
+
+Azul principal
+CMYK: 90 / 67 / 4 / 0
+RGB: 39 / 96 / 167
+HEX: #275FA6
+
+Azul secundario
+CMYK: 80 / 47 / 8 / 0
+RGB: 56 / 123 / 179
+HEX: #377AB3
+
+Azul claro
+CMYK: 65 / 15 / 13 / 0
+RGB: 79 / 172 / 203
+HEX: #4FACCB
+
+Rojo principal
+CMYK: 0 / 90 / 85 / 0
+RGB: 239 / 65 / 54
+HEX: #EF4036
+
+Rojo oscuro
+CMYK: 18 / 100 / 91 / 8
+RGB: 189 / 32 / 46
+HEX: #BD202D
+
+Gris
+CMYK: 0 / 0 / 0 / 82
+RGB: 84 / 84 / 86
+HEX: #535456
+
+
+PALETA DE COLORES LA NIEVE
+
+Azul oscuro
+CMYK: 100 / 90 / 0 / 0
+RGB: 39 / 52 / 138
+HEX: #27348A
+
+Azul claro
+CMYK: 57 / 0 / 15 / 0
+RGB: 109 / 198 / 217
+HEX: #6DC6D9
+
+Azul oscuro para degradados
+CMYK: 99 / 80 / 41 / 42
+RGB: 23 / 46 / 75
+HEX: #172E4B
+
+Gris de tipografía
+CMYK: 66 / 57 / 55 / 60
+RGB: 60 / 60 / 59
+HEX: #3C3C3B
+
+Gris oscuro
+CMYK: 0 / 0 / 0 / 82
+RGB: 82 / 81 / 81
+HEX: #525151
+
+Gris claro
+CMYK: 0 / 0 / 0 / 20
+RGB: 235 / 235 / 235
+HEX: #ECECEC
+
+Blanco
+CMYK: 0 / 0 / 0 / 0
+RGB: 255 / 255 / 255
+HEX: #FFFFFF
+
+
+COLORES COMPLEMENTARIOS LA NIEVE
+
+Rojo
+CMYK: 3 / 86 / 83 / 0
+RGB: 236 / 64 / 48
+HEX: #EC4030
+
+Amarillo claro
+CMYK: 5 / 0 / 33 / 0
+RGB: 249 / 249 / 192
+HEX: #F9F6C0
+
+Turquesa
+CMYK: 79 / 22 / 37 / 5
+RGB: 25 / 144 / 155
+HEX: #19909B
+
+Azul marino
+CMYK: 99 / 80 / 42 / 43
+RGB: 22 / 45 / 74
+HEX: #162D4A
+
+
+SIGNIFICADO DE LOS COLORES DE LA NIEVE
+
+- Profesionalismo
+- Integridad
+- Seriedad
+- Ética
+- Progreso

@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sitios corporativos: La Nieve + Unimarka
 
-## Getting Started
+Monorepo de dos aplicaciones Next.js independientes que comparten estructura, componentes, estilos y comportamiento sin duplicar la implementación.
 
-First, run the development server:
+## Aplicaciones
+
+| Aplicación              | Workspace               | Desarrollo              | Producción local        |
+| ----------------------- | ----------------------- | ----------------------- | ----------------------- |
+| Distribuciones La Nieve | `@corporativo/la-nieve` | `http://localhost:3000` | `http://localhost:3000` |
+| Unimarka                | `@corporativo/unimarka` | `http://localhost:3001` | `http://localhost:3001` |
+
+## Inicio rápido
+
+Desde la raíz del repositorio:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run dev` levanta las dos aplicaciones simultáneamente. Los puertos acordados son `3000` para La Nieve y `3001` para Unimarka; no deben reasignarse automáticamente si alguno está ocupado.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+También se puede iniciar cada app de forma independiente:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev:la-nieve
+npm run dev:unimarka
+```
 
-## Learn More
+## Comandos
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev               # ambas apps: 3000 y 3001
+npm run build             # build de producción de ambas apps
+npm run build:la-nieve    # solo La Nieve
+npm run build:unimarka    # solo Unimarka
+npm run lint              # ESLint en apps, paquete y scripts
+npm run typecheck         # TypeScript en los tres workspaces
+npm run format:check      # comprueba formato
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Arquitectura
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+apps/
+  la-nieve/
+    public/               # logo e imágenes exclusivos
+    src/app/              # layout y rutas de La Nieve
+    src/site.config.ts    # identidad, metadata y textos
+  unimarka/
+    public/               # logo e imágenes exclusivos
+    src/app/              # layout y rutas de Unimarka
+    src/site.config.ts    # identidad, metadata y textos
+packages/
+  site-kit/
+    src/components/       # navegación, footer y UI compartida
+    src/hooks/            # GSAP, Lenis, glow, tilt y scroll
+    src/pages/            # plantillas de cada página
+    src/styles/           # Tailwind y tokens de ambas marcas
+scripts/
+  dev.mjs                 # orquestador de los dos servidores
+assets/                   # fuentes de marca y documentos originales
+```
 
-## Deploy on Vercel
+La implementación compartida vive en `@corporativo/site-kit`; las rutas de cada app son entradas delgadas que inyectan su propia configuración.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Navegación y rutas
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Cada aplicación expone la misma estructura de páginas:
+
+| Ruta                          | Contenido                                  |
+| ----------------------------- | ------------------------------------------ |
+| `/`                           | Inicio                                     |
+| `/somos`                      | Somos Nieve / Somos Unimarka               |
+| `/aliados-comerciales`        | Aliados comerciales                        |
+| `/cultura`                    | Cultura Nieve / Cultura Unimarka           |
+| `/contacto`                   | Contacto                                   |
+| `/trabaja-con-nosotros`       | Trabaja con nosotros                       |
+| `/legal`                      | Entrada al contenido legal                 |
+| `/legal/tratamiento-de-datos` | Tratamiento de datos                       |
+| `/legal/pqrs`                 | Peticiones, quejas, reclamos y sugerencias |
+
+La barra de navegación es transparente al inicio y toma el color principal de la marca al hacer scroll. `Legal` despliega un menú unido a la barra mediante hover o foco, y sus opciones también son accesibles desde la navegación móvil.
+
+Las rutas anteriores se conservan como redirecciones para no romper enlaces existentes:
+
+```text
+/nosotros  → /somos
+/marcas    → /aliados-comerciales
+/productos → /
+/cobertura → /#cobertura
+/clientes  → /#canales
+```
+
+## Composición de Inicio
+
+La portada compartida se organiza en este orden:
+
+1. Hero, basado en el bloque `Together` suministrado.
+2. Aliados (`Brands`), con espacios preparados para imágenes autorizadas.
+3. Estadísticas de ejemplo.
+4. Mapa interactivo de cobertura con departamentos demo.
+5. Canales de clientes.
+6. Tecnología e innovación continua.
+
+Las cifras, misión, visión y departamentos incluidos como demostración son contenido de ejemplo solicitado para construir la interfaz. Deben permanecer identificados como tales y ser sustituidos o validados antes de publicar el sitio.
+
+## Imágenes
+
+Las imágenes corporativas generadas para esta iteración se integran localmente en el `public/images` de cada aplicación, sin depender de una URL externa:
+
+```text
+apps/la-nieve/public/images/somos-nieve.png
+apps/la-nieve/public/images/stats-nieve.png
+apps/la-nieve/public/images/innovacion-nieve.png
+apps/la-nieve/public/images/cultura-nieve.png
+apps/unimarka/public/images/somos-unimarka.png
+apps/unimarka/public/images/stats-unimarka.png
+apps/unimarka/public/images/innovacion-unimarka.png
+apps/unimarka/public/images/cultura-unimarka.png
+```
+
+Estas piezas son provisionales y no incorporan logotipos, empaques identificables ni afirmaciones corporativas.
+
+## Edición de contenido
+
+- La Nieve: `apps/la-nieve/src/site.config.ts`
+- Unimarka: `apps/unimarka/src/site.config.ts`
+- Tokens visuales: `packages/site-kit/src/styles/globals.css`
+- Navegación compartida: `packages/site-kit/src/config/navigation.ts`
+
+No se deben publicar cifras, cobertura, contactos, logos de aliados o afirmaciones corporativas sin validación y autorización. El registro de decisiones y pendientes está en [PROCESO_FASE_1.md](./PROCESO_FASE_1.md).

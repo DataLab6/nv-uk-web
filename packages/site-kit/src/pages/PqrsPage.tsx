@@ -1,0 +1,70 @@
+import { MessageSquareWarning, ShieldAlert } from "lucide-react";
+import type { SiteConfig } from "../config/types";
+import { FeatureCard } from "../components/FeatureCard";
+import { PageIntro } from "../components/PageIntro";
+import { RevealGroup } from "../components/RevealGroup";
+
+/**
+ * PQRS information route prepared for a future validated submission channel.
+ */
+export function PqrsPage({ site }: { site: SiteConfig }) {
+  return (
+    <>
+      <PageIntro copy={site.pqrs} />
+
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+        <RevealGroup>
+          <aside className="mb-10 flex items-start gap-4 rounded-2xl border border-dashed border-destructive/50 bg-destructive/5 p-6 text-sm leading-relaxed text-muted-foreground">
+            <ShieldAlert
+              className="mt-0.5 h-5 w-5 shrink-0 text-destructive"
+              aria-hidden="true"
+            />
+            <p>{site.pqrs.disclaimer}</p>
+          </aside>
+        </RevealGroup>
+
+        <div className="mb-10 max-w-3xl">
+          <span className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
+            Tipos de solicitud
+          </span>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            Identifica la categoría de tu mensaje
+          </h2>
+        </div>
+
+        <RevealGroup
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          stagger={0.08}
+        >
+          {site.pqrs.categories.map((category) => (
+            <FeatureCard key={category.title} feature={category} />
+          ))}
+        </RevealGroup>
+
+        <RevealGroup className="mt-12">
+          <div className="relative overflow-hidden rounded-3xl bg-primary p-8 text-primary-foreground sm:p-10">
+            <div
+              className="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-primary-foreground/10"
+              aria-hidden="true"
+            />
+            <div className="relative flex max-w-3xl flex-col gap-5 sm:flex-row sm:items-center">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary-foreground/15">
+                <MessageSquareWarning className="h-7 w-7" aria-hidden="true" />
+              </span>
+              <div>
+                <h2 className="text-2xl font-bold text-primary-foreground">
+                  Canal de radicación en preparación
+                </h2>
+                <p className="mt-2 leading-relaxed text-primary-foreground/80">
+                  El formulario y sus tiempos de atención se publicarán cuando
+                  la empresa valide el procedimiento, los responsables y los
+                  datos de contacto oficiales.
+                </p>
+              </div>
+            </div>
+          </div>
+        </RevealGroup>
+      </section>
+    </>
+  );
+}
