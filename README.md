@@ -53,7 +53,9 @@ apps/
     src/site.config.ts    # identidad, metadata y textos
 packages/
   site-kit/
+    src/assets/           # hero y fotografías de valores compartidos
     src/components/       # navegación, footer y UI compartida
+    src/config/           # tipos, navegación y contenido corporativo común
     src/hooks/            # GSAP, Lenis, glow, tilt y scroll
     src/pages/            # plantillas de cada página
     src/styles/           # Tailwind y tokens de ambas marcas
@@ -96,16 +98,32 @@ Las rutas anteriores se conservan como redirecciones para no romper enlaces exis
 
 La portada compartida se organiza en este orden:
 
-1. Hero, basado en el bloque `Together` suministrado.
-2. Aliados (`Brands`), con espacios preparados para imágenes autorizadas.
+1. Hero, basado en el bloque `Together` suministrado. Las dos apps importan la misma imagen física desde `packages/site-kit/src/assets/hero/together-store.png`.
+2. Aliados (`Brands`), con los logotipos locales configurados por marca: 16 de `MarcasNV` para La Nieve y 12 de `MarcasUK` para Unimarka. El carrusel se pausa con hover, continúa desde el mismo punto y respeta `prefers-reduced-motion`.
 3. Estadísticas de ejemplo.
 4. Mapa interactivo de cobertura con departamentos demo.
 5. Canales de clientes.
 6. Tecnología e innovación continua.
 
-Las cifras, misión, visión y departamentos incluidos como demostración son contenido de ejemplo solicitado para construir la interfaz. Deben permanecer identificados como tales y ser sustituidos o validados antes de publicar el sitio.
+Las cifras, departamentos y pilares incluidos como demostración deben permanecer identificados como tales y ser sustituidos o validados antes de publicar el sitio. La misión, la visión y los cinco valores suministrados se mantienen literalmente en una configuración compartida; ya no se presentan como contenido demo.
 
 ## Imágenes
+
+El hero de las dos marcas usa un único recurso, sin copias por aplicación:
+
+```text
+packages/site-kit/src/assets/hero/together-store.png
+```
+
+Las cinco fotografías conceptuales y optimizadas de `Nuestros valores` también son compartidas:
+
+```text
+packages/site-kit/src/assets/values/integridad.webp
+packages/site-kit/src/assets/values/compromiso-social.webp
+packages/site-kit/src/assets/values/lealtad.webp
+packages/site-kit/src/assets/values/respeto.webp
+packages/site-kit/src/assets/values/emprendimiento.webp
+```
 
 Las imágenes corporativas generadas para esta iteración se integran localmente en el `public/images` de cada aplicación, sin depender de una URL externa:
 
@@ -122,11 +140,25 @@ apps/unimarka/public/images/cultura-unimarka.png
 
 Estas piezas son provisionales y no incorporan logotipos, empaques identificables ni afirmaciones corporativas.
 
+Los logotipos reales del carrusel y la página de aliados se publican por aplicación, sin mezclar marcas:
+
+```text
+apps/la-nieve/public/brands/   # 16 copias web desde assets/MarcasNV
+apps/unimarka/public/brands/   # 12 copias web desde assets/MarcasUK
+```
+
+En Unimarka se mantienen marcadores solamente para Grupo Familia e Indulacteos, porque no se suministró un archivo identificable para esas entradas. La Nieve configura su favicon exclusivo en `apps/la-nieve/public/faviconnieve.png`.
+
 ## Edición de contenido
 
 - La Nieve: `apps/la-nieve/src/site.config.ts`
 - Unimarka: `apps/unimarka/src/site.config.ts`
+- Misión, visión y valores literales: `packages/site-kit/src/config/corporateContent.ts`
 - Tokens visuales: `packages/site-kit/src/styles/globals.css`
 - Navegación compartida: `packages/site-kit/src/config/navigation.ts`
 
-No se deben publicar cifras, cobertura, contactos, logos de aliados o afirmaciones corporativas sin validación y autorización. El registro de decisiones y pendientes está en [PROCESO_FASE_1.md](./PROCESO_FASE_1.md).
+Unimarka prioriza los rojos mediante sus tokens semánticos, conservando la paleta oficial como referencia y un footer azul corporativo. La Nieve mantiene su paleta y utiliza un footer grafito. El navbar compartido muestra los logos directamente, sin cápsula, y aplica transparencia, desenfoque, sombra e indicador activo de forma discreta.
+
+Las URLs de LinkedIn, Instagram y Facebook se configuran en `socialLinks` dentro de cada `site.config.ts`. No se encontraron enlaces oficiales verificables en el proyecto: actualmente todos están en `null` y los botones del footer se muestran deshabilitados, sin usar URLs inventadas ni `href="#"`.
+
+No se deben publicar cifras, cobertura, contactos, logos de aliados o afirmaciones corporativas sin validación y autorización. El registro de decisiones, pruebas y pendientes está en [PROCESO_FASE_1.md](./PROCESO_FASE_1.md).

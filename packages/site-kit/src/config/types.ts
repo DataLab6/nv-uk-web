@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+
 /**
  * Primitive icon identifiers supported by the shared corporate components.
  * Keeping identifiers as strings makes every site configuration serializable.
@@ -50,7 +52,7 @@ export interface SiteMetadataConfig {
 }
 
 export interface SiteImageConfig {
-  readonly src: string;
+  readonly src: string | StaticImageData;
   readonly alt: string;
   readonly width: number;
   readonly height: number;
@@ -86,6 +88,32 @@ export interface SiteStat {
 
 export interface SiteAlly {
   readonly name: string;
+  readonly image?: SiteImageConfig;
+  /** Preferred visual width in CSS pixels inside shared logo displays. */
+  readonly displayWidth?: number;
+}
+
+export interface SiteBrandLogo extends SiteAlly {
+  readonly image: SiteImageConfig;
+}
+
+export interface SiteValue {
+  readonly title: string;
+  readonly description: string;
+  readonly image: SiteImageConfig;
+}
+
+export interface SiteTimelineMilestone {
+  readonly period: string;
+  readonly isoDate?: string;
+  readonly isCurrent?: boolean;
+  readonly description: string;
+}
+
+export interface SiteSocialLinks {
+  readonly linkedin: string | null;
+  readonly instagram: string | null;
+  readonly facebook: string | null;
 }
 
 export interface SiteTextSection {
@@ -93,12 +121,29 @@ export interface SiteTextSection {
   readonly body: string;
 }
 
+export interface SiteDataPolicySection {
+  readonly id: string;
+  readonly title: string;
+  readonly body: string;
+}
+
+export interface SiteDataPolicyDocument {
+  readonly owner: string;
+  readonly sourceFile: string;
+  readonly title: string;
+  readonly sections: readonly SiteDataPolicySection[];
+}
+
+export type SiteDataPolicyDocumentId = "la-nieve";
+
 export interface SiteConfig {
   readonly id: "la-nieve" | "unimarka";
   readonly name: string;
   readonly legalName: string;
   readonly slogan: string;
   readonly logo: SiteLogoConfig;
+  readonly chromeLogo: SiteLogoConfig;
+  readonly favicon?: string;
   readonly themeColor: string;
   readonly metadata: SiteMetadataConfig;
   readonly navigation: readonly SiteNavigationItem[];
@@ -121,18 +166,19 @@ export interface SiteConfig {
   };
   readonly innovation: SitePageCopy & {
     readonly image: SiteImageConfig;
+    readonly imageCaption: string;
     readonly items: readonly SiteFeature[];
   };
   readonly about: SitePageCopy & {
     readonly image: SiteImageConfig;
+    readonly timeline: readonly SiteTimelineMilestone[];
     readonly mission: string;
     readonly vision: string;
-    readonly values: readonly SiteFeature[];
-    readonly pillars: readonly SiteFeature[];
-    readonly disclaimer: string;
+    readonly values: readonly SiteValue[];
   };
   readonly allies: SitePageCopy & {
     readonly items: readonly SiteAlly[];
+    readonly logos: readonly SiteBrandLogo[];
     readonly imageNotice: string;
   };
   readonly culture: SitePageCopy & {
@@ -143,21 +189,32 @@ export interface SiteConfig {
     readonly location?: string;
     readonly email?: string;
     readonly phone?: string;
+    readonly mapEmbedUrl: string | null;
     readonly pendingMessage: string;
   };
   readonly careers: SitePageCopy & {
     readonly image: SiteImageConfig;
-    readonly benefits: readonly SiteFeature[];
     readonly pendingMessage: string;
   };
   readonly legal: SitePageCopy;
   readonly dataPolicy: SitePageCopy & {
+    readonly applicability: string;
     readonly disclaimer: string;
-    readonly sections: readonly SiteTextSection[];
+    readonly documentId: SiteDataPolicyDocumentId | null;
   };
   readonly pqrs: SitePageCopy & {
     readonly disclaimer: string;
     readonly categories: readonly SiteFeature[];
   };
   readonly footerDescription: string;
+  readonly socialLinks: SiteSocialLinks;
+  /** Networks this brand actually uses; controls which footer icons render at all. */
+  readonly socialNetworks: readonly (keyof SiteSocialLinks)[];
+  /** Verified footer contact details sourced from redesciales.txt, independent from `contact`. */
+  readonly footerContact: {
+    readonly email: string | null;
+    readonly location: string | null;
+  };
+  /** Discreet development-team credit shown at the opposite end of the footer's copyright line. */
+  readonly developmentTeam: string;
 }

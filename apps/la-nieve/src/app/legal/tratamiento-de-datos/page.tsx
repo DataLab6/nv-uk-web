@@ -3,7 +3,7 @@ import { siteConfig } from "@/site.config";
 
 export const metadata = createPageMetadata(siteConfig, "dataPolicy");
 
-/** Renders the draft personal-data treatment page. */
+/** Renders the configured personal-data treatment document or status. */
 export default function Page() {
   return <DataPolicyPage site={siteConfig} />;
 }

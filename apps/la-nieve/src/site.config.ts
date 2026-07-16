@@ -1,7 +1,82 @@
 import {
+  CORPORATE_MISSION,
+  CORPORATE_TECHNOLOGY,
+  CORPORATE_VALUES,
+  CORPORATE_VISION,
+  LA_NIEVE_TIMELINE,
   createCorporateNavigation,
+  sharedHeroImage,
   type SiteConfig,
 } from "@corporativo/site-kit/config";
+
+function brandLogo(
+  name: string,
+  src: string,
+  width: number,
+  height: number,
+  displayWidth = 160
+) {
+  return {
+    name,
+    displayWidth,
+    image: {
+      src,
+      alt: `Logotipo de ${name}`,
+      width,
+      height,
+      treatment: "illustration" as const,
+    },
+  };
+}
+
+const laNieveBrandLogos = [
+  brandLogo("BAT", "/brands/bat.png", 2387, 1017, 176),
+  brandLogo(
+    "Colgate-Palmolive",
+    "/brands/colgate-palmolive.png",
+    1544,
+    1064,
+    142
+  ),
+  brandLogo("Nestlé Alimentos", "/brands/nestle-alimentos.png", 400, 400, 100),
+  brandLogo("Nestlé Purina", "/brands/nestle-purina.png", 5000, 2834, 170),
+  brandLogo("Alpina", "/brands/alpina.png", 755, 455, 142),
+  brandLogo(
+    "Harinera del Valle",
+    "/brands/harinera-del-valle.png",
+    250,
+    252,
+    100
+  ),
+  brandLogo(
+    "Pisa Farmacéutica – Electrolit",
+    "/brands/electrolit.png",
+    600,
+    600,
+    104
+  ),
+  brandLogo("Levapan", "/brands/levapan.png", 1200, 1200, 100),
+  brandLogo("Softys", "/brands/softys.png", 410, 222, 154),
+  brandLogo("Alimentos Polar", "/brands/alimentos-polar.png", 300, 300, 104),
+  brandLogo("Incauca", "/brands/incauca.png", 1536, 1024, 136),
+  brandLogo("Rama", "/brands/rama.png", 260, 130, 164),
+  brandLogo(
+    "Corporación Diana",
+    "/brands/corporacion-diana.png",
+    227,
+    148,
+    138
+  ),
+  brandLogo("Alicorp", "/brands/alicorp.png", 3840, 1095, 188),
+  brandLogo(
+    "Unidad de Licores del Meta",
+    "/brands/unidad-licores-meta.png",
+    1024,
+    1024,
+    104
+  ),
+  brandLogo("Súper de Alimentos", "/brands/super-alimentos.png", 400, 201, 164),
+] as const;
 
 /**
  * Brand-owned content and identity for Distribuciones La Nieve.
@@ -13,12 +88,23 @@ export const siteConfig = {
   legalName: "Distribuciones La Nieve",
   slogan: "Sirviendo con pasión",
   logo: {
-    src: "/brand/logo.png",
+    src: "/brand/logo-horizontal.png",
     alt: "Logotipo de Distribuciones La Nieve",
-    width: 500,
-    height: 500,
-    display: "cropped-square",
+    width: 438,
+    height: 214,
+    display: "wide",
   },
+  chromeLogo: {
+    // Nombre versionado: /brand/logo-white.png sirvió durante un tiempo un archivo
+    // 1536×1024 con otra proporción y las cachés (navegador y optimizador de Next)
+    // podían seguir entregándolo. La URL nueva garantiza el archivo 438×214 actual.
+    src: "/brand/logo-white-v2.png",
+    alt: "Logotipo blanco de Distribuciones La Nieve",
+    width: 438,
+    height: 214,
+    display: "wide",
+  },
+  favicon: "/faviconnieve.png",
   themeColor: "#27348A",
   metadata: {
     title: "Distribuciones La Nieve | Sitio corporativo",
@@ -41,7 +127,7 @@ export const siteConfig = {
     description:
       "En La Nieve entendemos el día a día de tiendas, supermercados y aliados comerciales. Por eso trabajamos para que nunca falte el producto correcto, en el momento correcto.",
     image: {
-      src: "/images/together-store.png",
+      src: sharedHeroImage,
       alt: "Tendero atendiendo un minimercado surtido",
       width: 1024,
       height: 1024,
@@ -180,10 +266,7 @@ export const siteConfig = {
     ],
   },
   innovation: {
-    eyebrow: "Tecnología e innovación",
-    title: "Evolucionar para servir cada vez mejor",
-    description:
-      "Este espacio comunica la apuesta de Distribuciones La Nieve por la tecnología y la innovación continua, sin atribuir herramientas o resultados todavía no validados.",
+    ...CORPORATE_TECHNOLOGY,
     image: {
       src: "/images/innovacion-nieve.png",
       alt: "Fotografía conceptual sobre tecnología e innovación en Distribuciones La Nieve",
@@ -191,26 +274,6 @@ export const siteConfig = {
       height: 1024,
       treatment: "photo",
     },
-    items: [
-      {
-        icon: "sparkles",
-        title: "Innovación continua",
-        description:
-          "Una línea editorial para compartir mejoras cuando cuenten con respaldo corporativo.",
-      },
-      {
-        icon: "lightbulb",
-        title: "Tecnología con propósito",
-        description:
-          "Un espacio para explicar cómo las soluciones validadas apoyan el servicio y la operación.",
-      },
-      {
-        icon: "trending-up",
-        title: "Mejora de procesos",
-        description:
-          "Contenido preparado para documentar avances concretos y verificables en el futuro.",
-      },
-    ],
   },
   about: {
     eyebrow: "Somos Nieve",
@@ -224,84 +287,20 @@ export const siteConfig = {
       height: 1024,
       treatment: "photo",
     },
-    mission:
-      "Ejemplo de misión — pendiente de aprobación: conectar marcas y negocios mediante una distribución cercana, responsable y orientada al servicio, generando valor en cada relación comercial.",
-    vision:
-      "Ejemplo de visión — pendiente de aprobación: consolidarnos como una organización reconocida por su confianza, capacidad de evolución y compromiso con el desarrollo de clientes y aliados.",
-    values: [
-      {
-        icon: "shield",
-        title: "Integridad",
-        description:
-          "Valor propuesto para representar relaciones transparentes y responsables.",
-      },
-      {
-        icon: "heart",
-        title: "Servicio",
-        description:
-          "Valor propuesto para expresar cercanía y disposición hacia cada público.",
-      },
-      {
-        icon: "check",
-        title: "Profesionalismo",
-        description:
-          "Valor propuesto para comunicar rigor y compromiso en el trabajo.",
-      },
-      {
-        icon: "trending-up",
-        title: "Progreso",
-        description:
-          "Valor propuesto para reflejar aprendizaje y evolución permanente.",
-      },
-    ],
-    pillars: [
-      {
-        icon: "handshake",
-        title: "Confianza",
-        description:
-          "Pilar demostrativo enfocado en relaciones consistentes con clientes y aliados.",
-      },
-      {
-        icon: "truck",
-        title: "Ejecución",
-        description:
-          "Pilar demostrativo para presentar el compromiso con una operación organizada.",
-      },
-      {
-        icon: "sparkles",
-        title: "Innovación",
-        description:
-          "Pilar demostrativo asociado con la búsqueda continua de mejores formas de servir.",
-      },
-    ],
-    disclaimer:
-      "La misión, la visión, los valores y los pilares de esta sección son textos demostrativos. Requieren validación y aprobación corporativa antes de su publicación oficial.",
+    timeline: LA_NIEVE_TIMELINE,
+    mission: CORPORATE_MISSION,
+    vision: CORPORATE_VISION,
+    values: CORPORATE_VALUES,
   },
   allies: {
     eyebrow: "Aliados comerciales",
     title: "Marcas que hacen parte de esta historia",
     description:
       "Relación de aliados suministrada para organizar la primera fase del sitio de Distribuciones La Nieve.",
-    items: [
-      { name: "BAT" },
-      { name: "Colgate-Palmolive" },
-      { name: "Nestlé Alimentos" },
-      { name: "Nestlé Purina" },
-      { name: "Alpina" },
-      { name: "Harinera del Valle" },
-      { name: "Pisa Farmacéutica – Electrolit" },
-      { name: "Levapan" },
-      { name: "Softys" },
-      { name: "Alimentos Polar" },
-      { name: "Incauca" },
-      { name: "Rama" },
-      { name: "Corporación Diana" },
-      { name: "Alicorp" },
-      { name: "Unidad de Licores del Meta" },
-      { name: "Súper de Alimentos" },
-    ],
+    items: laNieveBrandLogos,
+    logos: laNieveBrandLogos,
     imageNotice:
-      "Los iconos son marcadores temporales. Cada logotipo deberá incorporarse con su archivo oficial y la autorización de uso correspondiente.",
+      "Logotipos incorporados desde los recursos locales suministrados en MarcasNV. Su publicación definitiva permanece sujeta a la autorización de uso correspondiente.",
   },
   culture: {
     eyebrow: "Cultura Nieve",
@@ -341,9 +340,12 @@ export const siteConfig = {
     title: "Conversemos por nuestros canales oficiales",
     description:
       "Esta página reunirá los medios verificados para comunicarse con Distribuciones La Nieve.",
-    location: "Villavicencio, Meta, Colombia",
+    location: "Carrera 22 No. 5 B 114 bodega L1 Villavicencio, Meta.",
+    email: "servicioalcliente@lanieve.co",
+    phone: "320 3414212",
+    mapEmbedUrl: null,
     pendingMessage:
-      "El correo, teléfono, dirección detallada y redes sociales se habilitarán cuando la empresa confirme sus datos oficiales.",
+      "Las redes sociales y la integración cartográfica se habilitarán cuando la empresa confirme sus enlaces oficiales.",
   },
   careers: {
     eyebrow: "Trabaja con nosotros",
@@ -357,26 +359,6 @@ export const siteConfig = {
       height: 1024,
       treatment: "photo",
     },
-    benefits: [
-      {
-        icon: "briefcase",
-        title: "Vacantes verificadas",
-        description:
-          "Las oportunidades se publicarán únicamente cuando hayan sido confirmadas por la empresa.",
-      },
-      {
-        icon: "users",
-        title: "Proceso de postulación",
-        description:
-          "Aquí se explicarán los pasos y requisitos oficiales para cada convocatoria.",
-      },
-      {
-        icon: "heart",
-        title: "Cultura de equipo",
-        description:
-          "Este espacio podrá presentar la experiencia laboral con información corporativa validada.",
-      },
-    ],
     pendingMessage:
       "Actualmente no se anuncian vacantes ni se reciben hojas de vida desde este sitio. El canal oficial se incorporará después de su validación.",
   },
@@ -384,33 +366,18 @@ export const siteConfig = {
     eyebrow: "Información legal",
     title: "Transparencia y atención responsable",
     description:
-      "Consulta los espacios previstos para el tratamiento de datos personales y la gestión de PQRS. Los textos actuales son modelos sujetos a revisión jurídica y aprobación oficial.",
+      "Consulta la política de tratamiento de datos suministrada para Distribuciones La Nieve y el espacio previsto para la gestión de PQRS.",
   },
   dataPolicy: {
     eyebrow: "Tratamiento de datos",
-    title: "Modelo informativo de tratamiento de datos personales",
+    title: "Política de tratamiento de datos personales",
     description:
-      "Estructura preliminar para organizar la futura política oficial de Distribuciones La Nieve.",
+      "Documento suministrado para establecer los principios, términos y condiciones del tratamiento de datos personales de Distribuciones La Nieve S.A.S.",
+    applicability:
+      "Esta política identifica expresamente como responsable a DISTRIBUCIONES LA NIEVE S.A.S.",
     disclaimer:
-      "Documento de muestra sin efectos jurídicos. Debe ser revisado, completado y aprobado por el área jurídica y por la empresa antes de publicarse como política oficial.",
-    sections: [
-      {
-        title: "Alcance del documento",
-        body: "La versión definitiva deberá identificar al responsable del tratamiento, el alcance de la política y las bases jurídicas aplicables.",
-      },
-      {
-        title: "Finalidades y tratamiento",
-        body: "La política oficial deberá detallar las finalidades autorizadas, las categorías de datos y los procedimientos utilizados por la empresa.",
-      },
-      {
-        title: "Derechos de los titulares",
-        body: "El texto aprobado deberá explicar de manera clara los derechos de consulta, actualización, rectificación, supresión y revocatoria que resulten aplicables.",
-      },
-      {
-        title: "Canales de atención",
-        body: "Los datos de contacto, responsables y tiempos de respuesta se incorporarán únicamente después de su confirmación oficial.",
-      },
-    ],
+      "Contenido transcrito fielmente desde la fuente local tratamientodata.txt, sin resumir sus cláusulas.",
+    documentId: "la-nieve",
   },
   pqrs: {
     eyebrow: "PQRS",
@@ -448,4 +415,18 @@ export const siteConfig = {
   },
   footerDescription:
     "Empresa colombiana de distribución y comercio mayorista ubicada en Villavicencio, Meta.",
+  socialLinks: {
+    linkedin: "https://www.linkedin.com/company/distribuciones-la-nieve-ltda",
+    instagram: "https://www.instagram.com/distribuciones_la_nieve/",
+    facebook:
+      "https://www.facebook.com/people/Distribuciones-La-Nieve-SAS/100069879480762/#",
+  },
+  socialNetworks: ["linkedin", "instagram", "facebook"],
+  // Fuente: C:\Devs\web\la-nieve-web\redesciales.txt (sección "Nieve").
+  footerContact: {
+    email: "servicioalcliente@lanieve.com",
+    location:
+      "Cra 22 N 5B-114 BG A15 Parque Comercial La Primavera Villavicencio – Meta",
+  },
+  developmentTeam: "Equipo TI & Desarrollo La Nieve",
 } as const satisfies SiteConfig;

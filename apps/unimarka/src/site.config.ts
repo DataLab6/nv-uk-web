@@ -1,7 +1,55 @@
 import {
+  CORPORATE_MISSION,
+  CORPORATE_TECHNOLOGY,
+  CORPORATE_VALUES,
+  CORPORATE_VISION,
+  UNIMARKA_TIMELINE,
   createCorporateNavigation,
+  sharedHeroImage,
   type SiteConfig,
 } from "@corporativo/site-kit/config";
+
+function brandLogo(
+  name: string,
+  src: string,
+  width: number,
+  height: number,
+  displayWidth = 160
+) {
+  return {
+    name,
+    displayWidth,
+    image: {
+      src,
+      alt: `Logotipo de ${name}`,
+      width,
+      height,
+      treatment: "illustration" as const,
+    },
+  };
+}
+
+const unimarkaBrandLogos = [
+  brandLogo("Unilever", "/brands/unilever.png", 1280, 720, 142),
+  brandLogo("Brinsa", "/brands/brinsa.png", 2125, 791, 184),
+  brandLogo("Grupo Familia", "/brands/grupo-familia.png", 1280, 318, 188),
+  brandLogo("Familia TORK", "/brands/familia-tork.png", 3840, 2160, 156),
+  brandLogo("Quala", "/brands/quala.png", 400, 400, 100),
+  brandLogo("Contegral", "/brands/contegral.png", 472, 321, 136),
+  brandLogo("Reckitt", "/brands/reckitt.png", 3840, 2160, 150),
+  brandLogo("Providencia", "/brands/providencia.png", 400, 300, 126),
+  brandLogo("Amerincandy", "/brands/americandy.png", 1024, 422, 180),
+  brandLogo("La Soberana", "/brands/la-soberana.png", 250, 150, 144),
+  brandLogo("PQP", "/brands/pqp.png", 503, 187, 176),
+  brandLogo(
+    "Precocidos del Oriente",
+    "/brands/precocidos-del-oriente.png",
+    699,
+    600,
+    122
+  ),
+  brandLogo("Indulacteos", "/brands/indulacteos.png", 1254, 1254, 104),
+] as const;
 
 /**
  * Brand-owned content and identity for Unimarka.
@@ -13,13 +61,21 @@ export const siteConfig = {
   legalName: "Unimarka",
   slogan: "Lo hacemos de corazón",
   logo: {
-    src: "/brand/logo.png",
+    src: "/brand/logo-horizontal.png",
     alt: "Logotipo de Unimarka",
-    width: 750,
-    height: 333,
+    width: 543,
+    height: 209,
     display: "wide",
   },
-  themeColor: "#275FA6",
+  chromeLogo: {
+    src: "/brand/logo-white.png",
+    alt: "Logotipo blanco de Unimarka",
+    width: 543,
+    height: 209,
+    display: "wide",
+  },
+  favicon: "/brand/favicon.png",
+  themeColor: "#BD202D",
   metadata: {
     title: "Unimarka | Sitio corporativo",
     titleTemplate: "%s | Unimarka",
@@ -42,11 +98,11 @@ export const siteConfig = {
     description:
       "En Unimarka trabajamos alrededor de la comercialización y distribución de productos de consumo masivo, productos institucionales, licores y vinos.",
     image: {
-      src: "/images/unimarka-character.png",
-      alt: "Ilustración corporativa en los colores de Unimarka",
-      width: 1081,
-      height: 1081,
-      treatment: "character",
+      src: sharedHeroImage,
+      alt: "Tendero atendiendo un minimercado surtido",
+      width: 1024,
+      height: 1024,
+      treatment: "photo",
     },
     points: [
       {
@@ -172,10 +228,7 @@ export const siteConfig = {
     ],
   },
   innovation: {
-    eyebrow: "Tecnología e innovación",
-    title: "Nuevas ideas al servicio de mejores experiencias",
-    description:
-      "Este espacio comunica la apuesta de Unimarka por la tecnología y la innovación continua, sin atribuir herramientas o resultados todavía no validados.",
+    ...CORPORATE_TECHNOLOGY,
     image: {
       src: "/images/innovacion-unimarka.png",
       alt: "Fotografía conceptual sobre tecnología e innovación en Unimarka",
@@ -183,26 +236,6 @@ export const siteConfig = {
       height: 1024,
       treatment: "photo",
     },
-    items: [
-      {
-        icon: "sparkles",
-        title: "Innovación continua",
-        description:
-          "Una línea editorial para compartir mejoras cuando cuenten con respaldo corporativo.",
-      },
-      {
-        icon: "lightbulb",
-        title: "Tecnología con propósito",
-        description:
-          "Un espacio para explicar cómo las soluciones validadas apoyan el servicio y la operación.",
-      },
-      {
-        icon: "heart",
-        title: "Experiencias cercanas",
-        description:
-          "Contenido preparado para presentar iniciativas concretas y verificables en el futuro.",
-      },
-    ],
   },
   about: {
     eyebrow: "Somos Unimarka",
@@ -216,81 +249,20 @@ export const siteConfig = {
       height: 1024,
       treatment: "photo",
     },
-    mission:
-      "Ejemplo de misión — pendiente de aprobación: acercar productos de calidad a empresas y consumidores mediante una comercialización responsable, un servicio cercano y experiencias que generen confianza.",
-    vision:
-      "Ejemplo de visión — pendiente de aprobación: ser una distribuidora reconocida por su capacidad de innovar, crear relaciones duraderas y aportar valor a clientes, aliados y comunidades.",
-    values: [
-      {
-        icon: "check",
-        title: "Calidad",
-        description:
-          "Valor propuesto para expresar cuidado y consistencia en cada experiencia.",
-      },
-      {
-        icon: "heart",
-        title: "Servicio",
-        description:
-          "Valor propuesto para representar cercanía y disposición hacia cada público.",
-      },
-      {
-        icon: "shield",
-        title: "Confianza",
-        description:
-          "Valor propuesto para comunicar relaciones transparentes y responsables.",
-      },
-      {
-        icon: "sparkles",
-        title: "Innovación",
-        description:
-          "Valor propuesto para reflejar apertura al cambio y aprendizaje continuo.",
-      },
-    ],
-    pillars: [
-      {
-        icon: "handshake",
-        title: "Relaciones duraderas",
-        description:
-          "Pilar demostrativo centrado en experiencias de valor con clientes y aliados.",
-      },
-      {
-        icon: "truck",
-        title: "Distribución responsable",
-        description:
-          "Pilar demostrativo para presentar una operación organizada y orientada al servicio.",
-      },
-      {
-        icon: "target",
-        title: "Evolución constante",
-        description:
-          "Pilar demostrativo asociado con la búsqueda de mejores formas de generar valor.",
-      },
-    ],
-    disclaimer:
-      "La misión, la visión, los valores y los pilares de esta sección son textos demostrativos. Requieren validación y aprobación corporativa antes de su publicación oficial.",
+    timeline: UNIMARKA_TIMELINE,
+    mission: CORPORATE_MISSION,
+    vision: CORPORATE_VISION,
+    values: CORPORATE_VALUES,
   },
   allies: {
     eyebrow: "Aliados comerciales",
     title: "Marcas que hacen parte de esta historia",
     description:
       "Relación de aliados suministrada para organizar la primera fase del sitio de Unimarka.",
-    items: [
-      { name: "Unilever" },
-      { name: "Brinsa" },
-      { name: "Grupo Familia" },
-      { name: "Familia TORK" },
-      { name: "Quala" },
-      { name: "Contegral" },
-      { name: "Reckitt" },
-      { name: "Providencia" },
-      { name: "Amerincandy" },
-      { name: "La Soberana" },
-      { name: "PQP" },
-      { name: "Precocidos del Oriente" },
-      { name: "Indulacteos" },
-    ],
+    items: unimarkaBrandLogos,
+    logos: unimarkaBrandLogos,
     imageNotice:
-      "Los iconos son marcadores temporales. Cada logotipo deberá incorporarse con su archivo oficial y la autorización de uso correspondiente.",
+      "Logotipos incorporados desde los 13 recursos locales suministrados en MarcasUK. La publicación definitiva permanece sujeta a autorización de uso.",
   },
   culture: {
     eyebrow: "Cultura Unimarka",
@@ -330,8 +302,12 @@ export const siteConfig = {
     title: "Conversemos por nuestros canales oficiales",
     description:
       "Esta página reunirá los medios verificados para comunicarse con Unimarka.",
+    // Correo y teléfono verificados en redesciales.txt.
+    email: "servicioalcliente@unimarka.com",
+    phone: "320-341-4212",
+    mapEmbedUrl: null,
     pendingMessage:
-      "El correo, teléfono, dirección y redes sociales se habilitarán cuando la empresa confirme sus datos oficiales.",
+      "La dirección y la integración cartográfica se habilitarán cuando la empresa confirme sus enlaces oficiales.",
   },
   careers: {
     eyebrow: "Trabaja con nosotros",
@@ -345,26 +321,6 @@ export const siteConfig = {
       height: 1024,
       treatment: "photo",
     },
-    benefits: [
-      {
-        icon: "briefcase",
-        title: "Vacantes verificadas",
-        description:
-          "Las oportunidades se publicarán únicamente cuando hayan sido confirmadas por la empresa.",
-      },
-      {
-        icon: "users",
-        title: "Proceso de postulación",
-        description:
-          "Aquí se explicarán los pasos y requisitos oficiales para cada convocatoria.",
-      },
-      {
-        icon: "heart",
-        title: "Cultura de equipo",
-        description:
-          "Este espacio podrá presentar la experiencia laboral con información corporativa validada.",
-      },
-    ],
     pendingMessage:
       "Actualmente no se anuncian vacantes ni se reciben hojas de vida desde este sitio. El canal oficial se incorporará después de su validación.",
   },
@@ -372,33 +328,18 @@ export const siteConfig = {
     eyebrow: "Información legal",
     title: "Transparencia y atención responsable",
     description:
-      "Consulta los espacios previstos para el tratamiento de datos personales y la gestión de PQRS. Los textos actuales son modelos sujetos a revisión jurídica y aprobación oficial.",
+      "Consulta el estado del documento de tratamiento de datos y el espacio previsto para la gestión de PQRS de Unimarka.",
   },
   dataPolicy: {
     eyebrow: "Tratamiento de datos",
-    title: "Modelo informativo de tratamiento de datos personales",
+    title: "Tratamiento de datos personales de Unimarka",
     description:
-      "Estructura preliminar para organizar la futura política oficial de Unimarka.",
+      "El archivo local suministrado no identifica a Unimarka como responsable del tratamiento.",
+    applicability:
+      "La fuente tratamientodata.txt identifica exclusivamente a DISTRIBUCIONES LA NIEVE S.A.S y no menciona a Unimarka.",
     disclaimer:
-      "Documento de muestra sin efectos jurídicos. Debe ser revisado, completado y aprobado por el área jurídica y por la empresa antes de publicarse como política oficial.",
-    sections: [
-      {
-        title: "Alcance del documento",
-        body: "La versión definitiva deberá identificar al responsable del tratamiento, el alcance de la política y las bases jurídicas aplicables.",
-      },
-      {
-        title: "Finalidades y tratamiento",
-        body: "La política oficial deberá detallar las finalidades autorizadas, las categorías de datos y los procedimientos utilizados por la empresa.",
-      },
-      {
-        title: "Derechos de los titulares",
-        body: "El texto aprobado deberá explicar de manera clara los derechos de consulta, actualización, rectificación, supresión y revocatoria que resulten aplicables.",
-      },
-      {
-        title: "Canales de atención",
-        body: "Los datos de contacto, responsables y tiempos de respuesta se incorporarán únicamente después de su confirmación oficial.",
-      },
-    ],
+      "Por esta razón, el contenido de La Nieve no se presenta como política de Unimarka. Se requiere una fuente propia que identifique expresamente a esta empresa.",
+    documentId: null,
   },
   pqrs: {
     eyebrow: "PQRS",
@@ -436,4 +377,18 @@ export const siteConfig = {
   },
   footerDescription:
     "Distribuidora colombiana de productos de consumo masivo, institucionales, licores y vinos.",
+  socialLinks: {
+    linkedin: null,
+    instagram: "https://www.instagram.com/unimarka_col/?igshid=YmMyMTA2M2Y=",
+    facebook: "https://www.facebook.com/unimarka.23/?ti=as",
+  },
+  // LinkedIn no aparece en redesciales.txt para Unimarka; se retira del footer sin dejar espacio vacío.
+  socialNetworks: ["instagram", "facebook"],
+  // Fuente: C:\Devs\web\la-nieve-web\redesciales.txt (sección "Unimarka").
+  footerContact: {
+    email: "servicioalcliente@unimarka.com",
+    location:
+      "Cra 22 N 5B-114 BG A15 Parque Comercial La Primavera Villavicencio – Meta",
+  },
+  developmentTeam: "Equipo TI & Desarrollo Unimarka",
 } as const satisfies SiteConfig;

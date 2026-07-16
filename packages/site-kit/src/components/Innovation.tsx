@@ -1,21 +1,139 @@
 "use client";
 
-import Image from "next/image";
-import type { SiteConfig } from "../config/types";
+import type { SiteConfig, SiteIconName } from "../config/types";
 import { useRevealAnimation } from "../hooks/useRevealAnimation";
 import { cn } from "../lib/cn";
 import { SiteIcon } from "./SiteIcon";
 
 /**
- * Technology and continuous-innovation home block backed by brand-owned image
- * and highlight configuration.
+ * Small, brand-neutral corporate illustrations for the three technology
+ * areas. They use currentColor so each brand's accent recolors them
+ * automatically, avoiding stock imagery, embedded text or invented logos.
+ */
+function TechIllustration({
+  icon,
+  className,
+}: {
+  icon: SiteIconName;
+  className?: string;
+}) {
+  if (icon === "target") {
+    // Proyectos: hoja de ruta con hitos conectados.
+    return (
+      <svg viewBox="0 0 96 96" className={className} aria-hidden="true">
+        <circle
+          cx="48"
+          cy="48"
+          r="44"
+          fill="none"
+          stroke="currentColor"
+          strokeOpacity="0.16"
+          strokeWidth="2"
+        />
+        <path
+          d="M20 66 L38 46 L54 58 L76 30"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx="20" cy="66" r="5" fill="currentColor" />
+        <circle cx="38" cy="46" r="5" fill="currentColor" />
+        <circle cx="54" cy="58" r="5" fill="currentColor" />
+        <circle cx="76" cy="30" r="6" fill="currentColor" />
+      </svg>
+    );
+  }
+
+  if (icon === "shield") {
+    // Infraestructura y operaciones: plataforma protegida y continua.
+    return (
+      <svg viewBox="0 0 96 96" className={className} aria-hidden="true">
+        <circle
+          cx="48"
+          cy="48"
+          r="44"
+          fill="none"
+          stroke="currentColor"
+          strokeOpacity="0.16"
+          strokeWidth="2"
+        />
+        <rect
+          x="26"
+          y="40"
+          width="44"
+          height="10"
+          rx="3"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3.5"
+        />
+        <rect
+          x="26"
+          y="54"
+          width="44"
+          height="10"
+          rx="3"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3.5"
+        />
+        <circle cx="34" cy="45" r="1.8" fill="currentColor" />
+        <circle cx="34" cy="59" r="1.8" fill="currentColor" />
+        <path
+          d="M48 40 V26 M40 30 L48 26 L56 30"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  // Soluciones y transformación digital: datos e integración inteligente.
+  return (
+    <svg viewBox="0 0 96 96" className={className} aria-hidden="true">
+      <circle
+        cx="48"
+        cy="48"
+        r="44"
+        fill="none"
+        stroke="currentColor"
+        strokeOpacity="0.16"
+        strokeWidth="2"
+      />
+      <circle
+        cx="48"
+        cy="48"
+        r="15"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <path
+        d="M48 33 V22 M48 74 V63 M63 48 H74 M22 48 H33"
+        stroke="currentColor"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+      <circle cx="48" cy="48" r="4.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+/**
+ * Technology and continuous-innovation home block, presented as a horizontal,
+ * editorial "album" of three connected areas rather than isolated white cards.
  */
 export function Innovation({ site }: { site: SiteConfig }) {
-  const copyRef = useRevealAnimation<HTMLDivElement>({
-    type: "fadeLeft",
-    stagger: 0.08,
+  const introRef = useRevealAnimation<HTMLDivElement>({ type: "fadeUp" });
+  const rowRef = useRevealAnimation<HTMLDivElement>({
+    type: "fadeUp",
+    stagger: 0.1,
   });
-  const imageRef = useRevealAnimation<HTMLDivElement>({ type: "fadeRight" });
 
   return (
     <section
@@ -24,11 +142,11 @@ export function Innovation({ site }: { site: SiteConfig }) {
       className="relative overflow-hidden bg-background py-20 sm:py-24"
     >
       <div
-        className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-secondary/10 to-transparent"
+        className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-secondary/10 to-transparent"
         aria-hidden="true"
       />
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8">
-        <div ref={copyRef}>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div ref={introRef} className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-bold uppercase tracking-[0.12em] text-primary">
             <SiteIcon name="sparkles" className="h-4 w-4" />
             {site.innovation.eyebrow}
@@ -42,56 +160,39 @@ export function Innovation({ site }: { site: SiteConfig }) {
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
             {site.innovation.description}
           </p>
-
-          <ul className="mt-8 grid gap-4">
-            {site.innovation.items.map((item) => (
-              <li
-                key={item.title}
-                className="flex gap-4 rounded-2xl border border-primary/15 bg-card p-4 shadow-sm"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-md shadow-primary/20">
-                  <SiteIcon name={item.icon} className="h-5 w-5" />
-                </span>
-                <span>
-                  <strong className="block text-card-foreground">
-                    {item.title}
-                  </strong>
-                  <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
-                    {item.description}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
         </div>
 
-        <div ref={imageRef} className="relative">
-          <div
-            className="absolute -inset-5 rounded-[2.25rem] bg-gradient-to-br from-primary/25 via-secondary/15 to-transparent blur-2xl"
-            aria-hidden="true"
-          />
-          <figure
-            className={cn(
-              "relative aspect-[3/2] overflow-hidden rounded-3xl border border-primary/20 bg-surface shadow-2xl shadow-primary/15",
-              site.innovation.image.treatment === "character" &&
-                "bg-gradient-to-br from-primary/15 via-card to-secondary/20"
-            )}
-          >
-            <Image
-              src={site.innovation.image.src}
-              alt={site.innovation.image.alt}
-              fill
-              sizes="(max-width: 1023px) calc(100vw - 2rem), 45vw"
+        <div
+          ref={rowRef}
+          className="mt-14 grid gap-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-3 lg:gap-x-0 lg:divide-x lg:divide-border"
+        >
+          {site.innovation.items.map((item, index) => (
+            <div
+              key={item.title}
               className={cn(
-                site.innovation.image.treatment === "character"
-                  ? "object-contain p-6 sm:p-10"
-                  : "object-cover"
+                "flex flex-col items-center px-2 text-center lg:px-8",
+                index === 0 && "lg:pl-0",
+                index === site.innovation.items.length - 1 && "lg:pr-0",
+                index === site.innovation.items.length - 1 &&
+                  site.innovation.items.length % 2 !== 0 &&
+                  "sm:col-span-2 lg:col-span-1"
               )}
-            />
-            <figcaption className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-black/55 px-4 py-3 text-sm font-semibold text-white backdrop-blur-md">
-              Tecnología e innovación continua al servicio de cada canal.
-            </figcaption>
-          </figure>
+            >
+              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-primary/8 text-primary sm:h-28 sm:w-28">
+                <TechIllustration icon={item.icon} className="h-14 w-14 sm:h-16 sm:w-16" />
+              </div>
+              <span
+                className="mt-6 block h-1 w-10 rounded-full bg-primary/60"
+                aria-hidden="true"
+              />
+              <h3 className="mt-4 text-lg font-bold tracking-tight text-foreground">
+                {item.title}
+              </h3>
+              <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+                {item.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

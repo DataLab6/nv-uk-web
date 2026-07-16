@@ -52,6 +52,12 @@
   --surface: #ffffff;
   --surface-elevated: #ffffff;
 
+  --footer-background: #3c3c3b;
+  --footer-foreground: #ffffff;
+  --footer-muted: #d7d7d6;
+  --footer-border: rgb(255 255 255 / 0.18);
+  --footer-accent: #ffffff;
+
   --brand-primary: #27348a;
   --brand-secondary: #6dc6d9;
   --brand-tertiary: #19909b;
@@ -119,6 +125,12 @@
   --surface: #f7f9fc;
   --surface-elevated: var(--la-nieve-white);
 
+  --footer-background: var(--la-nieve-type-gray);
+  --footer-foreground: var(--la-nieve-white);
+  --footer-muted: #d7d7d6;
+  --footer-border: rgb(255 255 255 / 0.18);
+  --footer-accent: var(--la-nieve-light-gray);
+
   --glass: rgb(255 255 255 / 0.7);
   --glass-strong: rgb(255 255 255 / 0.86);
   --glass-border: rgb(39 52 138 / 0.14);
@@ -139,11 +151,11 @@
   --unimarka-red-dark: #bd202d;
   --unimarka-gray: #535456;
 
-  --brand-primary: var(--unimarka-blue);
-  --brand-secondary: var(--unimarka-blue-secondary);
-  --brand-tertiary: var(--unimarka-blue-light);
+  --brand-primary: var(--unimarka-red-dark);
+  --brand-secondary: var(--unimarka-red);
+  --brand-tertiary: var(--unimarka-blue);
   --brand-highlight: var(--unimarka-red);
-  --brand-soft: #eaf6fa;
+  --brand-soft: #fdf0f0;
   --brand-ink: var(--unimarka-gray);
 
   --background: #ffffff;
@@ -152,29 +164,36 @@
   --card-foreground: #303846;
   --popover: #ffffff;
   --popover-foreground: #303846;
-  --muted: #edf4f9;
+  --muted: #f7eeee;
   --muted-foreground: var(--unimarka-gray);
-  --border: #d5e1ed;
-  --input: #d5e1ed;
-  --ring: var(--unimarka-blue);
-  --primary: var(--unimarka-blue);
+  --border: #e7d7da;
+  --input: #e7d7da;
+  --ring: var(--unimarka-red-dark);
+  --primary: var(--unimarka-red-dark);
   --primary-foreground: #ffffff;
-  --secondary: var(--unimarka-blue-secondary);
-  --secondary-foreground: #ffffff;
+  --secondary: var(--unimarka-red);
+  --secondary-foreground: #101820;
   --accent: var(--unimarka-red);
   --accent-foreground: #101820;
   --destructive: var(--unimarka-red-dark);
   --destructive-foreground: #ffffff;
-  --surface: #f7fafc;
+  --surface: #fcf8f8;
   --surface-elevated: #ffffff;
+
+  /* Gris oficial de Unimarka (assets/colores.txt: HEX #535456), sobrio y coherente con los rojos del sitio. */
+  --footer-background: var(--unimarka-gray);
+  --footer-foreground: #ffffff;
+  --footer-muted: #d6d6d7;
+  --footer-border: rgb(255 255 255 / 0.18);
+  --footer-accent: #ffffff;
 
   --glass: rgb(255 255 255 / 0.7);
   --glass-strong: rgb(255 255 255 / 0.87);
-  --glass-border: rgb(39 95 166 / 0.15);
-  --shadow-rgb: 39 95 166;
-  --mesh-primary: var(--unimarka-blue);
-  --mesh-secondary: var(--unimarka-blue-light);
-  --mesh-accent: var(--unimarka-red);
+  --glass-border: rgb(189 32 45 / 0.16);
+  --shadow-rgb: 111 25 35;
+  --mesh-primary: var(--unimarka-red-dark);
+  --mesh-secondary: var(--unimarka-red);
+  --mesh-accent: var(--unimarka-blue-light);
 }
 
 /* Neutral fallback for an unbranded document in class-driven dark mode. */
@@ -257,12 +276,12 @@
   --muted-foreground: #c2cedb;
   --border: #354b64;
   --input: #354b64;
-  --ring: var(--unimarka-blue-light);
-  --primary: var(--unimarka-blue-light);
-  --primary-foreground: #111827;
-  --secondary: var(--unimarka-blue-secondary);
+  --ring: #ff7b73;
+  --primary: var(--unimarka-red);
+  --primary-foreground: #101820;
+  --secondary: var(--unimarka-red-dark);
   --secondary-foreground: #ffffff;
-  --accent: var(--unimarka-red);
+  --accent: var(--unimarka-blue-light);
   --accent-foreground: #101820;
   --destructive: var(--unimarka-red-dark);
   --destructive-foreground: #ffffff;
@@ -271,11 +290,11 @@
 
   --glass: rgb(21 38 59 / 0.72);
   --glass-strong: rgb(24 43 66 / 0.88);
-  --glass-border: rgb(79 172 203 / 0.2);
+  --glass-border: rgb(239 64 54 / 0.22);
   --shadow-rgb: 0 0 0;
-  --mesh-primary: var(--unimarka-blue-light);
-  --mesh-secondary: var(--unimarka-blue);
-  --mesh-accent: var(--unimarka-red);
+  --mesh-primary: var(--unimarka-red);
+  --mesh-secondary: var(--unimarka-red-dark);
+  --mesh-accent: var(--unimarka-blue-light);
 }
 
 @theme inline {
@@ -300,6 +319,11 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
+  --color-footer: var(--footer-background);
+  --color-footer-foreground: var(--footer-foreground);
+  --color-footer-muted: var(--footer-muted);
+  --color-footer-border: var(--footer-border);
+  --color-footer-accent: var(--footer-accent);
   --color-glass: var(--glass);
   --color-glass-strong: var(--glass-strong);
   --color-glass-border: var(--glass-border);
@@ -572,6 +596,10 @@
 @media (hover: hover) and (pointer: fine) {
   .animate-marquee:hover {
     animation-play-state: paused;
+  }
+
+  .value-card-trigger:hover .value-card-inner {
+    transform: rotateY(180deg);
   }
 }
 

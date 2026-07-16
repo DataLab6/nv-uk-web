@@ -56,7 +56,7 @@ export function Hero({ site }: { site: SiteConfig }) {
               src={site.home.image.src}
               alt={site.home.image.alt}
               fill
-              priority
+              loading="eager"
               sizes="(max-width: 1023px) calc(100vw - 2rem), 50vw"
               className={cn(
                 site.home.image.treatment === "character"

@@ -1,17 +1,20 @@
 import Image from "next/image";
-import { Eye, Flag, ShieldCheck } from "lucide-react";
+import { Eye, Flag } from "lucide-react";
 import type { SiteConfig } from "../config/types";
-import { FeatureCard } from "../components/FeatureCard";
+import { CompanyTimeline } from "../components/CompanyTimeline";
 import { PageIntro } from "../components/PageIntro";
 import { RevealGroup } from "../components/RevealGroup";
+import { ValuesSection } from "../components/ValuesSection";
 
 /**
- * Company profile route with editable mission, vision, values and pillars.
+ * Company profile route with editable mission, vision and corporate values.
  */
 export function AboutPage({ site }: { site: SiteConfig }) {
   return (
     <>
       <PageIntro copy={site.about} />
+
+      <CompanyTimeline siteName={site.name} milestones={site.about.timeline} />
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <RevealGroup className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
@@ -25,6 +28,7 @@ export function AboutPage({ site }: { site: SiteConfig }) {
               alt={site.about.image.alt}
               width={site.about.image.width}
               height={site.about.image.height}
+              loading="eager"
               sizes="(min-width: 1024px) 52vw, 100vw"
               className="relative aspect-[4/3] w-full object-cover"
             />
@@ -53,59 +57,11 @@ export function AboutPage({ site }: { site: SiteConfig }) {
                 {site.about.vision}
               </p>
             </article>
-
-            <aside className="flex gap-3 rounded-2xl border border-dashed border-primary/40 bg-card p-5 text-sm leading-relaxed text-muted-foreground">
-              <ShieldCheck
-                className="mt-0.5 h-5 w-5 shrink-0 text-primary"
-                aria-hidden="true"
-              />
-              <p>{site.about.disclaimer}</p>
-            </aside>
           </div>
         </RevealGroup>
       </section>
 
-      <section className="bg-primary py-20 text-primary-foreground sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-10 max-w-3xl">
-            <span className="text-sm font-semibold uppercase tracking-[0.16em] text-primary-foreground/75">
-              Lo que nos orienta
-            </span>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-              Valores corporativos
-            </h2>
-          </div>
-          <RevealGroup
-            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-            stagger={0.08}
-          >
-            {site.about.values.map((value) => (
-              <div key={value.title} className="text-foreground">
-                <FeatureCard feature={value} />
-              </div>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <div className="mb-10 max-w-3xl">
-          <span className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-            Nuestra forma de avanzar
-          </span>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-            Pilares corporativos
-          </h2>
-        </div>
-        <RevealGroup
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-          stagger={0.08}
-        >
-          {site.about.pillars.map((pillar) => (
-            <FeatureCard key={pillar.title} feature={pillar} />
-          ))}
-        </RevealGroup>
-      </section>
+      <ValuesSection values={site.about.values} />
     </>
   );
 }

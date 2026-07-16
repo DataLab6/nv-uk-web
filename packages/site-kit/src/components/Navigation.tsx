@@ -55,21 +55,41 @@ export function Navigation({ site }: { site: SiteConfig }) {
   return (
     <nav
       className={cn(
-        "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-500",
+        "fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500",
         isSolid
-          ? "border-brand-primary bg-brand-primary shadow-lg"
-          : "border-transparent bg-transparent"
+          ? "border-white/15 bg-brand-primary/95 shadow-[0_14px_38px_-24px_rgb(0_0_0/0.65)]"
+          : "border-white/20 bg-background/45 shadow-[0_8px_28px_-24px_rgb(0_0_0/0.45)]"
       )}
       aria-label="Navegación principal"
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="-ml-2 rounded-xl bg-white/95 px-2 shadow-sm transition-transform hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="group -ml-1 inline-flex rounded-lg transition-[filter,transform] duration-300 hover:-translate-y-0.5 hover:drop-shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transform-none"
           aria-label={`${site.name}, ir al inicio`}
           onClick={() => setMobileOpen(false)}
         >
-          <BrandLogo logo={site.logo} priority />
+          <span
+            className="relative block h-14 w-40 shrink-0 sm:w-44"
+            aria-hidden="true"
+          >
+            <span
+              className={cn(
+                "pointer-events-none absolute inset-0 transition-opacity duration-300",
+                isSolid ? "opacity-0" : "opacity-100"
+              )}
+            >
+              <BrandLogo logo={site.logo} priority />
+            </span>
+            <span
+              className={cn(
+                "pointer-events-none absolute inset-0 transition-opacity duration-300",
+                isSolid ? "opacity-100" : "opacity-0"
+              )}
+            >
+              <BrandLogo logo={site.chromeLogo} priority />
+            </span>
+          </span>
         </Link>
 
         <div className="hidden h-20 items-center gap-0.5 xl:flex">
@@ -87,7 +107,7 @@ export function Navigation({ site }: { site: SiteConfig }) {
                   aria-current={pathname === item.href ? "page" : undefined}
                   aria-haspopup={hasChildren ? "menu" : undefined}
                   className={cn(
-                    "relative flex items-center gap-1 rounded-lg px-2.5 py-2 text-[0.8rem] font-semibold transition-colors",
+                    "relative flex items-center gap-1 rounded-lg px-2.5 py-2 text-[0.8rem] font-semibold transition-[background-color,color,transform] duration-200 hover:-translate-y-px motion-reduce:transform-none",
                     isSolid
                       ? active
                         ? "bg-white/15 text-white"

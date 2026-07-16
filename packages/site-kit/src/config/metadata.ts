@@ -25,10 +25,12 @@ export function createSiteMetadata(site: SiteConfig): Metadata {
     },
     description: site.metadata.description,
     keywords: [...site.metadata.keywords],
-    icons: {
-      icon: site.logo.src,
-      shortcut: site.logo.src,
-    },
+    icons: site.favicon
+      ? {
+          icon: site.favicon,
+          shortcut: site.favicon,
+        }
+      : undefined,
     openGraph: {
       type: "website",
       locale: "es_CO",

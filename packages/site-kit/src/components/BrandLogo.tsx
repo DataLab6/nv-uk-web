@@ -2,9 +2,7 @@ import Image from "next/image";
 import { cn } from "../lib/cn";
 import type { SiteLogoConfig } from "../config/types";
 
-/**
- * Displays an app-owned brand logo while compensating for supplied PNG padding.
- */
+/** Displays the original brand mark directly, without decorative containers. */
 export function BrandLogo({
   logo,
   priority = false,
@@ -17,8 +15,8 @@ export function BrandLogo({
   return (
     <span
       className={cn(
-        "relative block shrink-0 overflow-hidden",
-        size === "navigation" ? "h-14 w-36 sm:w-40" : "h-20 w-44"
+        "relative block shrink-0",
+        size === "navigation" ? "h-14 w-40 sm:w-44" : "h-20 w-48"
       )}
     >
       <Image
@@ -26,10 +24,11 @@ export function BrandLogo({
         alt={logo.alt}
         fill
         priority={priority}
-        sizes={size === "navigation" ? "160px" : "176px"}
+        sizes={size === "navigation" ? "176px" : "192px"}
         className={cn(
+          "transition-[filter,transform] duration-300 ease-out group-hover:-translate-y-0.5 group-hover:brightness-110 motion-reduce:transform-none motion-reduce:transition-none",
           logo.display === "cropped-square"
-            ? "object-cover object-center"
+            ? "object-cover object-top"
             : "object-contain object-left"
         )}
       />
