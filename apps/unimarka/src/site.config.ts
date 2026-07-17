@@ -315,14 +315,14 @@ export const siteConfig = {
   },
   dataPolicy: {
     eyebrow: "Tratamiento de datos",
-    title: "Tratamiento de datos personales de Unimarka",
+    title: "Política de tratamiento de datos personales",
     description:
-      "El archivo local suministrado no identifica a Unimarka como responsable del tratamiento.",
+      "Documento suministrado para establecer los principios, términos y condiciones del tratamiento de datos personales de Unimarka S.A.S.",
     applicability:
-      "La fuente tratamientodata.txt identifica exclusivamente a DISTRIBUCIONES LA NIEVE S.A.S y no menciona a Unimarka.",
+      "Esta política identifica expresamente como responsable a UNIMARKA S.A.S.",
     disclaimer:
-      "Por esta razón, el contenido de La Nieve no se presenta como política de Unimarka. Se requiere una fuente propia que identifique expresamente a esta empresa.",
-    documentId: null,
+      "Contenido transcrito fielmente desde la fuente local tratamientodata.txt, sin resumir sus cláusulas.",
+    documentId: "unimarka",
   },
   pqrs: {
     eyebrow: "PQRS",

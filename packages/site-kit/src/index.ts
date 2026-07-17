@@ -8,6 +8,8 @@ export {
 export {
   LA_NIEVE_DATA_POLICY_DOCUMENT,
   LA_NIEVE_DATA_POLICY_SOURCE,
+  UNIMARKA_DATA_POLICY_DOCUMENT,
+  UNIMARKA_DATA_POLICY_SOURCE,
 } from "./config/dataPolicyContent";
 export { sharedHeroImage } from "./config/sharedAssets";
 export { CORPORATE_STATS_GROUPS } from "./config/statsContent";

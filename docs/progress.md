@@ -809,3 +809,17 @@ Responsable interno del canal; correo oficial definitivo para PQRS (resolver dis
 
 - `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
 - Pendiente real: ninguno.
+
+## Sesión: política de tratamiento de datos de Unimarka (2026-07-17)
+
+- Estado: terminado. El usuario agregó el texto oficial de Unimarka a `tratamientodata.txt`, a continuación del de La Nieve.
+- Hallazgo en la fuente: el bloque de Unimarka (líneas 201–398, encabezado `TRATAMIENTO UNIMARKA:`) aparece **duplicado** en el archivo (se repite completo en las líneas 403–600, encabezado `UNIMARKA:`). Se comparó con `diff` y ambas copias son idénticas carácter por carácter (solo difiere un salto de línea final); no se detectó ninguna divergencia de contenido entre copias, así que se usó únicamente la primera para evitar procesar el texto dos veces. No se modificó `tratamientodata.txt`.
+- Archivos modificados:
+  - `packages/site-kit/src/config/dataPolicyContent.ts`: se agregó `UNIMARKA_DATA_POLICY_SOURCE` (transcripción literal de la sección de Unimarka) y `UNIMARKA_DATA_POLICY_DOCUMENT`, reutilizando exactamente el mismo `SECTION_TITLES` y las funciones `createSectionId`/`parsePolicySections` ya usadas para La Nieve (las 11 secciones tienen los mismos encabezados en ambos documentos, solo cambia el contenido).
+  - `packages/site-kit/src/config/types.ts`: `SiteDataPolicyDocumentId` pasó de `"la-nieve"` a `"la-nieve" | "unimarka"`.
+  - `packages/site-kit/src/pages/DataPolicyPage.tsx`: ahora resuelve `UNIMARKA_DATA_POLICY_DOCUMENT` cuando `site.dataPolicy.documentId === "unimarka"` (antes solo contemplaba `"la-nieve"`, cualquier otro valor mostraba el aviso de "documento no disponible").
+  - `packages/site-kit/src/config/index.ts` y `packages/site-kit/src/index.ts`: se exportaron `UNIMARKA_DATA_POLICY_DOCUMENT`/`UNIMARKA_DATA_POLICY_SOURCE`, en espejo con los de La Nieve.
+  - `apps/unimarka/src/site.config.ts`: el bloque `dataPolicy` se actualizó para reflejar exactamente la misma estructura que ya tiene La Nieve (antes explicaba que el archivo local no mencionaba a Unimarka): `title: "Política de tratamiento de datos personales"`, `applicability` identificando a UNIMARKA S.A.S como responsable, `disclaimer` sobre transcripción fiel, y `documentId: "unimarka"`.
+  - `apps/la-nieve/src/site.config.ts`: sin cambios.
+- Validación: `npm run build` (ambas apps) correcto, sin errores de TypeScript; se inspeccionó el HTML prerenderizado de `/legal/tratamiento-de-datos` de cada app — Unimarka muestra "UNIMARKA S.A.S" (63 veces) sin ninguna mención de "DISTRIBUCIONES LA NIEVE" ni el aviso de documento no disponible; La Nieve sigue mostrando únicamente su propio contenido, sin cambios.
+- Pendiente real: ninguno para esta tarea. Queda como nota (no crítica) que `tratamientodata.txt` conserva la sección de Unimarka duplicada dos veces; no se tocó el archivo porque la instrucción fue únicamente actualizar la política en el sitio, pero puede limpiarse si se desea evitar confusión futura.

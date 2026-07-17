@@ -154,7 +154,7 @@ export interface SiteDataPolicyDocument {
   readonly sections: readonly SiteDataPolicySection[];
 }
 
-export type SiteDataPolicyDocumentId = "la-nieve";
+export type SiteDataPolicyDocumentId = "la-nieve" | "unimarka";
 
 export interface SiteConfig {
   readonly id: "la-nieve" | "unimarka";

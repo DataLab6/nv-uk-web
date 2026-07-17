@@ -1,6 +1,9 @@
 import { BookOpenText, FileCheck2, ShieldAlert } from "lucide-react";
 import { PageIntro } from "../components/PageIntro";
-import { LA_NIEVE_DATA_POLICY_DOCUMENT } from "../config/dataPolicyContent";
+import {
+  LA_NIEVE_DATA_POLICY_DOCUMENT,
+  UNIMARKA_DATA_POLICY_DOCUMENT,
+} from "../config/dataPolicyContent";
 import type { SiteConfig, SiteDataPolicySection } from "../config/types";
 
 function PolicySection({
@@ -52,7 +55,9 @@ export function DataPolicyPage({ site }: { site: SiteConfig }) {
   const document =
     site.dataPolicy.documentId === "la-nieve"
       ? LA_NIEVE_DATA_POLICY_DOCUMENT
-      : null;
+      : site.dataPolicy.documentId === "unimarka"
+        ? UNIMARKA_DATA_POLICY_DOCUMENT
+        : null;
 
   return (
     <>
