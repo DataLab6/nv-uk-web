@@ -127,7 +127,7 @@ export function DataPolicyPage({ site }: { site: SiteConfig }) {
                 <p className="text-sm font-semibold uppercase tracking-[0.14em] text-primary-foreground/75">
                   {document.owner}
                 </p>
-                <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+                <h2 className="mt-3 text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl">
                   {document.title}
                 </h2>
                 <p className="mt-3 text-sm text-primary-foreground/80">

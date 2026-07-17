@@ -9,7 +9,9 @@ import { SiteIcon } from "./SiteIcon";
 
 /**
  * Primary home hero. It preserves the supplied Together composition while
- * giving the block a semantic, reusable name for both corporate sites.
+ * giving the block a semantic, reusable name for both corporate sites. The
+ * hero is fully static on scroll; only the entrance reveal (on first view)
+ * and the pointer-follow glow are animated.
  */
 export function Hero({ site }: { site: SiteConfig }) {
   const textRef = useRevealAnimation<HTMLDivElement>({

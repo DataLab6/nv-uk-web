@@ -575,3 +575,208 @@ Responsable interno del canal; correo oficial definitivo para PQRS (resolver dis
 - No se tocó: `next.config.ts` de ninguna app (no se agregó `output: "standalone"`, propio de self-hosting/Docker, no de Vercel), arquitectura del monorepo, componentes ni páginas.
 - No se crearon los proyectos de Vercel ni se asignó ningún dominio (requiere acceso al dashboard del usuario); queda documentado como paso manual siguiente en `docs/deployment.md`.
 - Validación: `npm run build` (ambas apps) correcto tras los cambios, sin errores de TypeScript.
+
+## Sesión: parallax del Hero, menú Legal y scroll interno en valores (2026-07-17)
+
+- Estado: terminado. Tres correcciones puntuales, sin tocar textos, datos, colores corporativos, rutas ni otras secciones.
+
+### 1. Parallax en el Hero
+
+- Archivos: `packages/site-kit/src/hooks/useParallax.ts` (nuevo), `packages/site-kit/src/components/Hero.tsx`.
+- Implementación: hook `useParallax` siguiendo el mismo patrón que `useGlowTracking`/`useTiltCard` (mutación directa de `style.transform` vía un único listener de scroll acotado por `requestAnimationFrame`, sin estado de React ni dependencias nuevas). Se envolvió únicamente la `Image` del hero en un `div` interno (`ref={parallaxRef}`) dentro del contenedor `overflow-hidden` existente; el contenedor exterior no cambió de tamaño ni posición.
+- El offset vertical (máx. ±18px, factor 0.12 del scroll) se combina con `scale(1.08)` para que la imagen cubra siempre el marco sin dejar huecos al desplazarse (técnica estándar de parallax con imagen ligeramente sobredimensionada).
+- Accesibilidad/rendimiento: se desactiva completamente (usando `matchMedia`) con `prefers-reduced-motion: reduce` y en viewports `< 1024px` (mismo breakpoint `lg` que ya usa el layout del hero), restaurando el `transform` inicial en ambos casos.
+- No se tocó el layout, tamaño, imagen por marca ni el resto de las animaciones de entrada (`useRevealAnimation`, `useGlowTracking`).
+
+### 2. Menú desplegable "Legal"
+
+- Archivo: `packages/site-kit/src/components/Navigation.tsx` (solo el dropdown de escritorio, `xl:flex`).
+- Causa del solapamiento: los dos enlaces (`Tratamiento de datos`, `PQRS`) estaban apilados sin espacio entre sí (`p-2` en el contenedor, sin `gap`), por lo que sus fondos de hover/focus (`rounded-xl`, sin margen) quedaban pegados borde con borde.
+- Corrección: contenedor `flex flex-col gap-1.5` (antes solo `div` sin distribución), padding del contenedor `p-2 → p-3`, cada enlace `py-3 → py-3.5` y `min-h-11` para un área táctil cómoda, ancho del desplegable `w-64 → w-72` para que el texto no quede apretado. No se cambiaron nombres, rutas, ni se agregaron enlaces.
+- Se mantiene: apertura/cierre por hover y `focus-within` sobre el mismo `.group` (sin gap entre disparador y contenido, por lo que no se cierra al pasar el cursor), foco visible (anillo global `:focus-visible`, no se removió), `z-index` heredado de `<nav className="z-50">`, y el menú móvil (que ya tenía espaciado propio con `space-y-1` y no presentaba el problema reportado, por lo que no se tocó).
+
+### 3. Cards de valores con texto largo
+
+- Archivo: `packages/site-kit/src/components/ValuesSection.tsx` (`ValueFlipCard`); `packages/site-kit/src/styles/globals.css` (nueva utilidad `.value-card-scroll`).
+- Causa del recorte: el botón que envolvía toda la tarjeta tenía `aspect-[4/5]` (altura fija) y el reverso usaba `overflow-hidden` sin ninguna zona con `overflow-y: auto`; cuando la descripción superaba el alto disponible, el texto simplemente se cortaba sin forma de desplazarse.
+- Corrección: se separó el botón único en dos capas dentro del mismo grid con la proporción fija (`aspect-[4/5]` ahora vive en el contenedor rotante, no en el botón): un `<button>` para el frente (dispara el giro) y un `<div>` para el reverso, con imagen fija arriba (`shrink-0`, `aspect-[3/2]` en vez de `aspect-[4/3]` para ganar algo de alto) y una zona de texto flexible (`min-h-0 flex-1 overflow-y-auto overscroll-contain`) que ahora sí permite scroll interno con la rueda del mouse sin desplazar la página (gracias a `overscroll-contain`) y sin que el contenido crezca más allá de la tarjeta gracias a `min-h-0` en toda la cadena flex (la causa técnica de que `overflow-y-auto` no funcionara antes habría sido precisamente la falta de `min-h-0`, que permite a un hijo flex encogerse por debajo de su contenido).
+- Se agregó un botón de cierre (ícono `X` de lucide-react) en el reverso para volver al frente sin depender de clicar la tarjeta completa, ya que el frente y el reverso ahora son elementos independientes (necesario para que la zona de descripción sea un elemento tabulable propio y no quede anidado dentro de un `<button>`, que impedía el foco de teclado independiente).
+- Teclado: la zona de descripción y el botón de cierre reciben `tabIndex={isFlipped ? 0 : -1}`; con foco, las flechas/Page Up/Page Down del navegador desplazan el contenido de forma nativa (es un `div` con `overflow-y-auto` y foco propio). El botón de frente pasa a `tabIndex={-1}`/`aria-hidden` mientras se muestra el reverso, y viceversa, evitando duplicar el contenido en el árbol de accesibilidad.
+- Se conservó el hover-preview en dispositivos con cursor: la clase `.value-card-trigger` se movió al `<article>` exterior (antes vivía en el botón único) para que la regla ya existente en `globals.css` (`.value-card-trigger:hover .value-card-inner { transform: rotateY(180deg) }`, dentro de `@media (hover: hover) and (pointer: fine)`) siga funcionando sin cambios.
+- Scrollbar: nueva utilidad `.value-card-scroll` en `globals.css`, delgada (`scrollbar-width: thin`, `0.375rem` en WebKit) y coloreada con `color-mix(in srgb, var(--primary) 55%, transparent)`, por lo que se ve azul en La Nieve y roja en Unimarka automáticamente (mismo token que el resto del sitio).
+- `StaticValueCard` (usada cuando `prefers-reduced-motion: reduce`) no tenía el problema: su `<article>` no tiene altura fija, por lo que ya crecía con el contenido; no se modificó. Tampoco se tocó `ValuesAccordion` (versión móvil, `sm:hidden`), que ya mostraba el texto completo en flujo normal sin scroll interno.
+- No se modificaron los textos de los valores, los colores de marca, ni la distribución responsive (5 columnas en escritorio ancho, 3+2 en tablet, acordeón en móvil) definida en la sesión anterior.
+
+### Validación
+
+- `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
+- No se ejecutó batería de pruebas manual en navegador en esta sesión (validación técnica representativa solicitada = build).
+- Pendiente real: ninguno de los tres puntos quedó parcial.
+
+## Sesión: scroll interno, datos de cobertura, parallax intensificado y mapa de La Nieve (2026-07-17)
+
+- Estado: terminado. Cuatro correcciones puntuales sobre el estado ya aprobado, sin tocar textos, rutas, logos ni otras secciones.
+
+### 1. Scroll natural dentro de las tarjetas de valores
+
+- Causa real: Lenis (scroll suave global, `packages/site-kit/src/components/LenisProvider.tsx`, montado en `SiteChrome.tsx`) intercepta la rueda del mouse, el trackpad y el touch en toda la página con `event.preventDefault()` para animar el scroll del documento. Al no saber que la zona de descripción de la flip card tiene su propio `overflow-y-auto`, capturaba el evento antes de que el navegador pudiera desplazar ese contenedor interno; por eso solo funcionaba arrastrando la barra manualmente (una interacción de arrastre del thumb nativo, ajena al manejo de Lenis).
+- Corrección: se agregó el atributo `data-lenis-prevent` a la zona `.value-card-scroll` en `ValuesSection.tsx`. Lenis ya soporta este atributo de forma nativa (verificado en `node_modules/lenis/dist/lenis.mjs`): cuando el `composedPath()` de un evento de wheel/touch contiene un nodo con `data-lenis-prevent`, Lenis hace `return` antes de llamar `preventDefault()`, dejando que el navegador maneje el scroll nativo de ese elemento normalmente. No se tocó `LenisProvider.tsx` ni `SiteChrome.tsx`.
+- Comportamiento resultante: en escritorio, la rueda del mouse y el trackpad desplazan el texto interno mientras haya contenido restante; al llegar al principio o al final, el scroll continúa naturalmente en la página. El teclado (flechas, Page Up/Down) sigue funcionando igual que antes (foco nativo sobre el div con `tabIndex`). En tableta (donde también se muestran las flip cards) el mismo atributo habilita el desplazamiento táctil nativo. En móvil (menor a 640px) se usa el acordeón ya implementado, que no tiene contenedor con `overflow-y` propio, por lo que no se veía afectado y no requirió cambios.
+- Archivo modificado: `packages/site-kit/src/components/ValuesSection.tsx` (una sola línea, atributo `data-lenis-prevent`). No se tocaron dimensiones, animación ni textos de las tarjetas.
+
+### 2. Datos de cobertura y operación
+
+- Archivo: `packages/site-kit/src/config/statsContent.ts` (contenido compartido; ambas marcas leen `groups: CORPORATE_STATS_GROUPS` desde su `site.config.ts`, sin cambios en esos archivos).
+- Toneladas eliminadas: se retiró por completo la cifra "Más de 5,800 toneladas transportadas mensualmente" del grupo "Volumen de operaciones". El grupo conserva sus otras dos cifras (159,000 clientes con pedidos entregados; 580-700 municipios con cobertura diaria), que ya se veían en una pila vertical dentro de `StatGroup`, por lo que retirar un elemento no descompensa la composición ni deja huecos.
+- Cobertura departamental: 24 a 18 departamentos. Constante `DEPARTMENTS_COVERED = 18` en `statsContent.ts`.
+- Porcentaje: se agregaron las constantes `DEPARTMENTS_COVERED = 18` y `TOTAL_COLOMBIA_DEPARTMENTS = 32`; el valor mostrado se calcula como `((18 / 32) * 100).toFixed(2)`, resultando en "56.25", y la cifra en pantalla queda como 56.25% con la etiqueta "de los departamentos de Colombia" (antes 85% del territorio nacional). El cálculo vive en un único lugar; ningún componente ni `site.config.ts` repite el número.
+- Enfoque especial por ciudades: se eliminó por completo la nota sobre Bogotá, Medellín, Cali, Cartagena y Apartadó (era la única nota del grupo "Cobertura nacional"); se quitó la propiedad `notes` de ese grupo en vez de dejarla como arreglo vacío, ya que `StatGroup` solo renderiza notas si tienen longitud mayor a cero (sin cambios necesarios en `Stats.tsx`).
+- El resto de indicadores (capacidad operativa, equipo humano) no se tocó.
+
+### 3. Parallax del Hero, intensificado
+
+- Archivos: `packages/site-kit/src/hooks/useParallax.ts` (ampliado), `packages/site-kit/src/components/Hero.tsx`.
+- El hook ganó dos opciones nuevas sin cambiar su arquitectura (sigue siendo un único listener de scroll por capa, acotado por requestAnimationFrame, mutando transform/opacity directamente, sin estado de React ni dependencias nuevas):
+  - `maxScale`: la capa hace un zoom progresivo proporcional a qué tan lejos está desplazada en ese momento (antes el escalado era un valor fijo).
+  - `fadeOnExit`: cuando el borde inferior del elemento cruza aproximadamente el 40% de la altura del viewport, la opacidad decrece hasta cero de forma proporcional, terminando el efecto de forma natural cuando el hero sale de pantalla.
+- `Hero.tsx` ahora aplica cuatro capas independientes con profundidades distintas (todas ya existían visualmente; no se agregó ningún elemento nuevo ni se cambió el diseño):
+  - Imagen del hero: fuerza 64px, factor 0.28, escala máxima 1.22 — la capa más visible.
+  - Orbe decorativo derecho: fuerza 48px, factor 0.18, escala máxima 1.08.
+  - Orbe decorativo izquierdo: fuerza 36px, factor -0.14 (signo invertido: se mueve en dirección opuesta a la imagen, reforzando la sensación de profundidad), escala máxima 1.05.
+  - Fondo mesh-gradient: fuerza 12px, factor 0.05, escala máxima 1.03, la capa más lejana con el movimiento más leve.
+  - Las cuatro capas usan desvanecimiento al salir de pantalla.
+- El texto sigue usando únicamente la animación de entrada existente; no participa del parallax de scroll, por lo que permanece estable y legible en todo momento.
+- Móvil: antes el parallax se desactivaba por completo bajo 1024px; ahora se reduce (50% de la fuerza, 60% del factor) en lugar de eliminarse, para que siga siendo perceptible en pantallas pequeñas sin la amplitud de escritorio.
+- Accesibilidad y rendimiento sin cambios de fondo: `prefers-reduced-motion: reduce` sigue desactivando el efecto por completo; no se agregaron dependencias nuevas; cada capa usa una sola lectura de posición por frame.
+- No se alteró el layout de dos columnas del hero, el tamaño de la caja de imagen, la imagen usada por marca, ni el navbar.
+
+### 4. Mapa de La Nieve actualizado
+
+- Ruta anterior: `stats.image: null` (espacio preparado, sin imagen configurada) en `apps/la-nieve/src/site.config.ts`.
+- Ruta nueva: `assets/mapaNV.png` (2404x3684, añadido el 2026-07-17, más reciente que `assets/mapaUK.png`, el mapa de Unimarka usado en la sesión anterior) copiado sin alterar a `apps/la-nieve/public/images/mapa-cobertura-la-nieve.png`, referenciado en `apps/la-nieve/src/site.config.ts` (bloque `stats.image`) con tratamiento "illustration", igual convención que Unimarka.
+- No hubo ambigüedad: `assets/mapaNV.png` es el único archivo nombrado explícitamente para La Nieve (sufijo NV, mismo patrón que mapaUK.png ya usado para Unimarka) y es más reciente que los archivos genéricos MapChart_Map.png y MapChart_Map (4).png.
+- Unimarka no se tocó: `apps/unimarka/src/site.config.ts` sigue apuntando a `public/images/mapa-cobertura-unimarka.png` (`assets/mapaUK.png`), sin cambios. La estructura visual del panel de `Stats.tsx` (recuadro único, mapa integrado sin card propia, ajuste de contenido, posicionamiento a la derecha con desborde controlado) tampoco se modificó; solo cambió qué imagen consume el componente en el caso de La Nieve.
+
+### Validación de esta sesión
+
+- `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
+- Verificado por búsqueda de texto: ninguna referencia viva a toneladas, la cifra anterior de 5,800, el 85% ni la lista de ciudades en `apps/` o `packages/site-kit/src` (el único resultado fue en `CoverageMap.tsx`, componente legado ya documentado como retirado del home en 2026-07 y no importado por ningún index ni página, por lo que no se renderiza en ningún sitio).
+- Pendiente real: ninguno de los cuatro puntos quedó parcial.
+
+## Sesión: eliminar parallax, tema claro por defecto, contraste en tratamiento de datos y simplificar valores (2026-07-17)
+
+- Estado: terminado. Cuatro correcciones puntuales; no se modificaron datos, textos corporativos, rutas, logos, estadísticas ni mapas.
+
+### 1. Eliminación completa del parallax
+
+- Archivos: `packages/site-kit/src/components/Hero.tsx` (revertido a su versión estática), `packages/site-kit/src/hooks/useParallax.ts` (eliminado por completo, ya no tenía consumidores).
+- Se retiraron: los cuatro `ref` que aplicaban el efecto (imagen del hero, dos orbes decorativos, fondo `mesh-gradient`), el import de `useParallax`, y con el borrado del archivo del hook desaparecieron el listener de scroll, el uso de `requestAnimationFrame`, las mutaciones de `transform`/`opacity` ligadas al scroll y la lógica de `matchMedia` (reduced motion / viewport angosto) que solo existía para ese efecto.
+- El hero quedó exactamente en su versión previa a cualquier parallax: misma imagen, mismo tamaño de caja (`aspect-square overflow-hidden rounded-3xl`), mismo overlay `mesh-gradient` y los mismos orbes decorativos, todos estáticos. Solo se conservan las animaciones que ya existían antes del parallax: la revelación de entrada al hacer scroll hasta el hero (`useRevealAnimation`, GSAP) y el resplandor que sigue al cursor (`useGlowTracking`, no ligado a scroll). No se agregó ninguna animación de scroll en su lugar.
+- Verificado con búsqueda de texto: no queda ninguna referencia a "parallax" en `apps/` ni `packages/site-kit/src`.
+
+### 2. Modo claro por defecto
+
+- Archivo: `packages/site-kit/src/components/ThemeProvider.tsx` (único punto de configuración; ambas apps montan este mismo componente sin overrides adicionales, dentro de `SiteChrome.tsx`).
+- Antes: `defaultTheme = "system"`, `enableSystem = true` — el sitio leía `prefers-color-scheme` del sistema operativo del visitante en la primera carga.
+- Ahora: `defaultTheme = "light"`, `enableSystem = false`. Un visitante sin preferencia guardada siempre ve el sitio en modo claro, sin importar el tema de su sistema operativo, y no vuelve a sincronizarse automáticamente con él.
+- No se usó `prefers-color-scheme` en ningún punto de la solución (se verificó que tampoco existía previamente ninguna media query de este tipo en `globals.css`; el modo oscuro siempre estuvo controlado exclusivamente por la clase `.dark` que aplica `next-themes`).
+- Selección manual: se conserva. `next-themes` sigue persistiendo en `localStorage` la elección explícita del usuario a través de `ThemeToggle.tsx` (sin cambios), y la sigue aplicando en visitas posteriores; `enableSystem: false` solo elimina la sincronización automática con el sistema operativo, no el modo oscuro manual en sí.
+- Sin parpadeo: `next-themes` inyecta un script de bloqueo antes de la hidratación (mecanismo propio de la librería, ya presente vía `suppressHydrationWarning` en `<html>` en ambos `layout.tsx`) que aplica la clase correspondiente de forma síncrona antes del primer pintado; con `defaultTheme: "light"` y sin lectura del sistema, ese script ahora siempre aplica claro para quien no tiene preferencia guardada, evitando el flash de oscuro seguido de claro.
+- No se tocó `viewport.colorScheme: "light dark"` en los `layout.tsx`: es un hint para el navegador sobre qué modos soporta la página (afecta a controles nativos sin estilo), no determina el tema real de la página (gobernado por la clase `.dark`, ya corregida); cambiarlo a "light" fijo habría creado una inconsistencia si el usuario activa el oscuro manualmente después.
+
+### 3. Título secundario en tratamiento de datos
+
+- Archivo: `packages/site-kit/src/pages/DataPolicyPage.tsx`.
+- Título corregido: el `<h2>` con el texto `{document.title}` ("Política de tratamiento de datos personales") dentro del recuadro `header` de color `bg-primary` que muestra la fuente local del documento (distinto del título principal de la página, que viene de `site.dataPolicy.title` vía `<PageIntro>` y no se tocó).
+- Causa: ese `<h2>` no tenía ninguna clase de color propia, así que heredaba la regla global `:where(h1, h2, h3, h4, h5, h6) { color: var(--card-foreground); }` de `globals.css` (especificidad cero, pero sin ninguna clase de Tailwind compitiendo por la propiedad `color` en ese elemento). `--card-foreground` es un tono oscuro/navy en modo claro, mostrado sobre el fondo `bg-primary` (azul o rojo corporativo, también oscuro/vívido) — de ahí el contraste perdido. No era opacidad reducida ni una clase de modo oscuro: era la ausencia de una clase de color explícita que ganara sobre la regla global de encabezados.
+- Corrección: se agregó la clase `text-primary-foreground` al `<h2>`, el mismo token que ya usan sus elementos hermanos en ese recuadro (`document.owner` y "Fuente local: …"). `--primary-foreground` está definido para contrastar siempre correctamente contra `--primary` tanto en modo claro como oscuro (en oscuro, La Nieve invierte `--primary`/`--primary-foreground`, por lo que la pareja de tokens sigue siendo válida sin ajustes adicionales). No se cambió el texto, la tipografía, el tamaño, el fondo del recuadro, el título principal ni ningún otro encabezado.
+
+### 4. Simplificación de las tarjetas de valores
+
+- Archivo: `packages/site-kit/src/components/ValuesSection.tsx` (reescrito por completo); `packages/site-kit/src/styles/globals.css` (limpieza de reglas que quedaron sin uso).
+- Imágenes retiradas: las tarjetas de Integridad, Compromiso Social, Lealtad, Respeto y Emprendimiento ya no muestran ninguna imagen. No se reemplazaron por íconos, ilustraciones ni fondos decorativos; el campo `image` de `SiteValue` permanece en el tipo y en `corporateContent.ts` sin usarse en este componente (no se tocaron los datos, igual que ya ocurría con `site.innovation.image` en una sesión anterior).
+- Interacción nueva: se eliminó por completo el flip 3D y su dependencia de hover en dispositivos con cursor. Cada tarjeta es ahora un único `<button>` (título + punto indicador + ícono de flecha que rota 180°) que al hacer clic expande un panel con la descripción completa **debajo**, dentro de la misma tarjeta. El panel permanece abierto hasta que el usuario vuelve a hacer clic en el mismo botón (cerrarlo) o abre otra tarjeta; no se cierra al retirar el cursor, hacer scroll o mover el mouse, porque el estado ya no depende de `:hover` en ningún punto — es estado de React (`openIndex`) actualizado solo por `onClick`.
+- Solo una tarjeta abierta a la vez: el estado `openIndex` vive en `ValuesSection` (un único valor, no un arreglo), así que abrir una tarjeta cierra automáticamente la anterior. El estado activo se reconoce visualmente (encabezado con `bg-primary`/`text-primary-foreground`, borde de la tarjeta en `border-primary`, flecha rotada) y mediante `aria-expanded`, no solo por color.
+- Texto largo: al no tener ya una altura fija ni un recorte 3D, la tarjeta simplemente **crece** para mostrar la descripción completa (transición de altura vía `grid-template-rows` `0fr → 1fr`, sin medir el contenido en JS y sin recortarlo nunca). No quedó ninguna zona con `overflow-y: auto` ni fue necesario el atributo `data-lenis-prevent` de la sesión anterior (se eliminó junto con el resto del código de la flip card, ya que no aplica a un panel que se expande en flujo normal); se retiró también la utilidad `.value-card-scroll` de `globals.css`, que había quedado sin uso. En escritorio y tableta el layout es la misma fila autoajustable de tarjetas (`flex flex-wrap justify-center`, mismos anchos por breakpoint que la sesión anterior); en móvil cada tarjeta ocupa el ancho completo, comportándose como un acordeón de una sola columna sin necesidad de un componente aparte.
+- Accesibilidad: el botón (solo el encabezado, no toda la tarjeta) usa `aria-expanded` y `aria-controls`; Enter/Espacio lo activan de forma nativa por ser un `<button>`; el foco visible usa el anillo global del proyecto; la transición de rotación/expansión respeta `prefers-reduced-motion` (clases `motion-reduce:transition-none`, además de la regla global que ya neutraliza duraciones de transición).
+- CSS retirado por quedar sin uso: la regla de hover-preview `.value-card-trigger:hover .value-card-inner { transform: rotateY(180deg); }` y el bloque completo de la utilidad `.value-card-scroll` en `globals.css`.
+
+### Validación de esta sesión
+
+- `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
+- Verificado por búsqueda de texto: sin referencias a "parallax" en `apps/` ni `packages/site-kit/src`; sin referencias a las clases/componentes retirados de la flip card (`ValueFlipCard`, `StaticValueCard`, `ValuesAccordion`, `usePrefersReducedMotion`).
+- Pendiente real: ninguno de los cuatro puntos quedó parcial.
+
+## Sesión: restaurar la lógica de flip card en valores (hover temporal + clic para fijar) (2026-07-17)
+
+- Estado: terminado. Se limitó exclusivamente a la lógica de interacción de `ValuesSection.tsx`; no se tocó diseño, tamaño, textos, colores ni ninguna otra sección.
+- Contexto: la sesión inmediatamente anterior había reemplazado el flip card por un acordeón de clic puro (sin giro 3D ni hover). Esta sesión revierte esa decisión: se exige conservar el efecto flip con giro por hover, y se reescribió el componente desde cero (no se apiló lógica nueva sobre la del acordeón).
+- Archivos: `packages/site-kit/src/components/ValuesSection.tsx` (reescrito por completo), `packages/site-kit/src/styles/globals.css` (reglas de giro por hover/fijado y scrollbar del reverso, restauradas).
+
+### Modelo de estado
+
+- Un único estado en `ValuesSection`: `pinnedIndex: number | null` — el identificador de la tarjeta fijada (o ninguna). Cada `ValueCard` es un componente sin estado propio; recibe `isPinned` y `onTogglePin` por props.
+- El giro visual se deriva de una regla puramente CSS equivalente a "girada si está en hover O si está fijada", con dos reglas independientes que apuntan a la misma propiedad `transform`, sin ningún estado de React que rastree el hover:
+  - `@media (hover: hover) and (pointer: fine) { .value-card:hover .value-card-inner { transform: rotateY(180deg); } }` — giro temporal, solo en dispositivos con cursor real; se revierte automáticamente al retirar el cursor porque es CSS puro, no hay nada que "cerrar" en JS.
+  - `.value-card.is-pinned .value-card-inner { transform: rotateY(180deg); }` — giro fijado, universal (mouse, teclado, táctil), controlado por la única clase `is-pinned` que refleja `isPinned`.
+- No existen `isFlipped`, `isHovered`, `isClicked`, `isActive`, `isLocked`, `showBack` ni `wasManuallyOpened`: solo `pinnedIndex`.
+- Alternar: `onTogglePin` hace `setPinnedIndex(current => current === index ? null : index)`. Fijar otra tarjeta libera automáticamente la anterior porque el estado es un único valor, no un arreglo ni una bandera por tarjeta.
+
+### Por qué el clic vive tanto en el frente como en el reverso (y no está duplicado)
+
+- El frente es un `<button>` con `onClick={onTogglePin}`, siempre presente en el orden de tabulación salvo cuando la tarjeta está fijada (`tabIndex={isPinned ? -1 : 0}`, `aria-hidden={isPinned}`).
+- El reverso es un `<div onClick={onTogglePin}>` (no un botón, para no perjudicar la lectura del texto largo que contiene).
+- Debido a `backface-visibility: hidden`, solo la cara visible en cada momento recibe eventos de puntero: mientras el cursor pasa por encima (hover, sin fijar) el reverso es la cara visible y por tanto la única que puede recibir el clic; el botón del frente, en ese instante, no es "clicable" porque está detrás. Por eso ambos elementos llaman a la misma función `onTogglePin` — no es lógica duplicada, es la misma acción expuesta en la única cara que puede recibir el clic según el estado visual del momento.
+- La zona de descripción, dentro del reverso, detiene la propagación del clic y del `mousedown` (`event.stopPropagation()`), de modo que hacer scroll, arrastrar la barra de desplazamiento o seleccionar texto nunca fija ni libera la tarjeta accidentalmente.
+
+### Comportamiento resultante
+
+- Estado inicial: cara frontal, sin fijar.
+- Hover sin fijar: gira al reverso mientras el cursor permanece encima; al retirarlo, vuelve al frente automáticamente (es CSS `:hover`, no hay nada que React deba "cerrar").
+- Clic mientras muestra el reverso (fija): `pinnedIndex` pasa a ese índice; la tarjeta permanece girada aunque el cursor salga, haya scroll de página, se pierda el hover o el cursor pase por otra tarjeta, porque `.is-pinned` no depende de `:hover`.
+- Segundo clic sobre una tarjeta fijada: la libera (`pinnedIndex` vuelve a `null`); si el cursor sigue encima, el hover-CSS puede continuar mostrando el reverso; al salir, regresa al frente.
+- Solo una tarjeta fijada a la vez: fijar otra sustituye el valor único de `pinnedIndex`, liberando automáticamente la anterior; las demás siguen respondiendo al hover con normalidad.
+- Táctil: un toque llama a `onTogglePin` (fija en el mismo gesto, ya que no existe hover previo en estos dispositivos); un segundo toque libera. El scroll táctil dentro de la descripción no cuenta como toque de cierre gracias al mismo `stopPropagation`.
+- Teclado: el botón del frente recibe foco de forma nativa; Enter/Espacio activan `onClick` de forma estándar del elemento `<button>`, fijando o liberando. `aria-expanded={isPinned}` refleja el estado fijado (no el hover transitorio). El foco visible usa el anillo global del proyecto.
+- `prefers-reduced-motion`: no se cambió la estructura ni la lógica; la duración de la transición de giro ya queda reducida a ~0 por la regla global existente en `globals.css` (`transition-duration: 0.01ms !important` bajo esa media query), sin necesidad de una rama de código aparte.
+
+### Contenido del reverso
+
+- Se conservan el nombre del valor y la descripción completa, literal, sin imágenes (no se reintrodujeron tras su eliminación en la sesión anterior).
+- El reverso mantiene una altura fija (`aspect-[4/5]` en el contenedor que gira) con una zona de texto interna `overflow-y-auto` + `min-h-0` en toda la cadena flex (necesario para que el `overflow-y-auto` funcione en vez de desbordar) y `overscroll-contain` para no arrastrar el scroll de la página mientras aún hay contenido interno.
+- Se restauró el atributo `data-lenis-prevent` en esa zona: Lenis (scroll suave global) intercepta la rueda/trackpad/touch de toda la página y, sin este atributo, capturaría el evento antes de que el navegador pudiera desplazar el contenedor interno (mismo diagnóstico de una sesión anterior). Con el atributo, la rueda del mouse y el trackpad desplazan el texto con normalidad.
+- Scrollbar discreta y coloreada con el token `--primary` (azul en La Nieve, rojo en Unimarka), restaurada en `globals.css` (`.value-card-scroll`).
+
+### Limpieza realizada
+
+- Se eliminó por completo la implementación de acordeón de la sesión anterior: el estado `openIndex`, el ícono `ChevronDown`, la transición `grid-template-rows` y el `<p>` de descripción sin scroll interno.
+- No quedaron handlers superpuestos: cada elemento (frente, reverso, zona de texto) tiene un único propósito claro sin condiciones duplicadas ni lógica distinta por nombre de valor.
+
+### Validación de esta sesión
+
+- `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
+- Verificado por búsqueda de texto: sin referencias a `isOpen`, `openIndex`, `ChevronDown` ni a la transición `grid-template-rows` en `ValuesSection.tsx`.
+- Pendiente real: ninguno.
+
+## Sesión: ícono de chincheta en valores y cierre del menú Legal al seleccionar (2026-07-17)
+
+- Estado: terminado. Dos ajustes puntuales sobre el estado ya aprobado; sin cambios de diseño, textos ni otras secciones.
+
+### 1. Ícono de chincheta en el reverso de las tarjetas de valores
+
+- Archivo: `packages/site-kit/src/components/ValuesSection.tsx`.
+- Se reemplazó el texto `"Fijado"` / `"Reverso"` del encabezado del reverso por los íconos `Pin` / `PinOff` de `lucide-react`: `Pin` (relleno, color `--primary`) cuando la tarjeta está fijada; `PinOff` (color `--muted-foreground`) cuando no lo está. Ambos son puramente decorativos (`aria-hidden="true"`); el estado accesible sigue comunicándose mediante `aria-expanded` en el botón del frente, sin cambios en esa parte.
+- No se tocó la lógica de fijado/hover ni el resto de la tarjeta.
+
+### 2. El menú "Legal" no se cerraba al seleccionar una opción
+
+- Archivo: `packages/site-kit/src/components/Navigation.tsx` (solo el desplegable de escritorio, `xl:flex`).
+- Causa: el desplegable se muestra/oculta con CSS puro (`group-hover` / `group-focus-within`). Como `Navigation` es parte del layout persistente y no se desmonta entre navegaciones, al hacer clic en "Tratamiento de datos" o "PQRS" el cursor queda físicamente sobre el mismo elemento que sigue existiendo tras la navegación, así que `:hover` continúa cumpliéndose (y el enlace clicado también conserva el foco, por lo que `:focus-within` tampoco se libera). El menú solo se ocultaba cuando el usuario movía el cursor fuera o hacía clic en otro punto — no había ningún mecanismo que reaccionara al clic de selección en sí.
+- Corrección: se agregó un estado mínimo `dismissedHref: string | null` en `Navigation`. Cada enlace del submenú, al hacer clic (`onClick`), fija `dismissedHref` al `href` del ítem padre. El contenedor del desplegable agrega, solo cuando `dismissedHref === item.href`, las clases `invisible! pointer-events-none! opacity-0!` (sintaxis de modificador `!important` de Tailwind v4, verificada en el CSS compilado), que fuerzan el cierre visual **sin depender de que el cursor se mueva**, ganándole en especificidad a las clases `group-hover`/`group-focus-within` existentes. El estado se libera (`dismissedHref` vuelve a `null` para ese ítem) en el primer `onMouseEnter` o `onFocus` genuino sobre el grupo, es decir, la próxima vez que el cursor realmente entra de nuevo o el foco regresa por teclado — restaurando el comportamiento normal de hover/foco para la siguiente interacción.
+- No se cambiaron las rutas, los nombres de las opciones, el menú móvil (que ya cierra correctamente vía `onClick={() => setMobileOpen(false)}`, sin este problema) ni el resto del navbar.
+
+### Validación de esta sesión
+
+- `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
+- Se verificó en el CSS compilado (`apps/la-nieve/.next/static/chunks/*.css`) que las tres utilidades con `!important` (`invisible!`, `pointer-events-none!`, `opacity-0!`) se generaron correctamente.
+- Pendiente real: ninguno.

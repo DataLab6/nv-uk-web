@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useId, useState } from "react";
+import { Pin, PinOff } from "lucide-react";
+import { useId, useState } from "react";
 import type { SiteValue } from "../config/types";
 import { cn } from "../lib/cn";
 import { RevealGroup } from "./RevealGroup";
@@ -10,183 +10,108 @@ import { RevealGroup } from "./RevealGroup";
 const CARD_WIDTH =
   "w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.667rem)] xl:w-[calc(20%-1rem)]";
 
-function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updatePreference = () => setPrefersReducedMotion(media.matches);
-
-    updatePreference();
-    media.addEventListener("change", updatePreference);
-    return () => media.removeEventListener("change", updatePreference);
-  }, []);
-
-  return prefersReducedMotion;
-}
-
-function StaticValueCard({ value }: { value: SiteValue }) {
-  return (
-    <article
-      className={cn(
-        "min-w-0 overflow-hidden rounded-xl border border-border bg-card",
-        CARD_WIDTH
-      )}
-    >
-      <div className="bg-primary px-4 py-3.5">
-        <h3 className="text-lg font-bold tracking-tight text-primary-foreground">
-          {value.title}
-        </h3>
-      </div>
-      <Image
-        src={value.image.src}
-        alt={value.image.alt}
-        width={value.image.width}
-        height={value.image.height}
-        sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-        className="aspect-[4/3] w-full object-cover"
-      />
-      <div className="p-4">
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {value.description}
-        </p>
-      </div>
-    </article>
-  );
-}
-
-function ValueFlipCard({ value }: { value: SiteValue }) {
-  const [isFlipped, setIsFlipped] = useState(false);
+/**
+ * Flip card with exactly two ways to show its back: a temporary hover (pure
+ * CSS, no JS state) and a click/tap/Enter that pins it open regardless of
+ * hover. The single source of truth for "is this card pinned" lives in the
+ * parent (`pinnedIndex`); this component holds no state of its own. Visually,
+ * "flipped" is simply "hovered OR pinned" — the `.is-pinned` class only ever
+ * adds the pinned half of that rule.
+ */
+function ValueCard({
+  value,
+  isPinned,
+  onTogglePin,
+}: {
+  value: SiteValue;
+  isPinned: boolean;
+  onTogglePin: () => void;
+}) {
   const descriptionId = useId();
 
   return (
-    <article className={cn("min-w-0 [perspective:1200px]", CARD_WIDTH)}>
-      <button
-        type="button"
-        aria-expanded={isFlipped}
-        aria-describedby={descriptionId}
-        aria-label={`${isFlipped ? "Volver al frente de" : "Mostrar imagen y descripción de"} ${value.title}`}
-        onClick={() => setIsFlipped((current) => !current)}
-        className="value-card-trigger block aspect-[4/5] w-full rounded-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-      >
-        <span id={descriptionId} className="sr-only">
-          {value.title}. {value.description}
-        </span>
-
-        <span
-          className={cn(
-            "value-card-inner relative grid h-full [transform-style:preserve-3d] transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)]",
-            isFlipped && "[transform:rotateY(180deg)]"
-          )}
-          aria-hidden="true"
+    <article
+      className={cn(
+        "value-card min-w-0 [perspective:1200px]",
+        isPinned && "is-pinned",
+        CARD_WIDTH
+      )}
+    >
+      <div className="value-card-inner relative grid aspect-[4/5] w-full [transform-style:preserve-3d] transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)]">
+        {/* Front: always in the tab order except while pinned, so keyboard
+            focus naturally lands on the front unless the back is pinned open. */}
+        <button
+          type="button"
+          onClick={onTogglePin}
+          aria-expanded={isPinned}
+          aria-describedby={descriptionId}
+          aria-label={`${value.title}. ${isPinned ? "Toca o haz clic para volver al frente." : "Pasa el cursor, toca o presiona Enter para ver la descripción."}`}
+          tabIndex={isPinned ? -1 : 0}
+          aria-hidden={isPinned}
+          className="col-start-1 row-start-1 flex min-h-full flex-col justify-between overflow-hidden rounded-xl border border-primary bg-primary p-4 text-left text-primary-foreground shadow-sm [-webkit-backface-visibility:hidden] [backface-visibility:hidden] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
         >
-          <span className="col-start-1 row-start-1 flex min-h-full flex-col justify-between overflow-hidden rounded-xl border border-primary bg-primary p-4 text-primary-foreground shadow-sm [-webkit-backface-visibility:hidden] [backface-visibility:hidden]">
-            <span>
-              <span
-                className="block h-1 w-8 rounded-full bg-primary-foreground/75"
+          <span id={descriptionId} className="sr-only">
+            {value.title}. {value.description}
+          </span>
+          <span>
+            <span
+              className="block h-1 w-8 rounded-full bg-primary-foreground/75"
+              aria-hidden="true"
+            />
+            <span className="mt-5 block text-xl font-bold tracking-tight text-primary-foreground sm:text-2xl">
+              {value.title}
+            </span>
+          </span>
+          <span className="mt-8 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-primary-foreground/80">
+            Conocer este valor
+          </span>
+        </button>
+
+        {/* Back: only hit-testable while actually shown (hover or pinned),
+            thanks to backface-visibility. Clicking its header toggles the
+            pin — the same action as the front button — because the front is
+            not hit-testable while the back is visible. The description itself
+            stops propagation so scrolling, dragging its scrollbar or
+            selecting text never toggles the pin. */}
+        <div
+          onClick={onTogglePin}
+          aria-hidden={!isPinned}
+          className="col-start-1 row-start-1 flex min-h-full cursor-pointer flex-col overflow-hidden rounded-xl border border-primary bg-card shadow-card [-webkit-backface-visibility:hidden] [backface-visibility:hidden] [transform:rotateY(180deg)]"
+        >
+          <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border p-4">
+            <span className="text-base font-bold tracking-tight text-card-foreground">
+              {value.title}
+            </span>
+            {isPinned ? (
+              <Pin
+                className="h-4 w-4 shrink-0 fill-primary text-primary"
                 aria-hidden="true"
               />
-              <span className="mt-5 block text-xl font-bold tracking-tight text-primary-foreground sm:text-2xl">
-                {value.title}
-              </span>
-            </span>
-            <span className="mt-8 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-primary-foreground/80">
-              Conocer este valor
-            </span>
-          </span>
-
-          <span className="col-start-1 row-start-1 flex min-h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-card [-webkit-backface-visibility:hidden] [backface-visibility:hidden] [transform:rotateY(180deg)]">
-            <span className="relative block overflow-hidden bg-muted">
-              <Image
-                src={value.image.src}
-                alt=""
-                width={value.image.width}
-                height={value.image.height}
-                sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="aspect-[4/3] w-full object-cover"
+            ) : (
+              <PinOff
+                className="h-4 w-4 shrink-0 text-muted-foreground"
+                aria-hidden="true"
               />
-            </span>
-            <span className="flex flex-1 flex-col p-4">
-              <span className="block text-base font-bold tracking-tight text-card-foreground">
-                {value.title}
-              </span>
-              <span className="mt-2 block text-sm leading-relaxed text-muted-foreground">
-                {value.description}
-              </span>
-            </span>
-          </span>
-        </span>
-      </button>
+            )}
+          </div>
+          <div
+            tabIndex={isPinned ? 0 : -1}
+            data-lenis-prevent
+            onClick={(event) => event.stopPropagation()}
+            onMouseDown={(event) => event.stopPropagation()}
+            className="value-card-scroll min-h-0 flex-1 cursor-auto overflow-y-auto overscroll-contain p-4 pt-3 text-sm leading-relaxed text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {value.description}
+          </div>
+        </div>
+      </div>
     </article>
-  );
-}
-
-/** Lightweight, touch-first accordion used on mobile instead of large flip cards. */
-function ValuesAccordion({ values }: { values: readonly SiteValue[] }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  return (
-    <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border">
-      {values.map((value, index) => {
-        const isOpen = openIndex === index;
-        const panelId = `value-panel-${index}`;
-        const buttonId = `value-trigger-${index}`;
-
-        return (
-          <li key={value.title} className="bg-card">
-            <h3>
-              <button
-                type="button"
-                id={buttonId}
-                aria-expanded={isOpen}
-                aria-controls={panelId}
-                onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
-              >
-                <span className="flex items-center gap-3">
-                  <span
-                    className={cn(
-                      "h-2 w-2 shrink-0 rounded-full transition-colors",
-                      isOpen ? "bg-primary" : "bg-border"
-                    )}
-                    aria-hidden="true"
-                  />
-                  <span className="font-bold text-card-foreground">
-                    {value.title}
-                  </span>
-                </span>
-                <span
-                  className={cn(
-                    "shrink-0 text-primary transition-transform duration-300",
-                    isOpen && "rotate-45"
-                  )}
-                  aria-hidden="true"
-                >
-                  +
-                </span>
-              </button>
-            </h3>
-            <div
-              id={panelId}
-              role="region"
-              aria-labelledby={buttonId}
-              hidden={!isOpen}
-              className="px-4 pb-4"
-            >
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {value.description}
-              </p>
-            </div>
-          </li>
-        );
-      })}
-    </ul>
   );
 }
 
 /** Shared, accessible presentation of corporate values and pillars. */
 export function ValuesSection({ values }: { values: readonly SiteValue[] }) {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const [pinnedIndex, setPinnedIndex] = useState<number | null>(null);
 
   return (
     <section
@@ -207,23 +132,20 @@ export function ValuesSection({ values }: { values: readonly SiteValue[] }) {
           </h2>
         </div>
 
-        {/* Mobile: lightweight accordion, five values visible without large cards. */}
-        <div className="sm:hidden">
-          <ValuesAccordion values={values} />
-        </div>
-
-        {/* Tablet and up: flip cards in a self-wrapping, centered row. */}
         <RevealGroup
-          className="hidden flex-wrap justify-center gap-4 sm:flex lg:gap-5"
-          stagger={prefersReducedMotion ? 0 : 0.06}
+          className="flex flex-wrap justify-center gap-4 lg:gap-5"
+          stagger={0.06}
         >
-          {values.map((value) =>
-            prefersReducedMotion ? (
-              <StaticValueCard key={value.title} value={value} />
-            ) : (
-              <ValueFlipCard key={value.title} value={value} />
-            )
-          )}
+          {values.map((value, index) => (
+            <ValueCard
+              key={value.title}
+              value={value}
+              isPinned={pinnedIndex === index}
+              onTogglePin={() =>
+                setPinnedIndex((current) => (current === index ? null : index))
+              }
+            />
+          ))}
         </RevealGroup>
       </div>
     </section>

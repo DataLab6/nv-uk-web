@@ -186,9 +186,15 @@ export const siteConfig = {
     title: "Una operación nacional en cifras",
     description:
       "Cobertura territorial, capacidad instalada, volumen de operaciones y equipo humano que respaldan nuestro servicio.",
-    // Futura imagen estática de cobertura nacional: copiar el archivo a
-    // public/images y configurarlo aquí; con null se muestra el espacio preparado.
-    image: null,
+    // Fuente: assets/mapaNV.png, copiado sin alterar a
+    // public/images/mapa-cobertura-la-nieve.png.
+    image: {
+      src: "/images/mapa-cobertura-la-nieve.png",
+      alt: "Mapa de cobertura nacional de Distribuciones La Nieve con los departamentos atendidos destacados",
+      width: 2404,
+      height: 3684,
+      treatment: "illustration",
+    },
     groups: CORPORATE_STATS_GROUPS,
   },
   coverage: {

@@ -31,6 +31,11 @@ export function Navigation({ site }: { site: SiteConfig }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  // Selecting a submenu item navigates without unmounting the nav, so the
+  // cursor stays physically over the (still-hovered) trigger and the CSS
+  // group-hover/focus-within dropdown would otherwise stay visually open.
+  // Force it closed until the pointer actually leaves or focus re-enters.
+  const [dismissedHref, setDismissedHref] = useState<string | null>(null);
   const isSolid = scrolled || mobileOpen;
 
   useEffect(() => {
@@ -101,6 +106,16 @@ export function Navigation({ site }: { site: SiteConfig }) {
               <div
                 key={item.href}
                 className="group relative flex h-20 items-center"
+                onMouseEnter={() =>
+                  setDismissedHref((current) =>
+                    current === item.href ? null : current
+                  )
+                }
+                onFocus={() =>
+                  setDismissedHref((current) =>
+                    current === item.href ? null : current
+                  )
+                }
               >
                 <Link
                   href={item.href}
@@ -137,11 +152,15 @@ export function Navigation({ site }: { site: SiteConfig }) {
 
                 {item.children && item.children.length > 0 && (
                   <div
-                    className="invisible pointer-events-none absolute right-0 top-full w-64 translate-y-2 opacity-0 transition-[opacity,transform,visibility] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                    className={cn(
+                      "invisible pointer-events-none absolute right-0 top-full w-72 translate-y-2 opacity-0 transition-[opacity,transform,visibility] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100",
+                      dismissedHref === item.href &&
+                        "invisible! pointer-events-none! opacity-0!"
+                    )}
                     role="menu"
                     aria-label={`Opciones de ${item.label}`}
                   >
-                    <div className="overflow-hidden rounded-b-2xl border border-white/15 bg-brand-primary p-2 text-white shadow-xl">
+                    <div className="flex flex-col gap-1.5 overflow-hidden rounded-b-2xl border border-white/15 bg-brand-primary p-3 text-white shadow-xl">
                       {item.children.map((child) => {
                         const childActive = pathname === child.href;
 
@@ -151,8 +170,9 @@ export function Navigation({ site }: { site: SiteConfig }) {
                             href={child.href}
                             role="menuitem"
                             aria-current={childActive ? "page" : undefined}
+                            onClick={() => setDismissedHref(item.href)}
                             className={cn(
-                              "block rounded-xl px-4 py-3 text-sm font-medium transition-colors hover:bg-primary-foreground/15 focus-visible:bg-primary-foreground/15",
+                              "block min-h-11 rounded-xl px-4 py-3.5 text-sm font-medium leading-snug transition-colors hover:bg-primary-foreground/15 focus-visible:bg-primary-foreground/15",
                               childActive
                                 ? "bg-white/15 text-white"
                                 : "text-white/85"
