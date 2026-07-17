@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis, { type LenisOptions } from "lenis";
@@ -15,11 +16,19 @@ export interface LenisProviderProps {
 /**
  * Synchronizes Lenis scrolling with GSAP while reduced motion is disabled.
  * Every listener and the exact GSAP ticker callback are removed on teardown.
+ * Because this provider lives in the root layout, it never unmounts between
+ * route changes, so Next.js's own scroll-to-top does not reset Lenis's
+ * internal position (or the visible scroll can end up matching wherever the
+ * previous page happened to be, e.g. its footer). A pathname-driven effect
+ * forces both the native scroll position and the Lenis instance back to the
+ * top on every navigation.
  */
 export function LenisProvider({ children, options }: LenisProviderProps) {
+  const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
+
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let lenis: Lenis | null = null;
     let ticker: ((time: number) => void) | null = null;
     let unsubscribeFromScroll: (() => void) | null = null;
     let refreshFrame: number | null = null;
@@ -35,12 +44,12 @@ export function LenisProvider({ children, options }: LenisProviderProps) {
       }
       unsubscribeFromScroll?.();
       unsubscribeFromScroll = null;
-      lenis?.destroy();
-      lenis = null;
+      lenisRef.current?.destroy();
+      lenisRef.current = null;
     };
 
     const start = () => {
-      if (lenis || reducedMotion.matches) return;
+      if (lenisRef.current || reducedMotion.matches) return;
 
       const instance = new Lenis({
         duration: 1.2,
@@ -51,7 +60,7 @@ export function LenisProvider({ children, options }: LenisProviderProps) {
         autoRaf: false,
       });
 
-      lenis = instance;
+      lenisRef.current = instance;
       unsubscribeFromScroll = instance.on("scroll", () => {
         ScrollTrigger.update();
       });
@@ -81,6 +90,11 @@ export function LenisProvider({ children, options }: LenisProviderProps) {
       stop();
     };
   }, [options]);
+
+  useEffect(() => {
+    lenisRef.current?.scrollTo(0, { immediate: true });
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return <>{children}</>;
 }

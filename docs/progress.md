@@ -780,3 +780,18 @@ Responsable interno del canal; correo oficial definitivo para PQRS (resolver dis
 - `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
 - Se verificó en el CSS compilado (`apps/la-nieve/.next/static/chunks/*.css`) que las tres utilidades con `!important` (`invisible!`, `pointer-events-none!`, `opacity-0!`) se generaron correctamente.
 - Pendiente real: ninguno.
+
+## Sesión: llevar siempre al inicio al cambiar de página (2026-07-17)
+
+- Estado: terminado.
+- Archivo: `packages/site-kit/src/components/LenisProvider.tsx`.
+- Reporte del usuario: al navegar entre páginas del navbar (o cualquier enlace) estando desplazado hasta el footer, la nueva página se mostraba también desplazada hasta su footer, en vez de arrancar arriba.
+- Causa: `LenisProvider` envuelve toda la app dentro del layout raíz y **nunca se desmonta** entre navegaciones (Next.js App Router no remonta el layout compartido). Lenis (scroll suave) mantiene su propia posición de scroll internamente; al cambiar de ruta, esa posición no se reinicia por sí sola, así que la página nueva aparecía en el mismo punto de desplazamiento que tenía la anterior.
+- Corrección: se guardó la instancia de Lenis en un `useRef` (antes era una variable local del efecto, inalcanzable desde fuera) y se agregó un segundo `useEffect` con `usePathname()` como dependencia que, en cada cambio de ruta, ejecuta `lenisRef.current?.scrollTo(0, { immediate: true })` y `window.scrollTo(0, 0)` — reiniciando tanto la posición nativa como la de Lenis.
+- Se verificó que esto no interfiere con ningún anclaje interno de la misma página: los únicos `href="#..."` del proyecto (la tabla de contenido de `DataPolicyPage.tsx` y el skip-link de `SiteChrome.tsx`) apuntan a anclas dentro de la **misma** ruta, por lo que `usePathname()` no cambia y el efecto no se dispara; el comportamiento de navegación por ancla dentro de una página sigue intacto.
+- No se tocó ninguna otra sección, componente, dato ni estilo.
+
+### Validación de esta sesión
+
+- `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
+- Pendiente real: ninguno.
