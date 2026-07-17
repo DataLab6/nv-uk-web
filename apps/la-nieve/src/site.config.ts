@@ -1,5 +1,6 @@
 import {
   CORPORATE_MISSION,
+  CORPORATE_STATS_GROUPS,
   CORPORATE_TECHNOLOGY,
   CORPORATE_VALUES,
   CORPORATE_VISION,
@@ -14,11 +15,15 @@ function brandLogo(
   src: string,
   width: number,
   height: number,
-  displayWidth = 160
+  displayWidth = 160,
+  // Compensates files with large internal transparent margins (see docs/progress.md);
+  // most logos omit this and rely on the default scale of 1.
+  visualScale?: number
 ) {
   return {
     name,
     displayWidth,
+    ...(visualScale ? { visualScale } : {}),
     image: {
       src,
       alt: `Logotipo de ${name}`,
@@ -38,8 +43,22 @@ const laNieveBrandLogos = [
     1064,
     142
   ),
-  brandLogo("Nestlé Alimentos", "/brands/nestle-alimentos.png", 400, 400, 100),
-  brandLogo("Nestlé Purina", "/brands/nestle-purina.png", 5000, 2834, 170),
+  brandLogo(
+    "Nestlé Alimentos",
+    "/brands/nestle-alimentos.png",
+    400,
+    400,
+    100,
+    1.4
+  ),
+  brandLogo(
+    "Nestlé Purina",
+    "/brands/nestle-purina.png",
+    5000,
+    2834,
+    170,
+    1.4
+  ),
   brandLogo("Alpina", "/brands/alpina.png", 755, 455, 142),
   brandLogo(
     "Harinera del Valle",
@@ -53,12 +72,20 @@ const laNieveBrandLogos = [
     "/brands/electrolit.png",
     600,
     600,
-    104
+    104,
+    1.4
   ),
-  brandLogo("Levapan", "/brands/levapan.png", 1200, 1200, 100),
+  brandLogo("Levapan", "/brands/levapan.png", 1200, 1200, 100, 1.4),
   brandLogo("Softys", "/brands/softys.png", 410, 222, 154),
-  brandLogo("Alimentos Polar", "/brands/alimentos-polar.png", 300, 300, 104),
-  brandLogo("Incauca", "/brands/incauca.png", 1536, 1024, 136),
+  brandLogo(
+    "Alimentos Polar",
+    "/brands/alimentos-polar.png",
+    300,
+    300,
+    104,
+    1.25
+  ),
+  brandLogo("Incauca", "/brands/incauca.png", 1536, 1024, 136, 1.4),
   brandLogo("Rama", "/brands/rama.png", 260, 130, 164),
   brandLogo(
     "Corporación Diana",
@@ -155,42 +182,14 @@ export const siteConfig = {
     ],
   },
   stats: {
-    eyebrow: "Indicadores de ejemplo",
-    title: "Una vista demostrativa de nuestros indicadores",
+    eyebrow: "Cobertura y operación",
+    title: "Una operación nacional en cifras",
     description:
-      "Estas cifras permiten visualizar el diseño de la sección y todavía no representan indicadores corporativos oficiales.",
-    image: {
-      src: "/images/stats-nieve.png",
-      alt: "Fotografía conceptual de una operación de despacho y distribución",
-      width: 1600,
-      height: 900,
-      treatment: "photo",
-    },
-    items: [
-      {
-        value: 16,
-        label: "Aliados comerciales",
-        note: "Ejemplo basado en la lista suministrada para esta fase.",
-      },
-      {
-        value: 6,
-        label: "Canales de atención",
-        note: "Ejemplo basado en las categorías definidas para el sitio.",
-      },
-      {
-        value: 18,
-        label: "Departamentos",
-        note: "Cifra demostrativa; cobertura pendiente de validación oficial.",
-      },
-      {
-        value: 100,
-        suffix: "%",
-        label: "Vocación de servicio",
-        note: "Recurso comunicativo de ejemplo, no un indicador medido.",
-      },
-    ],
-    disclaimer:
-      "Cifras de demostración para fines de diseño. Deben sustituirse por indicadores verificados y aprobados antes de publicar.",
+      "Cobertura territorial, capacidad instalada, volumen de operaciones y equipo humano que respaldan nuestro servicio.",
+    // Futura imagen estática de cobertura nacional: copiar el archivo a
+    // public/images y configurarlo aquí; con null se muestra el espacio preparado.
+    image: null,
+    groups: CORPORATE_STATS_GROUPS,
   },
   coverage: {
     eyebrow: "Mapa de cobertura — demostración",
@@ -412,6 +411,10 @@ export const siteConfig = {
           "Ideas y recomendaciones que podrán contribuir a la mejora continua cuando el canal sea habilitado.",
       },
     ],
+    filing: {
+      enabled: true,
+      backendAvailable: false,
+    },
   },
   footerDescription:
     "Empresa colombiana de distribución y comercio mayorista ubicada en Villavicencio, Meta.",

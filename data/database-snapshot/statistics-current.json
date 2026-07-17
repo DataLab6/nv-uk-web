@@ -1,0 +1,640 @@
+{
+  "_aviso": "Captura puntual de solo lectura generada manualmente. Cifras de referencia interna: requieren validación del negocio antes de publicarse en los sitios.",
+  "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+  "base_de_datos": "PORTAL_NIEVE (SQL Server)",
+  "indicadores": [
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes registrados (histórico, terceros distintos)",
+      "empresa": "La Nieve",
+      "valor": 100494,
+      "periodo": "Histórico completo",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, IdTercero",
+      "consulta_id": "clientes_resumen",
+      "confianza": "alta en el conteo; media en interpretación (incluye inactivos)",
+      "observaciones": "COUNT DISTINCT IdTercero; la tabla tiene una fila por sucursal, por eso filas > terceros."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes registrados (histórico, terceros distintos)",
+      "empresa": "Unimarka",
+      "valor": 51871,
+      "periodo": "Histórico completo",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, IdTercero",
+      "consulta_id": "clientes_resumen",
+      "confianza": "alta en el conteo; media en interpretación (incluye inactivos)",
+      "observaciones": "COUNT DISTINCT IdTercero; la tabla tiene una fila por sucursal, por eso filas > terceros."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes con EstadoCliente = 1 (hipótesis: activos)",
+      "empresa": "La Nieve",
+      "valor": 57628,
+      "periodo": "Estado actual",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, EstadoCliente",
+      "consulta_id": "clientes_estado",
+      "confianza": "media: la semántica de EstadoCliente (1=activo) es una hipótesis no confirmada por el negocio",
+      "observaciones": "Conteo de filas (sucursales), no de terceros distintos. Existen filas con estado NULL."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes con EstadoCliente = 1 (hipótesis: activos)",
+      "empresa": "Unimarka",
+      "valor": 31829,
+      "periodo": "Estado actual",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, EstadoCliente",
+      "consulta_id": "clientes_estado",
+      "confianza": "media: la semántica de EstadoCliente (1=activo) es una hipótesis no confirmada por el negocio",
+      "observaciones": "Conteo de filas (sucursales), no de terceros distintos. Existen filas con estado NULL."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes con compras en los últimos 90 días (NIT distintos)",
+      "empresa": "La Nieve",
+      "valor": 11643,
+      "periodo": "Últimos 90 días",
+      "fuente": "dbo.VentasMSV_NV",
+      "columnas": "Nit Cliente, Fecha",
+      "consulta_id": "clientes_con_compras_90d",
+      "confianza": "alta: es una medida operativa directa",
+      "observaciones": "Incluye cualquier documento de venta del periodo (también devoluciones)."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes con compras en los últimos 90 días (NIT distintos)",
+      "empresa": "Unimarka",
+      "valor": 10561,
+      "periodo": "Últimos 90 días",
+      "fuente": "dbo.VentasMSV_UK",
+      "columnas": "Nit Cliente, Fecha",
+      "consulta_id": "clientes_con_compras_90d",
+      "confianza": "alta: es una medida operativa directa",
+      "observaciones": "Incluye cualquier documento de venta del periodo (también devoluciones)."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Departamentos con clientes registrados",
+      "empresa": "La Nieve",
+      "valor": 29,
+      "periodo": "Histórico completo",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, f_desc_depto",
+      "consulta_id": "clientes_por_departamento",
+      "confianza": "media-alta: campo de texto libre; puede contener variantes u errores de escritura",
+      "observaciones": "Excluye el grupo 'SIN DEPARTAMENTO'. Ver department-coverage-current.json para el detalle."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Departamentos con clientes activos (EstadoCliente = 1)",
+      "empresa": "La Nieve",
+      "valor": 25,
+      "periodo": "Estado actual",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, f_desc_depto, EstadoCliente",
+      "consulta_id": "clientes_por_departamento",
+      "confianza": "media: depende de la hipótesis EstadoCliente = 1 activo",
+      "observaciones": "Excluye el grupo 'SIN DEPARTAMENTO'."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Departamentos con clientes registrados",
+      "empresa": "Unimarka",
+      "valor": 24,
+      "periodo": "Histórico completo",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, f_desc_depto",
+      "consulta_id": "clientes_por_departamento",
+      "confianza": "media-alta: campo de texto libre; puede contener variantes u errores de escritura",
+      "observaciones": "Excluye el grupo 'SIN DEPARTAMENTO'. Ver department-coverage-current.json para el detalle."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Departamentos con clientes activos (EstadoCliente = 1)",
+      "empresa": "Unimarka",
+      "valor": 20,
+      "periodo": "Estado actual",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, f_desc_depto, EstadoCliente",
+      "consulta_id": "clientes_por_departamento",
+      "confianza": "media: depende de la hipótesis EstadoCliente = 1 activo",
+      "observaciones": "Excluye el grupo 'SIN DEPARTAMENTO'."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Municipios/ciudades con clientes registrados",
+      "empresa": "La Nieve",
+      "valor": 370,
+      "periodo": "Histórico completo",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, f_desc_depto, f_desc_ciudad",
+      "consulta_id": "clientes_por_municipio",
+      "confianza": "media: texto libre; el conteo puede inflarse por variantes del mismo municipio",
+      "observaciones": "Detalle completo en department-coverage-current.json/.csv."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Municipios/ciudades con clientes registrados",
+      "empresa": "Unimarka",
+      "valor": 250,
+      "periodo": "Histórico completo",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, f_desc_depto, f_desc_ciudad",
+      "consulta_id": "clientes_por_municipio",
+      "confianza": "media: texto libre; el conteo puede inflarse por variantes del mismo municipio",
+      "observaciones": "Detalle completo en department-coverage-current.json/.csv."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Rutas comerciales activas (códigos de vendedor distintos)",
+      "empresa": "La Nieve",
+      "valor": 217,
+      "periodo": "Estado actual",
+      "fuente": "dbo.RutaClienteActivos",
+      "columnas": "Cia, CodigoVendedor",
+      "consulta_id": "rutas_activas",
+      "confianza": "media-alta: asume que un código de vendedor equivale a una ruta activa",
+      "observaciones": "Clientes asignados a ruta: 38109."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Rutas comerciales activas (códigos de vendedor distintos)",
+      "empresa": "Unimarka",
+      "valor": 77,
+      "periodo": "Estado actual",
+      "fuente": "dbo.RutaClienteActivos",
+      "columnas": "Cia, CodigoVendedor",
+      "consulta_id": "rutas_activas",
+      "confianza": "media-alta: asume que un código de vendedor equivale a una ruta activa",
+      "observaciones": "Clientes asignados a ruta: 12936."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Bodegas registradas",
+      "empresa": "La Nieve",
+      "valor": 126,
+      "periodo": "Estado actual",
+      "fuente": "dbo.Bodegas",
+      "columnas": "cia, bodega",
+      "consulta_id": "bodegas",
+      "confianza": "media: puede incluir bodegas lógicas del ERP que no son sedes físicas",
+      "observaciones": "Validar con el negocio antes de publicar."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Bodegas registradas",
+      "empresa": "Unimarka",
+      "valor": 34,
+      "periodo": "Estado actual",
+      "fuente": "dbo.Bodegas",
+      "columnas": "cia, bodega",
+      "consulta_id": "bodegas",
+      "confianza": "media: puede incluir bodegas lógicas del ERP que no son sedes físicas",
+      "observaciones": "Validar con el negocio antes de publicar."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Productos en catálogo (total / con estado activo)",
+      "empresa": "La Nieve",
+      "valor": {
+        "total": 19793,
+        "activos": 19793
+      },
+      "periodo": "Estado actual",
+      "fuente": "dbo.NMSVMaestraProductos",
+      "columnas": "Estado",
+      "consulta_id": "productos_nv_estado",
+      "confianza": "media-alta: depende de la etiqueta textual del estado",
+      "observaciones": "Estados encontrados: Inactivo=14426, Activo=5367."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Productos en catálogo (total / con estado activo)",
+      "empresa": "Unimarka",
+      "valor": {
+        "total": 13134,
+        "activos": 13134
+      },
+      "periodo": "Estado actual",
+      "fuente": "dbo.UMSVMaestraProductos",
+      "columnas": "Estado",
+      "consulta_id": "productos_uk_estado",
+      "confianza": "media-alta: depende de la etiqueta textual del estado",
+      "observaciones": "Estados encontrados: Inactivo=10383, Activo=2751."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Marcas en la maestra de productos",
+      "empresa": "La Nieve",
+      "valor": 611,
+      "periodo": "Estado actual",
+      "fuente": "dbo.NMSVMarca",
+      "columnas": "Cod_Marca",
+      "consulta_id": "marcas_catalogo",
+      "confianza": "baja para uso público: catálogo interno del ERP, no equivale a los aliados comerciales del sitio",
+      "observaciones": "No usar como número de aliados sin validación."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Marcas en la maestra de productos",
+      "empresa": "Unimarka",
+      "valor": 385,
+      "periodo": "Estado actual",
+      "fuente": "dbo.UMSVMarca",
+      "columnas": "Cod_Marca",
+      "consulta_id": "marcas_catalogo",
+      "confianza": "baja para uso público: catálogo interno del ERP, no equivale a los aliados comerciales del sitio",
+      "observaciones": "No usar como número de aliados sin validación."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Casas comerciales registradas",
+      "empresa": "La Nieve",
+      "valor": 128,
+      "periodo": "Estado actual",
+      "fuente": "dbo.NMSVCasasComerciales",
+      "columnas": "COUNT(*)",
+      "consulta_id": "casas_comerciales",
+      "confianza": "baja-media: incluye casas históricas o administrativas; supera con creces los aliados publicados (16/13)",
+      "observaciones": "Requiere depuración de negocio antes de usarse."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Casas comerciales registradas",
+      "empresa": "Unimarka",
+      "valor": 93,
+      "periodo": "Estado actual",
+      "fuente": "dbo.UMSVCasasComerciales",
+      "columnas": "COUNT(*)",
+      "consulta_id": "casas_comerciales",
+      "confianza": "baja-media: incluye casas históricas o administrativas; supera con creces los aliados publicados (16/13)",
+      "observaciones": "Requiere depuración de negocio antes de usarse."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Documentos de venta y valor subtotal 2025",
+      "empresa": "La Nieve",
+      "valor": {
+        "documentos_distintos": 347119,
+        "valor_subtotal_local": 97067249452
+      },
+      "periodo": "2025",
+      "fuente": "dbo.VentasMSV_NV",
+      "columnas": "Fecha, Numero Factura, ValorSubtotalLocal",
+      "consulta_id": "ventas_nv_por_anio",
+      "confianza": "media: la suma incluye todos los tipos de documento (posibles devoluciones); dato financiero sensible",
+      "observaciones": "2026 es año parcial. No publicar valores monetarios sin aprobación del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Documentos de venta y valor subtotal 2026",
+      "empresa": "La Nieve",
+      "valor": {
+        "documentos_distintos": 185632,
+        "valor_subtotal_local": 51518803650
+      },
+      "periodo": "2026",
+      "fuente": "dbo.VentasMSV_NV",
+      "columnas": "Fecha, Numero Factura, ValorSubtotalLocal",
+      "consulta_id": "ventas_nv_por_anio",
+      "confianza": "media: la suma incluye todos los tipos de documento (posibles devoluciones); dato financiero sensible",
+      "observaciones": "2026 es año parcial. No publicar valores monetarios sin aprobación del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Documentos de venta y valor subtotal 2025",
+      "empresa": "Unimarka",
+      "valor": {
+        "documentos_distintos": 202606,
+        "valor_subtotal_local": 77399719525
+      },
+      "periodo": "2025",
+      "fuente": "dbo.VentasMSV_UK",
+      "columnas": "Fecha, Numero Factura, ValorSubtotalLocal",
+      "consulta_id": "ventas_uk_por_anio",
+      "confianza": "media: la suma incluye todos los tipos de documento (posibles devoluciones); dato financiero sensible",
+      "observaciones": "2026 es año parcial. No publicar valores monetarios sin aprobación del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Documentos de venta y valor subtotal 2026",
+      "empresa": "Unimarka",
+      "valor": {
+        "documentos_distintos": 107897,
+        "valor_subtotal_local": 39319485345
+      },
+      "periodo": "2026",
+      "fuente": "dbo.VentasMSV_UK",
+      "columnas": "Fecha, Numero Factura, ValorSubtotalLocal",
+      "consulta_id": "ventas_uk_por_anio",
+      "confianza": "media: la suma incluye todos los tipos de documento (posibles devoluciones); dato financiero sensible",
+      "observaciones": "2026 es año parcial. No publicar valores monetarios sin aprobación del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Pedidos distintos 2025",
+      "empresa": "La Nieve",
+      "valor": 750097,
+      "periodo": "2025",
+      "fuente": "dbo.pedidos_facturas",
+      "columnas": "cia, fecha, pedido",
+      "consulta_id": "pedidos_por_anio",
+      "confianza": "media-alta",
+      "observaciones": "Filas: 750796; facturas distintas: 750796. 2026 es año parcial."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Pedidos distintos 2026",
+      "empresa": "La Nieve",
+      "valor": 557594,
+      "periodo": "2026",
+      "fuente": "dbo.pedidos_facturas",
+      "columnas": "cia, fecha, pedido",
+      "consulta_id": "pedidos_por_anio",
+      "confianza": "media-alta",
+      "observaciones": "Filas: 557760; facturas distintas: 557760. 2026 es año parcial."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Pedidos distintos 2025",
+      "empresa": "Unimarka",
+      "valor": 233555,
+      "periodo": "2025",
+      "fuente": "dbo.pedidos_facturas",
+      "columnas": "cia, fecha, pedido",
+      "consulta_id": "pedidos_por_anio",
+      "confianza": "media-alta",
+      "observaciones": "Filas: 233990; facturas distintas: 233990. 2026 es año parcial."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Pedidos distintos 2026",
+      "empresa": "Unimarka",
+      "valor": 101890,
+      "periodo": "2026",
+      "fuente": "dbo.pedidos_facturas",
+      "columnas": "cia, fecha, pedido",
+      "consulta_id": "pedidos_por_anio",
+      "confianza": "media-alta",
+      "observaciones": "Filas: 102138; facturas distintas: 102138. 2026 es año parcial."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Vigencia de datos de ventas (fecha máxima)",
+      "empresa": "Ambas",
+      "valor": {
+        "la_nieve": "2026-07-17T00:00:00.000Z",
+        "unimarka": "2026-07-17T00:00:00.000Z"
+      },
+      "periodo": "Actual",
+      "fuente": "dbo.VentasMSV_NV / dbo.VentasMSV_UK",
+      "columnas": "Fecha",
+      "consulta_id": "ventas_rango_fechas",
+      "confianza": "alta",
+      "observaciones": "Histórico disponible desde Wed Jan 01 2020 19:00:00 GMT-0500 (hora estándar de Colombia) (NV) y Tue Dec 31 2019 19:00:00 GMT-0500 (hora estándar de Colombia) (UK)."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Vigencia de datos de ventas BAT",
+      "empresa": "La Nieve — unidad BAT",
+      "valor": {
+        "desde": "2020-01-02T00:00:00.000Z",
+        "hasta": "2026-07-17T00:00:00.000Z"
+      },
+      "periodo": "Actual",
+      "fuente": "dbo.VentasBAT_NV",
+      "columnas": "Fecha",
+      "consulta_id": "bat_ventas_rango_fechas",
+      "confianza": "alta",
+      "observaciones": "La unidad BAT hace parte de La Nieve."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Documentos de venta y valor subtotal 2025 (BAT)",
+      "empresa": "La Nieve — unidad BAT",
+      "valor": {
+        "documentos_distintos": 286721,
+        "valor_subtotal_local": 122881286366
+      },
+      "periodo": "2025",
+      "fuente": "dbo.VentasBAT_NV",
+      "columnas": "Fecha, Numero Factura, ValorSubtotalLocal",
+      "consulta_id": "bat_ventas_por_anio",
+      "confianza": "media: la suma incluye todos los tipos de documento (posibles devoluciones); dato financiero sensible",
+      "observaciones": "2026 es año parcial. No publicar valores monetarios sin aprobación del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Documentos de venta y valor subtotal 2026 (BAT)",
+      "empresa": "La Nieve — unidad BAT",
+      "valor": {
+        "documentos_distintos": 297666,
+        "valor_subtotal_local": 96345550310
+      },
+      "periodo": "2026",
+      "fuente": "dbo.VentasBAT_NV",
+      "columnas": "Fecha, Numero Factura, ValorSubtotalLocal",
+      "consulta_id": "bat_ventas_por_anio",
+      "confianza": "media: la suma incluye todos los tipos de documento (posibles devoluciones); dato financiero sensible",
+      "observaciones": "2026 es año parcial. No publicar valores monetarios sin aprobación del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes con compras en los últimos 90 días (BAT, NIT distintos)",
+      "empresa": "La Nieve — unidad BAT",
+      "valor": 29978,
+      "periodo": "Últimos 90 días",
+      "fuente": "dbo.VentasBAT_NV",
+      "columnas": "Nit Cliente, Fecha",
+      "consulta_id": "bat_clientes_con_compras_90d",
+      "confianza": "alta: es una medida operativa directa",
+      "observaciones": "Incluye cualquier documento de venta del periodo (también devoluciones)."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes marcados con TipoNegocioBAT (maestra de clientes)",
+      "empresa": "La Nieve — unidad BAT",
+      "valor": 75682,
+      "periodo": "Estado actual",
+      "fuente": "dbo.clientes",
+      "columnas": "Cia, TipoNegocioBAT, IdTercero",
+      "consulta_id": "bat_clientes_marcados",
+      "confianza": "media-alta: el marcado es un atributo del ERP; incluye clientes inactivos",
+      "observaciones": "Solo Cia 1. Anomalía documentada: el marcado también aparece en otras compañías (Cia 2: 7013, Cia 6: 197); requiere aclaración del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Departamentos con clientes BAT registrados",
+      "empresa": "La Nieve — unidad BAT",
+      "valor": 27,
+      "periodo": "Histórico completo",
+      "fuente": "dbo.clientes (Cia 1 + TipoNegocioBAT)",
+      "columnas": "f_desc_depto",
+      "consulta_id": "bat_clientes_por_departamento",
+      "confianza": "media-alta: campo de texto libre",
+      "observaciones": "Subconjunto de la cobertura general de La Nieve; detalle en department-coverage-current.json."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Productos en catálogo BAT (total / con estado activo)",
+      "empresa": "La Nieve — unidad BAT",
+      "valor": {
+        "total": 1103,
+        "activos": 1103
+      },
+      "periodo": "Estado actual",
+      "fuente": "dbo.BMSVMaestraProductos",
+      "columnas": "Estado",
+      "consulta_id": "bat_productos_estado",
+      "confianza": "media-alta: depende de la etiqueta textual del estado",
+      "observaciones": "Estados encontrados: Activo=903, Inactivo=200."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Marcas en la maestra de productos BAT",
+      "empresa": "La Nieve — unidad BAT",
+      "valor": 21,
+      "periodo": "Estado actual",
+      "fuente": "dbo.BMSVMarca",
+      "columnas": "Cod_Marca",
+      "consulta_id": "bat_marcas_catalogo",
+      "confianza": "baja para uso público: catálogo interno del ERP, no equivale a aliados del sitio",
+      "observaciones": "No usar como número de aliados sin validación."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes en la maestra Alpina (corte vigente)",
+      "empresa": "La Nieve — unidad Alpina (Yopal)",
+      "valor": 3720,
+      "periodo": "Corte Thu Jul 16 2026 19:00:00 GMT-0500 (hora estándar de Colombia)",
+      "fuente": "amovil.ClientesALP_YP",
+      "columnas": "cliente_id, FechaCorte",
+      "consulta_id": "alp_clientes_snapshot",
+      "confianza": "media-alta: la maestra es una fotografía diaria; incluye clientes de cualquier estado",
+      "observaciones": "Rutas distintas asignadas en la maestra: 8."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes en la maestra Alpina (corte vigente)",
+      "empresa": "La Nieve — unidad Alpina (Villavicencio)",
+      "valor": 7987,
+      "periodo": "Corte Thu Jul 16 2026 19:00:00 GMT-0500 (hora estándar de Colombia)",
+      "fuente": "amovil1.ClientesALP_VCIO",
+      "columnas": "cliente_id, FechaCorte",
+      "consulta_id": "alp_clientes_snapshot",
+      "confianza": "media-alta: la maestra es una fotografía diaria; incluye clientes de cualquier estado",
+      "observaciones": "Rutas distintas asignadas en la maestra: 32."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Facturas y valor antes de IVA 2026 (Alpina)",
+      "empresa": "La Nieve — unidad Alpina (Villavicencio)",
+      "valor": {
+        "facturas_distintas": 147306,
+        "valor_antes_iva": 39259461693.96
+      },
+      "periodo": "2026",
+      "fuente": "amovil1.VentasALP_VCIO",
+      "columnas": "dtFactura, nbFactura, vlrAntesIva, boAfectaVenta",
+      "consulta_id": "alp_ventas_por_anio",
+      "confianza": "media: filtrado con boAfectaVenta = 'S'; dato financiero sensible",
+      "observaciones": "2026 es año parcial. La operación Villavicencio inicia en 2026 (sin histórico 2025). No publicar valores monetarios sin aprobación del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Facturas y valor antes de IVA 2025 (Alpina)",
+      "empresa": "La Nieve — unidad Alpina (Yopal)",
+      "valor": {
+        "facturas_distintas": 95739,
+        "valor_antes_iva": 16343732319.11
+      },
+      "periodo": "2025",
+      "fuente": "amovil.VentasALP_YP",
+      "columnas": "dtFactura, nbFactura, vlrAntesIva, boAfectaVenta",
+      "consulta_id": "alp_ventas_por_anio",
+      "confianza": "media: filtrado con boAfectaVenta = 'S'; dato financiero sensible",
+      "observaciones": "2026 es año parcial. La operación Villavicencio inicia en 2026 (sin histórico 2025). No publicar valores monetarios sin aprobación del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Facturas y valor antes de IVA 2026 (Alpina)",
+      "empresa": "La Nieve — unidad Alpina (Yopal)",
+      "valor": {
+        "facturas_distintas": 64860,
+        "valor_antes_iva": 20713112229.94
+      },
+      "periodo": "2026",
+      "fuente": "amovil.VentasALP_YP",
+      "columnas": "dtFactura, nbFactura, vlrAntesIva, boAfectaVenta",
+      "consulta_id": "alp_ventas_por_anio",
+      "confianza": "media: filtrado con boAfectaVenta = 'S'; dato financiero sensible",
+      "observaciones": "2026 es año parcial. La operación Villavicencio inicia en 2026 (sin histórico 2025). No publicar valores monetarios sin aprobación del negocio."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes con compras en los últimos 90 días (Alpina, documentos distintos)",
+      "empresa": "La Nieve — unidad Alpina (Yopal)",
+      "valor": 2667,
+      "periodo": "Últimos 90 días",
+      "fuente": "amovil.VentasALP_YP",
+      "columnas": "nbDocumento, dtFactura, boAfectaVenta",
+      "consulta_id": "alp_clientes_con_compras_90d",
+      "confianza": "alta: es una medida operativa directa",
+      "observaciones": "Cuenta documentos de identidad distintos de compradores."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Clientes con compras en los últimos 90 días (Alpina, documentos distintos)",
+      "empresa": "La Nieve — unidad Alpina (Villavicencio)",
+      "valor": 6327,
+      "periodo": "Últimos 90 días",
+      "fuente": "amovil1.VentasALP_VCIO",
+      "columnas": "nbDocumento, dtFactura, boAfectaVenta",
+      "consulta_id": "alp_clientes_con_compras_90d",
+      "confianza": "alta: es una medida operativa directa",
+      "observaciones": "Cuenta documentos de identidad distintos de compradores."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Departamentos con compradores Alpina en los últimos 12 meses",
+      "empresa": "La Nieve — unidad Alpina (Yopal)",
+      "valor": 6,
+      "periodo": "Últimos 12 meses",
+      "fuente": "amovil.VentasALP_YP",
+      "columnas": "txDepartamento, txCiudad, nbDocumento",
+      "consulta_id": "alp_cobertura_territorial_12m",
+      "confianza": "media-alta: texto libre en las ventas",
+      "observaciones": "Municipios distintos con compradores: 41. Detalle en department-coverage-current.json."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Departamentos con compradores Alpina en los últimos 12 meses",
+      "empresa": "La Nieve — unidad Alpina (Villavicencio)",
+      "valor": 12,
+      "periodo": "Últimos 12 meses",
+      "fuente": "amovil1.VentasALP_VCIO",
+      "columnas": "txDepartamento, txCiudad, nbDocumento",
+      "consulta_id": "alp_cobertura_territorial_12m",
+      "confianza": "media-alta: texto libre en las ventas",
+      "observaciones": "Municipios distintos con compradores: 56. Detalle en department-coverage-current.json."
+    },
+    {
+      "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+      "indicador": "Nestlé Ecom: rutas vigentes y maestra objetivo",
+      "empresa": "La Nieve — Nestlé Ecom",
+      "valor": {
+        "rutas_ultima_fecha": 17,
+        "maestra_ultima_fecha": 6093
+      },
+      "periodo": "Última fecha disponible: Tue Jun 30 2026 19:00:00 GMT-0500 (hora estándar de Colombia)",
+      "fuente": "dbo.ObjetivoEfectividad_EcNestle_nv",
+      "columnas": "FECHA, RUTA, MAESTRA",
+      "consulta_id": "ecom_nestle_objetivos",
+      "confianza": "media: son objetivos de efectividad, no ventas ni clientes reales",
+      "observaciones": "LIMITACIÓN: no existe tabla de ventas propia de Nestlé Ecom en PORTAL_NIEVE (ECOM_NstlObjetivoMarcos está vacía). Estos valores son la única referencia disponible de la unidad."
+    }
+  ]
+}

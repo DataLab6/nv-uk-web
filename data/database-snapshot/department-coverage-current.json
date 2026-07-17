@@ -1,0 +1,4731 @@
+{
+  "_aviso": "Captura puntual de solo lectura generada manualmente. No es una fuente automática ni permanente para producción. Nombres normalizados (mayúsculas y espacios) únicamente en este archivo; la base no fue modificada.",
+  "fecha_extraccion": "2026-07-17T13:53:23.440Z",
+  "fuente": "dbo.clientes (Cia 1 = La Nieve, Cia 2 = Unimarka)",
+  "interpretacion_activos": "clientes_activos usa la hipótesis EstadoCliente = 1; pendiente de confirmación del negocio.",
+  "empresas": {
+    "La Nieve": {
+      "nivel_geografico": "departamento y municipio (texto libre del ERP)",
+      "departamentos": [
+        {
+          "departamento": "META",
+          "clientes_total": 22941,
+          "clientes_activos": 11372,
+          "municipios": 28
+        },
+        {
+          "departamento": "BOYACÁ",
+          "clientes_total": 22938,
+          "clientes_activos": 11857,
+          "municipios": 114
+        },
+        {
+          "departamento": "BOGOTÁ",
+          "clientes_total": 17189,
+          "clientes_activos": 14116,
+          "municipios": 1
+        },
+        {
+          "departamento": "SIN DEPARTAMENTO",
+          "clientes_total": 13980,
+          "clientes_activos": 0,
+          "municipios": 0
+        },
+        {
+          "departamento": "CASANARE",
+          "clientes_total": 11832,
+          "clientes_activos": 6660,
+          "municipios": 17
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "clientes_total": 2374,
+          "clientes_activos": 2084,
+          "municipios": 59
+        },
+        {
+          "departamento": "MAGDALENA",
+          "clientes_total": 2191,
+          "clientes_activos": 2049,
+          "municipios": 11
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "clientes_total": 2180,
+          "clientes_activos": 2153,
+          "municipios": 23
+        },
+        {
+          "departamento": "CESAR",
+          "clientes_total": 1454,
+          "clientes_activos": 1321,
+          "municipios": 18
+        },
+        {
+          "departamento": "SUCRE",
+          "clientes_total": 1409,
+          "clientes_activos": 1409,
+          "municipios": 24
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "clientes_total": 961,
+          "clientes_activos": 892,
+          "municipios": 13
+        },
+        {
+          "departamento": "GUAVIARE",
+          "clientes_total": 684,
+          "clientes_activos": 337,
+          "municipios": 4
+        },
+        {
+          "departamento": "VICHADA",
+          "clientes_total": 147,
+          "clientes_activos": 98,
+          "municipios": 7
+        },
+        {
+          "departamento": "SANTANDER",
+          "clientes_total": 106,
+          "clientes_activos": 64,
+          "municipios": 11
+        },
+        {
+          "departamento": "ARAUCA",
+          "clientes_total": 84,
+          "clientes_activos": 45,
+          "municipios": 4
+        },
+        {
+          "departamento": "GUAINÍA",
+          "clientes_total": 82,
+          "clientes_activos": 35,
+          "municipios": 2
+        },
+        {
+          "departamento": "VAUPÉS",
+          "clientes_total": 45,
+          "clientes_activos": 17,
+          "municipios": 3
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "clientes_total": 19,
+          "clientes_activos": 8,
+          "municipios": 13
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "clientes_total": 13,
+          "clientes_activos": 5,
+          "municipios": 5
+        },
+        {
+          "departamento": "CALDAS",
+          "clientes_total": 12,
+          "clientes_activos": 1,
+          "municipios": 1
+        },
+        {
+          "departamento": "TOLIMA",
+          "clientes_total": 7,
+          "clientes_activos": 0,
+          "municipios": 1
+        },
+        {
+          "departamento": "BOLÍVAR",
+          "clientes_total": 5,
+          "clientes_activos": 4,
+          "municipios": 2
+        },
+        {
+          "departamento": "ATLÁNTICO",
+          "clientes_total": 3,
+          "clientes_activos": 3,
+          "municipios": 1
+        },
+        {
+          "departamento": "CAUCA",
+          "clientes_total": 3,
+          "clientes_activos": 2,
+          "municipios": 2
+        },
+        {
+          "departamento": "AMAZONAS",
+          "clientes_total": 2,
+          "clientes_activos": 0,
+          "municipios": 1
+        },
+        {
+          "departamento": "RISARALDA",
+          "clientes_total": 2,
+          "clientes_activos": 2,
+          "municipios": 1
+        },
+        {
+          "departamento": "NARIÑO",
+          "clientes_total": 2,
+          "clientes_activos": 2,
+          "municipios": 1
+        },
+        {
+          "departamento": "PUTUMAYO",
+          "clientes_total": 1,
+          "clientes_activos": 0,
+          "municipios": 1
+        },
+        {
+          "departamento": "QUINDÍO",
+          "clientes_total": 1,
+          "clientes_activos": 1,
+          "municipios": 1
+        },
+        {
+          "departamento": "CAQUETÁ",
+          "clientes_total": 1,
+          "clientes_activos": 0,
+          "municipios": 1
+        }
+      ],
+      "municipios": [
+        {
+          "departamento": "AMAZONAS",
+          "municipio": "LETICIA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "MEDELLÍN",
+          "clientes_total": 5,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "ITAGÜÍ",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "SANTA FÉ DE ANTIOQUIA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "TURBO",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "VALDIVIA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "JERICÓ",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "LA ESTRELLA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "RIONEGRO",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "SABANETA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "APARTADÓ",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "ARBOLETES",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "BARBOSA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "GRANADA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ARAUCA",
+          "municipio": "TAME",
+          "clientes_total": 57,
+          "clientes_activos": 26
+        },
+        {
+          "departamento": "ARAUCA",
+          "municipio": "ARAUCA",
+          "clientes_total": 18,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "ARAUCA",
+          "municipio": "SARAVENA",
+          "clientes_total": 5,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "ARAUCA",
+          "municipio": "ARAUQUITA",
+          "clientes_total": 4,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "ATLÁNTICO",
+          "municipio": "BARRANQUILLA",
+          "clientes_total": 3,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "BOGOTÁ",
+          "municipio": "BOGOTÁ, D.C.",
+          "clientes_total": 17189,
+          "clientes_activos": 14116
+        },
+        {
+          "departamento": "BOLÍVAR",
+          "municipio": "EL CARMEN DE BOLÍVAR",
+          "clientes_total": 3,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOLÍVAR",
+          "municipio": "CARTAGENA DE INDIAS",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TUNJA",
+          "clientes_total": 5402,
+          "clientes_activos": 2781
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOGAMOSO",
+          "clientes_total": 4581,
+          "clientes_activos": 2073
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "DUITAMA",
+          "clientes_total": 4163,
+          "clientes_activos": 2223
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHIQUINQUIRÁ",
+          "clientes_total": 1352,
+          "clientes_activos": 699
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAIPA",
+          "clientes_total": 936,
+          "clientes_activos": 569
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "VILLA DE LEYVA",
+          "clientes_total": 411,
+          "clientes_activos": 230
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "NOBSA",
+          "clientes_total": 338,
+          "clientes_activos": 198
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GARAGOA",
+          "clientes_total": 250,
+          "clientes_activos": 152
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "AQUITANIA",
+          "clientes_total": 245,
+          "clientes_activos": 112
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PUERTO BOYACÁ",
+          "clientes_total": 241,
+          "clientes_activos": 20
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "VENTAQUEMADA",
+          "clientes_total": 230,
+          "clientes_activos": 104
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAMACÁ",
+          "clientes_total": 216,
+          "clientes_activos": 130
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BELÉN",
+          "clientes_total": 208,
+          "clientes_activos": 124
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MONIQUIRÁ",
+          "clientes_total": 201,
+          "clientes_activos": 97
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GUATEQUE",
+          "clientes_total": 188,
+          "clientes_activos": 112
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SANTA ROSA DE VITERBO",
+          "clientes_total": 186,
+          "clientes_activos": 107
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TIBASOSA",
+          "clientes_total": 164,
+          "clientes_activos": 98
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOATÁ",
+          "clientes_total": 158,
+          "clientes_activos": 114
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TOCA",
+          "clientes_total": 107,
+          "clientes_activos": 57
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "RAMIRIQUI",
+          "clientes_total": 106,
+          "clientes_activos": 55
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOCHA",
+          "clientes_total": 105,
+          "clientes_activos": 72
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TUTA",
+          "clientes_total": 95,
+          "clientes_activos": 55
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GÁMEZA",
+          "clientes_total": 87,
+          "clientes_activos": 45
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MIRAFLORES",
+          "clientes_total": 86,
+          "clientes_activos": 35
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MONGUÍ",
+          "clientes_total": 85,
+          "clientes_activos": 38
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SUTAMARCHÁN",
+          "clientes_total": 84,
+          "clientes_activos": 52
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SÁCHICA",
+          "clientes_total": 82,
+          "clientes_activos": 42
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CÓMBITA",
+          "clientes_total": 81,
+          "clientes_activos": 41
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "JENESANO",
+          "clientes_total": 75,
+          "clientes_activos": 43
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "ARCABUCO",
+          "clientes_total": 72,
+          "clientes_activos": 30
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAZ DE RÍO",
+          "clientes_total": 71,
+          "clientes_activos": 40
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TIBANÁ",
+          "clientes_total": 71,
+          "clientes_activos": 43
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PESCA",
+          "clientes_total": 69,
+          "clientes_activos": 34
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SORACÁ",
+          "clientes_total": 68,
+          "clientes_activos": 37
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "FLORESTA",
+          "clientes_total": 68,
+          "clientes_activos": 41
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "FIRAVITOBA",
+          "clientes_total": 66,
+          "clientes_activos": 29
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOTAQUIRÁ",
+          "clientes_total": 66,
+          "clientes_activos": 33
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MONGUA",
+          "clientes_total": 63,
+          "clientes_activos": 26
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MUZO",
+          "clientes_total": 60,
+          "clientes_activos": 31
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAUNA",
+          "clientes_total": 57,
+          "clientes_activos": 20
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "OTANCHE",
+          "clientes_total": 56,
+          "clientes_activos": 20
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BOAVITA",
+          "clientes_total": 55,
+          "clientes_activos": 39
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TÓPAGA",
+          "clientes_total": 54,
+          "clientes_activos": 30
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CORRALES",
+          "clientes_total": 52,
+          "clientes_activos": 28
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "RÁQUIRA",
+          "clientes_total": 50,
+          "clientes_activos": 34
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CERINZA",
+          "clientes_total": 48,
+          "clientes_activos": 28
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHINAVITA",
+          "clientes_total": 47,
+          "clientes_activos": 22
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TASCO",
+          "clientes_total": 47,
+          "clientes_activos": 21
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "EL COCUY",
+          "clientes_total": 45,
+          "clientes_activos": 37
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TINJACÁ",
+          "clientes_total": 41,
+          "clientes_activos": 27
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN MATEO",
+          "clientes_total": 40,
+          "clientes_activos": 31
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SABOYÁ",
+          "clientes_total": 39,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GÜICÁN DE LA SIERRA",
+          "clientes_total": 39,
+          "clientes_activos": 28
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CIÉNEGA",
+          "clientes_total": 38,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN PABLO DE BORBUR",
+          "clientes_total": 37,
+          "clientes_activos": 21
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TOGÜÍ",
+          "clientes_total": 37,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TENZA",
+          "clientes_total": 36,
+          "clientes_activos": 27
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHIVATÁ",
+          "clientes_total": 36,
+          "clientes_activos": 21
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GUAYATÁ",
+          "clientes_total": 36,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MOTAVITA",
+          "clientes_total": 35,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "LABRANZAGRANDE",
+          "clientes_total": 35,
+          "clientes_activos": 21
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GACHANTIVÁ",
+          "clientes_total": 35,
+          "clientes_activos": 24
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TIPACOQUE",
+          "clientes_total": 35,
+          "clientes_activos": 26
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOCOTÁ",
+          "clientes_total": 35,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "ZETAQUIRA",
+          "clientes_total": 34,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "LA UVITA",
+          "clientes_total": 33,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "IZA",
+          "clientes_total": 32,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "EL ESPINO",
+          "clientes_total": 30,
+          "clientes_activos": 22
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SIACHOQUE",
+          "clientes_total": 30,
+          "clientes_activos": 17
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SANTA SOFÍA",
+          "clientes_total": 30,
+          "clientes_activos": 22
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "NUEVO COLÓN",
+          "clientes_total": 29,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN LUIS DE GACENO",
+          "clientes_total": 27,
+          "clientes_activos": 9
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CUCAITA",
+          "clientes_total": 27,
+          "clientes_activos": 18
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MACANAL",
+          "clientes_total": 27,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BOYACÁ",
+          "clientes_total": 26,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOMONDOCO",
+          "clientes_total": 26,
+          "clientes_activos": 23
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "ÚMBITA",
+          "clientes_total": 26,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SUTATENZA",
+          "clientes_total": 25,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SANTANA",
+          "clientes_total": 24,
+          "clientes_activos": 11
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SATIVANORTE",
+          "clientes_total": 24,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PACHAVITA",
+          "clientes_total": 23,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "LA CAPILLA",
+          "clientes_total": 23,
+          "clientes_activos": 20
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SUSACÓN",
+          "clientes_total": 21,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TOTA",
+          "clientes_total": 21,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAJARITO",
+          "clientes_total": 19,
+          "clientes_activos": 9
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GUACAMAYAS",
+          "clientes_total": 19,
+          "clientes_activos": 15
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PANQUEBA",
+          "clientes_total": 17,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BUENAVISTA",
+          "clientes_total": 16,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHISCAS",
+          "clientes_total": 15,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CUÍTIVA",
+          "clientes_total": 15,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "VIRACACHÁ",
+          "clientes_total": 15,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TURMEQUÉ",
+          "clientes_total": 14,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PÁEZ",
+          "clientes_total": 14,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SATIVASUR",
+          "clientes_total": 14,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN JOSÉ DE PARE",
+          "clientes_total": 14,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "OICATÁ",
+          "clientes_total": 13,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BUSBANZÁ",
+          "clientes_total": 13,
+          "clientes_activos": 9
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MARIPÍ",
+          "clientes_total": 11,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TUTAZÁ",
+          "clientes_total": 10,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "RONDÓN",
+          "clientes_total": 9,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SANTA MARÍA",
+          "clientes_total": 7,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN MIGUEL DE SEMA",
+          "clientes_total": 7,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SORA",
+          "clientes_total": 6,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "QUÍPAMA",
+          "clientes_total": 6,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHITARAQUE",
+          "clientes_total": 6,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BERBEO",
+          "clientes_total": 5,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CAMPOHERMOSO",
+          "clientes_total": 4,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHÍQUIZA",
+          "clientes_total": 3,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN EDUARDO",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAYA",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "ALMEIDA",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "JERICÓ",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "COVARACHÍA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHITA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CALDAS",
+          "municipio": "LA DORADA",
+          "clientes_total": 12,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CAQUETÁ",
+          "municipio": "FLORENCIA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "YOPAL",
+          "clientes_total": 7342,
+          "clientes_activos": 3612
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "AGUAZUL",
+          "clientes_total": 905,
+          "clientes_activos": 602
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "PAZ DE ARIPORO",
+          "clientes_total": 735,
+          "clientes_activos": 463
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "TAURAMENA",
+          "clientes_total": 654,
+          "clientes_activos": 439
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "VILLANUEVA",
+          "clientes_total": 439,
+          "clientes_activos": 352
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "MANÍ",
+          "clientes_total": 373,
+          "clientes_activos": 266
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "TRINIDAD",
+          "clientes_total": 347,
+          "clientes_activos": 232
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "MONTERREY",
+          "clientes_total": 233,
+          "clientes_activos": 183
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "PORE",
+          "clientes_total": 226,
+          "clientes_activos": 126
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "HATO COROZAL",
+          "clientes_total": 174,
+          "clientes_activos": 121
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "SAN LUIS DE PALENQUE",
+          "clientes_total": 160,
+          "clientes_activos": 98
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "OROCUÉ",
+          "clientes_total": 108,
+          "clientes_activos": 67
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "NUNCHÍA",
+          "clientes_total": 51,
+          "clientes_activos": 43
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "TÁMARA",
+          "clientes_total": 47,
+          "clientes_activos": 33
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "CHÁMEZA",
+          "clientes_total": 39,
+          "clientes_activos": 22
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "SABANALARGA",
+          "clientes_total": 24,
+          "clientes_activos": 21
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "RECETOR",
+          "clientes_total": 10,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "CAUCA",
+          "municipio": "POPAYÁN",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CAUCA",
+          "municipio": "LA VEGA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "VALLEDUPAR",
+          "clientes_total": 1065,
+          "clientes_activos": 994
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "AGUSTÍN CODAZZI",
+          "clientes_total": 62,
+          "clientes_activos": 59
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "LA PAZ",
+          "clientes_total": 49,
+          "clientes_activos": 39
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "PAILITAS",
+          "clientes_total": 38,
+          "clientes_activos": 26
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "BECERRIL",
+          "clientes_total": 37,
+          "clientes_activos": 33
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "PUEBLO BELLO",
+          "clientes_total": 35,
+          "clientes_activos": 33
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "EL PASO",
+          "clientes_total": 31,
+          "clientes_activos": 27
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "SAN DIEGO",
+          "clientes_total": 29,
+          "clientes_activos": 21
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "BOSCONIA",
+          "clientes_total": 28,
+          "clientes_activos": 27
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "LA JAGUA DE IBIRICO",
+          "clientes_total": 25,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "CHIRIGUANÁ",
+          "clientes_total": 24,
+          "clientes_activos": 23
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "MANAURE",
+          "clientes_total": 21,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "CHIMICHAGUA",
+          "clientes_total": 3,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "AGUACHICA",
+          "clientes_total": 3,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "CURUMANÍ",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "EL COPEY",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "ASTREA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "SAN MARTÍN",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "MONTERÍA",
+          "clientes_total": 1345,
+          "clientes_activos": 1324
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "CERETÉ",
+          "clientes_total": 169,
+          "clientes_activos": 167
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "SANTA CRUZ DE LORICA",
+          "clientes_total": 89,
+          "clientes_activos": 89
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "SAHAGÚN",
+          "clientes_total": 75,
+          "clientes_activos": 75
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "PLANETA RICA",
+          "clientes_total": 66,
+          "clientes_activos": 66
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "MONTELÍBANO",
+          "clientes_total": 50,
+          "clientes_activos": 50
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "SAN ANTERO",
+          "clientes_total": 48,
+          "clientes_activos": 47
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "CIÉNAGA DE ORO",
+          "clientes_total": 48,
+          "clientes_activos": 48
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "TIERRALTA",
+          "clientes_total": 47,
+          "clientes_activos": 44
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "LOS CÓRDOBAS",
+          "clientes_total": 32,
+          "clientes_activos": 32
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "PUERTO ESCONDIDO",
+          "clientes_total": 27,
+          "clientes_activos": 27
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "SAN PELAYO",
+          "clientes_total": 27,
+          "clientes_activos": 27
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "PUEBLO NUEVO",
+          "clientes_total": 25,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "BUENAVISTA",
+          "clientes_total": 21,
+          "clientes_activos": 21
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "CANALETE",
+          "clientes_total": 20,
+          "clientes_activos": 20
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "AYAPEL",
+          "clientes_total": 18,
+          "clientes_activos": 18
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "CHINÚ",
+          "clientes_total": 17,
+          "clientes_activos": 17
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "VALENCIA",
+          "clientes_total": 17,
+          "clientes_activos": 17
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "SAN CARLOS",
+          "clientes_total": 16,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "PUERTO LIBERTADOR",
+          "clientes_total": 13,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "COTORRA",
+          "clientes_total": 7,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "LA APARTADA",
+          "clientes_total": 4,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "municipio": "SAN ANDRÉS DE SOTAVENTO",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "FACATATIVÁ",
+          "clientes_total": 380,
+          "clientes_activos": 365
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MOSQUERA",
+          "clientes_total": 323,
+          "clientes_activos": 313
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MADRID",
+          "clientes_total": 284,
+          "clientes_activos": 278
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "ZIPAQUIRÁ",
+          "clientes_total": 257,
+          "clientes_activos": 254
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "FUNZA",
+          "clientes_total": 216,
+          "clientes_activos": 205
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CHÍA",
+          "clientes_total": 210,
+          "clientes_activos": 199
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CAJICÁ",
+          "clientes_total": 137,
+          "clientes_activos": 134
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "PARATEBUENO",
+          "clientes_total": 95,
+          "clientes_activos": 76
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "LA CALERA",
+          "clientes_total": 67,
+          "clientes_activos": 67
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "EL ROSAL",
+          "clientes_total": 44,
+          "clientes_activos": 44
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "COTA",
+          "clientes_total": 42,
+          "clientes_activos": 32
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SIMIJACA",
+          "clientes_total": 42,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SOPÓ",
+          "clientes_total": 32,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "GUAYABETAL",
+          "clientes_total": 28,
+          "clientes_activos": 17
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MEDINA",
+          "clientes_total": 24,
+          "clientes_activos": 18
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "BOJACÁ",
+          "clientes_total": 16,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CAPARRAPÍ",
+          "clientes_total": 13,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "PACHO",
+          "clientes_total": 13,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SUSA",
+          "clientes_total": 12,
+          "clientes_activos": 9
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "YACOPÍ",
+          "clientes_total": 11,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "QUETAME",
+          "clientes_total": 10,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "GUACHETÁ",
+          "clientes_total": 10,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "GUADUAS",
+          "clientes_total": 7,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "FÓMEQUE",
+          "clientes_total": 7,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MAYA",
+          "clientes_total": 6,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "LA PALMA",
+          "clientes_total": 6,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "GIRARDOT",
+          "clientes_total": 6,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "TOCANCIPÁ",
+          "clientes_total": 6,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "ÚTICA",
+          "clientes_total": 5,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SUPATÁ",
+          "clientes_total": 5,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VILLETA",
+          "clientes_total": 5,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CÁQUEZA",
+          "clientes_total": 5,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CHOACHÍ",
+          "clientes_total": 5,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "ANOLAIMA",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SOACHA",
+          "clientes_total": 4,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VIANÍ",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VILLA DE SAN DIEGO DE UBATÉ",
+          "clientes_total": 4,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MACHETÁ",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MANTA",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "LA VEGA",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SAN FRANCISCO",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "NOCAIMA",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VERGARA",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "TABIO",
+          "clientes_total": 3,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "PUENTE QUETAME",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CACHIPAY",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "FUSAGASUGÁ",
+          "clientes_total": 3,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "BITUIMA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SUBACHOQUE",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "UBAQUE",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VILLAPINZÓN",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "NIMAIMA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SAN JUAN DE RIOSECO",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SILVANIA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "NEMOCÓN",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "UNE",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "GUASCA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "JUNÍN",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CHIPAQUE",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "GUAINÍA",
+          "municipio": "INÍRIDA",
+          "clientes_total": 81,
+          "clientes_activos": 35
+        },
+        {
+          "departamento": "GUAINÍA",
+          "municipio": "BARRANCOMINAS",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "GUAVIARE",
+          "municipio": "SAN JOSÉ DEL GUAVIARE",
+          "clientes_total": 645,
+          "clientes_activos": 315
+        },
+        {
+          "departamento": "GUAVIARE",
+          "municipio": "EL RETORNO",
+          "clientes_total": 21,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "GUAVIARE",
+          "municipio": "CALAMAR",
+          "clientes_total": 16,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "GUAVIARE",
+          "municipio": "MIRAFLORES",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "RIOHACHA",
+          "clientes_total": 457,
+          "clientes_activos": 438
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "MAICAO",
+          "clientes_total": 112,
+          "clientes_activos": 112
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "URIBIA",
+          "clientes_total": 82,
+          "clientes_activos": 82
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "DIBULLA",
+          "clientes_total": 63,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "FONSECA",
+          "clientes_total": 55,
+          "clientes_activos": 55
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "SAN JUAN DEL CESAR",
+          "clientes_total": 47,
+          "clientes_activos": 46
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "ALBANIA",
+          "clientes_total": 41,
+          "clientes_activos": 41
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "VILLANUEVA",
+          "clientes_total": 30,
+          "clientes_activos": 30
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "HATO NUEVO",
+          "clientes_total": 29,
+          "clientes_activos": 29
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "BARRANCAS",
+          "clientes_total": 18,
+          "clientes_activos": 18
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "MANAURE",
+          "clientes_total": 12,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "DISTRACCION",
+          "clientes_total": 11,
+          "clientes_activos": 11
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "municipio": "EL MOLINO",
+          "clientes_total": 5,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "SANTA MARTA",
+          "clientes_total": 1757,
+          "clientes_activos": 1630
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "CIÉNAGA",
+          "clientes_total": 263,
+          "clientes_activos": 250
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "ZONA BANANERA",
+          "clientes_total": 68,
+          "clientes_activos": 67
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "FUNDACIÓN",
+          "clientes_total": 32,
+          "clientes_activos": 32
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "PUEBLOVIEJO",
+          "clientes_total": 26,
+          "clientes_activos": 26
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "PIVIJAY",
+          "clientes_total": 14,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "ARACATACA",
+          "clientes_total": 13,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "EL BANCO",
+          "clientes_total": 9,
+          "clientes_activos": 9
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "ALGARRABO",
+          "clientes_total": 4,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "PLATO",
+          "clientes_total": 4,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "MAGDALENA",
+          "municipio": "GUAMAL",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "META",
+          "municipio": "VILLAVICENCIO",
+          "clientes_total": 16836,
+          "clientes_activos": 8316
+        },
+        {
+          "departamento": "META",
+          "municipio": "ACACÍAS",
+          "clientes_total": 1733,
+          "clientes_activos": 818
+        },
+        {
+          "departamento": "META",
+          "municipio": "GRANADA",
+          "clientes_total": 860,
+          "clientes_activos": 429
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO GAITÁN",
+          "clientes_total": 654,
+          "clientes_activos": 387
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO LÓPEZ",
+          "clientes_total": 636,
+          "clientes_activos": 311
+        },
+        {
+          "departamento": "META",
+          "municipio": "CUMARAL",
+          "clientes_total": 513,
+          "clientes_activos": 253
+        },
+        {
+          "departamento": "META",
+          "municipio": "RESTREPO",
+          "clientes_total": 406,
+          "clientes_activos": 225
+        },
+        {
+          "departamento": "META",
+          "municipio": "SAN MARTÍN DE LOS LLANOS",
+          "clientes_total": 328,
+          "clientes_activos": 142
+        },
+        {
+          "departamento": "META",
+          "municipio": "GUAMAL",
+          "clientes_total": 295,
+          "clientes_activos": 160
+        },
+        {
+          "departamento": "META",
+          "municipio": "BARRANCA DE UPÍA",
+          "clientes_total": 147,
+          "clientes_activos": 75
+        },
+        {
+          "departamento": "META",
+          "municipio": "CASTILLA LA NUEVA",
+          "clientes_total": 145,
+          "clientes_activos": 89
+        },
+        {
+          "departamento": "META",
+          "municipio": "SAN CARLOS DE GUAROA",
+          "clientes_total": 96,
+          "clientes_activos": 52
+        },
+        {
+          "departamento": "META",
+          "municipio": "CUBARRAL",
+          "clientes_total": 64,
+          "clientes_activos": 31
+        },
+        {
+          "departamento": "META",
+          "municipio": "CABUYARO",
+          "clientes_total": 61,
+          "clientes_activos": 33
+        },
+        {
+          "departamento": "META",
+          "municipio": "EL CASTILLO",
+          "clientes_total": 29,
+          "clientes_activos": 17
+        },
+        {
+          "departamento": "META",
+          "municipio": "VISTAHERMOSA",
+          "clientes_total": 26,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO CONCORDIA",
+          "clientes_total": 23,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "META",
+          "municipio": "FUENTEDEORO",
+          "clientes_total": 22,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "META",
+          "municipio": "MESETAS",
+          "clientes_total": 21,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "META",
+          "municipio": "EL DORADO",
+          "clientes_total": 21,
+          "clientes_activos": 18
+        },
+        {
+          "departamento": "META",
+          "municipio": "LEJANÍAS",
+          "clientes_total": 20,
+          "clientes_activos": 11
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO RICO",
+          "clientes_total": 20,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO LLERAS",
+          "clientes_total": 14,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "META",
+          "municipio": "MAPIRIPÁN",
+          "clientes_total": 13,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "META",
+          "municipio": "DINAMARCA",
+          "clientes_total": 9,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "META",
+          "municipio": "SAN JUAN DE ARAMA",
+          "clientes_total": 9,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "META",
+          "municipio": "URIBE",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "META",
+          "municipio": "LA MACARENA",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "NARIÑO",
+          "municipio": "IPIALES",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "PUTUMAYO",
+          "municipio": "PUERTO ASÍS",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "QUINDÍO",
+          "municipio": "LA TEBAIDA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "RISARALDA",
+          "municipio": "DOSQUEBRADAS",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "BARBOSA",
+          "clientes_total": 47,
+          "clientes_activos": 24
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "VÉLEZ",
+          "clientes_total": 15,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "MÁLAGA",
+          "clientes_total": 10,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "PUENTE NACIONAL",
+          "clientes_total": 10,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "CAPITANEJO",
+          "clientes_total": 8,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "SUAITA",
+          "clientes_total": 7,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "GÜEPSA",
+          "clientes_total": 3,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "BOLÍVAR",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "BUCARAMANGA",
+          "clientes_total": 3,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "SANTA BÁRBARA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "CHARALÁ",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "SIN DEPARTAMENTO",
+          "municipio": "SIN MUNICIPIO",
+          "clientes_total": 13980,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "SINCELEJO",
+          "clientes_total": 616,
+          "clientes_activos": 616
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "COROZAL",
+          "clientes_total": 123,
+          "clientes_activos": 123
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "SAN LUIS DE SINCÉ",
+          "clientes_total": 113,
+          "clientes_activos": 113
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "SAMPUÉS",
+          "clientes_total": 65,
+          "clientes_activos": 65
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "SANTIAGO DE TOLÚ",
+          "clientes_total": 62,
+          "clientes_activos": 62
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "COVEÑAS",
+          "clientes_total": 58,
+          "clientes_activos": 58
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "SAN JUAN DE BETULIA",
+          "clientes_total": 49,
+          "clientes_activos": 49
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "PALMITO",
+          "clientes_total": 44,
+          "clientes_activos": 44
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "GALERAS",
+          "clientes_total": 44,
+          "clientes_activos": 44
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "BUENAVISTA",
+          "clientes_total": 42,
+          "clientes_activos": 42
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "OVEJAS",
+          "clientes_total": 35,
+          "clientes_activos": 35
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "SAN PEDRO",
+          "clientes_total": 30,
+          "clientes_activos": 30
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "SAN MARCOS",
+          "clientes_total": 26,
+          "clientes_activos": 26
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "SAN ONOFRE",
+          "clientes_total": 25,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "EL ROBLE",
+          "clientes_total": 18,
+          "clientes_activos": 18
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "CAIMITO",
+          "clientes_total": 13,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "TOLÚ VIEJO",
+          "clientes_total": 12,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "SAN BENITO ABAD",
+          "clientes_total": 10,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "COLOSÓ",
+          "clientes_total": 7,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "MAJAGUAL",
+          "clientes_total": 6,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "MORROA",
+          "clientes_total": 4,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "LOS PALMITOS",
+          "clientes_total": 3,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "LA UNIÓN",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "CHALÁN",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "TOLIMA",
+          "municipio": "HONDA",
+          "clientes_total": 7,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "municipio": "CALI",
+          "clientes_total": 6,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "municipio": "RESTREPO",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "municipio": "YUMBO",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "municipio": "CANDELARIA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "municipio": "PALMIRA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VAUPÉS",
+          "municipio": "MITÚ",
+          "clientes_total": 41,
+          "clientes_activos": 15
+        },
+        {
+          "departamento": "VAUPÉS",
+          "municipio": "CARURÚ",
+          "clientes_total": 4,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "VAUPÉS",
+          "municipio": "TARAIRA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "PUERTO CARREÑO",
+          "clientes_total": 70,
+          "clientes_activos": 40
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "LA PRIMAVERA",
+          "clientes_total": 33,
+          "clientes_activos": 29
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "CUMARIBO",
+          "clientes_total": 25,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "SANTA ROSALÍA",
+          "clientes_total": 15,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "PRIMAVERA",
+          "clientes_total": 3,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "SANTA ROSALIA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "SAN JOSE DE OCUNE",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        }
+      ]
+    },
+    "Unimarka": {
+      "nivel_geografico": "departamento y municipio (texto libre del ERP)",
+      "departamentos": [
+        {
+          "departamento": "BOGOTÁ",
+          "clientes_total": 25891,
+          "clientes_activos": 20341,
+          "municipios": 1
+        },
+        {
+          "departamento": "META",
+          "clientes_total": 11749,
+          "clientes_activos": 7308,
+          "municipios": 28
+        },
+        {
+          "departamento": "SIN DEPARTAMENTO",
+          "clientes_total": 5649,
+          "clientes_activos": 2,
+          "municipios": 0
+        },
+        {
+          "departamento": "CASANARE",
+          "clientes_total": 5351,
+          "clientes_activos": 1871,
+          "municipios": 18
+        },
+        {
+          "departamento": "BOYACÁ",
+          "clientes_total": 2472,
+          "clientes_activos": 1342,
+          "municipios": 102
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "clientes_total": 311,
+          "clientes_activos": 151,
+          "municipios": 51
+        },
+        {
+          "departamento": "GUAVIARE",
+          "clientes_total": 212,
+          "clientes_activos": 84,
+          "municipios": 3
+        },
+        {
+          "departamento": "VICHADA",
+          "clientes_total": 117,
+          "clientes_activos": 78,
+          "municipios": 6
+        },
+        {
+          "departamento": "GUAINÍA",
+          "clientes_total": 68,
+          "clientes_activos": 42,
+          "municipios": 3
+        },
+        {
+          "departamento": "SANTANDER",
+          "clientes_total": 52,
+          "clientes_activos": 32,
+          "municipios": 10
+        },
+        {
+          "departamento": "ARAUCA",
+          "clientes_total": 42,
+          "clientes_activos": 19,
+          "municipios": 4
+        },
+        {
+          "departamento": "VAUPÉS",
+          "clientes_total": 36,
+          "clientes_activos": 15,
+          "municipios": 3
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "clientes_total": 9,
+          "clientes_activos": 7,
+          "municipios": 6
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "clientes_total": 6,
+          "clientes_activos": 3,
+          "municipios": 3
+        },
+        {
+          "departamento": "CESAR",
+          "clientes_total": 6,
+          "clientes_activos": 0,
+          "municipios": 1
+        },
+        {
+          "departamento": "CALDAS",
+          "clientes_total": 5,
+          "clientes_activos": 4,
+          "municipios": 2
+        },
+        {
+          "departamento": "AMAZONAS",
+          "clientes_total": 5,
+          "clientes_activos": 1,
+          "municipios": 1
+        },
+        {
+          "departamento": "BOLÍVAR",
+          "clientes_total": 2,
+          "clientes_activos": 2,
+          "municipios": 1
+        },
+        {
+          "departamento": "RISARALDA",
+          "clientes_total": 2,
+          "clientes_activos": 2,
+          "municipios": 1
+        },
+        {
+          "departamento": "SUCRE",
+          "clientes_total": 2,
+          "clientes_activos": 0,
+          "municipios": 1
+        },
+        {
+          "departamento": "TOLIMA",
+          "clientes_total": 2,
+          "clientes_activos": 0,
+          "municipios": 1
+        },
+        {
+          "departamento": "NARIÑO",
+          "clientes_total": 1,
+          "clientes_activos": 1,
+          "municipios": 1
+        },
+        {
+          "departamento": "NORTE DE SANTANDER",
+          "clientes_total": 1,
+          "clientes_activos": 1,
+          "municipios": 1
+        },
+        {
+          "departamento": "CAUCA",
+          "clientes_total": 1,
+          "clientes_activos": 0,
+          "municipios": 1
+        },
+        {
+          "departamento": "ATLÁNTICO",
+          "clientes_total": 1,
+          "clientes_activos": 1,
+          "municipios": 1
+        }
+      ],
+      "municipios": [
+        {
+          "departamento": "AMAZONAS",
+          "municipio": "LETICIA",
+          "clientes_total": 5,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "MEDELLÍN",
+          "clientes_total": 4,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "RIONEGRO",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "ABEJORRAL",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "ARMENIA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "ENVIGADO",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "municipio": "GRANADA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ARAUCA",
+          "municipio": "TAME",
+          "clientes_total": 36,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "ARAUCA",
+          "municipio": "ARAUCA",
+          "clientes_total": 3,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "ARAUCA",
+          "municipio": "SARAVENA",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "ARAUCA",
+          "municipio": "ARAUQUITA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "ATLÁNTICO",
+          "municipio": "BARRANQUILLA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOGOTÁ",
+          "municipio": "BOGOTÁ, D.C.",
+          "clientes_total": 25891,
+          "clientes_activos": 20341
+        },
+        {
+          "departamento": "BOLÍVAR",
+          "municipio": "CARTAGENA DE INDIAS",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "DUITAMA",
+          "clientes_total": 433,
+          "clientes_activos": 244
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TUNJA",
+          "clientes_total": 360,
+          "clientes_activos": 175
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOGAMOSO",
+          "clientes_total": 310,
+          "clientes_activos": 173
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHIQUINQUIRÁ",
+          "clientes_total": 103,
+          "clientes_activos": 54
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAIPA",
+          "clientes_total": 57,
+          "clientes_activos": 35
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GARAGOA",
+          "clientes_total": 55,
+          "clientes_activos": 49
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MIRAFLORES",
+          "clientes_total": 38,
+          "clientes_activos": 29
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "VILLA DE LEYVA",
+          "clientes_total": 36,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TIBASOSA",
+          "clientes_total": 31,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MUZO",
+          "clientes_total": 29,
+          "clientes_activos": 18
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GUATEQUE",
+          "clientes_total": 29,
+          "clientes_activos": 25
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "OTANCHE",
+          "clientes_total": 28,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "RAMIRIQUI",
+          "clientes_total": 28,
+          "clientes_activos": 17
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOCOTÁ",
+          "clientes_total": 28,
+          "clientes_activos": 18
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOATÁ",
+          "clientes_total": 28,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAZ DE RÍO",
+          "clientes_total": 26,
+          "clientes_activos": 17
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAMACÁ",
+          "clientes_total": 26,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BELÉN",
+          "clientes_total": 26,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PÁEZ",
+          "clientes_total": 24,
+          "clientes_activos": 19
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MONIQUIRÁ",
+          "clientes_total": 24,
+          "clientes_activos": 11
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "LABRANZAGRANDE",
+          "clientes_total": 24,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOCHA",
+          "clientes_total": 23,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TIBANÁ",
+          "clientes_total": 23,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TOGÜÍ",
+          "clientes_total": 21,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN PABLO DE BORBUR",
+          "clientes_total": 21,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GUAYATÁ",
+          "clientes_total": 21,
+          "clientes_activos": 19
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "ARCABUCO",
+          "clientes_total": 21,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "JENESANO",
+          "clientes_total": 19,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "ÚMBITA",
+          "clientes_total": 19,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "ZETAQUIRA",
+          "clientes_total": 18,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SUTAMARCHÁN",
+          "clientes_total": 18,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAUNA",
+          "clientes_total": 18,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHINAVITA",
+          "clientes_total": 17,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN LUIS DE GACENO",
+          "clientes_total": 16,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN MATEO",
+          "clientes_total": 16,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PACHAVITA",
+          "clientes_total": 15,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GÜICÁN DE LA SIERRA",
+          "clientes_total": 15,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "AQUITANIA",
+          "clientes_total": 15,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "NOBSA",
+          "clientes_total": 14,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "RÁQUIRA",
+          "clientes_total": 14,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SANTANA",
+          "clientes_total": 14,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TUTA",
+          "clientes_total": 14,
+          "clientes_activos": 9
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TENZA",
+          "clientes_total": 13,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SANTA SOFÍA",
+          "clientes_total": 13,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "EL COCUY",
+          "clientes_total": 13,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BOAVITA",
+          "clientes_total": 13,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BUENAVISTA",
+          "clientes_total": 12,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHISCAS",
+          "clientes_total": 12,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "EL ESPINO",
+          "clientes_total": 12,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAJARITO",
+          "clientes_total": 12,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SABOYÁ",
+          "clientes_total": 11,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SANTA ROSA DE VITERBO",
+          "clientes_total": 11,
+          "clientes_activos": 9
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SIACHOQUE",
+          "clientes_total": 11,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CÓMBITA",
+          "clientes_total": 11,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SORACÁ",
+          "clientes_total": 10,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TOCA",
+          "clientes_total": 10,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOMONDOCO",
+          "clientes_total": 9,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "LA CAPILLA",
+          "clientes_total": 9,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "LA UVITA",
+          "clientes_total": 9,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "FLORESTA",
+          "clientes_total": 8,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MONGUÍ",
+          "clientes_total": 8,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MARIPÍ",
+          "clientes_total": 8,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CERINZA",
+          "clientes_total": 8,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TIPACOQUE",
+          "clientes_total": 8,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "VENTAQUEMADA",
+          "clientes_total": 8,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SOTAQUIRÁ",
+          "clientes_total": 7,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PANQUEBA",
+          "clientes_total": 7,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MACANAL",
+          "clientes_total": 7,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "NUEVO COLÓN",
+          "clientes_total": 7,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "OICATÁ",
+          "clientes_total": 6,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SÁCHICA",
+          "clientes_total": 6,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "QUÍPAMA",
+          "clientes_total": 6,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN MIGUEL DE SEMA",
+          "clientes_total": 5,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SANTA MARÍA",
+          "clientes_total": 5,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SATIVANORTE",
+          "clientes_total": 5,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GÁMEZA",
+          "clientes_total": 5,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "JERICÓ",
+          "clientes_total": 5,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "GUACAMAYAS",
+          "clientes_total": 4,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MOTAVITA",
+          "clientes_total": 4,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "MONGUA",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHITA",
+          "clientes_total": 4,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHITARAQUE",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN JOSÉ DE PARE",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TINJACÁ",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "VIRACACHÁ",
+          "clientes_total": 4,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TUTAZÁ",
+          "clientes_total": 3,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SAN EDUARDO",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SUSACÓN",
+          "clientes_total": 3,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BOYACÁ",
+          "clientes_total": 3,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "BERBEO",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "ALMEIDA",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "SUTATENZA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PAYA",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PESCA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "PISBA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TÓPAGA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "TOTA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CUCAITA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CUÍTIVA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "CHÍQUIZA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "FIRAVITOBA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "BOYACÁ",
+          "municipio": "IZA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CALDAS",
+          "municipio": "MANIZALES",
+          "clientes_total": 4,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "CALDAS",
+          "municipio": "RISARALDA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "YOPAL",
+          "clientes_total": 3639,
+          "clientes_activos": 1474
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "AGUAZUL",
+          "clientes_total": 429,
+          "clientes_activos": 131
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "TAURAMENA",
+          "clientes_total": 251,
+          "clientes_activos": 22
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "PAZ DE ARIPORO",
+          "clientes_total": 238,
+          "clientes_activos": 49
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "MANÍ",
+          "clientes_total": 181,
+          "clientes_activos": 32
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "VILLANUEVA",
+          "clientes_total": 165,
+          "clientes_activos": 60
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "TRINIDAD",
+          "clientes_total": 103,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "MONTERREY",
+          "clientes_total": 68,
+          "clientes_activos": 23
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "OROCUÉ",
+          "clientes_total": 65,
+          "clientes_activos": 28
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "HATO COROZAL",
+          "clientes_total": 64,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "PORE",
+          "clientes_total": 47,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "SAN LUIS DE PALENQUE",
+          "clientes_total": 43,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "NUNCHÍA",
+          "clientes_total": 28,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "TÁMARA",
+          "clientes_total": 22,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "CHÁMEZA",
+          "clientes_total": 13,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "RECETOR",
+          "clientes_total": 7,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "SABANALARGA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CASANARE",
+          "municipio": "LA SALINA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CAUCA",
+          "municipio": "LA VEGA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CESAR",
+          "municipio": "SAN MARTÍN",
+          "clientes_total": 6,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MOSQUERA",
+          "clientes_total": 25,
+          "clientes_activos": 18
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MEDINA",
+          "clientes_total": 22,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "PARATEBUENO",
+          "clientes_total": 18,
+          "clientes_activos": 13
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "FUSAGASUGÁ",
+          "clientes_total": 16,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SIMIJACA",
+          "clientes_total": 14,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "FACATATIVÁ",
+          "clientes_total": 13,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "FUNZA",
+          "clientes_total": 13,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CAJICÁ",
+          "clientes_total": 12,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CAPARRAPÍ",
+          "clientes_total": 12,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "PACHO",
+          "clientes_total": 12,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "YACOPÍ",
+          "clientes_total": 12,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MADRID",
+          "clientes_total": 11,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SOACHA",
+          "clientes_total": 10,
+          "clientes_activos": 9
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SILVANIA",
+          "clientes_total": 10,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SUSA",
+          "clientes_total": 9,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CHÍA",
+          "clientes_total": 7,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "COTA",
+          "clientes_total": 6,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "GUACHETÁ",
+          "clientes_total": 6,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "LA MESA",
+          "clientes_total": 5,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "QUETAME",
+          "clientes_total": 5,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "LA PALMA",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "GUADUAS",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CACHIPAY",
+          "clientes_total": 4,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "ANOLAIMA",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "TOCANCIPÁ",
+          "clientes_total": 4,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VILLETA",
+          "clientes_total": 4,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "TABIO",
+          "clientes_total": 3,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "ZIPAQUIRÁ",
+          "clientes_total": 3,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VIANÍ",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SUPATÁ",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VILLAPINZÓN",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "FÓMEQUE",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "CÁQUEZA",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "APULO",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "ARBELÁEZ",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "BITUIMA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "AGUA DE DIOS",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "LA VEGA",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SAN FRANCISCO",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SAN JUAN DE RIOSECO",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "UBAQUE",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "ÚTICA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "SUBACHOQUE",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "TENA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VILLA DE SAN DIEGO DE UBATÉ",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "VIOTÁ",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "PANDI",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "NEMOCÓN",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "MAYA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "GUASCA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "municipio": "GIRARDOT",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "GUAINÍA",
+          "municipio": "INÍRIDA",
+          "clientes_total": 64,
+          "clientes_activos": 41
+        },
+        {
+          "departamento": "GUAINÍA",
+          "municipio": "BARRANCOMINAS",
+          "clientes_total": 2,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "GUAINÍA",
+          "municipio": "GUAINIA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "GUAVIARE",
+          "municipio": "SAN JOSÉ DEL GUAVIARE",
+          "clientes_total": 178,
+          "clientes_activos": 69
+        },
+        {
+          "departamento": "GUAVIARE",
+          "municipio": "EL RETORNO",
+          "clientes_total": 25,
+          "clientes_activos": 8
+        },
+        {
+          "departamento": "GUAVIARE",
+          "municipio": "CALAMAR",
+          "clientes_total": 9,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "META",
+          "municipio": "VILLAVICENCIO",
+          "clientes_total": 10589,
+          "clientes_activos": 6600
+        },
+        {
+          "departamento": "META",
+          "municipio": "ACACÍAS",
+          "clientes_total": 277,
+          "clientes_activos": 179
+        },
+        {
+          "departamento": "META",
+          "municipio": "GRANADA",
+          "clientes_total": 208,
+          "clientes_activos": 134
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO GAITÁN",
+          "clientes_total": 157,
+          "clientes_activos": 111
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO LÓPEZ",
+          "clientes_total": 78,
+          "clientes_activos": 41
+        },
+        {
+          "departamento": "META",
+          "municipio": "RESTREPO",
+          "clientes_total": 70,
+          "clientes_activos": 52
+        },
+        {
+          "departamento": "META",
+          "municipio": "GUAMAL",
+          "clientes_total": 64,
+          "clientes_activos": 47
+        },
+        {
+          "departamento": "META",
+          "municipio": "SAN MARTÍN DE LOS LLANOS",
+          "clientes_total": 57,
+          "clientes_activos": 37
+        },
+        {
+          "departamento": "META",
+          "municipio": "CUMARAL",
+          "clientes_total": 52,
+          "clientes_activos": 37
+        },
+        {
+          "departamento": "META",
+          "municipio": "BARRANCA DE UPÍA",
+          "clientes_total": 29,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "META",
+          "municipio": "LEJANÍAS",
+          "clientes_total": 24,
+          "clientes_activos": 9
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO CONCORDIA",
+          "clientes_total": 21,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "META",
+          "municipio": "FUENTEDEORO",
+          "clientes_total": 19,
+          "clientes_activos": 7
+        },
+        {
+          "departamento": "META",
+          "municipio": "VISTAHERMOSA",
+          "clientes_total": 17,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "META",
+          "municipio": "MESETAS",
+          "clientes_total": 16,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "META",
+          "municipio": "SAN CARLOS DE GUAROA",
+          "clientes_total": 15,
+          "clientes_activos": 14
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO RICO",
+          "clientes_total": 15,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "META",
+          "municipio": "CUBARRAL",
+          "clientes_total": 13,
+          "clientes_activos": 10
+        },
+        {
+          "departamento": "META",
+          "municipio": "PUERTO LLERAS",
+          "clientes_total": 12,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "META",
+          "municipio": "SAN JUAN DE ARAMA",
+          "clientes_total": 11,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "META",
+          "municipio": "EL DORADO",
+          "clientes_total": 8,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "META",
+          "municipio": "EL CASTILLO",
+          "clientes_total": 7,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "META",
+          "municipio": "CABUYARO",
+          "clientes_total": 7,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "META",
+          "municipio": "CASTILLA LA NUEVA",
+          "clientes_total": 6,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "META",
+          "municipio": "POMPEYA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "META",
+          "municipio": "PACHAQUIARO",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "META",
+          "municipio": "URIBE",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "META",
+          "municipio": "MAPIRIPÁN",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "NARIÑO",
+          "municipio": "IPIALES",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "NORTE DE SANTANDER",
+          "municipio": "CÚCUTA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "RISARALDA",
+          "municipio": "PEREIRA",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "MÁLAGA",
+          "clientes_total": 23,
+          "clientes_activos": 19
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "CAPITANEJO",
+          "clientes_total": 9,
+          "clientes_activos": 4
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "BARBOSA",
+          "clientes_total": 8,
+          "clientes_activos": 5
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "PUENTE NACIONAL",
+          "clientes_total": 4,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "VÉLEZ",
+          "clientes_total": 4,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "BOLÍVAR",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "BUCARAMANGA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "SANTA BÁRBARA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "GUADALUPE",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "SANTANDER",
+          "municipio": "MACARAVITA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "SIN DEPARTAMENTO",
+          "municipio": "SIN MUNICIPIO",
+          "clientes_total": 5649,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "SUCRE",
+          "municipio": "MORROA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "TOLIMA",
+          "municipio": "HONDA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "municipio": "RESTREPO",
+          "clientes_total": 3,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "municipio": "CALI",
+          "clientes_total": 2,
+          "clientes_activos": 2
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "municipio": "JAMUNDÍ",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "VAUPÉS",
+          "municipio": "MITÚ",
+          "clientes_total": 34,
+          "clientes_activos": 15
+        },
+        {
+          "departamento": "VAUPÉS",
+          "municipio": "TARAIRA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VAUPÉS",
+          "municipio": "CARURÚ",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "PUERTO CARREÑO",
+          "clientes_total": 61,
+          "clientes_activos": 38
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "CUMARIBO",
+          "clientes_total": 21,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "LA PRIMAVERA",
+          "clientes_total": 19,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "SANTA ROSALÍA",
+          "clientes_total": 12,
+          "clientes_activos": 12
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "PRIMAVERA",
+          "clientes_total": 4,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "VICHADA",
+          "municipio": "SANTA ROSALIA",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        }
+      ]
+    }
+  },
+  "unidades_la_nieve": {
+    "bat": {
+      "fuente": "dbo.clientes (Cia 1 + TipoNegocioBAT)",
+      "nota": "Subconjunto de la cobertura general de La Nieve: estos clientes ya están incluidos en empresas['La Nieve'].",
+      "departamentos": [
+        {
+          "departamento": "BOYACÁ",
+          "clientes_total": 21017,
+          "clientes_activos": 10119
+        },
+        {
+          "departamento": "META",
+          "clientes_total": 19212,
+          "clientes_activos": 8042
+        },
+        {
+          "departamento": "BOGOTÁ",
+          "clientes_total": 15001,
+          "clientes_activos": 13975
+        },
+        {
+          "departamento": "CASANARE",
+          "clientes_total": 8966,
+          "clientes_activos": 3883
+        },
+        {
+          "departamento": "CUNDINAMARCA",
+          "clientes_total": 2335,
+          "clientes_activos": 2048
+        },
+        {
+          "departamento": "CÓRDOBA",
+          "clientes_total": 2179,
+          "clientes_activos": 2152
+        },
+        {
+          "departamento": "MAGDALENA",
+          "clientes_total": 2176,
+          "clientes_activos": 2035
+        },
+        {
+          "departamento": "CESAR",
+          "clientes_total": 1446,
+          "clientes_activos": 1313
+        },
+        {
+          "departamento": "SUCRE",
+          "clientes_total": 1407,
+          "clientes_activos": 1407
+        },
+        {
+          "departamento": "LA GUAJIRA",
+          "clientes_total": 894,
+          "clientes_activos": 880
+        },
+        {
+          "departamento": "GUAVIARE",
+          "clientes_total": 651,
+          "clientes_activos": 303
+        },
+        {
+          "departamento": "VICHADA",
+          "clientes_total": 125,
+          "clientes_activos": 78
+        },
+        {
+          "departamento": "SANTANDER",
+          "clientes_total": 94,
+          "clientes_activos": 52
+        },
+        {
+          "departamento": "ARAUCA",
+          "clientes_total": 83,
+          "clientes_activos": 45
+        },
+        {
+          "departamento": "GUAINÍA",
+          "clientes_total": 82,
+          "clientes_activos": 35
+        },
+        {
+          "departamento": "VAUPÉS",
+          "clientes_total": 44,
+          "clientes_activos": 16
+        },
+        {
+          "departamento": "ANTIOQUIA",
+          "clientes_total": 17,
+          "clientes_activos": 6
+        },
+        {
+          "departamento": "CALDAS",
+          "clientes_total": 12,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "VALLE DEL CAUCA",
+          "clientes_total": 11,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "TOLIMA",
+          "clientes_total": 7,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "BOLÍVAR",
+          "clientes_total": 4,
+          "clientes_activos": 3
+        },
+        {
+          "departamento": "AMAZONAS",
+          "clientes_total": 2,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CAQUETÁ",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "CAUCA",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "SIN DEPARTAMENTO",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "PUTUMAYO",
+          "clientes_total": 1,
+          "clientes_activos": 0
+        },
+        {
+          "departamento": "QUINDÍO",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        },
+        {
+          "departamento": "RISARALDA",
+          "clientes_total": 1,
+          "clientes_activos": 1
+        }
+      ]
+    },
+    "alpina": {
+      "fuente": "amovil.VentasALP_YP / amovil1.VentasALP_VCIO (compradores últimos 12 meses; boAfectaVenta = 'S')",
+      "nota": "Operación con esquema propio, NO incluida en dbo.clientes ni en la cobertura de empresas['La Nieve']. Sin campo de estado activo comparable: clientes = compradores del periodo.",
+      "sedes": {
+        "Yopal": [
+          {
+            "departamento": "BOYACA",
+            "municipio": "DUITAMA",
+            "clientes": 24
+          },
+          {
+            "departamento": "BOYACA",
+            "municipio": "PAJARITO",
+            "clientes": 6
+          },
+          {
+            "departamento": "BOYACA",
+            "municipio": "SAN LUIS DE GACENO",
+            "clientes": 2
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "YOPAL",
+            "clientes": 1364
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "VILLANUEVA",
+            "clientes": 312
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "AGUAZUL",
+            "clientes": 214
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "PAZ DE ARIPORO",
+            "clientes": 183
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "TAURAMENA",
+            "clientes": 169
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "MONTERREY",
+            "clientes": 166
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "MANI",
+            "clientes": 103
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "TRINIDAD",
+            "clientes": 91
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "PORE",
+            "clientes": 41
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "OROCUE",
+            "clientes": 40
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "SAN LUIS DE PALENQUE",
+            "clientes": 39
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "NUNCHIA",
+            "clientes": 27
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "HATO COROZAL",
+            "clientes": 26
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "TAMARA",
+            "clientes": 18
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "CHAMEZA",
+            "clientes": 16
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "RECETOR",
+            "clientes": 1
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "SABANALARGA",
+            "clientes": 1
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "GRANADA",
+            "clientes": 20
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "PARATEBUENO",
+            "clientes": 9
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "FOMEQUE",
+            "clientes": 2
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "MEDINA",
+            "clientes": 1
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "CAQUEZA",
+            "clientes": 1
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "CHOACHI",
+            "clientes": 1
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "MANTA",
+            "clientes": 1
+          },
+          {
+            "departamento": "GUAINIA",
+            "municipio": "INIRIDA",
+            "clientes": 1
+          },
+          {
+            "departamento": "META",
+            "municipio": "CABUYARO",
+            "clientes": 44
+          },
+          {
+            "departamento": "META",
+            "municipio": "BARRANCA DE UPIA",
+            "clientes": 23
+          },
+          {
+            "departamento": "META",
+            "municipio": "PUERTO GAITAN",
+            "clientes": 19
+          },
+          {
+            "departamento": "META",
+            "municipio": "ACACIAS",
+            "clientes": 18
+          },
+          {
+            "departamento": "META",
+            "municipio": "PUERTO LOPEZ",
+            "clientes": 5
+          },
+          {
+            "departamento": "META",
+            "municipio": "VILLAVICENCIO",
+            "clientes": 5
+          },
+          {
+            "departamento": "META",
+            "municipio": "FUENTE DE ORO",
+            "clientes": 1
+          },
+          {
+            "departamento": "META",
+            "municipio": "RESTREPO",
+            "clientes": 1
+          },
+          {
+            "departamento": "META",
+            "municipio": "GRANADA",
+            "clientes": 1
+          },
+          {
+            "departamento": "META",
+            "municipio": "LEJANIAS",
+            "clientes": 1
+          },
+          {
+            "departamento": "VICHADA",
+            "municipio": "LA PRIMAVERA",
+            "clientes": 14
+          },
+          {
+            "departamento": "VICHADA",
+            "municipio": "SANTA ROSALIA",
+            "clientes": 14
+          },
+          {
+            "departamento": "VICHADA",
+            "municipio": "PUERTO CARREÑO",
+            "clientes": 1
+          }
+        ],
+        "Villavicencio": [
+          {
+            "departamento": "ANTIOQUIA",
+            "municipio": "GRANADA",
+            "clientes": 10
+          },
+          {
+            "departamento": "BOGOTA, D.C.",
+            "municipio": "BOGOTA, D.C.",
+            "clientes": 1
+          },
+          {
+            "departamento": "CAQUETA",
+            "municipio": "PUERTO RICO",
+            "clientes": 54
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "MANI",
+            "clientes": 1
+          },
+          {
+            "departamento": "CASANARE",
+            "municipio": "YOPAL",
+            "clientes": 1
+          },
+          {
+            "departamento": "CESAR",
+            "municipio": "SAN MARTIN",
+            "clientes": 90
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "GRANADA",
+            "clientes": 285
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "CAQUEZA",
+            "clientes": 75
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "FOMEQUE",
+            "clientes": 56
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "PARATEBUENO",
+            "clientes": 53
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "CHIPAQUE",
+            "clientes": 46
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "MEDINA",
+            "clientes": 45
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "CHOACHI",
+            "clientes": 45
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "UNE",
+            "clientes": 41
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "GUAYABETAL",
+            "clientes": 40
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "UBAQUE",
+            "clientes": 32
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "QUETAME",
+            "clientes": 30
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "FOSCA",
+            "clientes": 24
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "GUTIERREZ",
+            "clientes": 14
+          },
+          {
+            "departamento": "CUNDINAMARCA",
+            "municipio": "QUEBRADANEGRA",
+            "clientes": 1
+          },
+          {
+            "departamento": "GUAINIA",
+            "municipio": "INIRIDA",
+            "clientes": 11
+          },
+          {
+            "departamento": "GUAINIA",
+            "municipio": "BARRANCO MINAS",
+            "clientes": 1
+          },
+          {
+            "departamento": "GUAVIARE",
+            "municipio": "SAN JOSE DEL GUAVIARE",
+            "clientes": 264
+          },
+          {
+            "departamento": "GUAVIARE",
+            "municipio": "MIRAFLORES",
+            "clientes": 4
+          },
+          {
+            "departamento": "GUAVIARE",
+            "municipio": "EL RETORNO",
+            "clientes": 2
+          },
+          {
+            "departamento": "GUAVIARE",
+            "municipio": "CALAMAR",
+            "clientes": 1
+          },
+          {
+            "departamento": "META",
+            "municipio": "VILLAVICENCIO",
+            "clientes": 3302
+          },
+          {
+            "departamento": "META",
+            "municipio": "ACACIAS",
+            "clientes": 531
+          },
+          {
+            "departamento": "META",
+            "municipio": "GRANADA",
+            "clientes": 301
+          },
+          {
+            "departamento": "META",
+            "municipio": "PUERTO GAITAN",
+            "clientes": 213
+          },
+          {
+            "departamento": "META",
+            "municipio": "CUMARAL",
+            "clientes": 146
+          },
+          {
+            "departamento": "META",
+            "municipio": "RESTREPO",
+            "clientes": 135
+          },
+          {
+            "departamento": "META",
+            "municipio": "GUAMAL",
+            "clientes": 105
+          },
+          {
+            "departamento": "META",
+            "municipio": "LEJANIAS",
+            "clientes": 94
+          },
+          {
+            "departamento": "META",
+            "municipio": "PUERTO LOPEZ",
+            "clientes": 79
+          },
+          {
+            "departamento": "META",
+            "municipio": "FUENTE DE ORO",
+            "clientes": 77
+          },
+          {
+            "departamento": "META",
+            "municipio": "CASTILLA LA NUEVA",
+            "clientes": 68
+          },
+          {
+            "departamento": "META",
+            "municipio": "VISTA HERMOSA",
+            "clientes": 66
+          },
+          {
+            "departamento": "META",
+            "municipio": "PUERTO LLERAS",
+            "clientes": 53
+          },
+          {
+            "departamento": "META",
+            "municipio": "SAN MARTIN",
+            "clientes": 50
+          },
+          {
+            "departamento": "META",
+            "municipio": "BARRANCA DE UPIA",
+            "clientes": 48
+          },
+          {
+            "departamento": "META",
+            "municipio": "MESETAS",
+            "clientes": 44
+          },
+          {
+            "departamento": "META",
+            "municipio": "SAN CARLOS DE GUAROA",
+            "clientes": 44
+          },
+          {
+            "departamento": "META",
+            "municipio": "CUBARRAL",
+            "clientes": 37
+          },
+          {
+            "departamento": "META",
+            "municipio": "EL CASTILLO",
+            "clientes": 35
+          },
+          {
+            "departamento": "META",
+            "municipio": "SAN JUAN DE ARAMA",
+            "clientes": 27
+          },
+          {
+            "departamento": "META",
+            "municipio": "PUERTO CONCORDIA",
+            "clientes": 24
+          },
+          {
+            "departamento": "META",
+            "municipio": "EL DORADO",
+            "clientes": 20
+          },
+          {
+            "departamento": "META",
+            "municipio": "PUERTO RICO",
+            "clientes": 1
+          },
+          {
+            "departamento": "META",
+            "municipio": "URIBE",
+            "clientes": 1
+          },
+          {
+            "departamento": "META",
+            "municipio": "CABUYARO",
+            "clientes": 1
+          },
+          {
+            "departamento": "NARIÑO",
+            "municipio": "SAN LORENZO",
+            "clientes": 4
+          },
+          {
+            "departamento": "VAUPES",
+            "municipio": "MITU",
+            "clientes": 7
+          },
+          {
+            "departamento": "VAUPES",
+            "municipio": "CARURU",
+            "clientes": 2
+          },
+          {
+            "departamento": "VICHADA",
+            "municipio": "PUERTO CARREÑO",
+            "clientes": 5
+          },
+          {
+            "departamento": "VICHADA",
+            "municipio": "CUMARIBO",
+            "clientes": 4
+          }
+        ]
+      }
+    },
+    "nestle_ecom": {
+      "fuente": "dbo.ObjetivoEfectividad_EcNestle_nv",
+      "nota": "Sin información territorial disponible: la unidad solo tiene objetivos de efectividad por ruta y no existe tabla de ventas propia en PORTAL_NIEVE."
+    }
+  }
+}

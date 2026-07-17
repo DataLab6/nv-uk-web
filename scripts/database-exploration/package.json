@@ -1,0 +1,10 @@
+{
+  "name": "database-exploration",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Herramienta manual y aislada de extracción puntual de datos (solo lectura). No forma parte de la aplicación web ni de ningún flujo automático.",
+  "dependencies": {
+    "mssql": "^11.0.1"
+  }
+}

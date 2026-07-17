@@ -1,5 +1,4 @@
 import { Brands } from "../components/Brands";
-import { CoverageMap } from "../components/CoverageMap";
 import { CustomerChannels } from "../components/CustomerChannels";
 import { Hero } from "../components/Hero";
 import { Innovation } from "../components/Innovation";
@@ -16,7 +15,6 @@ export function HomePage({ site }: { site: SiteConfig }) {
       <Hero site={site} />
       <Brands site={site} />
       <Stats site={site} />
-      <CoverageMap site={site} />
       <CustomerChannels site={site} />
       <Innovation site={site} />
     </>

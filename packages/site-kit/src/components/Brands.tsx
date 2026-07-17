@@ -13,6 +13,7 @@ function AllySlot({ logo }: { logo: SiteBrandLogo }) {
           image={logo.image}
           className="h-16"
           displayWidth={logo.displayWidth}
+          visualScale={logo.visualScale}
           sizes={`${logo.displayWidth ?? 160}px`}
         />
       </div>

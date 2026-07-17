@@ -50,6 +50,7 @@ export function AlliesPage({ site }: { site: SiteConfig }) {
                     image={ally.image}
                     className="h-20 transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transform-none"
                     displayWidth={ally.displayWidth}
+                    visualScale={ally.visualScale}
                     sizes={`${ally.displayWidth ?? 160}px`}
                   />
                 </div>

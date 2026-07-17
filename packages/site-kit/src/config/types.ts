@@ -79,11 +79,22 @@ export interface SitePageCopy {
   readonly description: string;
 }
 
-export interface SiteStat {
-  readonly value: number;
-  readonly suffix?: string;
+export interface SiteStatFigure {
+  /** Texto previo discreto, p. ej. "Más de". */
+  readonly prefix?: string;
+  /** Cifra literal tal como fue suministrada, p. ej. "47,300" o "580-700". */
+  readonly value: string;
+  /** Unidad destacada junto a la cifra, p. ej. "m²", "departamentos". */
+  readonly unit?: string;
+  /** Descripción corta que completa la lectura de la cifra. */
   readonly label: string;
-  readonly note?: string;
+}
+
+export interface SiteStatGroup {
+  readonly title: string;
+  readonly figures: readonly SiteStatFigure[];
+  /** Líneas secundarias sin cifra propia. */
+  readonly notes?: readonly string[];
 }
 
 export interface SiteAlly {
@@ -91,6 +102,15 @@ export interface SiteAlly {
   readonly image?: SiteImageConfig;
   /** Preferred visual width in CSS pixels inside shared logo displays. */
   readonly displayWidth?: number;
+  /**
+   * Uniform visual scale (default 1) applied to the rendered logo to
+   * compensate for files with large internal transparent margins, without
+   * editing the source image. Only logos that look small relative to their
+   * peers should set this; most logos omit it. Keep values moderate
+   * (≈1.1–1.4) — this scales the artwork in place, centered, not the shared
+   * layout box, so excessive values risk visual overlap with neighbors.
+   */
+  readonly visualScale?: number;
 }
 
 export interface SiteBrandLogo extends SiteAlly {
@@ -152,10 +172,11 @@ export interface SiteConfig {
     readonly points: readonly SiteFeature[];
   };
   readonly stats: SitePageCopy & {
-    readonly image: SiteImageConfig;
-    readonly items: readonly SiteStat[];
-    readonly disclaimer: string;
+    /** Imagen estática de cobertura nacional; con null se muestra el espacio preparado para incorporarla después. */
+    readonly image: SiteImageConfig | null;
+    readonly groups: readonly SiteStatGroup[];
   };
+  /** Legacy: alimentaba el mapa interactivo (CoverageMap), retirado del home en 2026-07. Se conserva solo como referencia. */
   readonly coverage: SitePageCopy & {
     readonly departments: readonly string[];
     readonly disclaimer: string;
@@ -205,6 +226,13 @@ export interface SiteConfig {
   readonly pqrs: SitePageCopy & {
     readonly disclaimer: string;
     readonly categories: readonly SiteFeature[];
+    /** Controls the formal filing route (`/legal/pqrs/radicacion`) linked from this page. */
+    readonly filing: {
+      /** Whether the "Radicar una solicitud" button and route are offered at all. */
+      readonly enabled: boolean;
+      /** Whether a real submission backend exists; false keeps the final submit disabled. */
+      readonly backendAvailable: boolean;
+    };
   };
   readonly footerDescription: string;
   readonly socialLinks: SiteSocialLinks;

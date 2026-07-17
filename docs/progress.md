@@ -162,7 +162,7 @@ Imágenes de valores, creadas en la sesión anterior y reutilizadas:
 - Colores: `packages/site-kit/src/styles/globals.css`.
 - Contacto, teléfonos, redes, dirección y `mapEmbedUrl`: bloque `contact` y `socialLinks` de cada `site.config.ts`.
 - Aliados y tamaños individuales: arrays `laNieveBrandLogos` / `unimarkaBrandLogos` y bloque `allies`.
-- Estadísticas: bloque `stats` de cada `site.config.ts`.
+- Estadísticas: bloque `stats` de cada `site.config.ts` (copy e imagen futura por marca) + grupos de cifras compartidos en `packages/site-kit/src/config/statsContent.ts`.
 - Misión, visión y valores literales: `packages/site-kit/src/config/corporateContent.ts`, referenciados por ambos configs.
 - Línea de tiempo: `timelineContent.ts`, referenciada en `site.about.timeline`.
 - Tecnología: `technologyContent.ts`, referenciada en `site.innovation`.
@@ -352,6 +352,84 @@ Continuación directa de la sesión anterior. Todos los puntos parten del estado
 - Verificado manualmente en el código (no en navegador, por restricción de validación mínima): `ContactPage.tsx` ya no itera sobre `linkedin` para Unimarka; `BrandLogo.tsx` no tiene ramas ni estilos exclusivos de marca; `site.favicon` de Unimarka apunta a `/brand/favicon.png` y el de La Nieve no cambió.
 - Pendiente real: dirección física y mapa de Contacto de Unimarka (no confirmados en ninguna fuente disponible). Ningún otro punto de esta sesión quedó parcial.
 
+## Sesión: estadísticas reales y retiro del mapa interactivo (2026-07-16)
+
+### Decisión principal
+
+- El **mapa interactivo de cobertura fue descartado para esta fase** y se reemplazó por una composición preparada para una **futura imagen estática** de cobertura nacional, integrada en la misma sección que las estadísticas.
+
+### Estadísticas actualizadas
+
+- Se retiraron las cuatro cifras demostrativas de cada marca (aliados, canales, departamentos, vocación de servicio / categorías) y sus disclaimers de "cifras de demostración".
+- Nuevo contenido centralizado en `packages/site-kit/src/config/statsContent.ts` (`CORPORATE_STATS_GROUPS`), con estructura título / prefijo / cifra / unidad / descripción / notas:
+  - **Cobertura nacional**: 24 departamentos de Colombia; 85% del territorio nacional; enfoque especial en Bogotá, Medellín, Cali, Cartagena y Apartadó.
+  - **Capacidad operativa**: 47,300 m² en centros de fulfillment; más de 64,000 posiciones de almacenamiento.
+  - **Volumen de operaciones**: más de 5,800 toneladas transportadas mensualmente; 159,000 clientes con pedidos entregados; 580-700 municipios con cobertura diaria.
+  - **Equipo humano**: 460 colaboradores altamente capacitados; perfil profesional; enfocados en logística.
+- Las cifras se conservaron literalmente ("580-700" como rango, "m²", "fulfillment"); "Más de" se muestra como prefijo discreto sobre la cifra.
+
+### Atribución por empresa
+
+- La instrucción no atribuyó las cifras a una marca concreta. Se aplicaron a **ambas marcas como contenido corporativo compartido** (misma decisión previa que misión/visión/tecnología), adaptándose solo el color de acento por tokens. **Duda documentada**: si las cifras pertenecen a una sola compañía o al grupo consolidado, debe confirmarse; el punto de cambio es único (`statsContent.ts` + campo `stats.groups` de cada `site.config.ts`).
+
+### Contradicciones con la extracción de base de datos (no se reemplazó nada silenciosamente)
+
+Las cifras del prompt se mantuvieron como fuente principal, según la instrucción. Diferencias frente a `data/database-snapshot/` (2026-07-16):
+
+- "24 departamentos": la extracción muestra 29 departamentos con clientes en La Nieve y 24 en Unimarka (el 24 coincide exactamente con Unimarka).
+- "159,000 clientes": la base registra 100.485 (La Nieve) + 51.867 (Unimarka) terceros históricos ≈ 152k combinados; 11.625 + 10.568 con compras en 90 días.
+- "580-700 municipios diarios": la base muestra 370 (NV) y 250 (UK) municipios históricos con clientes.
+- "Enfoque especial en Bogotá, Medellín, Cali, Cartagena y Apartadó": los departamentos top en la base son Meta, Boyacá, Bogotá y Casanare; Medellín/Cali/Cartagena/Apartadó no aparecen como zonas relevantes en `clientes`.
+- 47,300 m², 64,000 posiciones, 5,800 toneladas y 460 colaboradores no tienen fuente en la base extraída (no verificables ahí).
+
+### Mapa: componente y lógica retirada
+
+- Componente modificado: la sección combinada vive en `packages/site-kit/src/components/Stats.tsx` (reescrito). `HomePage.tsx` ya **no** monta `CoverageMap`.
+- `packages/site-kit/src/components/CoverageMap.tsx` **no se eliminó** (queda como referencia, sin consumo): con él quedan fuera del home los estados `selectedDepartment`/`hoveredDepartment`, los handlers de clic/hover/teclado por departamento, los tooltips SVG y el listado interactivo de departamentos. No se usaba GeoJSON.
+- El bloque `coverage` de ambos `site.config.ts` y su tipo se conservan marcados como **legacy** (comentario en `types.ts`); ya no se consumen desde el home.
+- El ancla `/#cobertura` (usada por el redirect de `/cobertura`) ahora apunta a la nueva sección combinada (`id="cobertura"` en `Stats.tsx`). El id `#stats` desapareció; nada lo referenciaba.
+
+### Imagen de cobertura
+
+- **No existe aún imagen definitiva**. Se revisó `assets/`, `packages/site-kit/src/assets/` y `apps/*/public/images`: no hay ninguna imagen de mapa/cobertura, así que no se usó ninguna.
+- Espacio preparado: `CoverageImageSlot` dentro de `Stats.tsx` — figura `rounded-3xl` con relación 4:3 en móvil y altura completa de columna en escritorio, fondo `mesh-gradient` (tokens de marca) + retícula sutil + insignia con icono de mapa y las palabras "Cobertura nacional / Colombia". Sin mensajes técnicos visibles.
+- **Cómo incorporar la imagen futura (para otro modelo)**: copiar el archivo a `apps/la-nieve/public/images/` y `apps/unimarka/public/images/` (o a `packages/site-kit/src/assets/` si será compartida) y configurar `stats.image` en cada `site.config.ts` con `src`, `alt`, `width`, `height`; el componente la mostrará automáticamente con `object-cover` sin tocar código.
+
+### Composición y responsive
+
+- Escritorio: imagen a la izquierda, encabezado + cuadrícula 2×2 de grupos a la derecha (una sola sección editorial, sin cards con fondo).
+- Móvil: primero el contenido narrativo (encabezado y cifras), la imagen/espacio al final (`order-last lg:order-none`); sin scroll horizontal.
+- Los números usan mayor jerarquía (3xl/4xl, `tabular-nums`) que las descripciones (`text-sm muted`); acentos con `--primary` de cada marca (azul La Nieve, rojo Unimarka).
+
+### Cambios de tipos y limpieza
+
+- `types.ts`: nuevos `SiteStatFigure` y `SiteStatGroup`; `stats` ahora es `SitePageCopy & { image: SiteImageConfig | null; groups }`. Se eliminó la interfaz `SiteStat` y los campos `items`/`disclaimer` (solo los usaba el Stats anterior). `useCounterAnimation.ts` queda sin consumidores pero se conserva.
+- Barrels (`index.ts`, `config/index.ts`): exportan `CORPORATE_STATS_GROUPS`, `SiteStatFigure`, `SiteStatGroup`; retiran `SiteStat`.
+- No se tocaron los scripts de `scripts/database-exploration/` ni los archivos de `data/database-snapshot/`; la web no los consume.
+
+### Archivos consultados
+
+`docs/current-database-extraction.md`, `data/database-snapshot/statistics-current.json`, `data/database-snapshot/department-coverage-current.json`, configuración actual de ambas marcas y `docs/progress.md`. Los archivos de extracción se usaron solo como referencia manual para documentar contradicciones; no alimentan la web.
+
+### Validación
+
+- `npm run build` (ambas apps): compilación y TypeScript correctos; 16 páginas estáticas por marca. Única validación ejecutada.
+
+### Pendientes
+
+- Confirmar con la empresa la atribución de las cifras (¿grupo consolidado o una sola marca?).
+- Producir/entregar la imagen estática de cobertura nacional y configurarla en `stats.image` (instrucciones arriba).
+- Resolver las contradicciones cifras-prompt vs base de datos cuando exista una instrucción oficial.
+
+## Sesión de extracción puntual de base de datos (2026-07-16)
+
+- Estado: terminada. Tarea **aislada y de solo lectura**; no toca el sitio web.
+- Se creó `scripts/database-exploration/` (fuera de los workspaces, con `mssql` instalado de forma aislada) con `extract-current-statistics.mjs`, `db.mjs` (guardia de solo lectura) y `run-adhoc-query.mjs`.
+- Se extrajo una fotografía puntual de `PORTAL_NIEVE` (SQL Server) hacia `data/database-snapshot/` (statistics, cobertura por departamento/municipio en JSON+CSV, y resultados de las 19 consultas).
+- Hallazgos clave: `dbo.clientes.Cia` 1 = La Nieve / 2 = Unimarka; geografía por `f_desc_depto`/`f_desc_ciudad` (texto libre); ventas al día en `VentasMSV_NV/UK`; 29/24 departamentos con clientes.
+- Documentación completa (conexión, consultas, cifras, limitaciones, cómo re-ejecutar): `docs/current-database-extraction.md`.
+- Sin integración con el frontend, sin endpoints, sin procesos automáticos, sin credenciales guardadas, sin datos personales exportados.
+
 ## Sesión de diagnóstico — logo blanco del navbar de La Nieve (2026-07-16, effort xhigh)
 
 - Estado: terminado.
@@ -370,3 +448,130 @@ Continuación directa de la sesión anterior. Todos los puntos parten del estado
 - Sin cambios en: `Navigation.tsx`, `BrandLogo.tsx`, `types.ts`, cualquier archivo de Unimarka, y los archivos originales de `assets/`.
 - Validación: `npm run build -w @corporativo/la-nieve` correcto; TypeScript sin errores; 16 páginas estáticas.
 - Nota para el usuario: si tras levantar el sitio el navegador aún mostrara el logo antiguo, un refresco normal basta — la URL nueva no existe en ninguna caché previa.
+
+## Sesión: formulario formal de radicación de PQRS (2026-07-16, effort xhigh)
+
+Aplicado a **ambas marcas** (La Nieve y Unimarka): el componente `PqrsPage.tsx` ya era 100% compartido y sin diferencias de contenido entre marcas, y la nueva página reutiliza exactamente el mismo patrón ya establecido en `CareersPage.tsx` (enlace compartido a `/legal/tratamiento-de-datos` sin condicionar por marca), así que no había motivo para restringir la función a una sola empresa.
+
+### 1. Botón de redirección (página informativa)
+
+- Estado: terminado.
+- Archivo: `packages/site-kit/src/pages/PqrsPage.tsx`.
+- El bloque "Canal de radicación en preparación" se reescribió como una introducción breve + botón principal **"Radicar una solicitud"** (`<Link href="/legal/pqrs/radicacion">`, sin `target="_blank"`, sin modal, sin lógica de formulario en esta página). El botón solo se renderiza si `site.pqrs.filing.enabled` es `true` (ambas marcas lo tienen en `true`).
+- El texto ya no afirma que el canal está operativo: indica que "seguimos validando la integración técnica para su envío definitivo".
+
+### 2. Nueva página de radicación
+
+- Estado: terminado visualmente y en validaciones; **envío final deshabilitado** (no existe backend).
+- Ruta: `/legal/pqrs/radicacion` en ambas apps — `apps/la-nieve/src/app/legal/pqrs/radicacion/page.tsx` y `apps/unimarka/src/app/legal/pqrs/radicacion/page.tsx`.
+- Componente compartido: `packages/site-kit/src/pages/PqrsFilingPage.tsx` (un único componente para ambas marcas, sin duplicar).
+- Config nueva y centralizada: `packages/site-kit/src/config/pqrsFilingContent.ts` (`PQRS_DOCUMENT_TYPES`, `PQRS_ATTACHMENT_RULES`, `PQRS_RESPONSE_TERMS_NOTE`), exportada desde ambos barrels (`config/index.ts`, `index.ts`). Nuevo campo `pqrs.filing: { enabled, backendAvailable }` en `SiteConfig` (`types.ts`) y en ambos `site.config.ts` (`enabled: true, backendAvailable: false`).
+
+### 3. Visibilidad de la ruta
+
+- **No** se agregó a `Navigation.tsx`, a `createCorporateNavigation` (menú Legal), ni a `Footer.tsx`. Verificado con `grep` sobre todo el código: la cadena `radicacion` solo aparece en `PqrsPage.tsx` (el botón) y en un comentario de `types.ts`; ningún archivo de navegación/footer la referencia.
+- Metadata propia en cada `page.tsx` (no reutiliza `createPageMetadata`/`SitePageKey` para no tocar ese sistema compartido): `robots: { index: false, follow: false }`. Sigue siendo una URL **pública**, solo excluida de indexación; no se afirma que sea privada.
+- No existe generador de sitemap en el proyecto (no se encontró `sitemap.ts`/`next-sitemap`), así que no había nada de qué excluirla.
+- Único enlace visible hacia la página: el botón de `/legal/pqrs`.
+
+### 4. Campos implementados
+
+- **Destinatario:** `Dirigido a: {site.legalName}`, no editable, tomado de la configuración de marca (no escrito en el componente).
+- **Tipo de solicitud:** select derivado de `site.pqrs.categories.map(c => c.title)` (Peticiones/Quejas/Reclamos/Sugerencias ya existentes; no se inventaron categorías). Soporta preselección por `?tipo=` en la URL (leído con `window.location.search` en un `useEffect`, sin `useSearchParams` de Next para evitar el requisito de `Suspense`); el usuario puede cambiarla. No se enlazó individualmente desde cada tarjeta de categoría en `PqrsPage.tsx` porque esas tarjetas usan el componente compartido `FeatureCard.tsx`, consumido por otras secciones del sitio (canales, cultura, inicio) — modificarlo para añadir navegación habría afectado partes fuera del alcance de esta tarea.
+- **Tipo de solicitante:** persona natural / persona jurídica / apoderado o representante, con campos condicionales exactamente como se solicitó (para apoderado: selector de si la persona representada es natural o jurídica, datos del apoderado, y adjunto opcional del documento de representación).
+- **Datos de contacto:** correo + confirmar correo (validados y comparados), teléfono opcional, línea fija "Medio de respuesta: correo electrónico". No existe ningún campo de dirección física ni opción de respuesta a domicilio (verificado: el componente no incluye ningún campo de dirección).
+- **Contenido:** Asunto, Objeto de la solicitud y Hechos y razones como tres campos independientes (no se combinaron en un único "mensaje"), cada uno con contador de caracteres discreto (150/2000/4000) y recomendación de redacción.
+- **Anexos:** zona de arrastrar/soltar + selector, listado con nombre/tamaño/eliminar, validación de formato y tamaño. Reglas centralizadas en `PQRS_ATTACHMENT_RULES` (PDF/DOC/DOCX/JPG/PNG, 10 MB por archivo, 25 MB total, máx. 5 archivos) — **valores de referencia de interfaz sin backend que los confirme**, documentados como tal en el propio archivo de configuración; no se implementó ninguna carga real (los archivos permanecen solo en el navegador).
+- **Autorizaciones (3 casillas independientes, ninguna marcada por defecto):** tratamiento de datos personales (enlaza a `/legal/tratamiento-de-datos`, menciona a `site.legalName` como responsable, sin finalidades comerciales adicionales), aceptación de respuesta exclusivamente por correo, y declaración de veracidad de la información y los anexos.
+- **Revisión antes de enviar:** botón "Revisar antes de enviar" valida el formulario (foco automático al primer error) y muestra un resumen (tipo, solicitante, documento parcialmente enmascarado, correo, asunto, objeto, hechos, anexos, autorizaciones) con botones "Corregir información" y "Radicar solicitud".
+- **Envío:** el botón "Radicar solicitud" permanece deshabilitado (`disabled={!site.pqrs.filing.backendAvailable}`, actualmente `false` en ambas marcas) con un aviso explícito de que el canal de envío está en preparación. No se genera número de radicado, no se simula envío, no se usa `mailto:`, no se guarda en `localStorage`, no se envían datos en la URL.
+
+### 5. Seguridad y accesibilidad
+
+- No hay `console.log` de datos del formulario en ningún punto del componente.
+- Los archivos adjuntos solo existen en memoria del navegador (objetos `File`); no se suben a ningún lado.
+- Errores de validación: junto al campo, con `role="alert"`, `aria-invalid` y foco automático al primer campo con error.
+- `fieldset`/`legend` para cada grupo, radios accesibles vía `sr-only` + estilo visual en el `label`, tamaño táctil ≥ 44px en controles principales, una sola columna en móvil, sin scroll horizontal.
+
+### 6. Hallazgos y contradicciones documentadas (no resueltas en esta sesión)
+
+- **`tratamientodata.txt` cambió desde la sesión anterior**: ahora contiene **dos políticas completas** (antes solo tenía la de La Nieve): una para `DISTRIBUCIONES LA NIEVE S.A.S` (líneas 1–197) y una nueva para `UNIMARKA S.A.S` (líneas 201–398), con sus propios canales, definiciones y trámites. Esto **contradice** lo implementado actualmente en `DataPolicyPage.tsx`/`dataPolicyContent.ts`, que muestra "Documento no disponible para Unimarka" y fija `dataPolicy.documentId: null` para esa marca. **No se modificó `DataPolicyPage.tsx` ni `dataPolicyContent.ts` en esta sesión** (fuera del alcance: "no rediseñes otras páginas"); se documenta aquí para que otro modelo transcriba el documento de Unimarka siguiendo el mismo criterio literal usado para La Nieve.
+- **Correo de radicación de Unimarka**: `tratamientodata.txt` (sección Unimarka, "Radicación de consulta o solicitud de información") especifica `servicioalcliente@unimarka.co`, mientras que `site.contact.email` de Unimarka (agregado en una sesión anterior desde `redesciales.txt`) es `servicioalcliente@unimarka.com`. Mismo patrón de discrepancia `.co` vs `.com` ya documentado para La Nieve. El formulario de radicación no usa ninguno de estos correos directamente (el usuario escribe el suyo); la discrepancia afecta a qué correo de la empresa se muestra como "Canales directos" en `ContactPage.tsx`, no modificado aquí.
+- **Términos de "Consultas"**: el prompt de esta sesión pidió usar como referencia general "Consultas: 30 días", pero `tratamientodata.txt` (ambas políticas) especifica textualmente "las consultas serán atendidas en un término máximo de diez (10) días hábiles". Seguí la instrucción explícita de conservar como principal la cifra suministrada en el prompt (30 días) y no reemplazarla por suposición; el texto de `PQRS_RESPONSE_TERMS_NOTE` dentro de `pqrsFilingContent.ts` la incluye igualmente marcada como referencia no vinculante. **Esta contradicción (10 vs. 30 días para consultas) queda pendiente de validación jurídica antes de publicar.**
+- Los términos de "peticiones generales" (15 días) y "solicitudes de información o documentos" (10 días) del prompt sí coinciden con los plazos de trámite de peticiones/reclamos (15 días hábiles) y de recolección de datos de `tratamientodata.txt`.
+
+### 7. Confirmaciones explícitas pedidas
+
+- No existe ningún campo de dirección física para la respuesta (ni en el formulario ni como opción de canal).
+- La respuesta se configura exclusivamente por correo electrónico: el fijo "Medio de respuesta: correo electrónico" y la casilla de aceptación correspondiente son los únicos mecanismos; no hay alternativa de domicilio.
+- Ruta de la política de tratamiento de datos enlazada: `/legal/tratamiento-de-datos` (misma para ambas marcas; para Unimarka hoy muestra el aviso de documento no disponible — ver contradicción arriba).
+- Estado del backend: **no existe**. No hay endpoint, API, servicio de correo, base de datos ni Power Automate conectado a este formulario ni a ningún otro del sitio (mismo patrón ya usado en `ContactPage.tsx`/`CareersPage.tsx`).
+- Estado de la carga de archivos: interfaz completa (selección, arrastrar/soltar, validación, listado, eliminación); **sin almacenamiento real**.
+- Método de generación del radicado: **ninguno**; no se genera número de radicado falso ni real, porque no hay backend que lo emita.
+
+### 8. Elementos que requieren revisión jurídica antes de producción
+
+Responsable interno del canal; correo oficial definitivo para PQRS (resolver discrepancia `.co`/`.com`); términos publicados (10 vs. 30 días para consultas); procedimiento de radicación; custodia de anexos; tratamiento de datos de Unimarka (documento ya existe en la fuente, falta transcribirlo); procedimiento para solicitudes incompletas; gestión de peticiones anónimas; confirmación y número de radicado; integración con correo, base de datos o sistema documental.
+
+### 9. Próximo paso para que el canal sea funcional
+
+1. Definir e implementar el backend real (correo, base de datos o sistema documental) que reciba los datos validados por este formulario.
+2. Resolver la contradicción del correo de Unimarka y actualizar `site.contact.email` si corresponde.
+3. Transcribir la política de tratamiento de datos de Unimarka desde `tratamientodata.txt` (líneas 201–398) a `dataPolicyContent.ts`, siguiendo el mismo criterio literal aplicado a La Nieve, y actualizar `dataPolicy.documentId` de Unimarka.
+4. Validar jurídicamente los términos de atención (10 vs. 30 días) y los límites de anexos antes de retirar el aviso de "canal en preparación".
+5. Una vez exista backend, cambiar `pqrs.filing.backendAvailable` a `true` por marca; el botón "Radicar solicitud" se habilitará automáticamente sin más cambios de UI.
+
+### Validación
+
+- `npm run build` (ambas apps): compilación y TypeScript correctos; se generaron 17 páginas estáticas por marca (antes 16), incluyendo `/legal/pqrs/radicacion`.
+- Verificado por código (no en navegador): el botón de `/legal/pqrs` enlaza a la nueva ruta; la ruta no aparece en navbar/footer/menú Legal; no hay campo de dirección física; correo y confirmación son obligatorios y se comparan; las tres autorizaciones son independientes y no vienen premarcadas; no se imprime nada en consola; la ruta tiene `robots: noindex, nofollow`.
+
+## Sesión: normalización visual de logos de aliados (2026-07-16)
+
+- Estado: terminado.
+- Causa raíz confirmada por análisis de píxeles (decodificador PNG en Node, sin dependencias, midiendo el bounding box de contenido no transparente de cada archivo): varios logos tienen mucho margen transparente interno dentro de su lienzo. Con `object-fit: contain`, ese margen se conserva proporcionalmente, así que el contenido visible termina ocupando solo una fracción pequeña de la caja aunque el archivo tenga una resolución alta. No era un problema de contenedor ni de `displayWidth` (que ya era compartido entre carrusel y sección).
+- Componentes: `packages/site-kit/src/components/AllyLogo.tsx` (nuevo prop `visualScale`, aplicado como `transform: scale()` sobre la imagen, no sobre la caja; se retiró `overflow-hidden` del contenedor externo, que ya no era necesario y habría recortado la escala), `packages/site-kit/src/components/Brands.tsx` y `packages/site-kit/src/pages/AlliesPage.tsx` (ambos pasan `visualScale={logo.visualScale}` / `ally.visualScale`).
+- Fuente única de la lista de aliados: ya estaba centralizada (`site.allies.logos` y `site.allies.items` apuntan al mismo array `laNieveBrandLogos`/`unimarkaBrandLogos` en cada `site.config.ts`); el carrusel y la sección completa la comparen sin duplicar configuración. Se añadió el campo opcional `visualScale` a `SiteAlly`/`SiteBrandLogo` en `types.ts` y un 6.º parámetro opcional al helper `brandLogo()` de cada `site.config.ts`.
+- Propiedad añadida: `visualScale` (multiplicador uniforme, por defecto ausente = 1). Se probó que un tope de **1.4** es seguro sin recortes en ambas ubicaciones (cálculo geométrico: en el carrusel, caja `h-16`(64px) dentro de `div h-20`(80px) dentro de `li h-24`(96px); a escala 1.4 el desbordamiento máximo (12.8px por lado) cabe dentro del margen disponible sin tocar el `overflow-hidden` de la pista del marquee; en la sección completa no existe ningún ancestro con `overflow-hidden`, por lo que allí el margen es aún mayor).
+- Logos que necesitaron ajuste especial (escala aplicada / % de altura visual estimado antes de escalar):
+  - La Nieve: Electrolit (Pisa Farmacéutica) 1.4 (~30%→~41%), Incauca 1.4 (~31%→~43%), Nestlé Purina 1.4 (~30%→~42%), Levapan 1.4 (~47%→~66%), Nestlé Alimentos 1.4 (~52%→~73%), Alimentos Polar 1.25 (~68%→~85%).
+  - Unimarka: Providencia 1.4 (~16%→~22%), La Soberana 1.4 (~49%→~69%), Quala 1.25 (~69%→~85%).
+  - El resto de los 16 logos de La Nieve y 13 de Unimarka conservan el valor por defecto (sin `visualScale`), ya que su contenido ya ocupa ≥85% de la altura de la caja.
+- Logos con márgenes transparentes internos grandes (documentados, no corregidos por edición de imagen): Electrolit, Incauca, Nestlé Purina y Providencia son los casos más severos (contenido real entre 16% y 31% de su lienzo). El resto de logos ajustados (Levapan, Nestlé Alimentos, La Soberana, Alimentos Polar, Quala) tiene un margen moderado, ya razonablemente compensado con la escala.
+- Logos que **no** quedaron completamente corregidos solo con CSS: **Providencia** (Unimarka) es el caso más severo — incluso con el tope de escala de 1.4 su contenido visible sigue notablemente más pequeño que el resto (~22% de la altura de caja). Electrolit, Incauca y Nestlé Purina (La Nieve) mejoran de forma perceptible pero siguen algo por debajo del resto (~41–43%).
+- **Recomendación**: recortar manualmente el espacio transparente sobrante de `providencia.png` (prioritario), `electrolit.png`, `incauca.png` y `nestle-purina.png` cuando sea posible, para no depender de una escala tan alta. No se modificó ningún archivo de imagen en esta sesión.
+- Confirmado: el carrusel (`Brands.tsx`) y la sección completa (`AlliesPage.tsx`) leen exactamente el mismo array y el mismo campo `visualScale` por aliado — un ajuste se refleja automáticamente en ambos lugares. Las dos copias duplicadas del carrusel (bucle infinito) reciben la misma configuración porque ambas iteran sobre el mismo array `logos`.
+- No se tocó: animación, pausa por hover, orden de aliados, modo oscuro (la superficie discreta `dark:bg-white/90` en ambos componentes sigue igual), ni la arquitectura general.
+- Validación: `npm run build` (ambas apps) correcto, TypeScript sin errores; `curl` confirmó 200 en `/` y `/aliados-comerciales` con el dev server de La Nieve levantado brevemente.
+
+## Sesión: panel corporativo de estadísticas y mapa (2026-07-17)
+
+- Estado: terminado. Cambio exclusivamente visual en `packages/site-kit/src/components/Stats.tsx` (sección `id="cobertura"` del home). Sin cambios en datos, textos, cifras, imagen del mapa, configuraciones ni otras secciones.
+- Composición nueva: toda la sección vive en **un único recuadro** `rounded-[2.5rem]` con fondo `bg-brand-primary` + degradado sutil hacia una variante oscura generada con `color-mix(in srgb, var(--brand-primary) 78%, black)`. Como `--brand-primary` ya resuelve por marca (La Nieve `#27348A` azul, Unimarka `#BD202D` rojo oscuro, definidos en `globals.css`), el componente sigue siendo compartido sin condicionales de marca y no existe color fijo común.
+- Escritorio: grid `lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]` (~57% estadísticas izquierda / ~43% mapa derecha).
+- Mapa: integrado directamente sobre el fondo corporativo — sin card, sin borde, sin sombra, sin fondo propio; `object-fit: contain` conserva la proporción (imagen configurada por marca en `site.stats.image`; Unimarka `public/images/mapa-cobertura-unimarka.png`, La Nieve sigue con `null` y muestra el espacio preparado re-estilizado en blanco sobre el fondo azul). En `lg` el `figure` se posiciona absoluto (`-top-16 / -bottom-10 / -right-4`) para sobresalir de forma moderada y controlada del panel; `html/body` usan `overflow-x: clip`, y el desborde derecho (1rem) queda dentro del margen de página, por lo que no hay scroll horizontal.
+- Estadísticas: misma estructura y datos (`StatGroup` con títulos, divisores, cifras y notas); solo se recolorearon con capas blancas translúcidas (`text-white`, `text-white/75`, `bg-white/[0.07]` como superficie por grupo, divisores `bg-white/25`), que sobre cada fondo producen tonos derivados azules o rojos según la marca, con contraste suficiente en ambas.
+- Móvil/tableta: apilado vertical — primero estadísticas, después el mapa centrado (`h-80/h-96`, `max-w-md`, flujo normal, sin desbordes laterales).
+- Modo oscuro: `--brand-primary` no cambia en `.dark`, así que el panel se ve igual en ambos modos (mismo criterio que el navbar sólido).
+- Nota: la imagen de referencia mencionada en la instrucción no llegó adjunta; la composición se implementó a partir de la descripción escrita (recuadro único, 55–60/40–45, mapa emergiendo del panel).
+- Validación: `npm run build` correcto en ambas apps, TypeScript sin errores.
+
+## Sesión: ampliación de la extracción de base de datos con unidades BAT, Alpina y Nestlé Ecom (2026-07-17)
+
+- Estado: terminado. La extracción puntual de `PORTAL_NIEVE` (script aislado `scripts/database-exploration/extract-current-statistics.mjs`) no cubría las unidades de negocio de La Nieve; se añadieron 12 consultas de solo lectura (total 31, todas correctas) y se regeneraron los cuatro archivos de `data/database-snapshot/` (49 indicadores).
+- BAT: ventas en `dbo.VentasBAT_NV` (vigente al 2026-07-17); clientes marcados vía `dbo.clientes.TipoNegocioBAT` (75.682 en Cia 1; anomalía: también hay marcados en Cia 2 y 6); cobertura en 27 departamentos; catálogo `BMSV*` (1.103 productos, 21 marcas).
+- Alpina: esquemas `amovil` (Yopal) y `amovil1` (Villavicencio; opera desde 2026-01). Clientes al corte: 3.720 / 7.987; cobertura de últimos 12 meses desde las ventas (`txDepartamento/txCiudad`, filtro `boAfectaVenta='S'`): 6 deptos/41 municipios y 12/56. La maestra de clientes no trae departamento.
+- Nestlé Ecom: limitación real — no existe tabla de ventas ni clientes propia; única fuente `dbo.ObjetivoEfectividad_EcNestle_nv` (al 2026-07-01: 17 rutas, maestra objetivo 6.093). `ECOM_NstlObjetivoMarcos` está vacía.
+- Documentación completa actualizada en `docs/current-database-extraction.md` (fuentes, consultas, indicadores, cobertura, limitaciones y anomalías).
+- Sin integración con el frontend, sin endpoints, sin procesos persistentes; credenciales solo por variables de entorno en la ejecución manual.
+
+## Sesión: preparación para despliegue en Vercel (2026-07-17)
+
+- Estado: terminado (configuración de repositorio). Plataforma elegida por el usuario: **Vercel**, con dos proyectos separados apuntando al mismo repo (`apps/la-nieve` y `apps/unimarka` como Root Directory de cada uno). Dominios: pendientes de definir.
+- Archivos agregados/modificados:
+  - `package.json` (raíz): se agregó `"engines": { "node": ">=20.9.0" }` para fijar la versión mínima de Node compatible con Next.js 16.
+  - `apps/la-nieve/vercel.json` y `apps/unimarka/vercel.json` (nuevos): `ignoreCommand` para que cambios ajenos a una app (o a `packages/site-kit`) no disparen un build innecesario del otro proyecto.
+  - `docs/deployment.md` (nuevo): guía paso a paso para crear los dos proyectos en Vercel, configuración de Root Directory/Build/Install Command, variables de entorno (ninguna requerida hoy) y asignación futura de dominios.
+- No se tocó: `next.config.ts` de ninguna app (no se agregó `output: "standalone"`, propio de self-hosting/Docker, no de Vercel), arquitectura del monorepo, componentes ni páginas.
+- No se crearon los proyectos de Vercel ni se asignó ningún dominio (requiere acceso al dashboard del usuario); queda documentado como paso manual siguiente en `docs/deployment.md`.
+- Validación: `npm run build` (ambas apps) correcto tras los cambios, sin errores de TypeScript.

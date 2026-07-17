@@ -1,5 +1,6 @@
 import {
   CORPORATE_MISSION,
+  CORPORATE_STATS_GROUPS,
   CORPORATE_TECHNOLOGY,
   CORPORATE_VALUES,
   CORPORATE_VISION,
@@ -14,11 +15,15 @@ function brandLogo(
   src: string,
   width: number,
   height: number,
-  displayWidth = 160
+  displayWidth = 160,
+  // Compensates files with large internal transparent margins (see docs/progress.md);
+  // most logos omit this and rely on the default scale of 1.
+  visualScale?: number
 ) {
   return {
     name,
     displayWidth,
+    ...(visualScale ? { visualScale } : {}),
     image: {
       src,
       alt: `Logotipo de ${name}`,
@@ -34,12 +39,12 @@ const unimarkaBrandLogos = [
   brandLogo("Brinsa", "/brands/brinsa.png", 2125, 791, 184),
   brandLogo("Grupo Familia", "/brands/grupo-familia.png", 1280, 318, 188),
   brandLogo("Familia TORK", "/brands/familia-tork.png", 3840, 2160, 156),
-  brandLogo("Quala", "/brands/quala.png", 400, 400, 100),
+  brandLogo("Quala", "/brands/quala.png", 400, 400, 100, 1.25),
   brandLogo("Contegral", "/brands/contegral.png", 472, 321, 136),
   brandLogo("Reckitt", "/brands/reckitt.png", 3840, 2160, 150),
-  brandLogo("Providencia", "/brands/providencia.png", 400, 300, 126),
+  brandLogo("Providencia", "/brands/providencia.png", 400, 300, 126, 1.4),
   brandLogo("Amerincandy", "/brands/americandy.png", 1024, 422, 180),
-  brandLogo("La Soberana", "/brands/la-soberana.png", 250, 150, 144),
+  brandLogo("La Soberana", "/brands/la-soberana.png", 250, 150, 144, 1.4),
   brandLogo("PQP", "/brands/pqp.png", 503, 187, 176),
   brandLogo(
     "Precocidos del Oriente",
@@ -124,41 +129,19 @@ export const siteConfig = {
     ],
   },
   stats: {
-    eyebrow: "Indicadores de ejemplo",
-    title: "Una vista demostrativa de nuestros indicadores",
+    eyebrow: "Cobertura y operación",
+    title: "Una operación nacional en cifras",
     description:
-      "Estas cifras permiten visualizar el diseño de la sección y todavía no representan indicadores corporativos oficiales.",
+      "Cobertura territorial, capacidad instalada, volumen de operaciones y equipo humano que respaldan nuestro servicio.",
+    // Fuente: assets/mapaUK.png, copiado sin alterar a public/images/mapa-cobertura-unimarka.png.
     image: {
-      src: "/images/stats-unimarka.png",
-      alt: "Fotografía conceptual de una operación de inventario y distribución",
-      width: 1600,
-      height: 900,
-      treatment: "photo",
+      src: "/images/mapa-cobertura-unimarka.png",
+      alt: "Mapa de cobertura nacional de Unimarka con los departamentos atendidos destacados",
+      width: 3267,
+      height: 4869,
+      treatment: "illustration",
     },
-    items: [
-      {
-        value: 13,
-        label: "Aliados comerciales",
-        note: "Ejemplo basado en la lista suministrada para esta fase.",
-      },
-      {
-        value: 6,
-        label: "Canales de atención",
-        note: "Ejemplo basado en las categorías definidas para el sitio.",
-      },
-      {
-        value: 12,
-        label: "Departamentos",
-        note: "Cifra demostrativa; cobertura pendiente de validación oficial.",
-      },
-      {
-        value: 4,
-        label: "Categorías",
-        note: "Ejemplo basado en el contexto corporativo suministrado.",
-      },
-    ],
-    disclaimer:
-      "Cifras de demostración para fines de diseño. Deben sustituirse por indicadores verificados y aprobados antes de publicar.",
+    groups: CORPORATE_STATS_GROUPS,
   },
   coverage: {
     eyebrow: "Mapa de cobertura — demostración",
@@ -374,6 +357,10 @@ export const siteConfig = {
           "Ideas y recomendaciones que podrán contribuir a la mejora continua cuando el canal sea habilitado.",
       },
     ],
+    filing: {
+      enabled: true,
+      backendAvailable: false,
+    },
   },
   footerDescription:
     "Distribuidora colombiana de productos de consumo masivo, institucionales, licores y vinos.",

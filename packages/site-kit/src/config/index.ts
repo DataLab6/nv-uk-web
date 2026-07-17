@@ -11,6 +11,12 @@ export {
   LA_NIEVE_DATA_POLICY_SOURCE,
 } from "./dataPolicyContent";
 export { sharedHeroImage } from "./sharedAssets";
+export { CORPORATE_STATS_GROUPS } from "./statsContent";
+export {
+  PQRS_ATTACHMENT_RULES,
+  PQRS_DOCUMENT_TYPES,
+  PQRS_RESPONSE_TERMS_NOTE,
+} from "./pqrsFilingContent";
 export { CORPORATE_TECHNOLOGY } from "./technologyContent";
 export { LA_NIEVE_TIMELINE, UNIMARKA_TIMELINE } from "./timelineContent";
 export type {
@@ -28,7 +34,8 @@ export type {
   SiteNavigationItem,
   SitePageCopy,
   SitePageKey,
-  SiteStat,
+  SiteStatFigure,
+  SiteStatGroup,
   SiteSocialLinks,
   SiteTextSection,
   SiteTimelineMilestone,

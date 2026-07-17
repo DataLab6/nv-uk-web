@@ -1,4 +1,5 @@
-import { MessageSquareWarning, ShieldAlert } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, MessageSquareWarning, ShieldAlert } from "lucide-react";
 import type { SiteConfig } from "../config/types";
 import { FeatureCard } from "../components/FeatureCard";
 import { PageIntro } from "../components/PageIntro";
@@ -53,13 +54,23 @@ export function PqrsPage({ site }: { site: SiteConfig }) {
               </span>
               <div>
                 <h2 className="text-2xl font-bold text-primary-foreground">
-                  Canal de radicación en preparación
+                  Radica tu solicitud
                 </h2>
                 <p className="mt-2 leading-relaxed text-primary-foreground/80">
-                  El formulario y sus tiempos de atención se publicarán cuando
-                  la empresa valide el procedimiento, los responsables y los
-                  datos de contacto oficiales.
+                  Completa el formulario formal de radicación con la
+                  información necesaria para identificarte y tramitar tu
+                  solicitud. Seguimos validando la integración técnica para su
+                  envío definitivo.
                 </p>
+                {site.pqrs.filing.enabled && (
+                  <Link
+                    href="/legal/pqrs/radicacion"
+                    className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-xl bg-primary-foreground px-6 py-3 font-semibold text-primary shadow-sm transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary motion-reduce:transform-none"
+                  >
+                    Radicar una solicitud
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                )}
               </div>
             </div>
           </div>

@@ -1,0 +1,749 @@
+# Captura puntual de solo lectura (2026-07-17T13:53:23.440Z). No es fuente automática de producción.
+empresa,departamento,municipio,clientes_total,clientes_activos
+"La Nieve","AMAZONAS","LETICIA",2,0
+"La Nieve","ANTIOQUIA","MEDELLÍN",5,2
+"La Nieve","ANTIOQUIA","ITAGÜÍ",2,1
+"La Nieve","ANTIOQUIA","SANTA FÉ DE ANTIOQUIA",2,0
+"La Nieve","ANTIOQUIA","TURBO",1,0
+"La Nieve","ANTIOQUIA","VALDIVIA",1,1
+"La Nieve","ANTIOQUIA","JERICÓ",1,0
+"La Nieve","ANTIOQUIA","LA ESTRELLA",1,0
+"La Nieve","ANTIOQUIA","RIONEGRO",1,1
+"La Nieve","ANTIOQUIA","SABANETA",1,1
+"La Nieve","ANTIOQUIA","APARTADÓ",1,1
+"La Nieve","ANTIOQUIA","ARBOLETES",1,1
+"La Nieve","ANTIOQUIA","BARBOSA",1,0
+"La Nieve","ANTIOQUIA","GRANADA",1,0
+"La Nieve","ARAUCA","TAME",57,26
+"La Nieve","ARAUCA","ARAUCA",18,13
+"La Nieve","ARAUCA","SARAVENA",5,3
+"La Nieve","ARAUCA","ARAUQUITA",4,3
+"La Nieve","ATLÁNTICO","BARRANQUILLA",3,3
+"La Nieve","BOGOTÁ","BOGOTÁ, D.C.",17189,14116
+"La Nieve","BOLÍVAR","EL CARMEN DE BOLÍVAR",3,2
+"La Nieve","BOLÍVAR","CARTAGENA DE INDIAS",2,2
+"La Nieve","BOYACÁ","TUNJA",5402,2781
+"La Nieve","BOYACÁ","SOGAMOSO",4581,2073
+"La Nieve","BOYACÁ","DUITAMA",4163,2223
+"La Nieve","BOYACÁ","CHIQUINQUIRÁ",1352,699
+"La Nieve","BOYACÁ","PAIPA",936,569
+"La Nieve","BOYACÁ","VILLA DE LEYVA",411,230
+"La Nieve","BOYACÁ","NOBSA",338,198
+"La Nieve","BOYACÁ","GARAGOA",250,152
+"La Nieve","BOYACÁ","AQUITANIA",245,112
+"La Nieve","BOYACÁ","PUERTO BOYACÁ",241,20
+"La Nieve","BOYACÁ","VENTAQUEMADA",230,104
+"La Nieve","BOYACÁ","SAMACÁ",216,130
+"La Nieve","BOYACÁ","BELÉN",208,124
+"La Nieve","BOYACÁ","MONIQUIRÁ",201,97
+"La Nieve","BOYACÁ","GUATEQUE",188,112
+"La Nieve","BOYACÁ","SANTA ROSA DE VITERBO",186,107
+"La Nieve","BOYACÁ","TIBASOSA",164,98
+"La Nieve","BOYACÁ","SOATÁ",158,114
+"La Nieve","BOYACÁ","TOCA",107,57
+"La Nieve","BOYACÁ","RAMIRIQUI",106,55
+"La Nieve","BOYACÁ","SOCHA",105,72
+"La Nieve","BOYACÁ","TUTA",95,55
+"La Nieve","BOYACÁ","GÁMEZA",87,45
+"La Nieve","BOYACÁ","MIRAFLORES",86,35
+"La Nieve","BOYACÁ","MONGUÍ",85,38
+"La Nieve","BOYACÁ","SUTAMARCHÁN",84,52
+"La Nieve","BOYACÁ","SÁCHICA",82,42
+"La Nieve","BOYACÁ","CÓMBITA",81,41
+"La Nieve","BOYACÁ","JENESANO",75,43
+"La Nieve","BOYACÁ","ARCABUCO",72,30
+"La Nieve","BOYACÁ","PAZ DE RÍO",71,40
+"La Nieve","BOYACÁ","TIBANÁ",71,43
+"La Nieve","BOYACÁ","PESCA",69,34
+"La Nieve","BOYACÁ","SORACÁ",68,37
+"La Nieve","BOYACÁ","FLORESTA",68,41
+"La Nieve","BOYACÁ","FIRAVITOBA",66,29
+"La Nieve","BOYACÁ","SOTAQUIRÁ",66,33
+"La Nieve","BOYACÁ","MONGUA",63,26
+"La Nieve","BOYACÁ","MUZO",60,31
+"La Nieve","BOYACÁ","PAUNA",57,20
+"La Nieve","BOYACÁ","OTANCHE",56,20
+"La Nieve","BOYACÁ","BOAVITA",55,39
+"La Nieve","BOYACÁ","TÓPAGA",54,30
+"La Nieve","BOYACÁ","CORRALES",52,28
+"La Nieve","BOYACÁ","RÁQUIRA",50,34
+"La Nieve","BOYACÁ","CERINZA",48,28
+"La Nieve","BOYACÁ","CHINAVITA",47,22
+"La Nieve","BOYACÁ","TASCO",47,21
+"La Nieve","BOYACÁ","EL COCUY",45,37
+"La Nieve","BOYACÁ","TINJACÁ",41,27
+"La Nieve","BOYACÁ","SAN MATEO",40,31
+"La Nieve","BOYACÁ","SABOYÁ",39,25
+"La Nieve","BOYACÁ","GÜICÁN DE LA SIERRA",39,28
+"La Nieve","BOYACÁ","CIÉNEGA",38,13
+"La Nieve","BOYACÁ","SAN PABLO DE BORBUR",37,21
+"La Nieve","BOYACÁ","TOGÜÍ",37,16
+"La Nieve","BOYACÁ","TENZA",36,27
+"La Nieve","BOYACÁ","CHIVATÁ",36,21
+"La Nieve","BOYACÁ","GUAYATÁ",36,25
+"La Nieve","BOYACÁ","MOTAVITA",35,25
+"La Nieve","BOYACÁ","LABRANZAGRANDE",35,21
+"La Nieve","BOYACÁ","GACHANTIVÁ",35,24
+"La Nieve","BOYACÁ","TIPACOQUE",35,26
+"La Nieve","BOYACÁ","SOCOTÁ",35,16
+"La Nieve","BOYACÁ","ZETAQUIRA",34,12
+"La Nieve","BOYACÁ","LA UVITA",33,25
+"La Nieve","BOYACÁ","IZA",32,6
+"La Nieve","BOYACÁ","EL ESPINO",30,22
+"La Nieve","BOYACÁ","SIACHOQUE",30,17
+"La Nieve","BOYACÁ","SANTA SOFÍA",30,22
+"La Nieve","BOYACÁ","NUEVO COLÓN",29,12
+"La Nieve","BOYACÁ","SAN LUIS DE GACENO",27,9
+"La Nieve","BOYACÁ","CUCAITA",27,18
+"La Nieve","BOYACÁ","MACANAL",27,12
+"La Nieve","BOYACÁ","BOYACÁ",26,16
+"La Nieve","BOYACÁ","SOMONDOCO",26,23
+"La Nieve","BOYACÁ","ÚMBITA",26,14
+"La Nieve","BOYACÁ","SUTATENZA",25,14
+"La Nieve","BOYACÁ","SANTANA",24,11
+"La Nieve","BOYACÁ","SATIVANORTE",24,12
+"La Nieve","BOYACÁ","PACHAVITA",23,14
+"La Nieve","BOYACÁ","LA CAPILLA",23,20
+"La Nieve","BOYACÁ","SUSACÓN",21,16
+"La Nieve","BOYACÁ","TOTA",21,8
+"La Nieve","BOYACÁ","PAJARITO",19,9
+"La Nieve","BOYACÁ","GUACAMAYAS",19,15
+"La Nieve","BOYACÁ","PANQUEBA",17,14
+"La Nieve","BOYACÁ","BUENAVISTA",16,7
+"La Nieve","BOYACÁ","CHISCAS",15,10
+"La Nieve","BOYACÁ","CUÍTIVA",15,3
+"La Nieve","BOYACÁ","VIRACACHÁ",15,7
+"La Nieve","BOYACÁ","TURMEQUÉ",14,1
+"La Nieve","BOYACÁ","PÁEZ",14,6
+"La Nieve","BOYACÁ","SATIVASUR",14,8
+"La Nieve","BOYACÁ","SAN JOSÉ DE PARE",14,12
+"La Nieve","BOYACÁ","OICATÁ",13,12
+"La Nieve","BOYACÁ","BUSBANZÁ",13,9
+"La Nieve","BOYACÁ","MARIPÍ",11,3
+"La Nieve","BOYACÁ","TUTAZÁ",10,8
+"La Nieve","BOYACÁ","RONDÓN",9,0
+"La Nieve","BOYACÁ","SANTA MARÍA",7,7
+"La Nieve","BOYACÁ","SAN MIGUEL DE SEMA",7,4
+"La Nieve","BOYACÁ","SORA",6,3
+"La Nieve","BOYACÁ","QUÍPAMA",6,0
+"La Nieve","BOYACÁ","CHITARAQUE",6,0
+"La Nieve","BOYACÁ","BERBEO",5,1
+"La Nieve","BOYACÁ","CAMPOHERMOSO",4,1
+"La Nieve","BOYACÁ","CHÍQUIZA",3,3
+"La Nieve","BOYACÁ","SAN EDUARDO",3,0
+"La Nieve","BOYACÁ","PAYA",2,1
+"La Nieve","BOYACÁ","ALMEIDA",2,2
+"La Nieve","BOYACÁ","JERICÓ",2,1
+"La Nieve","BOYACÁ","COVARACHÍA",1,1
+"La Nieve","BOYACÁ","CHITA",1,1
+"La Nieve","CALDAS","LA DORADA",12,1
+"La Nieve","CAQUETÁ","FLORENCIA",1,0
+"La Nieve","CASANARE","YOPAL",7342,3612
+"La Nieve","CASANARE","AGUAZUL",905,602
+"La Nieve","CASANARE","PAZ DE ARIPORO",735,463
+"La Nieve","CASANARE","TAURAMENA",654,439
+"La Nieve","CASANARE","VILLANUEVA",439,352
+"La Nieve","CASANARE","MANÍ",373,266
+"La Nieve","CASANARE","TRINIDAD",347,232
+"La Nieve","CASANARE","MONTERREY",233,183
+"La Nieve","CASANARE","PORE",226,126
+"La Nieve","CASANARE","HATO COROZAL",174,121
+"La Nieve","CASANARE","SAN LUIS DE PALENQUE",160,98
+"La Nieve","CASANARE","OROCUÉ",108,67
+"La Nieve","CASANARE","NUNCHÍA",51,43
+"La Nieve","CASANARE","TÁMARA",47,33
+"La Nieve","CASANARE","CHÁMEZA",39,22
+"La Nieve","CASANARE","SABANALARGA",24,21
+"La Nieve","CASANARE","RECETOR",10,5
+"La Nieve","CAUCA","POPAYÁN",2,2
+"La Nieve","CAUCA","LA VEGA",1,0
+"La Nieve","CESAR","VALLEDUPAR",1065,994
+"La Nieve","CESAR","AGUSTÍN CODAZZI",62,59
+"La Nieve","CESAR","LA PAZ",49,39
+"La Nieve","CESAR","PAILITAS",38,26
+"La Nieve","CESAR","BECERRIL",37,33
+"La Nieve","CESAR","PUEBLO BELLO",35,33
+"La Nieve","CESAR","EL PASO",31,27
+"La Nieve","CESAR","SAN DIEGO",29,21
+"La Nieve","CESAR","BOSCONIA",28,27
+"La Nieve","CESAR","LA JAGUA DE IBIRICO",25,25
+"La Nieve","CESAR","CHIRIGUANÁ",24,23
+"La Nieve","CESAR","MANAURE",21,8
+"La Nieve","CESAR","CHIMICHAGUA",3,2
+"La Nieve","CESAR","AGUACHICA",3,2
+"La Nieve","CESAR","CURUMANÍ",2,2
+"La Nieve","CESAR","EL COPEY",2,1
+"La Nieve","CESAR","ASTREA",1,0
+"La Nieve","CESAR","SAN MARTÍN",1,1
+"La Nieve","CÓRDOBA","MONTERÍA",1345,1324
+"La Nieve","CÓRDOBA","CERETÉ",169,167
+"La Nieve","CÓRDOBA","SANTA CRUZ DE LORICA",89,89
+"La Nieve","CÓRDOBA","SAHAGÚN",75,75
+"La Nieve","CÓRDOBA","PLANETA RICA",66,66
+"La Nieve","CÓRDOBA","MONTELÍBANO",50,50
+"La Nieve","CÓRDOBA","SAN ANTERO",48,47
+"La Nieve","CÓRDOBA","CIÉNAGA DE ORO",48,48
+"La Nieve","CÓRDOBA","TIERRALTA",47,44
+"La Nieve","CÓRDOBA","LOS CÓRDOBAS",32,32
+"La Nieve","CÓRDOBA","PUERTO ESCONDIDO",27,27
+"La Nieve","CÓRDOBA","SAN PELAYO",27,27
+"La Nieve","CÓRDOBA","PUEBLO NUEVO",25,25
+"La Nieve","CÓRDOBA","BUENAVISTA",21,21
+"La Nieve","CÓRDOBA","CANALETE",20,20
+"La Nieve","CÓRDOBA","AYAPEL",18,18
+"La Nieve","CÓRDOBA","CHINÚ",17,17
+"La Nieve","CÓRDOBA","VALENCIA",17,17
+"La Nieve","CÓRDOBA","SAN CARLOS",16,16
+"La Nieve","CÓRDOBA","PUERTO LIBERTADOR",13,13
+"La Nieve","CÓRDOBA","COTORRA",7,7
+"La Nieve","CÓRDOBA","LA APARTADA",4,4
+"La Nieve","CÓRDOBA","SAN ANDRÉS DE SOTAVENTO",1,1
+"La Nieve","CUNDINAMARCA","FACATATIVÁ",380,365
+"La Nieve","CUNDINAMARCA","MOSQUERA",323,313
+"La Nieve","CUNDINAMARCA","MADRID",284,278
+"La Nieve","CUNDINAMARCA","ZIPAQUIRÁ",257,254
+"La Nieve","CUNDINAMARCA","FUNZA",216,205
+"La Nieve","CUNDINAMARCA","CHÍA",210,199
+"La Nieve","CUNDINAMARCA","CAJICÁ",137,134
+"La Nieve","CUNDINAMARCA","PARATEBUENO",95,76
+"La Nieve","CUNDINAMARCA","LA CALERA",67,67
+"La Nieve","CUNDINAMARCA","EL ROSAL",44,44
+"La Nieve","CUNDINAMARCA","COTA",42,32
+"La Nieve","CUNDINAMARCA","SIMIJACA",42,25
+"La Nieve","CUNDINAMARCA","SOPÓ",32,25
+"La Nieve","CUNDINAMARCA","GUAYABETAL",28,17
+"La Nieve","CUNDINAMARCA","MEDINA",24,18
+"La Nieve","CUNDINAMARCA","BOJACÁ",16,14
+"La Nieve","CUNDINAMARCA","CAPARRAPÍ",13,0
+"La Nieve","CUNDINAMARCA","PACHO",13,0
+"La Nieve","CUNDINAMARCA","SUSA",12,9
+"La Nieve","CUNDINAMARCA","YACOPÍ",11,0
+"La Nieve","CUNDINAMARCA","QUETAME",10,0
+"La Nieve","CUNDINAMARCA","GUACHETÁ",10,5
+"La Nieve","CUNDINAMARCA","GUADUAS",7,0
+"La Nieve","CUNDINAMARCA","FÓMEQUE",7,0
+"La Nieve","CUNDINAMARCA","MAYA",6,0
+"La Nieve","CUNDINAMARCA","LA PALMA",6,0
+"La Nieve","CUNDINAMARCA","GIRARDOT",6,4
+"La Nieve","CUNDINAMARCA","TOCANCIPÁ",6,5
+"La Nieve","CUNDINAMARCA","ÚTICA",5,0
+"La Nieve","CUNDINAMARCA","SUPATÁ",5,0
+"La Nieve","CUNDINAMARCA","VILLETA",5,1
+"La Nieve","CUNDINAMARCA","CÁQUEZA",5,0
+"La Nieve","CUNDINAMARCA","CHOACHÍ",5,0
+"La Nieve","CUNDINAMARCA","ANOLAIMA",4,0
+"La Nieve","CUNDINAMARCA","SOACHA",4,2
+"La Nieve","CUNDINAMARCA","VIANÍ",4,0
+"La Nieve","CUNDINAMARCA","VILLA DE SAN DIEGO DE UBATÉ",4,1
+"La Nieve","CUNDINAMARCA","MACHETÁ",4,0
+"La Nieve","CUNDINAMARCA","MANTA",4,0
+"La Nieve","CUNDINAMARCA","LA VEGA",3,0
+"La Nieve","CUNDINAMARCA","SAN FRANCISCO",3,0
+"La Nieve","CUNDINAMARCA","NOCAIMA",3,0
+"La Nieve","CUNDINAMARCA","VERGARA",3,0
+"La Nieve","CUNDINAMARCA","TABIO",3,2
+"La Nieve","CUNDINAMARCA","PUENTE QUETAME",3,0
+"La Nieve","CUNDINAMARCA","CACHIPAY",3,0
+"La Nieve","CUNDINAMARCA","FUSAGASUGÁ",3,3
+"La Nieve","CUNDINAMARCA","BITUIMA",2,0
+"La Nieve","CUNDINAMARCA","SUBACHOQUE",2,0
+"La Nieve","CUNDINAMARCA","UBAQUE",2,0
+"La Nieve","CUNDINAMARCA","VILLAPINZÓN",2,1
+"La Nieve","CUNDINAMARCA","NIMAIMA",2,0
+"La Nieve","CUNDINAMARCA","SAN JUAN DE RIOSECO",2,0
+"La Nieve","CUNDINAMARCA","SILVANIA",1,1
+"La Nieve","CUNDINAMARCA","NEMOCÓN",1,0
+"La Nieve","CUNDINAMARCA","UNE",1,0
+"La Nieve","CUNDINAMARCA","GUASCA",1,1
+"La Nieve","CUNDINAMARCA","JUNÍN",1,1
+"La Nieve","CUNDINAMARCA","CHIPAQUE",1,0
+"La Nieve","GUAINÍA","INÍRIDA",81,35
+"La Nieve","GUAINÍA","BARRANCOMINAS",2,0
+"La Nieve","GUAVIARE","SAN JOSÉ DEL GUAVIARE",645,315
+"La Nieve","GUAVIARE","EL RETORNO",21,8
+"La Nieve","GUAVIARE","CALAMAR",16,12
+"La Nieve","GUAVIARE","MIRAFLORES",2,2
+"La Nieve","LA GUAJIRA","RIOHACHA",457,438
+"La Nieve","LA GUAJIRA","MAICAO",112,112
+"La Nieve","LA GUAJIRA","URIBIA",82,82
+"La Nieve","LA GUAJIRA","DIBULLA",63,14
+"La Nieve","LA GUAJIRA","FONSECA",55,55
+"La Nieve","LA GUAJIRA","SAN JUAN DEL CESAR",47,46
+"La Nieve","LA GUAJIRA","ALBANIA",41,41
+"La Nieve","LA GUAJIRA","VILLANUEVA",30,30
+"La Nieve","LA GUAJIRA","HATO NUEVO",29,29
+"La Nieve","LA GUAJIRA","BARRANCAS",18,18
+"La Nieve","LA GUAJIRA","MANAURE",12,12
+"La Nieve","LA GUAJIRA","DISTRACCION",11,11
+"La Nieve","LA GUAJIRA","EL MOLINO",5,5
+"La Nieve","MAGDALENA","SANTA MARTA",1757,1630
+"La Nieve","MAGDALENA","CIÉNAGA",263,250
+"La Nieve","MAGDALENA","ZONA BANANERA",68,67
+"La Nieve","MAGDALENA","FUNDACIÓN",32,32
+"La Nieve","MAGDALENA","PUEBLOVIEJO",26,26
+"La Nieve","MAGDALENA","PIVIJAY",14,14
+"La Nieve","MAGDALENA","ARACATACA",13,13
+"La Nieve","MAGDALENA","EL BANCO",9,9
+"La Nieve","MAGDALENA","ALGARRABO",4,4
+"La Nieve","MAGDALENA","PLATO",4,4
+"La Nieve","MAGDALENA","GUAMAL",2,1
+"La Nieve","META","VILLAVICENCIO",16836,8316
+"La Nieve","META","ACACÍAS",1733,818
+"La Nieve","META","GRANADA",860,429
+"La Nieve","META","PUERTO GAITÁN",654,387
+"La Nieve","META","PUERTO LÓPEZ",636,311
+"La Nieve","META","CUMARAL",513,253
+"La Nieve","META","RESTREPO",406,225
+"La Nieve","META","SAN MARTÍN DE LOS LLANOS",328,142
+"La Nieve","META","GUAMAL",295,160
+"La Nieve","META","BARRANCA DE UPÍA",147,75
+"La Nieve","META","CASTILLA LA NUEVA",145,89
+"La Nieve","META","SAN CARLOS DE GUAROA",96,52
+"La Nieve","META","CUBARRAL",64,31
+"La Nieve","META","CABUYARO",61,33
+"La Nieve","META","EL CASTILLO",29,17
+"La Nieve","META","VISTAHERMOSA",26,8
+"La Nieve","META","PUERTO CONCORDIA",23,4
+"La Nieve","META","FUENTEDEORO",22,7
+"La Nieve","META","MESETAS",21,8
+"La Nieve","META","EL DORADO",21,18
+"La Nieve","META","LEJANÍAS",20,11
+"La Nieve","META","PUERTO RICO",20,8
+"La Nieve","META","PUERTO LLERAS",14,8
+"La Nieve","META","MAPIRIPÁN",13,0
+"La Nieve","META","DINAMARCA",9,0
+"La Nieve","META","SAN JUAN DE ARAMA",9,8
+"La Nieve","META","URIBE",2,0
+"La Nieve","META","LA MACARENA",2,2
+"La Nieve","NARIÑO","IPIALES",2,2
+"La Nieve","PUTUMAYO","PUERTO ASÍS",1,0
+"La Nieve","QUINDÍO","LA TEBAIDA",1,1
+"La Nieve","RISARALDA","DOSQUEBRADAS",2,2
+"La Nieve","SANTANDER","BARBOSA",47,24
+"La Nieve","SANTANDER","VÉLEZ",15,10
+"La Nieve","SANTANDER","MÁLAGA",10,7
+"La Nieve","SANTANDER","PUENTE NACIONAL",10,7
+"La Nieve","SANTANDER","CAPITANEJO",8,8
+"La Nieve","SANTANDER","SUAITA",7,6
+"La Nieve","SANTANDER","GÜEPSA",3,2
+"La Nieve","SANTANDER","BOLÍVAR",3,0
+"La Nieve","SANTANDER","BUCARAMANGA",3,3
+"La Nieve","SANTANDER","SANTA BÁRBARA",2,0
+"La Nieve","SANTANDER","CHARALÁ",1,0
+"La Nieve","SIN DEPARTAMENTO","SIN MUNICIPIO",13980,0
+"La Nieve","SUCRE","SINCELEJO",616,616
+"La Nieve","SUCRE","COROZAL",123,123
+"La Nieve","SUCRE","SAN LUIS DE SINCÉ",113,113
+"La Nieve","SUCRE","SAMPUÉS",65,65
+"La Nieve","SUCRE","SANTIAGO DE TOLÚ",62,62
+"La Nieve","SUCRE","COVEÑAS",58,58
+"La Nieve","SUCRE","SAN JUAN DE BETULIA",49,49
+"La Nieve","SUCRE","PALMITO",44,44
+"La Nieve","SUCRE","GALERAS",44,44
+"La Nieve","SUCRE","BUENAVISTA",42,42
+"La Nieve","SUCRE","OVEJAS",35,35
+"La Nieve","SUCRE","SAN PEDRO",30,30
+"La Nieve","SUCRE","SAN MARCOS",26,26
+"La Nieve","SUCRE","SAN ONOFRE",25,25
+"La Nieve","SUCRE","EL ROBLE",18,18
+"La Nieve","SUCRE","CAIMITO",13,13
+"La Nieve","SUCRE","TOLÚ VIEJO",12,12
+"La Nieve","SUCRE","SAN BENITO ABAD",10,10
+"La Nieve","SUCRE","COLOSÓ",7,7
+"La Nieve","SUCRE","MAJAGUAL",6,6
+"La Nieve","SUCRE","MORROA",4,4
+"La Nieve","SUCRE","LOS PALMITOS",3,3
+"La Nieve","SUCRE","LA UNIÓN",2,2
+"La Nieve","SUCRE","CHALÁN",2,2
+"La Nieve","TOLIMA","HONDA",7,0
+"La Nieve","VALLE DEL CAUCA","CALI",6,4
+"La Nieve","VALLE DEL CAUCA","RESTREPO",4,0
+"La Nieve","VALLE DEL CAUCA","YUMBO",1,1
+"La Nieve","VALLE DEL CAUCA","CANDELARIA",1,0
+"La Nieve","VALLE DEL CAUCA","PALMIRA",1,0
+"La Nieve","VAUPÉS","MITÚ",41,15
+"La Nieve","VAUPÉS","CARURÚ",4,2
+"La Nieve","VAUPÉS","TARAIRA",1,0
+"La Nieve","VICHADA","PUERTO CARREÑO",70,40
+"La Nieve","VICHADA","LA PRIMAVERA",33,29
+"La Nieve","VICHADA","CUMARIBO",25,13
+"La Nieve","VICHADA","SANTA ROSALÍA",15,14
+"La Nieve","VICHADA","PRIMAVERA",3,2
+"La Nieve","VICHADA","SANTA ROSALIA",2,0
+"La Nieve","VICHADA","SAN JOSE DE OCUNE",1,0
+"Unimarka","AMAZONAS","LETICIA",5,1
+"Unimarka","ANTIOQUIA","MEDELLÍN",4,4
+"Unimarka","ANTIOQUIA","RIONEGRO",1,1
+"Unimarka","ANTIOQUIA","ABEJORRAL",1,0
+"Unimarka","ANTIOQUIA","ARMENIA",1,1
+"Unimarka","ANTIOQUIA","ENVIGADO",1,1
+"Unimarka","ANTIOQUIA","GRANADA",1,0
+"Unimarka","ARAUCA","TAME",36,16
+"Unimarka","ARAUCA","ARAUCA",3,1
+"Unimarka","ARAUCA","SARAVENA",2,2
+"Unimarka","ARAUCA","ARAUQUITA",1,0
+"Unimarka","ATLÁNTICO","BARRANQUILLA",1,1
+"Unimarka","BOGOTÁ","BOGOTÁ, D.C.",25891,20341
+"Unimarka","BOLÍVAR","CARTAGENA DE INDIAS",2,2
+"Unimarka","BOYACÁ","DUITAMA",433,244
+"Unimarka","BOYACÁ","TUNJA",360,175
+"Unimarka","BOYACÁ","SOGAMOSO",310,173
+"Unimarka","BOYACÁ","CHIQUINQUIRÁ",103,54
+"Unimarka","BOYACÁ","PAIPA",57,35
+"Unimarka","BOYACÁ","GARAGOA",55,49
+"Unimarka","BOYACÁ","MIRAFLORES",38,29
+"Unimarka","BOYACÁ","VILLA DE LEYVA",36,13
+"Unimarka","BOYACÁ","TIBASOSA",31,14
+"Unimarka","BOYACÁ","MUZO",29,18
+"Unimarka","BOYACÁ","GUATEQUE",29,25
+"Unimarka","BOYACÁ","OTANCHE",28,14
+"Unimarka","BOYACÁ","RAMIRIQUI",28,17
+"Unimarka","BOYACÁ","SOCOTÁ",28,18
+"Unimarka","BOYACÁ","SOATÁ",28,16
+"Unimarka","BOYACÁ","PAZ DE RÍO",26,17
+"Unimarka","BOYACÁ","SAMACÁ",26,12
+"Unimarka","BOYACÁ","BELÉN",26,12
+"Unimarka","BOYACÁ","PÁEZ",24,19
+"Unimarka","BOYACÁ","MONIQUIRÁ",24,11
+"Unimarka","BOYACÁ","LABRANZAGRANDE",24,16
+"Unimarka","BOYACÁ","SOCHA",23,14
+"Unimarka","BOYACÁ","TIBANÁ",23,16
+"Unimarka","BOYACÁ","TOGÜÍ",21,7
+"Unimarka","BOYACÁ","SAN PABLO DE BORBUR",21,6
+"Unimarka","BOYACÁ","GUAYATÁ",21,19
+"Unimarka","BOYACÁ","ARCABUCO",21,10
+"Unimarka","BOYACÁ","JENESANO",19,10
+"Unimarka","BOYACÁ","ÚMBITA",19,16
+"Unimarka","BOYACÁ","ZETAQUIRA",18,14
+"Unimarka","BOYACÁ","SUTAMARCHÁN",18,5
+"Unimarka","BOYACÁ","PAUNA",18,2
+"Unimarka","BOYACÁ","CHINAVITA",17,13
+"Unimarka","BOYACÁ","SAN LUIS DE GACENO",16,13
+"Unimarka","BOYACÁ","SAN MATEO",16,10
+"Unimarka","BOYACÁ","PACHAVITA",15,13
+"Unimarka","BOYACÁ","GÜICÁN DE LA SIERRA",15,7
+"Unimarka","BOYACÁ","AQUITANIA",15,12
+"Unimarka","BOYACÁ","NOBSA",14,4
+"Unimarka","BOYACÁ","RÁQUIRA",14,1
+"Unimarka","BOYACÁ","SANTANA",14,4
+"Unimarka","BOYACÁ","TUTA",14,9
+"Unimarka","BOYACÁ","TENZA",13,13
+"Unimarka","BOYACÁ","SANTA SOFÍA",13,0
+"Unimarka","BOYACÁ","EL COCUY",13,8
+"Unimarka","BOYACÁ","BOAVITA",13,5
+"Unimarka","BOYACÁ","BUENAVISTA",12,7
+"Unimarka","BOYACÁ","CHISCAS",12,8
+"Unimarka","BOYACÁ","EL ESPINO",12,6
+"Unimarka","BOYACÁ","PAJARITO",12,0
+"Unimarka","BOYACÁ","SABOYÁ",11,2
+"Unimarka","BOYACÁ","SANTA ROSA DE VITERBO",11,9
+"Unimarka","BOYACÁ","SIACHOQUE",11,8
+"Unimarka","BOYACÁ","CÓMBITA",11,5
+"Unimarka","BOYACÁ","SORACÁ",10,2
+"Unimarka","BOYACÁ","TOCA",10,6
+"Unimarka","BOYACÁ","SOMONDOCO",9,8
+"Unimarka","BOYACÁ","LA CAPILLA",9,8
+"Unimarka","BOYACÁ","LA UVITA",9,5
+"Unimarka","BOYACÁ","FLORESTA",8,0
+"Unimarka","BOYACÁ","MONGUÍ",8,0
+"Unimarka","BOYACÁ","MARIPÍ",8,0
+"Unimarka","BOYACÁ","CERINZA",8,5
+"Unimarka","BOYACÁ","TIPACOQUE",8,3
+"Unimarka","BOYACÁ","VENTAQUEMADA",8,4
+"Unimarka","BOYACÁ","SOTAQUIRÁ",7,0
+"Unimarka","BOYACÁ","PANQUEBA",7,5
+"Unimarka","BOYACÁ","MACANAL",7,5
+"Unimarka","BOYACÁ","NUEVO COLÓN",7,0
+"Unimarka","BOYACÁ","OICATÁ",6,5
+"Unimarka","BOYACÁ","SÁCHICA",6,0
+"Unimarka","BOYACÁ","QUÍPAMA",6,0
+"Unimarka","BOYACÁ","SAN MIGUEL DE SEMA",5,1
+"Unimarka","BOYACÁ","SANTA MARÍA",5,5
+"Unimarka","BOYACÁ","SATIVANORTE",5,0
+"Unimarka","BOYACÁ","GÁMEZA",5,0
+"Unimarka","BOYACÁ","JERICÓ",5,5
+"Unimarka","BOYACÁ","GUACAMAYAS",4,3
+"Unimarka","BOYACÁ","MOTAVITA",4,3
+"Unimarka","BOYACÁ","MONGUA",4,0
+"Unimarka","BOYACÁ","CHITA",4,4
+"Unimarka","BOYACÁ","CHITARAQUE",4,0
+"Unimarka","BOYACÁ","SAN JOSÉ DE PARE",4,0
+"Unimarka","BOYACÁ","TINJACÁ",4,0
+"Unimarka","BOYACÁ","VIRACACHÁ",4,3
+"Unimarka","BOYACÁ","TUTAZÁ",3,1
+"Unimarka","BOYACÁ","SAN EDUARDO",3,0
+"Unimarka","BOYACÁ","SUSACÓN",3,2
+"Unimarka","BOYACÁ","BOYACÁ",3,2
+"Unimarka","BOYACÁ","BERBEO",2,2
+"Unimarka","BOYACÁ","ALMEIDA",2,2
+"Unimarka","BOYACÁ","SUTATENZA",2,0
+"Unimarka","BOYACÁ","PAYA",2,1
+"Unimarka","BOYACÁ","PESCA",1,0
+"Unimarka","BOYACÁ","PISBA",1,1
+"Unimarka","BOYACÁ","TÓPAGA",1,0
+"Unimarka","BOYACÁ","TOTA",1,1
+"Unimarka","BOYACÁ","CUCAITA",1,0
+"Unimarka","BOYACÁ","CUÍTIVA",1,1
+"Unimarka","BOYACÁ","CHÍQUIZA",1,1
+"Unimarka","BOYACÁ","FIRAVITOBA",1,1
+"Unimarka","BOYACÁ","IZA",1,0
+"Unimarka","CALDAS","MANIZALES",4,4
+"Unimarka","CALDAS","RISARALDA",1,0
+"Unimarka","CASANARE","YOPAL",3639,1474
+"Unimarka","CASANARE","AGUAZUL",429,131
+"Unimarka","CASANARE","TAURAMENA",251,22
+"Unimarka","CASANARE","PAZ DE ARIPORO",238,49
+"Unimarka","CASANARE","MANÍ",181,32
+"Unimarka","CASANARE","VILLANUEVA",165,60
+"Unimarka","CASANARE","TRINIDAD",103,16
+"Unimarka","CASANARE","MONTERREY",68,23
+"Unimarka","CASANARE","OROCUÉ",65,28
+"Unimarka","CASANARE","HATO COROZAL",64,10
+"Unimarka","CASANARE","PORE",47,7
+"Unimarka","CASANARE","SAN LUIS DE PALENQUE",43,13
+"Unimarka","CASANARE","NUNCHÍA",28,8
+"Unimarka","CASANARE","TÁMARA",22,7
+"Unimarka","CASANARE","CHÁMEZA",13,1
+"Unimarka","CASANARE","RECETOR",7,0
+"Unimarka","CASANARE","SABANALARGA",1,1
+"Unimarka","CASANARE","LA SALINA",1,0
+"Unimarka","CAUCA","LA VEGA",1,0
+"Unimarka","CESAR","SAN MARTÍN",6,0
+"Unimarka","CUNDINAMARCA","MOSQUERA",25,18
+"Unimarka","CUNDINAMARCA","MEDINA",22,14
+"Unimarka","CUNDINAMARCA","PARATEBUENO",18,13
+"Unimarka","CUNDINAMARCA","FUSAGASUGÁ",16,16
+"Unimarka","CUNDINAMARCA","SIMIJACA",14,3
+"Unimarka","CUNDINAMARCA","FACATATIVÁ",13,3
+"Unimarka","CUNDINAMARCA","FUNZA",13,8
+"Unimarka","CUNDINAMARCA","CAJICÁ",12,10
+"Unimarka","CUNDINAMARCA","CAPARRAPÍ",12,0
+"Unimarka","CUNDINAMARCA","PACHO",12,0
+"Unimarka","CUNDINAMARCA","YACOPÍ",12,0
+"Unimarka","CUNDINAMARCA","MADRID",11,8
+"Unimarka","CUNDINAMARCA","SOACHA",10,9
+"Unimarka","CUNDINAMARCA","SILVANIA",10,10
+"Unimarka","CUNDINAMARCA","SUSA",9,4
+"Unimarka","CUNDINAMARCA","CHÍA",7,3
+"Unimarka","CUNDINAMARCA","COTA",6,2
+"Unimarka","CUNDINAMARCA","GUACHETÁ",6,0
+"Unimarka","CUNDINAMARCA","LA MESA",5,5
+"Unimarka","CUNDINAMARCA","QUETAME",5,0
+"Unimarka","CUNDINAMARCA","LA PALMA",4,0
+"Unimarka","CUNDINAMARCA","GUADUAS",4,0
+"Unimarka","CUNDINAMARCA","CACHIPAY",4,1
+"Unimarka","CUNDINAMARCA","ANOLAIMA",4,0
+"Unimarka","CUNDINAMARCA","TOCANCIPÁ",4,4
+"Unimarka","CUNDINAMARCA","VILLETA",4,3
+"Unimarka","CUNDINAMARCA","TABIO",3,3
+"Unimarka","CUNDINAMARCA","ZIPAQUIRÁ",3,2
+"Unimarka","CUNDINAMARCA","VIANÍ",3,0
+"Unimarka","CUNDINAMARCA","SUPATÁ",3,0
+"Unimarka","CUNDINAMARCA","VILLAPINZÓN",3,0
+"Unimarka","CUNDINAMARCA","FÓMEQUE",3,0
+"Unimarka","CUNDINAMARCA","CÁQUEZA",3,0
+"Unimarka","CUNDINAMARCA","APULO",2,2
+"Unimarka","CUNDINAMARCA","ARBELÁEZ",2,2
+"Unimarka","CUNDINAMARCA","BITUIMA",2,0
+"Unimarka","CUNDINAMARCA","AGUA DE DIOS",2,0
+"Unimarka","CUNDINAMARCA","LA VEGA",2,1
+"Unimarka","CUNDINAMARCA","SAN FRANCISCO",2,0
+"Unimarka","CUNDINAMARCA","SAN JUAN DE RIOSECO",2,0
+"Unimarka","CUNDINAMARCA","UBAQUE",2,1
+"Unimarka","CUNDINAMARCA","ÚTICA",2,0
+"Unimarka","CUNDINAMARCA","SUBACHOQUE",2,0
+"Unimarka","CUNDINAMARCA","TENA",1,1
+"Unimarka","CUNDINAMARCA","VILLA DE SAN DIEGO DE UBATÉ",1,1
+"Unimarka","CUNDINAMARCA","VIOTÁ",1,1
+"Unimarka","CUNDINAMARCA","PANDI",1,1
+"Unimarka","CUNDINAMARCA","NEMOCÓN",1,0
+"Unimarka","CUNDINAMARCA","MAYA",1,0
+"Unimarka","CUNDINAMARCA","GUASCA",1,1
+"Unimarka","CUNDINAMARCA","GIRARDOT",1,1
+"Unimarka","GUAINÍA","INÍRIDA",64,41
+"Unimarka","GUAINÍA","BARRANCOMINAS",2,1
+"Unimarka","GUAINÍA","GUAINIA",2,0
+"Unimarka","GUAVIARE","SAN JOSÉ DEL GUAVIARE",178,69
+"Unimarka","GUAVIARE","EL RETORNO",25,8
+"Unimarka","GUAVIARE","CALAMAR",9,7
+"Unimarka","META","VILLAVICENCIO",10589,6600
+"Unimarka","META","ACACÍAS",277,179
+"Unimarka","META","GRANADA",208,134
+"Unimarka","META","PUERTO GAITÁN",157,111
+"Unimarka","META","PUERTO LÓPEZ",78,41
+"Unimarka","META","RESTREPO",70,52
+"Unimarka","META","GUAMAL",64,47
+"Unimarka","META","SAN MARTÍN DE LOS LLANOS",57,37
+"Unimarka","META","CUMARAL",52,37
+"Unimarka","META","BARRANCA DE UPÍA",29,7
+"Unimarka","META","LEJANÍAS",24,9
+"Unimarka","META","PUERTO CONCORDIA",21,5
+"Unimarka","META","FUENTEDEORO",19,7
+"Unimarka","META","VISTAHERMOSA",17,6
+"Unimarka","META","MESETAS",16,6
+"Unimarka","META","SAN CARLOS DE GUAROA",15,14
+"Unimarka","META","PUERTO RICO",15,0
+"Unimarka","META","CUBARRAL",13,10
+"Unimarka","META","PUERTO LLERAS",12,4
+"Unimarka","META","SAN JUAN DE ARAMA",11,6
+"Unimarka","META","EL DORADO",8,6
+"Unimarka","META","EL CASTILLO",7,5
+"Unimarka","META","CABUYARO",7,6
+"Unimarka","META","CASTILLA LA NUEVA",6,5
+"Unimarka","META","POMPEYA",2,0
+"Unimarka","META","PACHAQUIARO",1,0
+"Unimarka","META","URIBE",1,0
+"Unimarka","META","MAPIRIPÁN",1,0
+"Unimarka","NARIÑO","IPIALES",1,1
+"Unimarka","NORTE DE SANTANDER","CÚCUTA",1,1
+"Unimarka","RISARALDA","PEREIRA",2,2
+"Unimarka","SANTANDER","MÁLAGA",23,19
+"Unimarka","SANTANDER","CAPITANEJO",9,4
+"Unimarka","SANTANDER","BARBOSA",8,5
+"Unimarka","SANTANDER","PUENTE NACIONAL",4,3
+"Unimarka","SANTANDER","VÉLEZ",4,1
+"Unimarka","SANTANDER","BOLÍVAR",2,0
+"Unimarka","SANTANDER","BUCARAMANGA",1,1
+"Unimarka","SANTANDER","SANTA BÁRBARA",1,0
+"Unimarka","SANTANDER","GUADALUPE",1,1
+"Unimarka","SANTANDER","MACARAVITA",1,0
+"Unimarka","SIN DEPARTAMENTO","SIN MUNICIPIO",5649,2
+"Unimarka","SUCRE","MORROA",2,0
+"Unimarka","TOLIMA","HONDA",2,0
+"Unimarka","VALLE DEL CAUCA","RESTREPO",3,0
+"Unimarka","VALLE DEL CAUCA","CALI",2,2
+"Unimarka","VALLE DEL CAUCA","JAMUNDÍ",1,1
+"Unimarka","VAUPÉS","MITÚ",34,15
+"Unimarka","VAUPÉS","TARAIRA",1,0
+"Unimarka","VAUPÉS","CARURÚ",1,0
+"Unimarka","VICHADA","PUERTO CARREÑO",61,38
+"Unimarka","VICHADA","CUMARIBO",21,12
+"Unimarka","VICHADA","LA PRIMAVERA",19,16
+"Unimarka","VICHADA","SANTA ROSALÍA",12,12
+"Unimarka","VICHADA","PRIMAVERA",4,0
+"Unimarka","VICHADA","SANTA ROSALIA",2,0
+"La Nieve — BAT","BOYACÁ","",21017,10119
+"La Nieve — BAT","META","",19212,8042
+"La Nieve — BAT","BOGOTÁ","",15001,13975
+"La Nieve — BAT","CASANARE","",8966,3883
+"La Nieve — BAT","CUNDINAMARCA","",2335,2048
+"La Nieve — BAT","CÓRDOBA","",2179,2152
+"La Nieve — BAT","MAGDALENA","",2176,2035
+"La Nieve — BAT","CESAR","",1446,1313
+"La Nieve — BAT","SUCRE","",1407,1407
+"La Nieve — BAT","LA GUAJIRA","",894,880
+"La Nieve — BAT","GUAVIARE","",651,303
+"La Nieve — BAT","VICHADA","",125,78
+"La Nieve — BAT","SANTANDER","",94,52
+"La Nieve — BAT","ARAUCA","",83,45
+"La Nieve — BAT","GUAINÍA","",82,35
+"La Nieve — BAT","VAUPÉS","",44,16
+"La Nieve — BAT","ANTIOQUIA","",17,6
+"La Nieve — BAT","CALDAS","",12,1
+"La Nieve — BAT","VALLE DEL CAUCA","",11,3
+"La Nieve — BAT","TOLIMA","",7,0
+"La Nieve — BAT","BOLÍVAR","",4,3
+"La Nieve — BAT","AMAZONAS","",2,0
+"La Nieve — BAT","CAQUETÁ","",1,0
+"La Nieve — BAT","CAUCA","",1,0
+"La Nieve — BAT","SIN DEPARTAMENTO","",1,0
+"La Nieve — BAT","PUTUMAYO","",1,0
+"La Nieve — BAT","QUINDÍO","",1,1
+"La Nieve — BAT","RISARALDA","",1,1
+"La Nieve — Alpina (Yopal)","BOYACA","DUITAMA",24,""
+"La Nieve — Alpina (Yopal)","BOYACA","PAJARITO",6,""
+"La Nieve — Alpina (Yopal)","BOYACA","SAN LUIS DE GACENO",2,""
+"La Nieve — Alpina (Yopal)","CASANARE","YOPAL",1364,""
+"La Nieve — Alpina (Yopal)","CASANARE","VILLANUEVA",312,""
+"La Nieve — Alpina (Yopal)","CASANARE","AGUAZUL",214,""
+"La Nieve — Alpina (Yopal)","CASANARE","PAZ DE ARIPORO",183,""
+"La Nieve — Alpina (Yopal)","CASANARE","TAURAMENA",169,""
+"La Nieve — Alpina (Yopal)","CASANARE","MONTERREY",166,""
+"La Nieve — Alpina (Yopal)","CASANARE","MANI",103,""
+"La Nieve — Alpina (Yopal)","CASANARE","TRINIDAD",91,""
+"La Nieve — Alpina (Yopal)","CASANARE","PORE",41,""
+"La Nieve — Alpina (Yopal)","CASANARE","OROCUE",40,""
+"La Nieve — Alpina (Yopal)","CASANARE","SAN LUIS DE PALENQUE",39,""
+"La Nieve — Alpina (Yopal)","CASANARE","NUNCHIA",27,""
+"La Nieve — Alpina (Yopal)","CASANARE","HATO COROZAL",26,""
+"La Nieve — Alpina (Yopal)","CASANARE","TAMARA",18,""
+"La Nieve — Alpina (Yopal)","CASANARE","CHAMEZA",16,""
+"La Nieve — Alpina (Yopal)","CASANARE","RECETOR",1,""
+"La Nieve — Alpina (Yopal)","CASANARE","SABANALARGA",1,""
+"La Nieve — Alpina (Yopal)","CUNDINAMARCA","GRANADA",20,""
+"La Nieve — Alpina (Yopal)","CUNDINAMARCA","PARATEBUENO",9,""
+"La Nieve — Alpina (Yopal)","CUNDINAMARCA","FOMEQUE",2,""
+"La Nieve — Alpina (Yopal)","CUNDINAMARCA","MEDINA",1,""
+"La Nieve — Alpina (Yopal)","CUNDINAMARCA","CAQUEZA",1,""
+"La Nieve — Alpina (Yopal)","CUNDINAMARCA","CHOACHI",1,""
+"La Nieve — Alpina (Yopal)","CUNDINAMARCA","MANTA",1,""
+"La Nieve — Alpina (Yopal)","GUAINIA","INIRIDA",1,""
+"La Nieve — Alpina (Yopal)","META","CABUYARO",44,""
+"La Nieve — Alpina (Yopal)","META","BARRANCA DE UPIA",23,""
+"La Nieve — Alpina (Yopal)","META","PUERTO GAITAN",19,""
+"La Nieve — Alpina (Yopal)","META","ACACIAS",18,""
+"La Nieve — Alpina (Yopal)","META","PUERTO LOPEZ",5,""
+"La Nieve — Alpina (Yopal)","META","VILLAVICENCIO",5,""
+"La Nieve — Alpina (Yopal)","META","FUENTE DE ORO",1,""
+"La Nieve — Alpina (Yopal)","META","RESTREPO",1,""
+"La Nieve — Alpina (Yopal)","META","GRANADA",1,""
+"La Nieve — Alpina (Yopal)","META","LEJANIAS",1,""
+"La Nieve — Alpina (Yopal)","VICHADA","LA PRIMAVERA",14,""
+"La Nieve — Alpina (Yopal)","VICHADA","SANTA ROSALIA",14,""
+"La Nieve — Alpina (Yopal)","VICHADA","PUERTO CARREÑO",1,""
+"La Nieve — Alpina (Villavicencio)","ANTIOQUIA","GRANADA",10,""
+"La Nieve — Alpina (Villavicencio)","BOGOTA, D.C.","BOGOTA, D.C.",1,""
+"La Nieve — Alpina (Villavicencio)","CAQUETA","PUERTO RICO",54,""
+"La Nieve — Alpina (Villavicencio)","CASANARE","MANI",1,""
+"La Nieve — Alpina (Villavicencio)","CASANARE","YOPAL",1,""
+"La Nieve — Alpina (Villavicencio)","CESAR","SAN MARTIN",90,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","GRANADA",285,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","CAQUEZA",75,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","FOMEQUE",56,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","PARATEBUENO",53,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","CHIPAQUE",46,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","MEDINA",45,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","CHOACHI",45,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","UNE",41,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","GUAYABETAL",40,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","UBAQUE",32,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","QUETAME",30,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","FOSCA",24,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","GUTIERREZ",14,""
+"La Nieve — Alpina (Villavicencio)","CUNDINAMARCA","QUEBRADANEGRA",1,""
+"La Nieve — Alpina (Villavicencio)","GUAINIA","INIRIDA",11,""
+"La Nieve — Alpina (Villavicencio)","GUAINIA","BARRANCO MINAS",1,""
+"La Nieve — Alpina (Villavicencio)","GUAVIARE","SAN JOSE DEL GUAVIARE",264,""
+"La Nieve — Alpina (Villavicencio)","GUAVIARE","MIRAFLORES",4,""
+"La Nieve — Alpina (Villavicencio)","GUAVIARE","EL RETORNO",2,""
+"La Nieve — Alpina (Villavicencio)","GUAVIARE","CALAMAR",1,""
+"La Nieve — Alpina (Villavicencio)","META","VILLAVICENCIO",3302,""
+"La Nieve — Alpina (Villavicencio)","META","ACACIAS",531,""
+"La Nieve — Alpina (Villavicencio)","META","GRANADA",301,""
+"La Nieve — Alpina (Villavicencio)","META","PUERTO GAITAN",213,""
+"La Nieve — Alpina (Villavicencio)","META","CUMARAL",146,""
+"La Nieve — Alpina (Villavicencio)","META","RESTREPO",135,""
+"La Nieve — Alpina (Villavicencio)","META","GUAMAL",105,""
+"La Nieve — Alpina (Villavicencio)","META","LEJANIAS",94,""
+"La Nieve — Alpina (Villavicencio)","META","PUERTO LOPEZ",79,""
+"La Nieve — Alpina (Villavicencio)","META","FUENTE DE ORO",77,""
+"La Nieve — Alpina (Villavicencio)","META","CASTILLA LA NUEVA",68,""
+"La Nieve — Alpina (Villavicencio)","META","VISTA HERMOSA",66,""
+"La Nieve — Alpina (Villavicencio)","META","PUERTO LLERAS",53,""
+"La Nieve — Alpina (Villavicencio)","META","SAN MARTIN",50,""
+"La Nieve — Alpina (Villavicencio)","META","BARRANCA DE UPIA",48,""
+"La Nieve — Alpina (Villavicencio)","META","MESETAS",44,""
+"La Nieve — Alpina (Villavicencio)","META","SAN CARLOS DE GUAROA",44,""
+"La Nieve — Alpina (Villavicencio)","META","CUBARRAL",37,""
+"La Nieve — Alpina (Villavicencio)","META","EL CASTILLO",35,""
+"La Nieve — Alpina (Villavicencio)","META","SAN JUAN DE ARAMA",27,""
+"La Nieve — Alpina (Villavicencio)","META","PUERTO CONCORDIA",24,""
+"La Nieve — Alpina (Villavicencio)","META","EL DORADO",20,""
+"La Nieve — Alpina (Villavicencio)","META","PUERTO RICO",1,""
+"La Nieve — Alpina (Villavicencio)","META","URIBE",1,""
+"La Nieve — Alpina (Villavicencio)","META","CABUYARO",1,""
+"La Nieve — Alpina (Villavicencio)","NARIÑO","SAN LORENZO",4,""
+"La Nieve — Alpina (Villavicencio)","VAUPES","MITU",7,""
+"La Nieve — Alpina (Villavicencio)","VAUPES","CARURU",2,""
+"La Nieve — Alpina (Villavicencio)","VICHADA","PUERTO CARREÑO",5,""
+"La Nieve — Alpina (Villavicencio)","VICHADA","CUMARIBO",4,""
