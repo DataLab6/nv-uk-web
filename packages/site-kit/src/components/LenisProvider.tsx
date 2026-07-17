@@ -22,6 +22,15 @@ export interface LenisProviderProps {
  * previous page happened to be, e.g. its footer). A pathname-driven effect
  * forces both the native scroll position and the Lenis instance back to the
  * top on every navigation.
+ *
+ * For the same reason, persistent chrome rendered by SiteChrome (notably the
+ * Footer) never remounts between routes, so its reveal-on-scroll
+ * ScrollTrigger keeps the trigger position measured on whichever page first
+ * mounted it. On a page with a different height, that stale position can sit
+ * past the new page's scrollable range, so the reveal never fires and the
+ * footer appears not to render until a full reload remeasures everything.
+ * Refreshing ScrollTrigger after every navigation keeps existing triggers
+ * (Footer's included) correct for the newly rendered page.
  */
 export function LenisProvider({ children, options }: LenisProviderProps) {
   const lenisRef = useRef<Lenis | null>(null);
@@ -94,6 +103,15 @@ export function LenisProvider({ children, options }: LenisProviderProps) {
   useEffect(() => {
     lenisRef.current?.scrollTo(0, { immediate: true });
     window.scrollTo(0, 0);
+
+    // Wait a frame so the new route's content has been laid out before
+    // ScrollTrigger remeasures every trigger (including Footer's, which
+    // otherwise keeps the previous page's stale position).
+    const frame = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   return <>{children}</>;

@@ -795,3 +795,17 @@ Responsable interno del canal; correo oficial definitivo para PQRS (resolver dis
 
 - `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
 - Pendiente real: ninguno.
+
+## Sesión: el footer no aparecía en la primera navegación a una página distinta (2026-07-17)
+
+- Estado: terminado.
+- Archivo: `packages/site-kit/src/components/LenisProvider.tsx`.
+- Reporte del usuario: al entrar por primera vez y navegar a "Somos Nieve" (`/nosotros`), el footer no aparecía; solo se mostraba al recargar la página por completo.
+- Causa: mismo patrón de fondo que el bug de scroll corregido antes en esta sesión — `Footer` (montado una sola vez dentro de `SiteChrome`, en el layout raíz) **nunca se desmonta** entre navegaciones de Next.js. Su animación de entrada usa `useRevealAnimation`, que registra un `ScrollTrigger` de GSAP una única vez, calculando la posición de disparo según el layout de la **primera** página cargada. Al navegar a otra página con distinta altura de contenido, esa posición guardada queda desactualizada: si cae más allá del rango de scroll real de la nueva página, la animación de entrada nunca se dispara y el footer permanece en su estado inicial (`opacity: 0`), es decir, invisible. Un recargo completo desmonta y remonta todo, recalculando la posición correctamente desde cero — de ahí que "solo aparece al recargar".
+- Corrección: se amplió el mismo efecto que ya escuchaba `usePathname()` (agregado en la sesión anterior para el scroll-to-top) para que, tras reiniciar el scroll, también llame a `ScrollTrigger.refresh()` (de `gsap/ScrollTrigger`, ya usado en este archivo) en el siguiente frame. `refresh()` no recrea los triggers existentes: simplemente vuelve a medir su posición contra el DOM actual, lo que corrige el del footer (y el de cualquier otro elemento persistente) para la página recién cargada, sin afectar los triggers de componentes propios de cada página (esos ya se crean y destruyen correctamente al montar/desmontar, con medidas siempre actualizadas).
+- No se tocó ningún otro componente, dato ni estilo.
+
+### Validación de esta sesión
+
+- `npm run build` (ambas apps, workspaces): correcto, sin errores de TypeScript.
+- Pendiente real: ninguno.
