@@ -1,4 +1,20 @@
-export { createPageMetadata, createSiteMetadata } from "./config/metadata";
+export {
+  createNoIndexPageMetadata,
+  createPageMetadata,
+  createSiteMetadata,
+  getPageHref,
+  getSiteRoutes,
+} from "./config/metadata";
+export {
+  createRobotsConfig,
+  createSitemapEntries,
+  normalizeSiteOrigin,
+} from "./config/seo";
+export {
+  buildBreadcrumbJsonLd,
+  buildLegalBreadcrumbJsonLd,
+  buildOrganizationAndWebsiteJsonLd,
+} from "./config/structuredData";
 export { createCorporateNavigation } from "./config/navigation";
 export {
   CORPORATE_MISSION,
@@ -44,6 +60,7 @@ export type {
 } from "./config/types";
 
 export { CompanyTimeline } from "./components/CompanyTimeline";
+export { JsonLd } from "./components/JsonLd";
 export { SiteChrome } from "./components/SiteChrome";
 export { HomePage } from "./pages/HomePage";
 export { AboutPage } from "./pages/AboutPage";

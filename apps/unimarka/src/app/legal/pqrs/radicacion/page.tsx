@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
-import { PqrsFilingPage } from "@corporativo/site-kit";
+import {
+  PqrsFilingPage,
+  createNoIndexPageMetadata,
+} from "@corporativo/site-kit";
 import { siteConfig } from "@/site.config";
 
 /**
@@ -8,15 +10,12 @@ import { siteConfig } from "@/site.config";
  * `noindex`/`nofollow` keep it out of search results without pretending the
  * route is private — it remains publicly reachable by URL.
  */
-export const metadata: Metadata = {
-  title: `Radicación de PQRS | ${siteConfig.name}`,
+export const metadata = createNoIndexPageMetadata(siteConfig, {
+  title: "Radicación de PQRS",
   description:
     "Formulario formal de radicación de peticiones, quejas, reclamos y sugerencias.",
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+  href: "/legal/pqrs/radicacion",
+});
 
 export default function Page() {
   return <PqrsFilingPage site={siteConfig} />;

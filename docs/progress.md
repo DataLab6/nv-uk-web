@@ -823,3 +823,54 @@ Responsable interno del canal; correo oficial definitivo para PQRS (resolver dis
   - `apps/la-nieve/src/site.config.ts`: sin cambios.
 - Validación: `npm run build` (ambas apps) correcto, sin errores de TypeScript; se inspeccionó el HTML prerenderizado de `/legal/tratamiento-de-datos` de cada app — Unimarka muestra "UNIMARKA S.A.S" (63 veces) sin ninguna mención de "DISTRIBUCIONES LA NIEVE" ni el aviso de documento no disponible; La Nieve sigue mostrando únicamente su propio contenido, sin cambios.
 - Pendiente real: ninguno para esta tarea. Queda como nota (no crítica) que `tratamientodata.txt` conserva la sección de Unimarka duplicada dos veces; no se tocó el archivo porque la instrucción fue únicamente actualizar la política en el sitio, pero puede limpiarse si se desea evitar confusión futura.
+
+## Sesión: optimización SEO técnica sin cambios visuales ni funcionales (2026-07-21)
+
+- Estado: implementación técnica terminada. No se modificaron estilos, contenido visible, componentes de interfaz, imágenes, animaciones, responsive, formularios, tema ni lógica de negocio.
+- Arquitectura auditada: Next.js `16.2.10`, App Router, monorepo con dos apps estáticas (`apps/la-nieve` y `apps/unimarka`) y componentes compartidos en `packages/site-kit`.
+- No existe dominio de producción confirmado, archivo `.env`, manifest, middleware, analítica, Search Console, `vercel.json`, redirects/rewrites en `next.config.ts` ni implementación previa de robots/sitemap. No se inventó ninguno de esos datos.
+
+### Implementación
+
+- Metadata global centralizada: `metadataBase`, aplicación, título predeterminado/template, descripción, categoría, keywords existentes, autor/creator/publisher, iconos existentes, Open Graph, Twitter y token opcional de Search Console.
+- Metadata individual para las nueve rutas públicas indexables de cada marca: título y descripción únicos, canonical, OG y Twitter completos e imagen real del proyecto.
+- `NEXT_PUBLIC_SITE_URL`: origen por proyecto, validado como HTTP(S) sin ruta/query/hash y normalizado para evitar dobles barras. El fallback `localhost` se limita a builds locales; producción debe configurar el dominio real.
+- `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`: opcional y omitida por completo si no existe un token real.
+- `/sitemap.xml`: nueve URLs públicas derivadas de la navegación real; excluye redirects, 404 y radicación; no inventa `lastModified`. Usa frecuencias/prioridades moderadas.
+- `/robots.txt`: permite rastrear el sitio público y referencia el sitemap. La radicación queda rastreable para que el bot pueda leer su `noindex`.
+- JSON-LD seguro: grafo `Organization` + `WebSite` con datos existentes y `BreadcrumbList` no visible para las dos rutas legales anidadas. La serialización escapa `<` como `\u003c`.
+- Las rutas heredadas `/clientes`, `/cobertura`, `/marcas`, `/nosotros` y `/productos` conservan exactamente sus destinos y pasan de redirect temporal a `308` permanente.
+- `/legal/pqrs/radicacion`: sigue pública pero fuera de índice (`noindex, nofollow`), excluida del sitemap y con metadata/canonical/OG propios.
+- 404: conserva su interfaz y recibe título propio; Next.js genera un único `noindex` automático y no se emite canonical.
+
+### Correcciones realizadas durante la validación
+
+- Next.js no aplica el `title.template` del root layout al `page.tsx` del mismo segmento. Se usan títulos absolutos para que Inicio no pierda la marca.
+- Se retiraron canonical y robots globales redundantes para impedir que 404/radicación heredaran el canonical de Inicio o generaran directivas duplicadas.
+- Las imágenes importadas como `StaticImageData` ahora se resuelven correctamente para OG/Twitter; Inicio usa su imagen hero real en vez del fallback de Somos.
+- La metadata de radicación ya no duplica el nombre de marca en `<title>` y deja de anunciar Inicio mediante `og:url`.
+- `docs/deployment.md` ahora documenta las variables SEO requeridas, el ciclo de primer despliegue/redespliegue y la decisión externa pendiente entre dominio con/sin `www`.
+
+### Evidencia de validación
+
+- Build anterior desde `HEAD`, en copia temporal aislada: correcto, 17 rutas estáticas por marca.
+- `npm run typecheck`: correcto en las dos apps y `site-kit`.
+- `npm run build`: correcto, 19 rutas estáticas por marca (incluye `/robots.txt` y `/sitemap.xml`).
+- `npm run lint`: conserva dos errores preexistentes `react-hooks/set-state-in-effect` en `packages/site-kit/src/pages/PqrsFilingPage.tsx:150` y `:158`. El archivo no forma parte del diff SEO; no se ocultaron ni se amplió el alcance para refactorizar el formulario.
+- HTTP real con `next start`, por marca: 12 respuestas `200`, cinco redirects `308` y una ruta inexistente `404`, todas según lo esperado.
+- Sitemap: nueve URLs exactas y sin duplicados por marca. Robots: `Allow: /` y referencia correcta al sitemap.
+- HTML prerenderizado: un título, una descripción y un canonical por ruta indexable; títulos/descripciones únicos; OG/Twitter completos y absolutos; radicación con `noindex, nofollow`; 404 con un solo `noindex` y sin canonical.
+- JSON-LD: todos los bloques parsean como JSON; grafo y breadcrumbs tienen los tipos, posiciones y URLs esperados.
+- Semántica renderizada: un `h1`, un `main`, `lang="es"` y `alt` presente en todas las imágenes de las diez rutas HTML verificadas por marca. Las imágenes `fill` sin atributos numéricos conservan contenedores dimensionados existentes; no se alteró su layout.
+- Comparación visual automatizada contra `HEAD`: 12/12 pares PNG idénticos byte a byte en Inicio y la sección de Valores de ambas marcas, a 1440×1000, 768×1024 y 390×844.
+- Interacciones: 12/12 comprobaciones de flip cards correctas (fijar, cambiar la tarjeta fijada y cerrar) antes/después, en escritorio/tableta/móvil.
+- Tema: claro por defecto en todas las comprobaciones antes/después. Consola/hidratación: cero errores o warnings capturados por Edge/CDP.
+- `npm audit --omit=dev --audit-level=moderate`: cero vulnerabilidades de producción. `git diff --check` y Prettier sobre todos los archivos cambiados: correctos.
+
+### Pendientes externos
+
+- Confirmar un origen HTTPS canónico por marca y configurar `NEXT_PUBLIC_SITE_URL` por separado en cada proyecto de Vercel.
+- Elegir y redirigir la variante secundaria `www`/sin `www` cuando existan los dominios reales.
+- Crear/verificar una propiedad de Google Search Console por marca, configurar el token real y enviar `/sitemap.xml`.
+- Solicitar indexación solo después de comprobar que el despliegue emite el dominio real, nunca `localhost`.
+- No se agregaron Analytics, Tag Manager, manifest, nuevas imágenes OG ni datos empresariales inexistentes.

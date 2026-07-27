@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
 /** Preserves the former brands URL. */
 export default function Page() {
-  redirect("/aliados-comerciales");
+  permanentRedirect("/aliados-comerciales");
 }

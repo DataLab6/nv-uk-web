@@ -48,6 +48,7 @@ export interface SiteMetadataConfig {
   readonly title: string;
   readonly titleTemplate: string;
   readonly description: string;
+  readonly category: string;
   readonly keywords: readonly string[];
 }
 
@@ -165,6 +166,10 @@ export interface SiteConfig {
   readonly chromeLogo: SiteLogoConfig;
   readonly favicon?: string;
   readonly themeColor: string;
+  /** Absolute production origin (no trailing slash), sourced from an environment variable per app. Drives `metadataBase`, canonicals, sitemap and robots. */
+  readonly siteUrl: string;
+  /** Google Search Console verification token, if one has been issued for this property. Sourced from an environment variable; omitted entirely when unset. */
+  readonly googleSiteVerification?: string;
   readonly metadata: SiteMetadataConfig;
   readonly navigation: readonly SiteNavigationItem[];
   readonly home: SitePageCopy & {

@@ -1,6 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { SiteChrome, createSiteMetadata } from "@corporativo/site-kit";
+import {
+  JsonLd,
+  SiteChrome,
+  buildOrganizationAndWebsiteJsonLd,
+  createSiteMetadata,
+} from "@corporativo/site-kit";
 import "@corporativo/site-kit/styles.css";
 import { siteConfig } from "@/site.config";
 
@@ -21,6 +26,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
+        <JsonLd data={buildOrganizationAndWebsiteJsonLd(siteConfig)} />
         <SiteChrome site={siteConfig}>{children}</SiteChrome>
       </body>
     </html>

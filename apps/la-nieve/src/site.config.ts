@@ -6,6 +6,7 @@ import {
   CORPORATE_VISION,
   LA_NIEVE_TIMELINE,
   createCorporateNavigation,
+  normalizeSiteOrigin,
   sharedHeroImage,
   type SiteConfig,
 } from "@corporativo/site-kit/config";
@@ -51,14 +52,7 @@ const laNieveBrandLogos = [
     100,
     1.4
   ),
-  brandLogo(
-    "Nestlé Purina",
-    "/brands/nestle-purina.png",
-    5000,
-    2834,
-    170,
-    1.4
-  ),
+  brandLogo("Nestlé Purina", "/brands/nestle-purina.png", 5000, 2834, 170, 1.4),
   brandLogo("Alpina", "/brands/alpina.png", 755, 455, 142),
   brandLogo(
     "Harinera del Valle",
@@ -133,11 +127,24 @@ export const siteConfig = {
   },
   favicon: "/faviconnieve.png",
   themeColor: "#27348A",
+  // Producción: definir NEXT_PUBLIC_SITE_URL en el entorno de despliegue (ver
+  // docs/deployment.md). Sin esa variable, se usa el origen de desarrollo
+  // local para que metadataBase, canonicals, sitemap y robots sigan siendo
+  // URLs absolutas válidas sin afirmar un dominio de producción inexistente.
+  siteUrl: normalizeSiteOrigin(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+  ),
+  // Token de Google Search Console para esta propiedad, si ya fue emitido.
+  // Sin NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION definido, el meta tag de
+  // verificación simplemente no se genera (no se inventa ningún valor).
+  googleSiteVerification:
+    process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   metadata: {
     title: "Distribuciones La Nieve | Sitio corporativo",
     titleTemplate: "%s | Distribuciones La Nieve",
     description:
       "Sitio corporativo de Distribuciones La Nieve, empresa colombiana de distribución y comercio mayorista ubicada en Villavicencio, Meta.",
+    category: "Distribución y comercio mayorista",
     keywords: [
       "Distribuciones La Nieve",
       "distribución",

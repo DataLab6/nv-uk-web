@@ -6,6 +6,7 @@ import {
   CORPORATE_VISION,
   UNIMARKA_TIMELINE,
   createCorporateNavigation,
+  normalizeSiteOrigin,
   sharedHeroImage,
   type SiteConfig,
 } from "@corporativo/site-kit/config";
@@ -81,11 +82,24 @@ export const siteConfig = {
   },
   favicon: "/brand/favicon.png",
   themeColor: "#BD202D",
+  // Producción: definir NEXT_PUBLIC_SITE_URL en el entorno de despliegue (ver
+  // docs/deployment.md). Sin esa variable, se usa el origen de desarrollo
+  // local para que metadataBase, canonicals, sitemap y robots sigan siendo
+  // URLs absolutas válidas sin afirmar un dominio de producción inexistente.
+  siteUrl: normalizeSiteOrigin(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001"
+  ),
+  // Token de Google Search Console para esta propiedad, si ya fue emitido.
+  // Sin NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION definido, el meta tag de
+  // verificación simplemente no se genera (no se inventa ningún valor).
+  googleSiteVerification:
+    process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   metadata: {
     title: "Unimarka | Sitio corporativo",
     titleTemplate: "%s | Unimarka",
     description:
       "Sitio corporativo de Unimarka, distribuidora colombiana de productos de consumo masivo, productos institucionales, licores y vinos.",
+    category: "Distribución de productos de consumo masivo",
     keywords: [
       "Unimarka",
       "distribución",
