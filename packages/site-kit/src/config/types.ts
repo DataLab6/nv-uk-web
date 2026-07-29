@@ -244,7 +244,6 @@ export interface SiteConfig {
   };
   readonly careers: SitePageCopy & {
     readonly image: SiteImageConfig;
-    readonly pendingMessage: string;
   };
   readonly legal: SitePageCopy;
   readonly dataPolicy: SitePageCopy & {

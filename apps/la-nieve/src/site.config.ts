@@ -515,8 +515,6 @@ export const siteConfig = {
       height: 1402,
       treatment: "photo",
     },
-    pendingMessage:
-      "Actualmente no se anuncian vacantes ni se reciben hojas de vida desde este sitio.",
   },
   legal: {
     eyebrow: "Información legal",

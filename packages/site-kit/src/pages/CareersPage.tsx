@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { BriefcaseBusiness, FileUp, Send, ShieldCheck } from "lucide-react";
+import { BriefcaseBusiness, FileUp, Send } from "lucide-react";
 import type { SiteConfig } from "../config/types";
 import { PageIntro } from "../components/PageIntro";
 import { RevealGroup } from "../components/RevealGroup";
@@ -36,24 +36,11 @@ export function CareersPage({ site }: { site: SiteConfig }) {
                 aria-hidden="true"
               />
             </figure>
-
-            <div className="rounded-3xl border border-dashed border-primary/35 bg-primary/5 p-6">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                <ShieldCheck className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <h2 className="mt-5 text-xl font-bold text-foreground">
-                Información sobre postulaciones
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {site.careers.pendingMessage}
-              </p>
-            </div>
           </div>
 
           <form
             onSubmit={(event) => event.preventDefault()}
             aria-labelledby="careers-form-title"
-            aria-describedby="careers-form-status"
             className="min-w-0 rounded-3xl border border-border bg-card p-6 shadow-card sm:p-8 lg:p-10"
           >
             <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
@@ -198,13 +185,6 @@ export function CareersPage({ site }: { site: SiteConfig }) {
                 </Link>
                 .
               </span>
-            </div>
-
-            <div
-              id="careers-form-status"
-              className="mt-5 text-xs leading-relaxed text-muted-foreground"
-            >
-              {site.careers.pendingMessage}
             </div>
 
             <button
