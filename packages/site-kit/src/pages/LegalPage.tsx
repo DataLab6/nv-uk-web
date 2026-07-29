@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, FileText, MessageSquareText, Scale } from "lucide-react";
+import { ArrowRight, FileText, MessageSquareText } from "lucide-react";
 import type { SiteConfig } from "../config/types";
 import { PageIntro } from "../components/PageIntro";
 import { RevealGroup } from "../components/RevealGroup";
@@ -28,20 +28,6 @@ export function LegalPage({ site }: { site: SiteConfig }) {
       <PageIntro copy={site.legal} />
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <RevealGroup>
-          <div className="mb-10 flex items-start gap-4 rounded-2xl border border-dashed border-primary/40 bg-primary/5 p-6 text-sm leading-relaxed text-muted-foreground">
-            <Scale
-              className="mt-0.5 h-5 w-5 shrink-0 text-primary"
-              aria-hidden="true"
-            />
-            <p>
-              El contenido de esta fase es un modelo informativo y debe ser
-              revisado, completado y aprobado por la empresa y su asesoría
-              jurídica antes de considerarse una política oficial.
-            </p>
-          </div>
-        </RevealGroup>
-
         <RevealGroup className="grid gap-6 md:grid-cols-2" stagger={0.1}>
           {destinations.map((destination) => (
             <Link

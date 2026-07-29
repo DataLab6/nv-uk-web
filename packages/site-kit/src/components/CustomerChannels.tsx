@@ -20,10 +20,10 @@ export function CustomerChannels({ site }: { site: SiteConfig }) {
       ref={sectionRef}
       id="canales"
       aria-labelledby="home-channels-title"
-      className="relative overflow-hidden bg-surface py-20 sm:py-24"
+      className="relative overflow-hidden bg-surface py-12 sm:py-14 lg:py-16"
     >
       <div
-        className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
+        className="absolute -left-24 top-8 h-64 w-64 rounded-full bg-primary/[0.07] blur-3xl"
         aria-hidden="true"
       />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -33,51 +33,45 @@ export function CustomerChannels({ site }: { site: SiteConfig }) {
           </span>
           <h2
             id="home-channels-title"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
+            className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
           >
             {site.channels.title}
           </h2>
-          <p className="mt-4 leading-relaxed text-muted-foreground">
-            {site.channels.description}
-          </p>
         </div>
 
         <ul
           ref={gridRef}
-          className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-8 grid grid-cols-1 gap-x-7 gap-y-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-9 lg:gap-y-8"
         >
           {site.channels.items.map((channel, index) => {
-            const image = CUSTOMER_CHANNEL_IMAGES[channel.icon];
+            const image = CUSTOMER_CHANNEL_IMAGES[site.id][channel.icon];
 
             return (
               <li
                 key={channel.title}
-                className="group relative grid min-w-0 grid-cols-[7rem_1fr] gap-5 border-t border-primary/20 py-6 sm:grid-cols-1 sm:gap-0 sm:px-5 sm:py-8 lg:border-l lg:border-t-0 lg:px-7"
+                className="group grid min-w-0 grid-cols-[minmax(0,1.55fr)_minmax(7rem,0.8fr)] items-center gap-4"
               >
-                <span
-                  className="absolute right-3 top-2 text-5xl font-black text-primary/10 sm:right-5 sm:top-4"
-                  aria-hidden="true"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
                 {image && (
-                  <figure className="relative aspect-square w-28 overflow-hidden rounded-2xl sm:w-32">
+                  <figure className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted">
                     <Image
                       src={image}
-                      alt={`Ilustración conceptual de ${channel.title}`}
+                      alt={`${channel.title} para ${site.name}`}
                       fill
-                      sizes="128px"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.035] motion-reduce:transform-none"
+                      sizes="(min-width: 1024px) 16vw, (min-width: 640px) 27vw, 58vw"
+                      className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] motion-reduce:transform-none"
                     />
                   </figure>
                 )}
-                <div className="relative self-center sm:mt-6">
-                  <h3 className="pr-8 text-xl font-extrabold text-foreground">
+                <div className="min-w-0">
+                  <span
+                    className="block text-2xl font-black tracking-tight text-primary/30 transition-colors duration-200 group-hover:text-primary"
+                    aria-hidden="true"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-1 text-base font-extrabold leading-tight text-foreground transition-transform duration-200 ease-out group-hover:-translate-y-[3px] sm:text-lg">
                     {channel.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    {channel.description}
-                  </p>
                 </div>
               </li>
             );

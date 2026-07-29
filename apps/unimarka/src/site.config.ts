@@ -1,13 +1,14 @@
 import {
   CORPORATE_MISSION,
-  CORPORATE_STATS_GROUPS,
+  createCorporateStatsGroups,
   CORPORATE_TECHNOLOGY,
   CORPORATE_VALUES,
   CORPORATE_VISION,
   UNIMARKA_TIMELINE,
   createCorporateNavigation,
   normalizeSiteOrigin,
-  sharedHeroImage,
+  type SiteAdvertisingCampaign,
+  type SiteBrandLogo,
   type SiteConfig,
 } from "@corporativo/site-kit/config";
 
@@ -39,9 +40,9 @@ const unimarkaBrandLogos = [
   brandLogo("Unilever", "/brands/unilever.png", 1280, 720, 142),
   brandLogo("Brinsa", "/brands/brinsa.png", 2125, 791, 184),
   brandLogo("Grupo Familia", "/brands/grupo-familia.png", 1280, 318, 188),
-  brandLogo("Familia TORK", "/brands/familia-tork.png", 3840, 2160, 156),
-  brandLogo("Quala", "/brands/quala.png", 400, 400, 100, 1.25),
+  brandLogo("Tork Institucional", "/brands/familia-tork.png", 3840, 2160, 156),
   brandLogo("Contegral", "/brands/contegral.png", 472, 321, 136),
+  brandLogo("Quala", "/brands/quala.png", 400, 400, 100, 1.25),
   brandLogo("Reckitt", "/brands/reckitt.png", 3840, 2160, 150),
   brandLogo("Providencia", "/brands/providencia.png", 400, 300, 126, 1.4),
   brandLogo("Amerincandy", "/brands/americandy.png", 1024, 422, 180),
@@ -55,6 +56,92 @@ const unimarkaBrandLogos = [
     122
   ),
   brandLogo("Indulacteos", "/brands/indulacteos.png", 1254, 1254, 104),
+] as const;
+
+function advertisingCampaign(
+  id: string,
+  name: string,
+  src: string,
+  width: number,
+  height: number,
+  logo: SiteBrandLogo,
+  priority = false
+): SiteAdvertisingCampaign {
+  return {
+    id,
+    brand: "unimarka",
+    variant: "landscape",
+    logo,
+    main: {
+      src,
+      alt: `Pieza publicitaria de ${name}`,
+      width,
+      height,
+      treatment: "photo",
+      fit: "contain",
+      priority,
+    },
+  };
+}
+
+const unimarkaAdvertisements = [
+  advertisingCampaign(
+    "unilever",
+    "Unilever",
+    "/images/advertising/unilever.png",
+    1774,
+    887,
+    unimarkaBrandLogos[0],
+    true
+  ),
+  advertisingCampaign(
+    "brinsa",
+    "Brinsa",
+    "/images/advertising/brinsa.png",
+    1774,
+    887,
+    unimarkaBrandLogos[1]
+  ),
+  advertisingCampaign(
+    "grupo-familia",
+    "Grupo Familia",
+    "/images/advertising/grupo-familia.png",
+    1717,
+    916,
+    unimarkaBrandLogos[2]
+  ),
+  advertisingCampaign(
+    "tork-institucional",
+    "Tork Institucional",
+    "/images/advertising/tork-institucional.png",
+    1774,
+    887,
+    unimarkaBrandLogos[3]
+  ),
+  advertisingCampaign(
+    "contegral",
+    "Contegral",
+    "/images/advertising/contegral.png",
+    1717,
+    916,
+    unimarkaBrandLogos[4]
+  ),
+  advertisingCampaign(
+    "quala",
+    "Quala",
+    "/images/advertising/quala.png",
+    1717,
+    916,
+    unimarkaBrandLogos[5]
+  ),
+  advertisingCampaign(
+    "reckitt",
+    "Reckitt",
+    "/images/advertising/reckitt.png",
+    1663,
+    946,
+    unimarkaBrandLogos[6]
+  ),
 ] as const;
 
 /**
@@ -95,7 +182,7 @@ export const siteConfig = {
   googleSiteVerification:
     process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   metadata: {
-    title: "Unimarka | Sitio corporativo",
+    title: "Unimarka",
     titleTemplate: "%s | Unimarka",
     description:
       "Sitio corporativo de Unimarka, distribuidora colombiana de productos de consumo masivo, productos institucionales, licores y vinos.",
@@ -117,11 +204,12 @@ export const siteConfig = {
     description:
       "En Unimarka trabajamos alrededor de la comercialización y distribución de productos de consumo masivo, productos institucionales, licores y vinos.",
     image: {
-      src: sharedHeroImage,
-      alt: "Tendero atendiendo un minimercado surtido",
-      width: 1024,
-      height: 1024,
+      src: "/images/cliente-unimarka.jpg",
+      alt: "Cliente de Unimarka en su negocio",
+      width: 2679,
+      height: 1459,
       treatment: "photo",
+      objectPosition: "50% 50%",
     },
     points: [
       {
@@ -155,7 +243,10 @@ export const siteConfig = {
       height: 4869,
       treatment: "illustration",
     },
-    groups: CORPORATE_STATS_GROUPS,
+    groups: createCorporateStatsGroups({
+      clients: "13k",
+      employees: "208",
+    }),
   },
   coverage: {
     eyebrow: "Mapa de cobertura — demostración",
@@ -182,7 +273,7 @@ export const siteConfig = {
   },
   channels: {
     eyebrow: "Clientes por canal",
-    title: "Soluciones pensadas para distintos tipos de negocio",
+    title: "Soluciones para cada tipo de negocio",
     description:
       "La arquitectura organiza la información comercial en los seis canales definidos para el sitio.",
     items: [
@@ -228,7 +319,7 @@ export const siteConfig = {
     ...CORPORATE_TECHNOLOGY,
     image: {
       src: "/images/innovacion-unimarka.png",
-      alt: "Fotografía conceptual sobre tecnología e innovación en Unimarka",
+      alt: "Equipo trabajando en iniciativas de tecnología e innovación",
       width: 1536,
       height: 1024,
       treatment: "photo",
@@ -238,10 +329,10 @@ export const siteConfig = {
     eyebrow: "Somos Unimarka",
     title: "Calidad, servicio y confianza en cada experiencia",
     description:
-      "Conoce la estructura propuesta para presentar el propósito y los principios de Unimarka.",
+      "Conoce el propósito y los principios que orientan a Unimarka.",
     image: {
       src: "/images/somos-unimarka.png",
-      alt: "Fotografía conceptual para la sección Somos Unimarka",
+      alt: "Equipo reunido en una operación logística",
       width: 1536,
       height: 1024,
       treatment: "photo",
@@ -254,12 +345,10 @@ export const siteConfig = {
   allies: {
     eyebrow: "Aliados comerciales",
     title: "Marcas que hacen parte de esta historia",
-    description:
-      "Relación de aliados suministrada para organizar la primera fase del sitio de Unimarka.",
+    description: "Conoce las marcas aliadas de Unimarka.",
     items: unimarkaBrandLogos,
     logos: unimarkaBrandLogos,
-    imageNotice:
-      "Logotipos incorporados desde los 13 recursos locales suministrados en MarcasUK. La publicación definitiva permanece sujeta a autorización de uso.",
+    advertisements: unimarkaAdvertisements,
   },
   culture: {
     eyebrow: "Cultura Unimarka",
@@ -267,12 +356,13 @@ export const siteConfig = {
     description:
       "Un espacio editorial enfocado en compartir contenido de valor con los clientes de Unimarka.",
     image: {
-      src: "/images/cultura-unimarka.png",
-      alt: "Fotografía conceptual de comerciantes compartiendo buenas prácticas",
-      width: 1536,
-      height: 1024,
+      src: "/images/collage-cultura-unimarka.jpg",
+      alt: "Collage de cultura de Unimarka",
+      width: 6000,
+      height: 3375,
       treatment: "photo",
     },
+    imagePresentation: "featured-before-intro",
     topics: [
       {
         icon: "trending-up",
@@ -298,77 +388,72 @@ export const siteConfig = {
     eyebrow: "Contacto",
     title: "Conversemos por nuestros canales oficiales",
     description:
-      "Esta página reunirá los medios verificados para comunicarse con Unimarka.",
+      "Encuentra aquí los canales oficiales de atención de Unimarka.",
     // Correo y teléfono verificados en redesciales.txt.
     email: "servicioalcliente@unimarka.com",
     phone: "320-341-4212",
-    mapEmbedUrl: null,
     pendingMessage:
-      "La dirección y la integración cartográfica se habilitarán cuando la empresa confirme sus enlaces oficiales.",
+      "Para comunicarte, utiliza el teléfono, correo o redes sociales disponibles en esta página.",
   },
   careers: {
     eyebrow: "Trabaja con nosotros",
     title: "Construyamos nuevas oportunidades",
     description:
-      "Un espacio independiente para publicar oportunidades laborales y orientar futuras postulaciones.",
+      "Conoce la información disponible sobre oportunidades laborales y postulaciones.",
     image: {
-      src: "/images/somos-unimarka.png",
-      alt: "Fotografía conceptual de personas colaborando en Unimarka",
-      width: 1536,
-      height: 1024,
+      src: "/images/trabajo-unimarka.png",
+      alt: "Integrante del equipo de Unimarka",
+      width: 1122,
+      height: 1402,
       treatment: "photo",
     },
     pendingMessage:
-      "Actualmente no se anuncian vacantes ni se reciben hojas de vida desde este sitio. El canal oficial se incorporará después de su validación.",
+      "Actualmente no se anuncian vacantes ni se reciben hojas de vida desde este sitio.",
   },
   legal: {
     eyebrow: "Información legal",
     title: "Transparencia y atención responsable",
     description:
-      "Consulta el estado del documento de tratamiento de datos y el espacio previsto para la gestión de PQRS de Unimarka.",
+      "Consulta la política de tratamiento de datos y la información sobre PQRS de Unimarka.",
   },
   dataPolicy: {
     eyebrow: "Tratamiento de datos",
     title: "Política de tratamiento de datos personales",
     description:
-      "Documento suministrado para establecer los principios, términos y condiciones del tratamiento de datos personales de Unimarka S.A.S.",
+      "Consulta los principios, términos y condiciones del tratamiento de datos personales de Unimarka S.A.S.",
     applicability:
       "Esta política identifica expresamente como responsable a UNIMARKA S.A.S.",
-    disclaimer:
-      "Contenido transcrito fielmente desde la fuente local tratamientodata.txt, sin resumir sus cláusulas.",
     documentId: "unimarka",
   },
   pqrs: {
     eyebrow: "PQRS",
     title: "Peticiones, quejas, reclamos y sugerencias",
     description:
-      "Página preparada para orientar la recepción y gestión de comunicaciones cuando se habilite el canal oficial.",
-    disclaimer:
-      "Contenido y flujo de muestra. Requieren revisión jurídica, definición de responsables y validación de los canales oficiales antes de entrar en operación.",
+      "Conoce los tipos de solicitudes disponibles para comunicarte con Unimarka.",
     categories: [
       {
         icon: "file-text",
         title: "Peticiones",
         description:
-          "Solicitudes de información o actuaciones que serán gestionadas según el procedimiento oficial por definir.",
+          "Solicitudes de información, orientación o actuaciones relacionadas con la empresa.",
       },
       {
         icon: "megaphone",
         title: "Quejas",
         description:
-          "Manifestaciones relacionadas con la atención o el servicio, sujetas al proceso oficial de gestión.",
+          "Manifestaciones relacionadas con la atención o el servicio recibido.",
       },
       {
         icon: "shield",
         title: "Reclamos",
         description:
-          "Solicitudes de revisión sobre una situación concreta, pendientes de un protocolo corporativo validado.",
+          "Solicitudes de revisión sobre una situación concreta relacionada con productos o servicios.",
       },
       {
         icon: "lightbulb",
         title: "Sugerencias",
         description:
-          "Ideas y recomendaciones que podrán contribuir a la mejora continua cuando el canal sea habilitado.",
+          "Ideas y recomendaciones orientadas a mejorar la atención, los procesos o los servicios.",
       },
     ],
     filing: {

@@ -58,6 +58,7 @@ export interface SiteImageConfig {
   readonly width: number;
   readonly height: number;
   readonly treatment?: "photo" | "character" | "illustration";
+  readonly objectPosition?: string;
 }
 
 export interface SiteLogoConfig {
@@ -116,6 +117,30 @@ export interface SiteAlly {
 
 export interface SiteBrandLogo extends SiteAlly {
   readonly image: SiteImageConfig;
+}
+
+export type SiteAdvertisingVariant =
+  "featured" | "split" | "portrait" | "landscape" | "paired";
+
+export type SiteAdvertisingOrientation = "media-left" | "media-right";
+export type SiteAdvertisingProportion = 55 | 60 | 65 | 70;
+
+export interface SiteAdvertisingImage extends SiteImageConfig {
+  readonly fit: "contain" | "cover";
+  readonly priority?: boolean;
+}
+
+export interface SiteAdvertisingCampaign {
+  readonly id: string;
+  readonly brand: string;
+  readonly variant: SiteAdvertisingVariant;
+  readonly orientation?: SiteAdvertisingOrientation;
+  readonly mainProportion?: SiteAdvertisingProportion;
+  readonly main: SiteAdvertisingImage;
+  readonly secondary?: SiteAdvertisingImage;
+  readonly logo?: SiteBrandLogo;
+  readonly title?: string;
+  readonly description?: string;
 }
 
 export interface SiteValue {
@@ -205,17 +230,16 @@ export interface SiteConfig {
   readonly allies: SitePageCopy & {
     readonly items: readonly SiteAlly[];
     readonly logos: readonly SiteBrandLogo[];
-    readonly imageNotice: string;
+    readonly advertisements: readonly SiteAdvertisingCampaign[];
   };
   readonly culture: SitePageCopy & {
     readonly image: SiteImageConfig;
+    readonly imagePresentation?: "inline" | "featured-before-intro";
     readonly topics: readonly SiteFeature[];
   };
   readonly contact: SitePageCopy & {
-    readonly location?: string;
     readonly email?: string;
     readonly phone?: string;
-    readonly mapEmbedUrl: string | null;
     readonly pendingMessage: string;
   };
   readonly careers: SitePageCopy & {
@@ -225,11 +249,9 @@ export interface SiteConfig {
   readonly legal: SitePageCopy;
   readonly dataPolicy: SitePageCopy & {
     readonly applicability: string;
-    readonly disclaimer: string;
     readonly documentId: SiteDataPolicyDocumentId | null;
   };
   readonly pqrs: SitePageCopy & {
-    readonly disclaimer: string;
     readonly categories: readonly SiteFeature[];
     /** Controls the formal filing route (`/legal/pqrs/radicacion`) linked from this page. */
     readonly filing: {

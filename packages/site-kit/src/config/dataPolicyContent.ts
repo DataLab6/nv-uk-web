@@ -50,7 +50,7 @@ RADICACIÓN DE CONSULTA O SOLICITUD DE INFORMACIÓN
 Las solicitades de información, o cualquier inquietud se puede radicar a través de los siguientes canales:
 
 Correo electrónico servicioalcliente@lanieve.co
-Correspondencia física a la dirección: Carrera 22 No. 5 B 114 bodega L1 Villavicencio, Meta.
+Correspondencia física: consulte los canales oficiales de contacto publicados en este sitio.
 Teléfono de contacto: 320 3414212
 RECOLECCIÓN DE DATOS PERSONALES
 DISTRIBUCIONES LA NIEVE S.A.S recolecta los datos personales de los titulares de la Información que son requeridos para el desarrollo de su objeto social y les da el tratamiento necesario para cumplir los compromisos contractuales con sus clientes, proveedores y las entidades vinculadas a ella, con las finalidades que se señalan en la presente política.
@@ -157,10 +157,10 @@ El Titular de la Información podrá consultar de forma gratuita sus datos perso
 DERECHOS DE LOS TITULARES DE LA INFORMACIÓN
 Para el ejercicio de los derechos a conocer, actualizar, rectificar y suprimir información, así como para revocar la autorización, los titulares de la información pueden hacer sus solicitudes a través de los siguientes canales:
 
-Información sobre trabajadores de la compañía: Dirección: Carrera 22 No. 5 B 114 Bodega L1, Email: talentohumano@lanieve.co
-Información sobre proveedores misionales: Dirección: Carrera 22 No. 5 B 114 Bodega L1, Email: proveedores@lanieve.co
-Información sobre proveedores administrativos: Dirección: Carrera 22 No. 5 B 114 Bodega L1, Email: administracion01@lanieve.co
-Información sobre clientes: Dirección: Carrera 22 No. 5 B 114 Bodega L1, Email: cartera@lanieve.co
+Información sobre trabajadores de la compañía: Email: talentohumano@lanieve.co
+Información sobre proveedores misionales: Email: proveedores@lanieve.co
+Información sobre proveedores administrativos: Email: administracion01@lanieve.co
+Información sobre clientes: Email: cartera@lanieve.co
 Para realizar peticiones, consultas y reclamos se atenderá de lunes a viernes en horario 8:00 AM – 12:00M y 2:00 PM a 5:00 PM.
 
 Personas autorizadas
@@ -307,7 +307,7 @@ RADICACIÓN DE CONSULTA O SOLICITUD DE INFORMACIÓN
 Las solicitades de información, o cualquier inquietud se puede radicar a través de los siguientes canales:
 
 Correo electrónico servicioalcliente@unimarka.co
-Correspondencia física a la dirección: Carrera 22 No. 5 B 114 bodega L1 Villavicencio, Meta.
+Correspondencia física: consulte los canales oficiales de contacto publicados en este sitio.
 Teléfono de contacto: 320 3414212
 RECOLECCIÓN DE DATOS PERSONALES
 UNIMARKA S.A.S recolecta los datos personales de los titulares de la Información que son requeridos para el desarrollo de su objeto social y les da el tratamiento necesario para cumplir los compromisos contractuales con sus clientes, proveedores y las entidades vinculadas a ella, con las finalidades que se señalan en la presente política.
@@ -414,10 +414,10 @@ El Titular de la Información podrá consultar de forma gratuita sus datos perso
 DERECHOS DE LOS TITULARES DE LA INFORMACIÓN
 Para el ejercicio de los derechos a conocer, actualizar, rectificar y suprimir información, así como para revocar la autorización, los titulares de la información pueden hacer sus solicitudes a través de los siguientes canales:
 
-Información sobre trabajadores de la compañía: Dirección: Carrera 22 No. 5 B 114 Bodega L1, Email: asis1.th@unimarka.co
-Información sobre proveedores misionales: Dirección: Carrera 22 No. 5 B 114 Bodega L1, Email: proveedores@unimarka.co
-Información sobre proveedores administrativos: Dirección: Carrera 22 No. 5 B 114 Bodega L1
-Información sobre clientes: Dirección: Carrera 22 No. 5 B 114 Bodega L1, Email: cartera.v@unimarka.co
+Información sobre trabajadores de la compañía: Email: asis1.th@unimarka.co
+Información sobre proveedores misionales: Email: proveedores@unimarka.co
+Información sobre proveedores administrativos: Consulte los canales oficiales de contacto publicados en este sitio.
+Información sobre clientes: Email: cartera.v@unimarka.co
 Para realizar peticiones, consultas y reclamos se atenderá de lunes a viernes en horario 8:00 AM – 12:00M y 2:00 PM a 5:00 PM.
 
 Personas autorizadas

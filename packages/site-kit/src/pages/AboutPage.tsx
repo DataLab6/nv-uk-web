@@ -32,9 +32,6 @@ export function AboutPage({ site }: { site: SiteConfig }) {
               sizes="(min-width: 1024px) 52vw, 100vw"
               className="relative aspect-[4/3] w-full object-cover"
             />
-            <figcaption className="absolute inset-x-4 bottom-4 rounded-xl bg-background/85 px-4 py-3 text-sm text-muted-foreground shadow-sm backdrop-blur-md">
-              Imagen conceptual para esta fase del sitio corporativo.
-            </figcaption>
           </figure>
 
           <div className="space-y-5">

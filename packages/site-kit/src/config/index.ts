@@ -29,7 +29,10 @@ export {
   UNIMARKA_DATA_POLICY_SOURCE,
 } from "./dataPolicyContent";
 export { sharedHeroImage } from "./sharedAssets";
-export { CORPORATE_STATS_GROUPS } from "./statsContent";
+export {
+  CORPORATE_STATS_GROUPS,
+  createCorporateStatsGroups,
+} from "./statsContent";
 export {
   PQRS_ATTACHMENT_RULES,
   PQRS_DOCUMENT_TYPES,
@@ -43,6 +46,11 @@ export type {
   SiteDataPolicyDocumentId,
   SiteDataPolicySection,
   SiteAlly,
+  SiteAdvertisingCampaign,
+  SiteAdvertisingImage,
+  SiteAdvertisingOrientation,
+  SiteAdvertisingProportion,
+  SiteAdvertisingVariant,
   SiteBrandLogo,
   SiteFeature,
   SiteIconName,

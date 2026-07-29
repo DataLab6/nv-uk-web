@@ -15,8 +15,6 @@ const fieldClassName =
  * submission channel or storage backend before either one is configured.
  */
 export function CareersPage({ site }: { site: SiteConfig }) {
-  const isDevelopment = process.env.NODE_ENV === "development";
-
   return (
     <>
       <PageIntro copy={site.careers} />
@@ -31,7 +29,7 @@ export function CareersPage({ site }: { site: SiteConfig }) {
                 width={site.careers.image.width}
                 height={site.careers.image.height}
                 sizes="(min-width: 1024px) 42vw, 100vw"
-                className="aspect-[4/3] w-full object-cover"
+                className="aspect-[4/5] w-full object-cover"
               />
               <div
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent"
@@ -44,17 +42,11 @@ export function CareersPage({ site }: { site: SiteConfig }) {
                 <ShieldCheck className="h-5 w-5" aria-hidden="true" />
               </span>
               <h2 className="mt-5 text-xl font-bold text-foreground">
-                Canal en preparación
+                Información sobre postulaciones
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {site.careers.pendingMessage}
               </p>
-              {isDevelopment && (
-                <p className="mt-3 text-sm font-semibold text-foreground">
-                  Entorno de desarrollo: el formulario no transmite, almacena ni
-                  adjunta postulaciones.
-                </p>
-              )}
             </div>
           </div>
 
@@ -73,10 +65,6 @@ export function CareersPage({ site }: { site: SiteConfig }) {
             >
               Perfil laboral
             </h2>
-            <p className="mt-3 leading-relaxed text-muted-foreground">
-              Vista previa de la información prevista para el futuro canal de
-              postulación.
-            </p>
 
             <div className="mt-8 grid gap-5 sm:grid-cols-2">
               <label className="text-sm font-semibold text-card-foreground">
@@ -184,11 +172,7 @@ export function CareersPage({ site }: { site: SiteConfig }) {
                     className="mt-0.5 h-4 w-4 shrink-0 text-primary"
                     aria-hidden="true"
                   />
-                  <span>
-                    Formatos previstos: PDF, DOC o DOCX.
-                    {isDevelopment &&
-                      " La selección permanece únicamente en tu dispositivo; no existe un canal de carga conectado."}
-                  </span>
+                  <span>Formatos: PDF, DOC o DOCX.</span>
                 </p>
               </div>
             </div>
@@ -204,8 +188,7 @@ export function CareersPage({ site }: { site: SiteConfig }) {
               <span>
                 <label htmlFor="careers-data-policy">
                   He leído la información disponible sobre el tratamiento de
-                  datos personales y acepto su aplicación a una futura
-                  postulación.
+                  datos personales y acepto su aplicación a mi postulación.
                 </label>{" "}
                 <Link
                   href="/legal/tratamiento-de-datos"
@@ -219,15 +202,9 @@ export function CareersPage({ site }: { site: SiteConfig }) {
 
             <div
               id="careers-form-status"
-              className={
-                isDevelopment
-                  ? "mt-6 rounded-2xl border border-dashed border-primary/35 bg-primary/5 p-4 text-sm font-semibold leading-relaxed text-foreground"
-                  : "mt-5 text-xs leading-relaxed text-muted-foreground"
-              }
+              className="mt-5 text-xs leading-relaxed text-muted-foreground"
             >
-              {isDevelopment
-                ? "Entorno de desarrollo: esta interfaz no envía información ni carga archivos."
-                : "Canal digital de postulación en preparación."}
+              {site.careers.pendingMessage}
             </div>
 
             <button
@@ -236,7 +213,7 @@ export function CareersPage({ site }: { site: SiteConfig }) {
               className="mt-6 inline-flex min-h-12 w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground opacity-65 sm:w-auto"
             >
               <Send className="h-4 w-4" aria-hidden="true" />
-              Canal de postulación no disponible
+              Postulación no disponible
             </button>
           </form>
         </RevealGroup>

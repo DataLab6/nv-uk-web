@@ -5,16 +5,18 @@ import { useRevealAnimation } from "../hooks/useRevealAnimation";
 import { AllyLogo } from "./AllyLogo";
 
 function AllySlot({ logo }: { logo: SiteBrandLogo }) {
+  const displayWidth = Math.round((logo.displayWidth ?? 160) * 1.12);
+
   return (
-    <li className="flex h-24 w-52 shrink-0 items-center justify-center px-4 sm:w-60 sm:px-5">
-      <div className="flex h-20 w-full items-center justify-center transition-transform duration-300 hover:-translate-y-0.5 dark:rounded-2xl dark:bg-white/90 dark:px-4 dark:py-3 dark:shadow-sm motion-reduce:transform-none">
+    <li className="flex h-28 w-56 shrink-0 items-center justify-center px-4 sm:w-64 sm:px-5">
+      <div className="flex h-24 w-full items-center justify-center transition-transform duration-300 hover:-translate-y-0.5 dark:rounded-2xl dark:bg-white/90 dark:px-4 dark:py-3 dark:shadow-sm motion-reduce:transform-none">
         <AllyLogo
           name={logo.name}
           image={logo.image}
-          className="h-16"
-          displayWidth={logo.displayWidth}
+          className="h-20"
+          displayWidth={displayWidth}
           visualScale={logo.visualScale}
-          sizes={`${logo.displayWidth ?? 160}px`}
+          sizes={`${displayWidth}px`}
         />
       </div>
     </li>
@@ -42,18 +44,12 @@ export function Brands({ site }: { site: SiteConfig }) {
 
       <div className="mx-auto mb-8 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <span className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-            {site.allies.eyebrow}
-          </span>
           <h2
             id="home-allies-title"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
+            className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
           >
             {site.allies.title}
           </h2>
-          <p className="mt-4 leading-relaxed text-muted-foreground">
-            {site.allies.description}
-          </p>
         </div>
       </div>
 
@@ -98,10 +94,6 @@ export function Brands({ site }: { site: SiteConfig }) {
           Los aliados se incorporarán cuando sus recursos sean validados.
         </p>
       )}
-
-      <p className="mx-auto mt-7 max-w-7xl px-4 text-xs leading-relaxed text-muted-foreground sm:px-6 lg:px-8">
-        {site.allies.imageNotice}
-      </p>
     </section>
   );
 }

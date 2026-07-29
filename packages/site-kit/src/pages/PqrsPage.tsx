@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, MessageSquareWarning, ShieldAlert } from "lucide-react";
+import { ArrowRight, MessageSquareWarning } from "lucide-react";
 import type { SiteConfig } from "../config/types";
 import { FeatureCard } from "../components/FeatureCard";
 import { PageIntro } from "../components/PageIntro";
@@ -14,16 +14,6 @@ export function PqrsPage({ site }: { site: SiteConfig }) {
       <PageIntro copy={site.pqrs} />
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <RevealGroup>
-          <aside className="mb-10 flex items-start gap-4 rounded-2xl border border-dashed border-destructive/50 bg-destructive/5 p-6 text-sm leading-relaxed text-muted-foreground">
-            <ShieldAlert
-              className="mt-0.5 h-5 w-5 shrink-0 text-destructive"
-              aria-hidden="true"
-            />
-            <p>{site.pqrs.disclaimer}</p>
-          </aside>
-        </RevealGroup>
-
         <div className="mb-10 max-w-3xl">
           <span className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
             Tipos de solicitud
@@ -57,10 +47,9 @@ export function PqrsPage({ site }: { site: SiteConfig }) {
                   Radica tu solicitud
                 </h2>
                 <p className="mt-2 leading-relaxed text-primary-foreground/80">
-                  Completa el formulario formal de radicación con la
-                  información necesaria para identificarte y tramitar tu
-                  solicitud. Seguimos validando la integración técnica para su
-                  envío definitivo.
+                  Completa el formulario formal de radicación con la información
+                  necesaria para identificarte y tramitar tu solicitud. El envío
+                  digital todavía no está disponible.
                 </p>
                 {site.pqrs.filing.enabled && (
                   <Link

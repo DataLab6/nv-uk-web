@@ -1,20 +1,24 @@
-import type { StaticImageData } from "next/image";
-import baresLicoreras from "../assets/channels/bares-licoreras.webp";
-import institucional from "../assets/channels/institucional.webp";
-import mayoristas from "../assets/channels/mayoristas.webp";
-import minimercadosSupermercados from "../assets/channels/minimercados-supermercados.webp";
-import otros from "../assets/channels/otros.webp";
-import tiendas from "../assets/channels/tiendas.webp";
-import type { SiteIconName } from "./types";
+import type { SiteConfig, SiteIconName } from "./types";
 
-/** Shared visual vocabulary for the mirrored customer-channel section. */
-export const CUSTOMER_CHANNEL_IMAGES: Partial<
-  Record<SiteIconName, StaticImageData>
+/** Brand-specific customer-channel photography supplied with each site. */
+export const CUSTOMER_CHANNEL_IMAGES: Record<
+  SiteConfig["id"],
+  Partial<Record<SiteIconName, string>>
 > = {
-  store: tiendas,
-  building: minimercadosSupermercados,
-  "package-check": mayoristas,
-  briefcase: institucional,
-  wine: baresLicoreras,
-  users: otros,
+  "la-nieve": {
+    store: "/images/channels/tiendas.png",
+    building: "/images/channels/minimercados.png",
+    "package-check": "/images/channels/mayoristas.png",
+    briefcase: "/images/channels/institucional.png",
+    wine: "/images/channels/bares.png",
+    users: "/images/channels/otros.png",
+  },
+  unimarka: {
+    store: "/images/channels/tiendas.png",
+    building: "/images/channels/minimercados.png",
+    "package-check": "/images/channels/mayoristas.png",
+    briefcase: "/images/channels/institucional.png",
+    wine: "/images/channels/bares.png",
+    users: "/images/channels/otros.png",
+  },
 };

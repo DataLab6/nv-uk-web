@@ -21,61 +21,77 @@ const COVERAGE_PERCENTAGE = (
   100
 ).toFixed(2);
 
-export const CORPORATE_STATS_GROUPS = [
-  {
-    title: "Cobertura nacional",
-    figures: [
-      {
-        value: String(DEPARTMENTS_COVERED),
-        unit: "departamentos",
-        label: "de Colombia con presencia",
-      },
-      {
-        value: `${COVERAGE_PERCENTAGE}%`,
-        label: "de los departamentos de Colombia",
-      },
-    ],
-  },
-  {
-    title: "Capacidad operativa",
-    figures: [
-      {
-        value: "47,300",
-        unit: "m²",
-        label: "en centros de fulfillment",
-      },
-      {
-        prefix: "Más de",
-        value: "64,000",
-        unit: "posiciones",
-        label: "de almacenamiento",
-      },
-    ],
-  },
-  {
-    title: "Volumen de operaciones",
-    figures: [
-      {
-        value: "159,000",
-        unit: "clientes",
-        label: "con pedidos entregados",
-      },
-      {
-        value: "580-700",
-        unit: "municipios",
-        label: "con cobertura diaria",
-      },
-    ],
-  },
-  {
-    title: "Equipo humano",
-    figures: [
-      {
-        value: "460",
-        unit: "colaboradores",
-        label: "altamente capacitados",
-      },
-    ],
-    notes: ["Perfil profesional.", "Enfocados en logística."],
-  },
-] as const satisfies readonly SiteStatGroup[];
+export function createCorporateStatsGroups({
+  clients,
+  employees,
+  clientsPrefix,
+}: {
+  clients: string;
+  employees: string;
+  clientsPrefix?: string;
+}): readonly SiteStatGroup[] {
+  return [
+    {
+      title: "Cobertura nacional",
+      figures: [
+        {
+          value: String(DEPARTMENTS_COVERED),
+          unit: "departamentos",
+          label: "de Colombia con presencia",
+        },
+        {
+          value: `${COVERAGE_PERCENTAGE}%`,
+          label: "de los departamentos de Colombia",
+        },
+      ],
+    },
+    {
+      title: "Capacidad operativa",
+      figures: [
+        {
+          value: "47,300",
+          unit: "m²",
+          label: "en centros de fulfillment",
+        },
+        {
+          prefix: "Más de",
+          value: "64,000",
+          unit: "posiciones",
+          label: "de almacenamiento",
+        },
+      ],
+    },
+    {
+      title: "Volumen de operaciones",
+      figures: [
+        {
+          prefix: clientsPrefix,
+          value: clients,
+          unit: "clientes",
+          label: "con pedidos entregados",
+        },
+        {
+          value: "580-700",
+          unit: "municipios",
+          label: "con cobertura diaria",
+        },
+      ],
+    },
+    {
+      title: "Equipo humano",
+      figures: [
+        {
+          value: employees,
+          unit: "empleados",
+          label: "altamente capacitados",
+        },
+      ],
+      notes: ["Perfil profesional.", "Enfocados en logística."],
+    },
+  ] as const satisfies readonly SiteStatGroup[];
+}
+
+export const CORPORATE_STATS_GROUPS = createCorporateStatsGroups({
+  clients: "159,000",
+  employees: "460",
+});

@@ -1,5 +1,6 @@
 import { ImageIcon } from "lucide-react";
 import type { SiteAlly, SiteConfig } from "../config/types";
+import { AdvertisingShowcase } from "../components/AdvertisingShowcase";
 import { AllyLogo } from "../components/AllyLogo";
 import { PageIntro } from "../components/PageIntro";
 import { RevealGroup } from "../components/RevealGroup";
@@ -19,20 +20,24 @@ function getAllyInitials(ally: SiteAlly) {
  * Commercial allies route with future-proof image slots for approved logos.
  */
 export function AlliesPage({ site }: { site: SiteConfig }) {
+  const hasAdvertising = site.allies.advertisements.length > 0;
+
   return (
     <>
-      <PageIntro copy={site.allies} />
+      {hasAdvertising ? (
+        <AdvertisingShowcase campaigns={site.allies.advertisements} />
+      ) : (
+        <PageIntro copy={site.allies} />
+      )}
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <RevealGroup>
-          <aside className="mb-8 flex max-w-4xl items-start gap-3 border-l-2 border-primary pl-4 text-sm leading-relaxed text-muted-foreground">
-            <ImageIcon
-              className="mt-0.5 h-5 w-5 shrink-0 text-primary"
-              aria-hidden="true"
-            />
-            <p>{site.allies.imageNotice}</p>
-          </aside>
-        </RevealGroup>
+        {hasAdvertising && (
+          <RevealGroup>
+            <h1 className="mb-10 max-w-4xl text-balance text-3xl font-black tracking-tight text-foreground sm:mb-12 sm:text-4xl lg:text-5xl">
+              {site.allies.title}
+            </h1>
+          </RevealGroup>
+        )}
 
         <RevealGroup
           className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"

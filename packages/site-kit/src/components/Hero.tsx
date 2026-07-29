@@ -65,6 +65,7 @@ export function Hero({ site }: { site: SiteConfig }) {
                   ? "object-contain p-8 sm:p-12"
                   : "object-cover"
               )}
+              style={{ objectPosition: site.home.image.objectPosition }}
             />
           </div>
         </div>

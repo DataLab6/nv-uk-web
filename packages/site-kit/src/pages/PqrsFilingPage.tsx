@@ -166,8 +166,6 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showReview, setShowReview] = useState(false);
-  const isDevelopment = process.env.NODE_ENV === "development";
-
   const fieldRefs = useRef<Record<string, HTMLElement | null>>({});
   const reviewRef = useRef<HTMLDivElement | null>(null);
 
@@ -223,9 +221,13 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
   function validate(): Record<string, string> {
     const next: Record<string, string> = {};
 
-    if (!form.tipoSolicitud) next.tipoSolicitud = "Selecciona un tipo de solicitud.";
+    if (!form.tipoSolicitud)
+      next.tipoSolicitud = "Selecciona un tipo de solicitud.";
 
-    if (form.tipoSolicitante === "natural" || form.tipoSolicitante === "apoderado") {
+    if (
+      form.tipoSolicitante === "natural" ||
+      form.tipoSolicitante === "apoderado"
+    ) {
       if (form.tipoSolicitante === "natural") {
         if (!form.nombres.trim()) next.nombres = "Ingresa tus nombres.";
         if (!form.apellidos.trim()) next.apellidos = "Ingresa tus apellidos.";
@@ -235,7 +237,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
     }
 
     if (form.tipoSolicitante === "juridica") {
-      if (!form.razonSocial.trim()) next.razonSocial = "Ingresa la razón social.";
+      if (!form.razonSocial.trim())
+        next.razonSocial = "Ingresa la razón social.";
       if (!form.nit.trim()) next.nit = "Ingresa el NIT.";
       if (!form.repNombres.trim())
         next.repNombres = "Ingresa los nombres del representante.";
@@ -252,7 +255,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
         if (!form.apellidos.trim())
           next.apellidos = "Ingresa los apellidos de la persona representada.";
         if (!form.numeroDocumento.trim())
-          next.numeroDocumento = "Ingresa el documento de la persona representada.";
+          next.numeroDocumento =
+            "Ingresa el documento de la persona representada.";
       } else {
         if (!form.razonSocial.trim())
           next.razonSocial = "Ingresa la razón social representada.";
@@ -284,7 +288,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
       next.hechos = "Describe los hechos y razones de tu solicitud.";
 
     if (!form.aceptaTratamiento)
-      next.aceptaTratamiento = "Debes autorizar el tratamiento de datos personales.";
+      next.aceptaTratamiento =
+        "Debes autorizar el tratamiento de datos personales.";
     if (!form.aceptaRespuestaCorreo)
       next.aceptaRespuestaCorreo =
         "Debes aceptar recibir la respuesta por correo electrónico.";
@@ -403,7 +408,9 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   errors.tipoSolicitud && errorFieldClassName
                 )}
                 value={form.tipoSolicitud}
-                onChange={(event) => update("tipoSolicitud", event.target.value)}
+                onChange={(event) =>
+                  update("tipoSolicitud", event.target.value)
+                }
                 aria-invalid={Boolean(errors.tipoSolicitud)}
                 aria-describedby={
                   errors.tipoSolicitud ? "tipoSolicitud-error" : undefined
@@ -416,7 +423,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                 ))}
               </select>
             </label>
-            <FieldError id="tipoSolicitud-error" message={errors.tipoSolicitud} />
+            <FieldError
+              id="tipoSolicitud-error"
+              message={errors.tipoSolicitud}
+            />
           </fieldset>
 
           {/* B. Tipo de solicitante y datos condicionales */}
@@ -463,7 +473,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     ref={(el) => {
                       fieldRefs.current.nombres = el;
                     }}
-                    className={cn(fieldClassName, errors.nombres && errorFieldClassName)}
+                    className={cn(
+                      fieldClassName,
+                      errors.nombres && errorFieldClassName
+                    )}
                     type="text"
                     value={form.nombres}
                     onChange={(e) => update("nombres", e.target.value)}
@@ -477,7 +490,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     ref={(el) => {
                       fieldRefs.current.apellidos = el;
                     }}
-                    className={cn(fieldClassName, errors.apellidos && errorFieldClassName)}
+                    className={cn(
+                      fieldClassName,
+                      errors.apellidos && errorFieldClassName
+                    )}
                     type="text"
                     value={form.apellidos}
                     onChange={(e) => update("apellidos", e.target.value)}
@@ -540,7 +556,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     onChange={(e) => update("razonSocial", e.target.value)}
                     aria-invalid={Boolean(errors.razonSocial)}
                   />
-                  <FieldError id="razonSocial-error" message={errors.razonSocial} />
+                  <FieldError
+                    id="razonSocial-error"
+                    message={errors.razonSocial}
+                  />
                 </label>
                 <label className="text-sm font-semibold text-card-foreground">
                   NIT
@@ -548,7 +567,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     ref={(el) => {
                       fieldRefs.current.nit = el;
                     }}
-                    className={cn(fieldClassName, errors.nit && errorFieldClassName)}
+                    className={cn(
+                      fieldClassName,
+                      errors.nit && errorFieldClassName
+                    )}
                     type="text"
                     inputMode="numeric"
                     value={form.nit}
@@ -572,7 +594,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     onChange={(e) => update("repNombres", e.target.value)}
                     aria-invalid={Boolean(errors.repNombres)}
                   />
-                  <FieldError id="repNombres-error" message={errors.repNombres} />
+                  <FieldError
+                    id="repNombres-error"
+                    message={errors.repNombres}
+                  />
                 </label>
                 <label className="text-sm font-semibold text-card-foreground">
                   Apellidos del representante
@@ -621,7 +646,9 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     type="text"
                     inputMode="numeric"
                     value={form.repNumeroDocumento}
-                    onChange={(e) => update("repNumeroDocumento", e.target.value)}
+                    onChange={(e) =>
+                      update("repNumeroDocumento", e.target.value)
+                    }
                     aria-invalid={Boolean(errors.repNumeroDocumento)}
                   />
                   <FieldError
@@ -686,7 +713,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                           onChange={(e) => update("nombres", e.target.value)}
                           aria-invalid={Boolean(errors.nombres)}
                         />
-                        <FieldError id="nombres-error" message={errors.nombres} />
+                        <FieldError
+                          id="nombres-error"
+                          message={errors.nombres}
+                        />
                       </label>
                       <label className="text-sm font-semibold text-card-foreground">
                         Apellidos
@@ -746,7 +776,9 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                           )}
                           type="text"
                           value={form.razonSocial}
-                          onChange={(e) => update("razonSocial", e.target.value)}
+                          onChange={(e) =>
+                            update("razonSocial", e.target.value)
+                          }
                           aria-invalid={Boolean(errors.razonSocial)}
                         />
                         <FieldError
@@ -869,7 +901,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   <label className="mt-5 block text-sm font-semibold text-card-foreground">
                     Documento que acredita la representación (opcional)
                     <input
-                      className={cn(fieldClassName, "min-h-14 cursor-pointer p-2")}
+                      className={cn(
+                        fieldClassName,
+                        "min-h-14 cursor-pointer p-2"
+                      )}
                       type="file"
                       accept={PQRS_ATTACHMENT_RULES.acceptAttribute}
                       onChange={(e) =>
@@ -879,7 +914,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   </label>
                   {representationProof && (
                     <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-                      <Paperclip className="h-4 w-4 shrink-0" aria-hidden="true" />
+                      <Paperclip
+                        className="h-4 w-4 shrink-0"
+                        aria-hidden="true"
+                      />
                       {representationProof.name} (
                       {formatBytes(representationProof.size)})
                     </p>
@@ -901,7 +939,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   ref={(el) => {
                     fieldRefs.current.email = el;
                   }}
-                  className={cn(fieldClassName, errors.email && errorFieldClassName)}
+                  className={cn(
+                    fieldClassName,
+                    errors.email && errorFieldClassName
+                  )}
                   type="email"
                   autoComplete="email"
                   inputMode="email"
@@ -927,7 +968,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   onChange={(e) => update("emailConfirm", e.target.value)}
                   aria-invalid={Boolean(errors.emailConfirm)}
                 />
-                <FieldError id="emailConfirm-error" message={errors.emailConfirm} />
+                <FieldError
+                  id="emailConfirm-error"
+                  message={errors.emailConfirm}
+                />
               </label>
               <label className="text-sm font-semibold text-card-foreground sm:col-span-2">
                 Número telefónico (opcional, dato complementario)
@@ -959,7 +1003,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                 ref={(el) => {
                   fieldRefs.current.asunto = el;
                 }}
-                className={cn(fieldClassName, errors.asunto && errorFieldClassName)}
+                className={cn(
+                  fieldClassName,
+                  errors.asunto && errorFieldClassName
+                )}
                 type="text"
                 maxLength={150}
                 value={form.asunto}
@@ -1074,7 +1121,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                 role="alert"
                 className="mt-2 flex items-start gap-1.5 text-sm font-semibold text-destructive"
               >
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                <AlertCircle
+                  className="mt-0.5 h-4 w-4 shrink-0"
+                  aria-hidden="true"
+                />
                 {attachmentError}
               </p>
             )}
@@ -1110,18 +1160,14 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                 ))}
               </ul>
             )}
-
-            {isDevelopment && (
-              <p className="mt-3 text-xs font-semibold text-muted-foreground">
-                Entorno de desarrollo: los archivos permanecen únicamente en tu
-                dispositivo; no existe almacenamiento conectado.
-              </p>
-            )}
           </fieldset>
 
           {/* Términos generales (referencia, pendiente de revisión jurídica) */}
           <aside className="flex items-start gap-3 rounded-2xl border border-dashed border-border bg-surface p-5 text-sm leading-relaxed text-muted-foreground">
-            <Info className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+            <Info
+              className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+              aria-hidden="true"
+            />
             <p>{PQRS_RESPONSE_TERMS_NOTE}</p>
           </aside>
 
@@ -1147,14 +1193,16 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   type="checkbox"
                   className="mt-1 h-5 w-5 shrink-0 accent-primary"
                   checked={form.aceptaTratamiento}
-                  onChange={(e) => update("aceptaTratamiento", e.target.checked)}
+                  onChange={(e) =>
+                    update("aceptaTratamiento", e.target.checked)
+                  }
                   aria-invalid={Boolean(errors.aceptaTratamiento)}
                 />
                 <span>
                   Autorizo de manera previa, expresa e informada el tratamiento
-                  de mis datos personales por parte de {site.legalName} para
-                  la recepción, gestión, respuesta y seguimiento de esta
-                  solicitud, de acuerdo con la{" "}
+                  de mis datos personales por parte de {site.legalName} para la
+                  recepción, gestión, respuesta y seguimiento de esta solicitud,
+                  de acuerdo con la{" "}
                   <Link
                     href="/legal/tratamiento-de-datos"
                     className="font-semibold text-primary underline decoration-primary/40 hover:text-primary/80"
@@ -1203,7 +1251,9 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
               <label
                 className={cn(
                   "flex items-start gap-3 rounded-2xl border p-4 text-sm leading-relaxed",
-                  errors.aceptaVeracidad ? "border-destructive" : "border-border"
+                  errors.aceptaVeracidad
+                    ? "border-destructive"
+                    : "border-border"
                 )}
               >
                 <input
@@ -1247,7 +1297,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
             aria-live="polite"
           >
             <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-6 w-6 text-primary" aria-hidden="true" />
+              <CheckCircle2
+                className="h-6 w-6 text-primary"
+                aria-hidden="true"
+              />
               <h2 className="text-xl font-bold text-foreground">
                 Revisa tu solicitud antes de radicarla
               </h2>
@@ -1347,10 +1400,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                 className="mt-0.5 h-4 w-4 shrink-0 text-primary"
                 aria-hidden="true"
               />
-              Canal de envío en preparación: el formulario está listo, pero
-              todavía no existe una integración real (correo, base de datos o
-              sistema documental) para radicar solicitudes. Ninguna
-              información se transmite ni se almacena al continuar.
+              El envío digital no está disponible. La información diligenciada
+              no se transmite ni se almacena.
             </p>
           </div>
         )}

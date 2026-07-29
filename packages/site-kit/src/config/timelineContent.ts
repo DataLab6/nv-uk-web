@@ -11,7 +11,7 @@ export const LA_NIEVE_TIMELINE = [
     period: "Actualidad",
     isCurrent: true,
     description:
-      "Hoy seguimos orgullosamente cumpliendo con dicho fin impactando con nuestros servicios a las poblaciones de la región oriental, contando desde entonces con un crecimiento consistente y constante. Este crecimiento se los debemos a nuestros valores que nos guían.",
+      "Hoy seguimos orgullosamente cumpliendo con dicho fin impactando con nuestros servicios a múltiples regiones de Colombia, contando desde entonces con un crecimiento consistente y constante. Este crecimiento se los debemos a nuestros valores que nos guían.",
   },
 ] as const satisfies readonly SiteTimelineMilestone[];
 

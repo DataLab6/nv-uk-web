@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, MapPin, MessageSquareText, Phone, Send } from "lucide-react";
+import { Mail, MessageSquareText, Phone, Send } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { SiteConfig } from "../config/types";
 import { PageIntro } from "../components/PageIntro";
@@ -138,7 +138,6 @@ function DirectChannel({
  * the corporate channels that are present in each site's configuration.
  */
 export function ContactPage({ site }: { site: SiteConfig }) {
-  const isDevelopment = process.env.NODE_ENV === "development";
   const phoneHref = site.contact.phone
     ? "tel:" + site.contact.phone.replace(/\s/g, "")
     : undefined;
@@ -168,10 +167,6 @@ export function ContactPage({ site }: { site: SiteConfig }) {
               >
                 Escríbenos
               </h2>
-              <p className="mt-3 leading-relaxed text-muted-foreground">
-                Este es el espacio previsto para futuras consultas por
-                formulario.
-              </p>
 
               <div className="mt-8 grid gap-5 sm:grid-cols-2">
                 <label className="text-sm font-semibold text-card-foreground">
@@ -252,19 +247,9 @@ export function ContactPage({ site }: { site: SiteConfig }) {
 
               <div
                 id="contact-form-status"
-                className={
-                  isDevelopment
-                    ? "mt-6 rounded-2xl border border-dashed border-primary/35 bg-primary/5 p-4 text-sm leading-relaxed text-muted-foreground"
-                    : "mt-5 text-xs leading-relaxed text-muted-foreground"
-                }
+                className="mt-5 text-xs leading-relaxed text-muted-foreground"
               >
                 <p>{site.contact.pendingMessage}</p>
-                {isDevelopment && (
-                  <p className="mt-2 font-semibold text-foreground">
-                    Entorno de desarrollo: el formulario no transmite ni
-                    almacena información.
-                  </p>
-                )}
               </div>
 
               <button
@@ -358,47 +343,6 @@ export function ContactPage({ site }: { site: SiteConfig }) {
                   );
                 })}
               </div>
-            </section>
-
-            <section
-              aria-labelledby="contact-map-title"
-              className="relative min-h-72 overflow-hidden rounded-3xl border border-border bg-muted shadow-sm"
-            >
-              {site.contact.mapEmbedUrl ? (
-                <iframe
-                  src={site.contact.mapEmbedUrl}
-                  title={`Mapa de ubicación de ${site.name}`}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="absolute inset-0 h-full w-full border-0"
-                />
-              ) : (
-                <>
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-50 [background-image:linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [background-size:2rem_2rem]"
-                    aria-hidden="true"
-                  />
-                  <div className="relative flex min-h-72 flex-col items-center justify-center p-7 text-center">
-                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-card">
-                      <MapPin className="h-7 w-7" aria-hidden="true" />
-                    </span>
-                    <h2
-                      id="contact-map-title"
-                      className="mt-5 text-xl font-bold text-foreground"
-                    >
-                      Mapa de ubicación
-                    </h2>
-                    <p className="mt-2 font-semibold text-card-foreground">
-                      {site.contact.location ??
-                        "Ubicación pendiente de confirmación"}
-                    </p>
-                    <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                      Espacio preparado para integrar el mapa cuando se confirme
-                      una URL o coordenadas oficiales.
-                    </p>
-                  </div>
-                </>
-              )}
             </section>
           </RevealGroup>
         </div>

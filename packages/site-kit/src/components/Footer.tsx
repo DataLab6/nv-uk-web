@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import type { SiteConfig } from "../config/types";
 import { useRevealAnimation } from "../hooks/useRevealAnimation";
 import { BrandLogo } from "./BrandLogo";
@@ -183,15 +183,6 @@ export function Footer({ site }: { site: SiteConfig }) {
               Información corporativa
             </h2>
             <div className="mt-4 space-y-3 text-sm text-footer-muted">
-              {site.footerContact.location && (
-                <p className="flex items-start gap-2">
-                  <MapPin
-                    className="mt-0.5 h-4 w-4 shrink-0 text-footer-accent"
-                    aria-hidden="true"
-                  />
-                  <span>{site.footerContact.location}</span>
-                </p>
-              )}
               {site.footerContact.email && (
                 <a
                   href={`mailto:${site.footerContact.email}`}

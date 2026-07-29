@@ -73,9 +73,6 @@ export function DataPolicyPage({ site }: { site: SiteConfig }) {
             <p className="mt-4 leading-relaxed text-foreground">
               {site.dataPolicy.applicability}
             </p>
-            <p className="mt-3 leading-relaxed text-muted-foreground">
-              {site.dataPolicy.disclaimer}
-            </p>
           </div>
         </section>
       ) : (
@@ -85,14 +82,9 @@ export function DataPolicyPage({ site }: { site: SiteConfig }) {
               className="mt-0.5 h-5 w-5 shrink-0 text-primary"
               aria-hidden="true"
             />
-            <div>
-              <p className="font-semibold text-foreground">
-                {site.dataPolicy.applicability}
-              </p>
-              <p className="mt-1 text-muted-foreground">
-                {site.dataPolicy.disclaimer}
-              </p>
-            </div>
+            <p className="font-semibold text-foreground">
+              {site.dataPolicy.applicability}
+            </p>
           </aside>
 
           <div className="grid items-start gap-8 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-12">
@@ -135,9 +127,6 @@ export function DataPolicyPage({ site }: { site: SiteConfig }) {
                 <h2 className="mt-3 text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl">
                   {document.title}
                 </h2>
-                <p className="mt-3 text-sm text-primary-foreground/80">
-                  Fuente local: {document.sourceFile}
-                </p>
               </header>
 
               {document.sections.map((section, index) => (
