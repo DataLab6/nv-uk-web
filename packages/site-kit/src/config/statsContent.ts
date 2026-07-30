@@ -17,11 +17,13 @@ const TOTAL_COLOMBIA_DEPARTMENTS = 32;
 export function createCorporateStatsGroups({
   departmentsCovered,
   clients,
+  municipalities,
   employees,
   clientsPrefix,
 }: {
   departmentsCovered: number;
   clients: string;
+  municipalities: string;
   employees: string;
   clientsPrefix?: string;
 }): readonly SiteStatGroup[] {
@@ -55,7 +57,7 @@ export function createCorporateStatsGroups({
           label: "con pedidos entregados",
         },
         {
-          value: "580-700",
+          value: municipalities,
           unit: "municipios",
           label: "con cobertura diaria",
         },
@@ -78,5 +80,6 @@ export function createCorporateStatsGroups({
 export const CORPORATE_STATS_GROUPS = createCorporateStatsGroups({
   departmentsCovered: 15,
   clients: "159,000",
+  municipalities: "400 - 450",
   employees: "460",
 });
