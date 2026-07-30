@@ -16,7 +16,7 @@ export const CORPORATE_VALUES = [
   {
     title: "Integridad",
     description:
-      "Una virtud que forja coherencia entre nuestros pensamientos, palabras, actos, hábitos y nuestro carácter. Esta coherencia crea sinergia en las competencias de cada persona y sinergias en la compañía entera; además incentiva en nosotros la solidificación de otras virtudes como la perseverancia, la tolerancia, la paciencia y la fortaleza;",
+      "Una virtud que forja coherencia entre nuestros pensamientos, palabras, actos, hábitos y nuestro carácter. Esta coherencia crea sinergia en las competencias de cada persona y sinergias en la compañía entera; además incentiva en nosotros la solidificación de otras virtudes como la perseverancia, la tolerancia, la paciencia y la fortaleza.",
     image: {
       src: integridadImage,
       alt: "Dos colegas conversan con honestidad y confianza",

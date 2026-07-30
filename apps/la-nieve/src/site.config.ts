@@ -134,7 +134,7 @@ function advertisingCampaign(
   };
 }
 
-const laNieveAdvertisements = [
+const laNieveAdvertisementCatalog = [
   advertisingCampaign(
     "vuse-bat",
     "Vuse (BAT)",
@@ -241,6 +241,12 @@ const laNieveAdvertisements = [
     70
   ),
 ] as const;
+
+// Ocultamiento temporal solicitado: la campaña y sus recursos permanecen en
+// el catálogo para poder reactivarlos sin reconstruir su configuración.
+const laNieveAdvertisements = laNieveAdvertisementCatalog.filter(
+  (campaign) => campaign.id !== "vuse-bat"
+);
 
 /**
  * Brand-owned content and identity for Distribuciones La Nieve.
