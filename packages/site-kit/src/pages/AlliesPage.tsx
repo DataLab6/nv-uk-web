@@ -25,20 +25,24 @@ export function AlliesPage({ site }: { site: SiteConfig }) {
   return (
     <>
       {hasAdvertising ? (
-        <AdvertisingShowcase campaigns={site.allies.advertisements} />
+        <>
+          <header
+            id="marcas-aliadas"
+            className="scroll-mt-24 bg-background px-4 pb-8 pt-32 sm:px-6 sm:pb-10 sm:pt-36 lg:px-8"
+          >
+            <RevealGroup className="mx-auto max-w-7xl">
+              <h1 className="max-w-4xl text-balance text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+                {site.allies.title}
+              </h1>
+            </RevealGroup>
+          </header>
+          <AdvertisingShowcase campaigns={site.allies.advertisements} />
+        </>
       ) : (
         <PageIntro copy={site.allies} />
       )}
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        {hasAdvertising && (
-          <RevealGroup>
-            <h1 className="mb-10 max-w-4xl text-balance text-3xl font-black tracking-tight text-foreground sm:mb-12 sm:text-4xl lg:text-5xl">
-              {site.allies.title}
-            </h1>
-          </RevealGroup>
-        )}
-
         <RevealGroup
           className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           stagger={0.05}

@@ -8,17 +8,17 @@ export const CUSTOMER_CHANNEL_IMAGES: Record<
   "la-nieve": {
     store: "/images/channels/tiendas.png",
     building: "/images/channels/minimercados.png",
-    "package-check": "/images/channels/mayoristas.png",
+    "package-check": "/images/channels/mayoristas-v2.png",
     briefcase: "/images/channels/institucional.png",
     wine: "/images/channels/bares.png",
-    users: "/images/channels/otros.png",
+    users: "/images/channels/otros-20260730-v2.png",
   },
   unimarka: {
     store: "/images/channels/tiendas.png",
     building: "/images/channels/minimercados.png",
-    "package-check": "/images/channels/mayoristas.png",
+    "package-check": "/images/channels/mayoristas-v2.png",
     briefcase: "/images/channels/institucional.png",
     wine: "/images/channels/bares.png",
-    users: "/images/channels/otros.png",
+    users: "/images/channels/otros-20260730-v2.png",
   },
 };

@@ -75,6 +75,10 @@ export interface SiteFeature {
   readonly icon: SiteIconName;
 }
 
+export interface SiteCultureTopic extends SiteFeature {
+  readonly image: SiteImageConfig;
+}
+
 export interface SitePageCopy {
   readonly eyebrow: string;
   readonly title: string;
@@ -84,7 +88,7 @@ export interface SitePageCopy {
 export interface SiteStatFigure {
   /** Texto previo discreto, p. ej. "Más de". */
   readonly prefix?: string;
-  /** Cifra literal tal como fue suministrada, p. ej. "47,300" o "580-700". */
+  /** Cifra literal tal como fue suministrada, p. ej. "159,000" o "580-700". */
   readonly value: string;
   /** Unidad destacada junto a la cifra, p. ej. "m²", "departamentos". */
   readonly unit?: string;
@@ -235,7 +239,7 @@ export interface SiteConfig {
   readonly culture: SitePageCopy & {
     readonly image: SiteImageConfig;
     readonly imagePresentation?: "inline" | "featured-before-intro";
-    readonly topics: readonly SiteFeature[];
+    readonly topics: readonly SiteCultureTopic[];
   };
   readonly contact: SitePageCopy & {
     readonly email?: string;

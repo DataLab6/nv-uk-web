@@ -109,7 +109,7 @@ function DirectChannel({
         <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-primary">
           {label}
         </span>
-        <span className="mt-1 block break-words text-sm font-semibold text-card-foreground">
+        <span className="mt-1 block whitespace-nowrap text-[0.8125rem] font-semibold tracking-tight text-card-foreground sm:text-sm">
           {value}
         </span>
       </span>
@@ -119,13 +119,13 @@ function DirectChannel({
   return href ? (
     <a
       href={href}
-      className="flex min-h-20 items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-card motion-reduce:transform-none"
+      className="flex min-h-20 flex-col items-start gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-card motion-reduce:transform-none sm:flex-row sm:items-center sm:gap-4"
     >
       {content}
     </a>
   ) : (
     <div
-      className="flex min-h-20 items-center gap-4 rounded-2xl border border-border bg-muted/40 p-4"
+      className="flex min-h-20 flex-col items-start gap-3 rounded-2xl border border-border bg-muted/40 p-4 sm:flex-row sm:items-center sm:gap-4"
       aria-disabled="true"
     >
       {content}
@@ -274,7 +274,7 @@ export function ContactPage({ site }: { site: SiteConfig }) {
               >
                 Canales directos
               </h2>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <div className="mt-5 grid gap-3">
                 <DirectChannel
                   icon={Phone}
                   label="Teléfono"

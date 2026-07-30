@@ -309,7 +309,7 @@ export const siteConfig = {
       width: 1642,
       height: 958,
       treatment: "photo",
-      objectPosition: "50% 50%",
+      objectPosition: "left center",
     },
     points: [
       {
@@ -334,20 +334,21 @@ export const siteConfig = {
   },
   stats: {
     eyebrow: "Cobertura y operación",
-    title: "Una operación nacional en cifras",
+    title: "Nuestra operación nacional",
     description:
-      "Cobertura territorial, capacidad instalada, volumen de operaciones y equipo humano que respaldan nuestro servicio.",
-    // Fuente: assets/mapaNV.png, copiado sin alterar a
-    // public/images/mapa-cobertura-la-nieve.png.
+      "Cobertura territorial, volumen de operaciones y equipo humano que respaldan nuestro servicio.",
+    // Fuente: assets/mapaNV.png. El nombre público versionado evita servir
+    // una versión anterior desde la caché del navegador o del optimizador.
     image: {
-      src: "/images/mapa-cobertura-la-nieve.png",
+      src: "/images/mapa-cobertura-la-nieve-20260730-v3.png",
       alt: "Mapa de cobertura nacional de Distribuciones La Nieve con los departamentos atendidos destacados",
-      width: 2404,
-      height: 3684,
+      width: 2943,
+      height: 4511,
       treatment: "illustration",
     },
     groups: createCorporateStatsGroups({
-      clients: "+42k",
+      departmentsCovered: 15,
+      clients: "+42.000",
       employees: "650",
     }),
   },
@@ -440,10 +441,10 @@ export const siteConfig = {
     description:
       "Conoce el propósito y los principios que orientan a Distribuciones La Nieve.",
     image: {
-      src: "/images/somos-nieve.png",
+      src: "/images/somos-nieve-20260730-v2.png",
       alt: "Equipo reunido en una operación logística",
-      width: 1536,
-      height: 1024,
+      width: 1672,
+      height: 941,
       treatment: "photo",
     },
     timeline: LA_NIEVE_TIMELINE,
@@ -463,33 +464,54 @@ export const siteConfig = {
     eyebrow: "Cultura Nieve",
     title: "Ideas útiles para fortalecer cada negocio",
     description:
-      "Un espacio editorial enfocado en compartir contenido de valor con los clientes de Distribuciones La Nieve.",
+      "Un espacio editorial enfocado para compartir contenido de valor con los clientes de Distribuciones La Nieve.",
     image: {
-      src: "/images/collage-cultura-nieve.jpeg",
+      src: "/images/collage-cultura-nieve-20260730-v2.jpeg",
       alt: "Collage de cultura de La Nieve",
       width: 1600,
       height: 900,
       treatment: "photo",
     },
-    imagePresentation: "featured-before-intro",
+    imagePresentation: "inline",
     topics: [
       {
         icon: "trending-up",
         title: "Tips comerciales",
         description:
           "Ideas prácticas para apoyar la gestión comercial y la relación con los compradores.",
+        image: {
+          src: "/images/culture/tips-comerciales-nieve.png",
+          alt: "Asesor comercial y comerciante revisando el surtido de una tienda",
+          width: 1448,
+          height: 1086,
+          treatment: "photo",
+        },
       },
       {
         icon: "store",
         title: "Buenas prácticas para establecimientos",
         description:
           "Orientaciones generales sobre organización, exhibición y experiencia en el punto de venta.",
+        image: {
+          src: "/images/culture/buenas-practicas-nieve.png",
+          alt: "Comerciante organizando la exhibición de productos de un minimercado",
+          width: 1448,
+          height: 1086,
+          treatment: "photo",
+        },
       },
       {
         icon: "lightbulb",
         title: "Recomendaciones y contenido de apoyo",
         description:
           "Recursos para inspirar decisiones informadas y fortalecer la operación de los negocios.",
+        image: {
+          src: "/images/culture/contenido-apoyo-nieve.png",
+          alt: "Sesión de aprendizaje y planificación para un comercio",
+          width: 1448,
+          height: 1086,
+          treatment: "photo",
+        },
       },
     ],
   },
@@ -509,7 +531,7 @@ export const siteConfig = {
     description:
       "Conoce la información disponible sobre oportunidades laborales y postulaciones.",
     image: {
-      src: "/images/trabajo-nieve.png",
+      src: "/images/trabajo-nieve-20260730-v2.png",
       alt: "Integrante del equipo de Distribuciones La Nieve",
       width: 1122,
       height: 1402,
@@ -568,7 +590,7 @@ export const siteConfig = {
     },
   },
   footerDescription:
-    "Empresa colombiana de distribución y comercio mayorista ubicada en Villavicencio, Meta.",
+    "Somos especializados en brindar soluciones para la comercialización y distribución de consumo masivo a nivel nacional",
   socialLinks: {
     linkedin: "https://www.linkedin.com/company/distribuciones-la-nieve-ltda",
     instagram: "https://www.instagram.com/distribuciones_la_nieve/",

@@ -8,7 +8,7 @@ export const CORPORATE_TECHNOLOGY = {
   eyebrow: "Tecnología e innovación",
   title: "Impulsamos la transformación digital",
   description:
-    "Orientamos la transformación digital a mejorar nuestros procesos internos y generar valor para clientes, proveedores y aliados estratégicos. Desarrollamos proyectos que optimizan inversiones, recursos y operación, respaldados por infraestructura enfocada en la continuidad y protección del negocio.",
+    "La transformación digital impulsa la evolución de nuestro equipo humano, fortalece nuestros procesos internos y genera valor para clientes, proveedores y aliados estratégicos. A través del desarrollo de proyectos innovadores, optimizamos las inversiones, los recursos y la operación, respaldados por una infraestructura sólida que garantiza la continuidad, la eficiencia y la protección del negocio",
   imageCaption:
     "Tecnología aplicada a procesos más eficientes, continuos y protegidos.",
   items: [

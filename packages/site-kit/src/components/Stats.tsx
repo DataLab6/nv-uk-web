@@ -13,27 +13,35 @@ import { SiteIcon } from "./SiteIcon";
 function StatGroup({ group }: { group: SiteStatGroup }) {
   return (
     <div className="min-w-0 rounded-2xl bg-white/[0.07] p-5">
-      <h3 className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-white">
-        <span className="shrink-0">{group.title}</span>
-        <span className="h-px min-w-6 flex-1 bg-white/25" aria-hidden="true" />
+      <h3 className="flex items-start gap-3 text-xs font-bold uppercase tracking-[0.16em] text-white">
+        <span className="min-w-0 text-balance">{group.title}</span>
+        <span
+          className="mt-2 h-px min-w-4 flex-1 bg-white/25"
+          aria-hidden="true"
+        />
       </h3>
 
       <div className="mt-4 space-y-4">
         {group.figures.map((figure) => (
-          <p key={`${figure.value}-${figure.label}`}>
+          <p
+            key={`${figure.value}-${figure.label}`}
+            className="min-w-0 overflow-hidden"
+          >
             {figure.prefix && (
               <span className="block text-xs font-semibold uppercase tracking-[0.1em] text-white/75">
                 {figure.prefix}
               </span>
             )}
-            <span className="text-3xl font-black tabular-nums tracking-[-0.03em] text-white sm:text-4xl">
-              {figure.value}
-            </span>
-            {figure.unit && (
-              <span className="ml-1.5 text-base font-bold text-white/85">
-                {figure.unit}
+            <span className="flex min-w-0 flex-wrap items-baseline gap-x-1.5">
+              <span className="max-w-full text-[clamp(1.5rem,2.2vw,2.25rem)] font-black tabular-nums tracking-[-0.03em] text-white">
+                {figure.value}
               </span>
-            )}
+              {figure.unit && (
+                <span className="max-w-full break-words text-sm font-bold text-white/85 sm:text-base">
+                  {figure.unit}
+                </span>
+              )}
+            </span>
             <span className="mt-0.5 block text-sm leading-snug text-white/75">
               {figure.label}
             </span>
@@ -142,7 +150,7 @@ export function Stats({ site }: { site: SiteConfig }) {
 
               <div
                 ref={groupsRef}
-                className="mt-10 grid gap-4 sm:grid-cols-2"
+                className="mt-10 grid gap-4 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3"
               >
                 {site.stats.groups.map((group) => (
                   <StatGroup key={group.title} group={group} />

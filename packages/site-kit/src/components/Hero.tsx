@@ -59,7 +59,8 @@ export function Hero({ site }: { site: SiteConfig }) {
               alt={site.home.image.alt}
               fill
               loading="eager"
-              sizes="(max-width: 1023px) calc(100vw - 2rem), 50vw"
+              quality={92}
+              sizes="(min-width: 1280px) 1100px, (min-width: 1024px) 90vw, 180vw"
               className={cn(
                 site.home.image.treatment === "character"
                   ? "object-contain p-8 sm:p-12"

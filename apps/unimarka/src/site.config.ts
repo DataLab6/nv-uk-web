@@ -202,7 +202,7 @@ export const siteConfig = {
     eyebrow: "Calidad, servicio e innovación",
     title: "Conectamos productos, empresas y experiencias",
     description:
-      "En Unimarka trabajamos alrededor de la comercialización y distribución de productos de consumo masivo, productos institucionales, licores y vinos.",
+      "En Unimarka ofrecemos soluciones de comercialización y distribución para productos de consumo masivo, institucionales y licores",
     image: {
       src: "/images/cliente-unimarka.jpg",
       alt: "Cliente de Unimarka en su negocio",
@@ -222,29 +222,25 @@ export const siteConfig = {
         title: "Productos institucionales",
         description: "Una categoría dirigida a necesidades institucionales.",
       },
-      {
-        icon: "wine",
-        title: "Licores y vinos",
-        description:
-          "Categorías que forman parte de su enfoque de comercialización y distribución.",
-      },
     ],
   },
   stats: {
     eyebrow: "Cobertura y operación",
-    title: "Una operación nacional en cifras",
+    title: "Nuestra operación nacional",
     description:
-      "Cobertura territorial, capacidad instalada, volumen de operaciones y equipo humano que respaldan nuestro servicio.",
-    // Fuente: assets/mapaUK.png, copiado sin alterar a public/images/mapa-cobertura-unimarka.png.
+      "Cobertura territorial, volumen de operaciones y equipo humano que respaldan nuestro servicio.",
+    // Fuente: assets/mapaUK.png. El nombre público versionado evita servir una
+    // versión anterior desde la caché del navegador o del optimizador.
     image: {
-      src: "/images/mapa-cobertura-unimarka.png",
+      src: "/images/mapa-cobertura-unimarka-20260730-v2.png",
       alt: "Mapa de cobertura nacional de Unimarka con los departamentos atendidos destacados",
-      width: 3267,
-      height: 4869,
+      width: 2833,
+      height: 4383,
       treatment: "illustration",
     },
     groups: createCorporateStatsGroups({
-      clients: "13k",
+      departmentsCovered: 10,
+      clients: "13.000",
       employees: "208",
     }),
   },
@@ -331,10 +327,10 @@ export const siteConfig = {
     description:
       "Conoce el propósito y los principios que orientan a Unimarka.",
     image: {
-      src: "/images/somos-unimarka.png",
+      src: "/images/somos-unimarka-20260730-v2.png",
       alt: "Equipo reunido en una operación logística",
-      width: 1536,
-      height: 1024,
+      width: 1672,
+      height: 941,
       treatment: "photo",
     },
     timeline: UNIMARKA_TIMELINE,
@@ -354,33 +350,54 @@ export const siteConfig = {
     eyebrow: "Cultura Unimarka",
     title: "Ideas útiles para fortalecer cada negocio",
     description:
-      "Un espacio editorial enfocado en compartir contenido de valor con los clientes de Unimarka.",
+      "Un espacio editorial enfocado para compartir contenido de valor con los clientes de Unimarka.",
     image: {
-      src: "/images/collage-cultura-unimarka.jpg",
+      src: "/images/collage-cultura-unimarka-20260730-v2.jpg",
       alt: "Collage de cultura de Unimarka",
       width: 6000,
       height: 3375,
       treatment: "photo",
     },
-    imagePresentation: "featured-before-intro",
+    imagePresentation: "inline",
     topics: [
       {
         icon: "trending-up",
         title: "Tips comerciales",
         description:
           "Ideas prácticas para apoyar la gestión comercial y la relación con los compradores.",
+        image: {
+          src: "/images/culture/tips-comerciales-unimarka.png",
+          alt: "Asesora comercial y propietario revisando pedidos en una tienda",
+          width: 1448,
+          height: 1086,
+          treatment: "photo",
+        },
       },
       {
         icon: "store",
         title: "Buenas prácticas para establecimientos",
         description:
           "Orientaciones generales sobre organización, exhibición y experiencia en el punto de venta.",
+        image: {
+          src: "/images/culture/buenas-practicas-unimarka.png",
+          alt: "Comerciante realizando control de inventario en su establecimiento",
+          width: 1448,
+          height: 1086,
+          treatment: "photo",
+        },
       },
       {
         icon: "lightbulb",
         title: "Recomendaciones y contenido de apoyo",
         description:
           "Recursos para inspirar decisiones informadas y fortalecer la operación de los negocios.",
+        image: {
+          src: "/images/culture/contenido-apoyo-unimarka.png",
+          alt: "Equipo de comercio participando en una capacitación práctica",
+          width: 1448,
+          height: 1086,
+          treatment: "photo",
+        },
       },
     ],
   },
@@ -401,7 +418,7 @@ export const siteConfig = {
     description:
       "Conoce la información disponible sobre oportunidades laborales y postulaciones.",
     image: {
-      src: "/images/trabajo-unimarka.png",
+      src: "/images/trabajo-unimarka-20260730-v2.png",
       alt: "Integrante del equipo de Unimarka",
       width: 1122,
       height: 1402,
@@ -460,7 +477,7 @@ export const siteConfig = {
     },
   },
   footerDescription:
-    "Distribuidora colombiana de productos de consumo masivo, institucionales, licores y vinos.",
+    "Somos especializados en la comercialización y distribución de productos de consumo masivo",
   socialLinks: {
     linkedin: null,
     instagram: "https://www.instagram.com/unimarka_col/?igshid=YmMyMTA2M2Y=",

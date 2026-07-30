@@ -44,7 +44,7 @@ export function AdvertisingShowcase({
   return (
     <section
       aria-label="Campañas y piezas publicitarias"
-      className="relative isolate max-w-full overflow-hidden bg-neutral-950 pt-20 sm:h-[min(100svh,70rem)] sm:min-h-[48rem]"
+      className="relative isolate max-w-full overflow-hidden bg-neutral-950 sm:h-[min(100svh,70rem)] sm:min-h-[48rem]"
     >
       <div className="absolute inset-0" aria-hidden="true">
         {campaigns.map((campaign, index) => (

@@ -57,7 +57,8 @@ export function CustomerChannels({ site }: { site: SiteConfig }) {
                       src={image}
                       alt={`${channel.title} para ${site.name}`}
                       fill
-                      sizes="(min-width: 1024px) 16vw, (min-width: 640px) 27vw, 58vw"
+                      quality={92}
+                      sizes="(min-width: 1280px) 270px, (min-width: 1024px) 19vw, (min-width: 640px) 29vw, 64vw"
                       className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] motion-reduce:transform-none"
                     />
                   </figure>

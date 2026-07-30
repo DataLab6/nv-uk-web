@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { SiteConfig } from "../config/types";
-import { FeatureCard } from "../components/FeatureCard";
+import { CultureTopicCard } from "../components/CultureTopicCard";
 import { PageIntro } from "../components/PageIntro";
 import { RevealGroup } from "../components/RevealGroup";
 
@@ -51,8 +51,9 @@ export function CulturePage({ site }: { site: SiteConfig }) {
                 alt={site.culture.image.alt}
                 width={site.culture.image.width}
                 height={site.culture.image.height}
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="aspect-[4/3] w-full object-cover"
+                quality={92}
+                sizes="(min-width: 1280px) 592px, (min-width: 1024px) 48vw, calc(100vw - 2rem)"
+                className="aspect-video w-full object-cover"
               />
               <div
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/35 via-transparent to-transparent"
@@ -84,7 +85,7 @@ export function CulturePage({ site }: { site: SiteConfig }) {
           </div>
           <RevealGroup className="grid gap-6 md:grid-cols-3" stagger={0.1}>
             {site.culture.topics.map((topic) => (
-              <FeatureCard key={topic.title} feature={topic} />
+              <CultureTopicCard key={topic.title} topic={topic} />
             ))}
           </RevealGroup>
         </div>
