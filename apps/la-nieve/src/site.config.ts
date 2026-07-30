@@ -60,9 +60,9 @@ const laNieveBrandLogos = [
   brandLogo("Alpina", "/brands/alpina.png", 755, 455, 142),
   brandLogo(
     "Harinera del Valle",
-    "/brands/harinera-del-valle.png",
-    250,
-    252,
+    "/brands/harinera-del-valle-20260730-v2.png",
+    1536,
+    1024,
     100
   ),
   brandLogo(
@@ -442,7 +442,7 @@ export const siteConfig = {
     description:
       "Conoce el propósito y los principios que orientan a Distribuciones La Nieve.",
     image: {
-      src: "/images/somos-nieve-20260730-v2.png",
+      src: "/images/somos-nieve-20260730-v3.png",
       alt: "Equipo reunido en una operación logística",
       width: 1672,
       height: 941,
@@ -481,8 +481,8 @@ export const siteConfig = {
         description:
           "Ideas prácticas para apoyar la gestión comercial y la relación con los compradores.",
         image: {
-          src: "/images/culture/tips-comerciales-nieve.png",
-          alt: "Asesor comercial y comerciante revisando el surtido de una tienda",
+          src: "/images/culture/tips-comerciales-nieve-ruleset-faces-v3.png",
+          alt: "Asesora comercial de La Nieve revisando el surtido de una tienda",
           width: 1448,
           height: 1086,
           treatment: "photo",
@@ -494,8 +494,8 @@ export const siteConfig = {
         description:
           "Orientaciones generales sobre organización, exhibición y experiencia en el punto de venta.",
         image: {
-          src: "/images/culture/buenas-practicas-nieve.png",
-          alt: "Comerciante organizando la exhibición de productos de un minimercado",
+          src: "/images/culture/buenas-practicas-nieve-ruleset-faces-v3.png",
+          alt: "Colaborador de La Nieve organizando la exhibición de productos de un minimercado",
           width: 1448,
           height: 1086,
           treatment: "photo",
@@ -507,8 +507,8 @@ export const siteConfig = {
         description:
           "Recursos para inspirar decisiones informadas y fortalecer la operación de los negocios.",
         image: {
-          src: "/images/culture/contenido-apoyo-nieve.png",
-          alt: "Sesión de aprendizaje y planificación para un comercio",
+          src: "/images/culture/contenido-apoyo-nieve-ruleset-faces-v3.png",
+          alt: "Integrante administrativo de La Nieve preparando contenido de apoyo",
           width: 1448,
           height: 1086,
           treatment: "photo",
@@ -532,7 +532,7 @@ export const siteConfig = {
     description:
       "Conoce la información disponible sobre oportunidades laborales y postulaciones.",
     image: {
-      src: "/images/trabajo-nieve-20260730-v2.png",
+      src: "/images/trabajo-nieve-20260730-v3.png",
       alt: "Integrante del equipo de Distribuciones La Nieve",
       width: 1122,
       height: 1402,

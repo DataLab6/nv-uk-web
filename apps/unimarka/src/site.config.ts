@@ -367,8 +367,8 @@ export const siteConfig = {
         description:
           "Ideas prácticas para apoyar la gestión comercial y la relación con los compradores.",
         image: {
-          src: "/images/culture/tips-comerciales-unimarka.png",
-          alt: "Asesora comercial y propietario revisando pedidos en una tienda",
+          src: "/images/culture/tips-comerciales-unimarka-ruleset-faces-v3.png",
+          alt: "Asesora comercial de Unimarka revisando el surtido de una tienda",
           width: 1448,
           height: 1086,
           treatment: "photo",
@@ -380,8 +380,8 @@ export const siteConfig = {
         description:
           "Orientaciones generales sobre organización, exhibición y experiencia en el punto de venta.",
         image: {
-          src: "/images/culture/buenas-practicas-unimarka.png",
-          alt: "Comerciante realizando control de inventario en su establecimiento",
+          src: "/images/culture/buenas-practicas-unimarka-ruleset-faces-v3.png",
+          alt: "Colaborador de Unimarka realizando control de inventario",
           width: 1448,
           height: 1086,
           treatment: "photo",
@@ -393,8 +393,8 @@ export const siteConfig = {
         description:
           "Recursos para inspirar decisiones informadas y fortalecer la operación de los negocios.",
         image: {
-          src: "/images/culture/contenido-apoyo-unimarka.png",
-          alt: "Equipo de comercio participando en una capacitación práctica",
+          src: "/images/culture/contenido-apoyo-unimarka-ruleset-faces-v3.png",
+          alt: "Equipo de Unimarka revisando un plan operativo",
           width: 1448,
           height: 1086,
           treatment: "photo",
@@ -419,7 +419,7 @@ export const siteConfig = {
     description:
       "Conoce la información disponible sobre oportunidades laborales y postulaciones.",
     image: {
-      src: "/images/trabajo-unimarka-20260730-v2.png",
+      src: "/images/trabajo-unimarka-20260730-v3.png",
       alt: "Integrante del equipo de Unimarka",
       width: 1122,
       height: 1402,
