@@ -241,7 +241,7 @@ export const siteConfig = {
     groups: createCorporateStatsGroups({
       departmentsCovered: 10,
       clients: "+13.000",
-      municipalities: "250 - 300",
+      municipalities: "182",
       employees: "208",
     }),
   },
