@@ -240,7 +240,7 @@ export const siteConfig = {
     },
     groups: createCorporateStatsGroups({
       departmentsCovered: 10,
-      clients: "13.000",
+      clients: "+13.000",
       employees: "208",
     }),
   },
