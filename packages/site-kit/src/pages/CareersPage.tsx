@@ -1,20 +1,107 @@
 "use client";
 
+import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BriefcaseBusiness, FileUp, Send } from "lucide-react";
 import type { SiteConfig } from "../config/types";
 import { PageIntro } from "../components/PageIntro";
 import { RevealGroup } from "../components/RevealGroup";
+import { TurnstileWidget } from "../components/TurnstileWidget";
+import { isValidEmail, sanitizePhone } from "../lib/formValidation";
 
 const fieldClassName =
   "mt-2 min-h-12 min-w-0 w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground shadow-sm transition-[border-color,box-shadow] placeholder:text-muted-foreground/75 hover:border-primary/35 focus:border-primary focus:ring-2 focus:ring-primary/20";
 
+const COLOMBIAN_DEPARTMENTS = [
+  "Amazonas",
+  "Antioquia",
+  "Arauca",
+  "Atlántico",
+  "Bolívar",
+  "Boyacá",
+  "Caldas",
+  "Caquetá",
+  "Casanare",
+  "Cauca",
+  "Cesar",
+  "Chocó",
+  "Córdoba",
+  "Cundinamarca",
+  "Guainía",
+  "Guaviare",
+  "Huila",
+  "La Guajira",
+  "Magdalena",
+  "Meta",
+  "Nariño",
+  "Norte de Santander",
+  "Putumayo",
+  "Quindío",
+  "Risaralda",
+  "San Andrés y Providencia",
+  "Santander",
+  "Sucre",
+  "Tolima",
+  "Valle del Cauca",
+  "Vaupés",
+  "Vichada",
+  "Bogotá D.C.",
+] as const;
+
 /**
- * Careers route with a future-ready application form that never implies a
- * submission channel or storage backend before either one is configured.
+ * Careers route with a server-side submission channel and attachment support.
  */
 export function CareersPage({ site }: { site: SiteConfig }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+    setSubmitMessage("");
+
+    try {
+      const formElement = event.currentTarget;
+      const form = new FormData(formElement);
+      const response = await fetch("/api/forms/careers", {
+        method: "POST",
+        body: form,
+      });
+      const result = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        error?: string;
+      } | null;
+
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || "No fue posible enviar la postulación.");
+      }
+
+      formElement.reset();
+      setSubmitStatus("success");
+      setSubmitMessage(
+        "Recibimos tu postulación. El equipo de selección la revisará."
+      );
+    } catch (error) {
+      setSubmitStatus("error");
+      setSubmitMessage(
+        error instanceof Error
+          ? error.message
+          : "No fue posible enviar la postulación. Intenta de nuevo."
+      );
+    } finally {
+      setTurnstileResetSignal((current) => current + 1);
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <>
       <PageIntro copy={site.careers} />
@@ -39,7 +126,7 @@ export function CareersPage({ site }: { site: SiteConfig }) {
           </div>
 
           <form
-            onSubmit={(event) => event.preventDefault()}
+            onSubmit={handleSubmit}
             aria-labelledby="careers-form-title"
             className="min-w-0 rounded-3xl border border-border bg-card p-6 shadow-card sm:p-8 lg:p-10"
           >
@@ -76,6 +163,15 @@ export function CareersPage({ site }: { site: SiteConfig }) {
                   inputMode="email"
                   placeholder="nombre@correo.com"
                   required
+                  pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                  title="Ingresa un correo electrónico válido"
+                  onChange={(event) =>
+                    event.currentTarget.setCustomValidity(
+                      isValidEmail(event.currentTarget.value)
+                        ? ""
+                        : "Ingresa un correo electrónico válido."
+                    )
+                  }
                 />
               </label>
 
@@ -86,22 +182,37 @@ export function CareersPage({ site }: { site: SiteConfig }) {
                   type="tel"
                   name="phone"
                   autoComplete="tel"
-                  inputMode="tel"
+                  inputMode="numeric"
                   placeholder="Número de contacto"
                   required
+                  pattern="[0-9]+"
+                  onChange={(event) => {
+                    event.currentTarget.value = sanitizePhone(
+                      event.currentTarget.value
+                    );
+                  }}
                 />
               </label>
 
               <label className="text-sm font-semibold text-card-foreground">
-                Ciudad
-                <input
+                Departamento o ciudad de residencia
+                <select
                   className={fieldClassName}
-                  type="text"
                   name="city"
-                  autoComplete="address-level2"
-                  placeholder="Ciudad de residencia"
+                  autoComplete="address-level1"
+                  defaultValue=""
                   required
-                />
+                >
+                  <option value="" disabled>
+                    Selecciona una opción
+                  </option>
+                  {COLOMBIAN_DEPARTMENTS.map((department) => (
+                    <option key={department} value={department}>
+                      {department}
+                    </option>
+                  ))}
+                  <option value="Otro / exterior">Otro / exterior</option>
+                </select>
               </label>
 
               <label className="text-sm font-semibold text-card-foreground sm:col-span-2">
@@ -187,13 +298,39 @@ export function CareersPage({ site }: { site: SiteConfig }) {
               </span>
             </div>
 
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute -left-[9999px] h-px w-px overflow-hidden"
+            />
+
+            <p
+              className={
+                "mt-5 text-xs leading-relaxed " +
+                (submitStatus === "error"
+                  ? "text-destructive"
+                  : submitStatus === "success"
+                    ? "text-primary"
+                    : "text-muted-foreground")
+              }
+              aria-live="polite"
+            >
+              {submitMessage ||
+                "Adjunta tu hoja de vida para que podamos revisar tu perfil."}
+            </p>
+
+            <TurnstileWidget resetSignal={turnstileResetSignal} />
+
             <button
               type="submit"
-              disabled
-              className="mt-6 inline-flex min-h-12 w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground opacity-65 sm:w-auto"
+              disabled={isSubmitting}
+              className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition-[filter,transform] hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-wait disabled:opacity-65 sm:w-auto"
             >
               <Send className="h-4 w-4" aria-hidden="true" />
-              Postulación no disponible
+              {isSubmitting ? "Enviando…" : "Enviar postulación"}
             </button>
           </form>
         </RevealGroup>

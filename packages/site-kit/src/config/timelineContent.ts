@@ -5,7 +5,7 @@ export const LA_NIEVE_TIMELINE = [
   {
     period: "90s",
     description:
-      "Desde los años 90 en nuestro nacimiento en los llanos orientales, somos reconocidos como una distribuidora que abastece a comerciantes de la región, con productos de consumo masivo.",
+      "Desde los años 90 en nuestro nacimiento en los llanos orientales, somos reconocidos como una distribuidora que abastece a comerciantes de la región, con productos de consumo masivo líderes en el mercado.",
   },
   {
     period: "Actualidad",

@@ -28,6 +28,11 @@
       "import": "./src/config/index.ts",
       "default": "./src/config/index.ts"
     },
+    "./server/forms": {
+      "types": "./src/server/forms.ts",
+      "import": "./src/server/forms.ts",
+      "default": "./src/server/forms.ts"
+    },
     "./styles.css": "./src/styles/globals.css"
   },
   "peerDependencies": {

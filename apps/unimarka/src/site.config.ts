@@ -215,12 +215,12 @@ export const siteConfig = {
       {
         icon: "store",
         title: "Consumo masivo",
-        description: "Una línea orientada a productos de consumo masivo.",
+        description: "",
       },
       {
         icon: "building",
         title: "Productos institucionales",
-        description: "Una categoría dirigida a necesidades institucionales.",
+        description: "",
       },
     ],
   },
@@ -419,10 +419,10 @@ export const siteConfig = {
     description:
       "Conoce la información disponible sobre oportunidades laborales y postulaciones.",
     image: {
-      src: "/images/trabajo-unimarka-20260730-v3.png",
-      alt: "Integrante del equipo de Unimarka",
-      width: 1122,
-      height: 1402,
+      src: "/images/trabajo-unimarka-contratouk-20260824.png",
+      alt: "Mano firmando un contrato de trabajo sobre un escritorio",
+      width: 1536,
+      height: 1024,
       treatment: "photo",
     },
   },
@@ -474,7 +474,7 @@ export const siteConfig = {
     ],
     filing: {
       enabled: true,
-      backendAvailable: false,
+      backendAvailable: true,
     },
   },
   footerDescription:

@@ -91,13 +91,19 @@ export function Hero({ site }: { site: SiteConfig }) {
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/20">
                   <SiteIcon name={point.icon} className="h-5 w-5" />
                 </span>
-                <div>
+                <div
+                  className={cn(
+                    !point.description && "flex min-h-11 items-center"
+                  )}
+                >
                   <h2 className="text-lg font-bold text-foreground">
                     {point.title}
                   </h2>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    {point.description}
-                  </p>
+                  {point.description && (
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      {point.description}
+                    </p>
+                  )}
                 </div>
               </li>
             ))}

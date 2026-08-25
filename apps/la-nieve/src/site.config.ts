@@ -321,20 +321,17 @@ export const siteConfig = {
       {
         icon: "store",
         title: "Impulsamos tu tienda",
-        description:
-          "Surtimos tu negocio con el portafolio que tus clientes buscan, con frecuencia y disponibilidad garantizada.",
+        description: "",
       },
       {
         icon: "handshake",
         title: "Aliados de las marcas",
-        description:
-          "Llevamos productos de las mejores marcas a cada rincón, con logística eficiente y ejecución en punto de venta.",
+        description: "",
       },
       {
         icon: "package-check",
         title: "Servicio de principio a fin",
-        description:
-          "Acompañamos con asesoría comercial, pedidos ágiles y entregas confiables que hacen crecer tu operación.",
+        description: "",
       },
     ],
   },
@@ -469,9 +466,9 @@ export const siteConfig = {
   },
   culture: {
     eyebrow: "Cultura Nieve",
-    title: "Ideas útiles para fortalecer cada negocio",
+    title: "Tips para hacer crecer tu negocio",
     description:
-      "Un espacio editorial enfocado para compartir contenido de valor con los clientes de Distribuciones La Nieve.",
+      "Ideas prácticas para fortalecer tu gestión comercial y conectar mejor con tus clientes.",
     image: {
       src: "/images/collage-cultura-nieve-20260730-v2.jpeg",
       alt: "Collage de cultura de La Nieve",
@@ -483,9 +480,9 @@ export const siteConfig = {
     topics: [
       {
         icon: "trending-up",
-        title: "Tips comerciales",
+        title: "Buenas prácticas para tu negocio",
         description:
-          "Ideas prácticas para apoyar la gestión comercial y la relación con los compradores.",
+          "Recomendaciones para ofrecer una gran experiencia de compra.",
         image: {
           src: "/images/culture/tips-comerciales-nieve-ruleset-faces-v3.png",
           alt: "Asesora comercial de La Nieve revisando el surtido de una tienda",
@@ -496,9 +493,9 @@ export const siteConfig = {
       },
       {
         icon: "store",
-        title: "Buenas prácticas para establecimientos",
+        title: "Recomendaciones y contenido para avanzar",
         description:
-          "Orientaciones generales sobre organización, exhibición y experiencia en el punto de venta.",
+          "Recursos pensados para inspirarte, tomar mejores decisiones y llevar tu negocio al siguiente nivel.",
         image: {
           src: "/images/culture/buenas-practicas-nieve-ruleset-faces-v3.png",
           alt: "Colaborador de La Nieve organizando la exhibición de productos de un minimercado",
@@ -526,7 +523,7 @@ export const siteConfig = {
     eyebrow: "Contacto",
     title: "Conversemos por nuestros canales oficiales",
     description:
-      "Encuentra aquí los canales oficiales de atención de Distribuciones La Nieve.",
+      "Encuentra aquí los canales oficiales de atención de La Nieve.",
     email: "servicioalcliente@lanieve.co",
     phone: "320 3414212",
     pendingMessage:
@@ -538,10 +535,10 @@ export const siteConfig = {
     description:
       "Conoce la información disponible sobre oportunidades laborales y postulaciones.",
     image: {
-      src: "/images/trabajo-nieve-20260730-v3.png",
-      alt: "Integrante del equipo de Distribuciones La Nieve",
-      width: 1122,
-      height: 1402,
+      src: "/images/trabajo-nieve-20260824-v2.png",
+      alt: "Mano firmando un contrato de trabajo sobre un escritorio",
+      width: 1024,
+      height: 1536,
       treatment: "photo",
     },
   },
@@ -593,7 +590,7 @@ export const siteConfig = {
     ],
     filing: {
       enabled: true,
-      backendAvailable: false,
+      backendAvailable: true,
     },
   },
   footerDescription:

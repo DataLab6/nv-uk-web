@@ -1,10 +1,13 @@
 "use client";
 
+import { useState, type FormEvent } from "react";
 import { Mail, MessageSquareText, Phone, Send } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { SiteConfig } from "../config/types";
 import { PageIntro } from "../components/PageIntro";
 import { RevealGroup } from "../components/RevealGroup";
+import { TurnstileWidget } from "../components/TurnstileWidget";
+import { isValidEmail, sanitizePhone } from "../lib/formValidation";
 
 const fieldClassName =
   "mt-2 min-h-12 min-w-0 w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground shadow-sm transition-[border-color,box-shadow] placeholder:text-muted-foreground/75 hover:border-primary/35 focus:border-primary focus:ring-2 focus:ring-primary/20";
@@ -138,6 +141,54 @@ function DirectChannel({
  * the corporate channels that are present in each site's configuration.
  */
 export function ContactPage({ site }: { site: SiteConfig }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+    setSubmitMessage("");
+
+    try {
+      const formElement = event.currentTarget;
+      const form = new FormData(formElement);
+      const response = await fetch("/api/forms/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(form.entries())),
+      });
+      const result = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        error?: string;
+      } | null;
+
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || "No fue posible enviar el mensaje.");
+      }
+
+      formElement.reset();
+      setSubmitStatus("success");
+      setSubmitMessage("Recibimos tu mensaje. Te responderemos por correo.");
+    } catch (error) {
+      setSubmitStatus("error");
+      setSubmitMessage(
+        error instanceof Error
+          ? error.message
+          : "No fue posible enviar el mensaje. Intenta de nuevo."
+      );
+    } finally {
+      setTurnstileResetSignal((current) => current + 1);
+      setIsSubmitting(false);
+    }
+  }
+
   const phoneHref = site.contact.phone
     ? "tel:" + site.contact.phone.replace(/\s/g, "")
     : undefined;
@@ -153,7 +204,7 @@ export function ContactPage({ site }: { site: SiteConfig }) {
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(20rem,0.92fr)] lg:gap-12 xl:gap-16">
           <RevealGroup>
             <form
-              onSubmit={(event) => event.preventDefault()}
+              onSubmit={handleSubmit}
               aria-labelledby="contact-form-title"
               aria-describedby="contact-form-status"
               className="min-w-0 rounded-3xl border border-border bg-card p-6 shadow-card sm:p-8 lg:p-10"
@@ -191,6 +242,15 @@ export function ContactPage({ site }: { site: SiteConfig }) {
                     inputMode="email"
                     placeholder="nombre@correo.com"
                     required
+                    pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                    title="Ingresa un correo electrónico válido"
+                    onChange={(event) =>
+                      event.currentTarget.setCustomValidity(
+                        isValidEmail(event.currentTarget.value)
+                          ? ""
+                          : "Ingresa un correo electrónico válido."
+                      )
+                    }
                   />
                 </label>
 
@@ -201,8 +261,14 @@ export function ContactPage({ site }: { site: SiteConfig }) {
                     type="tel"
                     name="phone"
                     autoComplete="tel"
-                    inputMode="tel"
+                    inputMode="numeric"
                     placeholder="Número de contacto"
+                    pattern="[0-9]+"
+                    onChange={(event) => {
+                      event.currentTarget.value = sanitizePhone(
+                        event.currentTarget.value
+                      );
+                    }}
                   />
                 </label>
 
@@ -247,18 +313,37 @@ export function ContactPage({ site }: { site: SiteConfig }) {
 
               <div
                 id="contact-form-status"
-                className="mt-5 text-xs leading-relaxed text-muted-foreground"
+                className={
+                  "mt-5 leading-relaxed " +
+                  (submitStatus === "error"
+                    ? "text-sm text-destructive"
+                    : submitStatus === "success"
+                      ? "text-base font-semibold text-primary sm:text-lg"
+                      : "text-xs text-muted-foreground")
+                }
+                aria-live="polite"
               >
-                <p>{site.contact.pendingMessage}</p>
+                <p>{submitMessage || "Completa los campos para enviarnos tu mensaje."}</p>
               </div>
+
+              <TurnstileWidget resetSignal={turnstileResetSignal} />
+
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] h-px w-px overflow-hidden"
+              />
 
               <button
                 type="submit"
-                disabled
-                className="mt-6 inline-flex min-h-12 w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground opacity-65 sm:w-auto"
+                disabled={isSubmitting}
+                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition-[filter,transform] hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-wait disabled:opacity-65 sm:w-auto"
               >
                 <Send className="h-4 w-4" aria-hidden="true" />
-                Formulario no disponible
+                {isSubmitting ? "Enviando…" : "Enviar mensaje"}
               </button>
             </form>
           </RevealGroup>

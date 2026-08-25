@@ -36,7 +36,9 @@ export function Navigation({ site }: { site: SiteConfig }) {
   // group-hover/focus-within dropdown would otherwise stay visually open.
   // Force it closed until the pointer actually leaves or focus re-enters.
   const [dismissedHref, setDismissedHref] = useState<string | null>(null);
-  const isSolid = scrolled || mobileOpen;
+  // Unimarka keeps the editorial transparent/blurred treatment while La Nieve
+  // retains the solid brand bar after scrolling.
+  const isSolid = (site.id !== "unimarka" && scrolled) || mobileOpen;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);

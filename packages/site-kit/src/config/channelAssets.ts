@@ -6,7 +6,7 @@ export const CUSTOMER_CHANNEL_IMAGES: Record<
   Partial<Record<SiteIconName, string>>
 > = {
   "la-nieve": {
-    store: "/images/channels/tiendas.png",
+    store: "/images/channels/tienda-nieve-ejemplo-v2-20260824.png",
     building: "/images/channels/minimercados.png",
     "package-check": "/images/channels/mayoristas-v2.png",
     briefcase: "/images/channels/institucional.png",
@@ -14,7 +14,7 @@ export const CUSTOMER_CHANNEL_IMAGES: Record<
     users: "/images/channels/otros-20260730-v2.png",
   },
   unimarka: {
-    store: "/images/channels/tiendas.png",
+    store: "/images/channels/tienda-unimarka-ejemplo-v2-20260824.png",
     building: "/images/channels/minimercados.png",
     "package-check": "/images/channels/mayoristas-v2.png",
     briefcase: "/images/channels/institucional.png",

@@ -69,10 +69,14 @@ export function createCorporateStatsGroups({
         {
           value: employees,
           unit: "empleados",
-          label: "altamente capacitados",
+          label:
+            "Comprometidos con la eficiencia y el crecimiento de la operación.",
         },
       ],
-      notes: ["Perfil profesional.", "Enfocados en logística."],
+      notes: [
+        "Equipo con formación profesional.",
+        "Enfoque estratégico en logística y distribución.",
+      ],
     },
   ] as const satisfies readonly SiteStatGroup[];
 }

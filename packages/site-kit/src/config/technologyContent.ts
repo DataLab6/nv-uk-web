@@ -6,29 +6,29 @@ import type { SiteFeature, SitePageCopy } from "./types";
  */
 export const CORPORATE_TECHNOLOGY = {
   eyebrow: "Tecnología e innovación",
-  title: "Impulsamos la transformación digital",
+  title: "La transformación digital impulsa nuestro crecimiento.",
   description:
-    "La transformación digital impulsa la evolución de nuestro equipo humano, fortalece nuestros procesos internos y genera valor para clientes, proveedores y aliados estratégicos. A través del desarrollo de proyectos innovadores, optimizamos las inversiones, los recursos y la operación, respaldados por una infraestructura sólida que garantiza la continuidad, la eficiencia y la protección del negocio",
+    "Fortalecemos nuestros procesos, optimizamos recursos y desarrollamos soluciones innovadoras que generan valor para clientes, proveedores y aliados, construyendo una operación más ágil, eficiente y sostenible.",
   imageCaption:
     "Tecnología aplicada a procesos más eficientes, continuos y protegidos.",
   items: [
     {
       icon: "target",
-      title: "Proyectos",
+      title: "Estrategias que generan valor.",
       description:
-        "Planificamos iniciativas estratégicas para optimizar inversiones, procesos y recursos con foco en el valor del negocio.",
+        "Transformamos ideas en iniciativas que impulsan el crecimiento.",
     },
     {
       icon: "shield",
       title: "Infraestructura y Operaciones",
       description:
-        "Fortalecemos la continuidad y protección de la operación mediante infraestructura tecnológica disponible y procesos optimizados.",
+        "Tecnología y procesos que garantizan eficiencia y continuidad.",
     },
     {
       icon: "sparkles",
-      title: "Soluciones y Transformación Digital",
+      title: "Innovación que acelera el futuro.",
       description:
-        "Integramos ciencia de datos, inteligencia artificial y pensamiento disruptivo para replantear soluciones convencionales.",
+        "Datos, analítica e inteligencia artificial al servicio del negocio.",
     },
   ],
 } as const satisfies SitePageCopy & {

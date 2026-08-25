@@ -26,7 +26,14 @@ import {
   PQRS_RESPONSE_TERMS_NOTE,
 } from "../config/pqrsFilingContent";
 import type { SiteConfig } from "../config/types";
+import { TurnstileWidget } from "../components/TurnstileWidget";
 import { cn } from "../lib/cn";
+import {
+  isValidEmail,
+  sanitizeDigits,
+  sanitizePersonName,
+  sanitizePhone,
+} from "../lib/formValidation";
 
 type TipoSolicitante = "natural" | "juridica" | "apoderado";
 type PersonaRepresentadaTipo = "natural" | "juridica";
@@ -116,6 +123,23 @@ const fieldClassName =
 
 const errorFieldClassName = "border-destructive focus:border-destructive";
 
+const NUMERIC_FORM_FIELDS = new Set([
+  "numeroDocumento",
+  "repNumeroDocumento",
+  "apoderadoNumeroDocumento",
+  "nit",
+  "telefono",
+]);
+
+const PERSON_NAME_FORM_FIELDS = new Set([
+  "nombres",
+  "apellidos",
+  "repNombres",
+  "repApellidos",
+  "apoderadoNombres",
+  "apoderadoApellidos",
+]);
+
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
@@ -133,9 +157,8 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 /**
  * Formal, independent PQRS filing form. Not linked from any navigation
  * surface — reachable only via the button on the informational PQRS page or
- * by its direct URL. No backend exists yet, so the final submission stays
- * disabled while every other interaction (validation, review, attachments
- * UI) is fully implemented.
+ * by its direct URL. Validation and review happen in the browser before the
+ * reviewed request is sent to the server-side filing endpoint.
  */
 export function PqrsFilingPage({ site }: { site: SiteConfig }) {
   const requestTypes = useMemo(
@@ -166,6 +189,12 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showReview, setShowReview] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [submissionMessage, setSubmissionMessage] = useState("");
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
   const fieldRefs = useRef<Record<string, HTMLElement | null>>({});
   const reviewRef = useRef<HTMLDivElement | null>(null);
 
@@ -173,7 +202,16 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
     key: K,
     value: FilingFormState[K]
   ) {
-    setForm((current) => ({ ...current, [key]: value }));
+    let nextValue = value;
+    if (typeof value === "string") {
+      const fieldName = String(key);
+      if (NUMERIC_FORM_FIELDS.has(fieldName)) {
+        nextValue = sanitizeDigits(value) as FilingFormState[K];
+      } else if (PERSON_NAME_FORM_FIELDS.has(fieldName)) {
+        nextValue = sanitizePersonName(value) as FilingFormState[K];
+      }
+    }
+    setForm((current) => ({ ...current, [key]: nextValue }));
   }
 
   function handleFilesSelected(fileList: FileList | null) {
@@ -272,7 +310,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
 
     if (!form.email.trim()) {
       next.email = "Ingresa un correo electrónico.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+    } else if (!isValidEmail(form.email)) {
       next.email = "El correo electrónico no es válido.";
     }
     if (!form.emailConfirm.trim()) {
@@ -322,6 +360,57 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
     requestAnimationFrame(() => {
       reviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+  }
+
+  async function handleSend() {
+    if (isSubmitting || submissionStatus === "success") return;
+    if (attachmentError) {
+      setSubmissionStatus("error");
+      setSubmissionMessage(attachmentError);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmissionStatus("idle");
+    setSubmissionMessage("");
+
+    try {
+      const body = new FormData();
+      for (const [key, value] of Object.entries(form)) {
+        body.append(key, String(value));
+      }
+      for (const file of attachments) body.append("attachments", file);
+      if (representationProof) {
+        body.append("representationProof", representationProof);
+      }
+
+      const response = await fetch("/api/forms/pqrs", {
+        method: "POST",
+        body,
+      });
+      const result = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        error?: string;
+      } | null;
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || "No fue posible radicar la solicitud.");
+      }
+
+      setSubmissionStatus("success");
+      setSubmissionMessage(
+        "Recibimos tu solicitud. La respuesta será enviada al correo registrado."
+      );
+    } catch (error) {
+      setSubmissionStatus("error");
+      setSubmissionMessage(
+        error instanceof Error
+          ? error.message
+          : "No fue posible radicar la solicitud. Intenta de nuevo."
+      );
+    } finally {
+      setTurnstileResetSignal((current) => current + 1);
+      setIsSubmitting(false);
+    }
   }
 
   const solicitanteResumen = useMemo(() => {
@@ -527,6 +616,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     )}
                     type="text"
                     inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={30}
                     value={form.numeroDocumento}
                     onChange={(e) => update("numeroDocumento", e.target.value)}
                     aria-invalid={Boolean(errors.numeroDocumento)}
@@ -573,6 +664,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     )}
                     type="text"
                     inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={30}
                     value={form.nit}
                     onChange={(e) => update("nit", e.target.value)}
                     aria-invalid={Boolean(errors.nit)}
@@ -645,6 +738,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     )}
                     type="text"
                     inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={30}
                     value={form.repNumeroDocumento}
                     onChange={(e) =>
                       update("repNumeroDocumento", e.target.value)
@@ -750,6 +845,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                           )}
                           type="text"
                           inputMode="numeric"
+                          pattern="[0-9]*"
+                          maxLength={30}
                           value={form.numeroDocumento}
                           onChange={(e) =>
                             update("numeroDocumento", e.target.value)
@@ -798,6 +895,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                           )}
                           type="text"
                           inputMode="numeric"
+                          pattern="[0-9]*"
+                          maxLength={30}
                           value={form.nit}
                           onChange={(e) => update("nit", e.target.value)}
                           aria-invalid={Boolean(errors.nit)}
@@ -885,6 +984,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                         )}
                         type="text"
                         inputMode="numeric"
+                        pattern="[0-9]*"
+                        maxLength={30}
                         value={form.apoderadoNumeroDocumento}
                         onChange={(e) =>
                           update("apoderadoNumeroDocumento", e.target.value)
@@ -948,6 +1049,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   inputMode="email"
                   value={form.email}
                   onChange={(e) => update("email", e.target.value)}
+                  pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                  title="Ingresa un correo electrónico válido"
                   aria-invalid={Boolean(errors.email)}
                 />
                 <FieldError id="email-error" message={errors.email} />
@@ -966,6 +1069,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   inputMode="email"
                   value={form.emailConfirm}
                   onChange={(e) => update("emailConfirm", e.target.value)}
+                  pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                  title="Ingresa un correo electrónico válido"
                   aria-invalid={Boolean(errors.emailConfirm)}
                 />
                 <FieldError
@@ -979,9 +1084,13 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   className={fieldClassName}
                   type="tel"
                   autoComplete="tel"
-                  inputMode="tel"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={15}
                   value={form.telefono}
-                  onChange={(e) => update("telefono", e.target.value)}
+                  onChange={(e) =>
+                    update("telefono", sanitizePhone(e.target.value))
+                  }
                 />
               </label>
             </div>
@@ -1377,6 +1486,8 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
               </div>
             </dl>
 
+            <TurnstileWidget resetSignal={turnstileResetSignal} />
+
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
@@ -1387,21 +1498,40 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
               </button>
               <button
                 type="button"
-                disabled={!site.pqrs.filing.backendAvailable}
-                className="inline-flex min-h-12 flex-1 cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground opacity-60"
+                disabled={
+                  !site.pqrs.filing.backendAvailable ||
+                  isSubmitting ||
+                  submissionStatus === "success"
+                }
+                onClick={handleSend}
+                className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground transition-[filter,transform] hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Send className="h-4 w-4" aria-hidden="true" />
-                Radicar solicitud
+                {isSubmitting
+                  ? "Enviando…"
+                  : submissionStatus === "success"
+                    ? "Solicitud enviada"
+                    : "Radicar solicitud"}
               </button>
             </div>
 
-            <p className="mt-4 flex items-start gap-2 text-sm leading-relaxed text-muted-foreground">
+            <p
+              className={cn(
+                "mt-4 flex items-start gap-2 text-sm leading-relaxed",
+                submissionStatus === "error"
+                  ? "text-destructive"
+                  : submissionStatus === "success"
+                    ? "text-primary"
+                    : "text-muted-foreground"
+              )}
+              aria-live="polite"
+            >
               <ShieldAlert
-                className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                className="mt-0.5 h-4 w-4 shrink-0"
                 aria-hidden="true"
               />
-              El envío digital no está disponible. La información diligenciada
-              no se transmite ni se almacena.
+              {submissionMessage ||
+                "La información se enviará de forma segura al correo de atención de la empresa."}
             </p>
           </div>
         )}
