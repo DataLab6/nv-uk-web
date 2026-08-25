@@ -11,7 +11,7 @@ export const LA_NIEVE_TIMELINE = [
     period: "Actualidad",
     isCurrent: true,
     description:
-      "Hoy seguimos orgullosamente cumpliendo con dicho fin impactando con nuestros servicios a múltiples regiones de Colombia, contando desde entonces con un crecimiento consistente y constante. Este crecimiento se los debemos a nuestros valores que nos guían.",
+      "Hoy con orgullo con operación en el 47 % de país,  seguimos consolidándonos como una de las distribuidoras de mayor impacto, proyectándonos día a día hacia un crecimiento constante y sostenido, guiados por nuestros valores y por el compromiso de quienes hacen parte de nuestra historia."
   },
 ] as const satisfies readonly SiteTimelineMilestone[];
 
@@ -27,6 +27,6 @@ export const UNIMARKA_TIMELINE = [
     period: "Actualidad",
     isCurrent: true,
     description:
-      "Hoy en día bajo una rigurosa disciplina en ejecución, seguimos orgullosamente creciendo, en cumplimiento de nuestros valores corporativos con un excelente desempeño innovador en la distribución y comercialización.",
+      "Hoy con orgullo con operación en el 31 % de país,  seguimos consolidándonos como una de las distribuidoras de mayor impacto, proyectándonos día a día hacia un crecimiento constante y sostenido, guiados por nuestros valores y por el compromiso de quienes hacen parte de nuestra historia."
   },
 ] as const satisfies readonly SiteTimelineMilestone[];

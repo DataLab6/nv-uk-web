@@ -32,6 +32,7 @@ export type SitePageKey =
   | "allies"
   | "culture"
   | "contact"
+  | "suppliers"
   | "careers"
   | "legal"
   | "dataPolicy"
@@ -77,6 +78,12 @@ export interface SiteFeature {
 
 export interface SiteCultureTopic extends SiteFeature {
   readonly image: SiteImageConfig;
+}
+
+export interface SiteCultureHeroImage extends SiteImageConfig {
+  /** Acercamiento sutil para ajustar el encuadre dentro del panel inclinado. */
+  readonly visualScale?: number;
+  readonly transformOrigin?: string;
 }
 
 export interface SitePageCopy {
@@ -239,6 +246,11 @@ export interface SiteConfig {
   readonly culture: SitePageCopy & {
     readonly image: SiteImageConfig;
     readonly imagePresentation?: "inline" | "featured-before-intro";
+    readonly heroImages: readonly [
+      SiteCultureHeroImage,
+      SiteCultureHeroImage,
+      SiteCultureHeroImage,
+    ];
     readonly topics: readonly SiteCultureTopic[];
   };
   readonly contact: SitePageCopy & {
@@ -246,6 +258,7 @@ export interface SiteConfig {
     readonly phone?: string;
     readonly pendingMessage: string;
   };
+  readonly suppliers: SitePageCopy;
   readonly careers: SitePageCopy & {
     readonly image: SiteImageConfig;
   };

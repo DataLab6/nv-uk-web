@@ -15,7 +15,18 @@ export function createCorporateNavigation(
       page: "allies",
     },
     { label: `Cultura ${brandLabel}`, href: "/cultura", page: "culture" },
-    { label: "Contacto", href: "/contacto", page: "contact" },
+    {
+      label: "Contacto",
+      href: "/contacto",
+      page: "contact",
+      children: [
+        {
+          label: "Proveedores",
+          href: "/proveedores",
+          page: "suppliers",
+        },
+      ],
+    },
     {
       label: "Trabaja con nosotros",
       href: "/trabaja-con-nosotros",

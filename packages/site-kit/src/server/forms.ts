@@ -26,7 +26,7 @@ for (const root of environmentRoots) {
 
 export type FormSiteId = SiteConfig["id"];
 
-type FormKind = "contact" | "careers" | "pqrs";
+type FormKind = "contact" | "careers" | "pqrs" | "suppliers";
 
 type ResendAttachment = {
   filename: string;
@@ -41,6 +41,13 @@ const MAX_ATTACHMENT_BYTES = 10 * 1024 * 1024;
 const MAX_TOTAL_ATTACHMENT_BYTES = 25 * 1024 * 1024;
 const MAX_PQRS_FILES = 6;
 const ALLOWED_RESUME_EXTENSIONS = new Set([".pdf", ".doc", ".docx"]);
+const ALLOWED_SUPPLIER_EXTENSIONS = new Set([
+  ".pdf",
+  ".doc",
+  ".docx",
+  ".ppt",
+  ".pptx",
+]);
 const ALLOWED_PQRS_EXTENSIONS = new Set([
   ".pdf",
   ".doc",
@@ -64,6 +71,24 @@ const PQRS_DOCUMENT_TYPES = new Set([
   "Permiso especial de permanencia",
   "Otro",
 ]);
+const SUPPLIER_TYPES = new Set(["merchandise", "services"]);
+const SUPPLIER_PRODUCT_CATEGORIES = new Set([
+  "Alimentos y bebidas",
+  "Aseo del hogar",
+  "Cuidado personal",
+  "Productos institucionales",
+  "Licores",
+  "Otros",
+]);
+const SUPPLIER_DISTRIBUTION_SEGMENTS = new Set([
+  "Tiendas",
+  "Minimercados y supermercados",
+  "Mayoristas",
+  "Institucional",
+  "Bares y licoreras",
+  "Otros",
+]);
+const YES_NO_OPTIONS = new Set(["Sí", "No"]);
 const PERSON_NAME_PATTERN = /^[\p{L}][\p{L}\s.'-]*$/u;
 const DIGITS_PATTERN = /^\d+$/;
 
@@ -102,7 +127,11 @@ function validEmail(value: string, label = "correo electrónico") {
   return value;
 }
 
-function validChoice(value: string, values: ReadonlySet<string>, label: string) {
+function validChoice(
+  value: string,
+  values: ReadonlySet<string>,
+  label: string
+) {
   if (!values.has(value)) {
     throw new FormRequestError(`El campo ${label} no tiene una opción válida.`);
   }
@@ -112,7 +141,9 @@ function validChoice(value: string, values: ReadonlySet<string>, label: string) 
 function validDigits(value: string, label: string, max = 30) {
   const normalized = required(value, label, max);
   if (!DIGITS_PATTERN.test(normalized)) {
-    throw new FormRequestError(`El campo ${label} solo puede contener números.`);
+    throw new FormRequestError(
+      `El campo ${label} solo puede contener números.`
+    );
   }
   return normalized;
 }
@@ -125,6 +156,19 @@ function validPersonName(value: string, label: string) {
     );
   }
   return normalized;
+}
+
+function validWebUrl(value: string, label: string) {
+  if (!value) return "";
+
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "http:" && url.protocol !== "https:")
+      throw new Error();
+    return value;
+  } catch {
+    throw new FormRequestError(`El campo ${label} no contiene una URL válida.`);
+  }
 }
 
 function escapeHtml(value: string) {
@@ -172,7 +216,14 @@ function getLogoPath(site: FormSiteId) {
       "brand",
       logoFile
     ),
-    path.resolve(process.cwd(), "..", appDirectory, "public", "brand", logoFile),
+    path.resolve(
+      process.cwd(),
+      "..",
+      appDirectory,
+      "public",
+      "brand",
+      logoFile
+    ),
     path.resolve(
       process.cwd(),
       "..",
@@ -250,7 +301,8 @@ function getRecipient(kind: FormKind, site: FormSiteId) {
 }
 
 function getSender(site: FormSiteId) {
-  const email = process.env.RESEND_FROM_EMAIL?.trim() || "onboarding@resend.dev";
+  const email =
+    process.env.RESEND_FROM_EMAIL?.trim() || "onboarding@resend.dev";
   const name =
     process.env.RESEND_FROM_NAME?.trim() ||
     (site === "la-nieve" ? "Distribuciones La Nieve" : "Unimarka");
@@ -268,7 +320,9 @@ async function fileToAttachment(file: File, allowedExtensions: Set<string>) {
   }
   const extension = `.${file.name.split(".").pop()?.toLowerCase() ?? ""}`;
   if (!allowedExtensions.has(extension)) {
-    throw new FormRequestError(`El formato del archivo ${file.name} no está permitido.`);
+    throw new FormRequestError(
+      `El formato del archivo ${file.name} no está permitido.`
+    );
   }
   const content = Buffer.from(await file.arrayBuffer()).toString("base64");
   return { filename: file.name, content } satisfies ResendAttachment;
@@ -285,7 +339,10 @@ async function sendWithResend(options: {
   const apiKey = process.env.RESEND_API_KEY?.trim();
   if (!apiKey) {
     console.error("Resend no está configurado: falta RESEND_API_KEY.");
-    throw new FormRequestError("El servicio de envío no está configurado.", 503);
+    throw new FormRequestError(
+      "El servicio de envío no está configurado.",
+      503
+    );
   }
 
   const payload: Record<string, unknown> = {
@@ -314,8 +371,15 @@ async function sendWithResend(options: {
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error("Resend rechazó el envío", response.status, errorText.slice(0, 500));
-    throw new FormRequestError("No fue posible enviar la solicitud. Intenta de nuevo.", 502);
+    console.error(
+      "Resend rechazó el envío",
+      response.status,
+      errorText.slice(0, 500)
+    );
+    throw new FormRequestError(
+      "No fue posible enviar la solicitud. Intenta de nuevo.",
+      502
+    );
   }
 }
 
@@ -395,17 +459,21 @@ export async function handleContactRequest(request: Request, site: FormSiteId) {
     await verifyTurnstile(request, jsonText(payload, "turnstileToken"));
 
     const name = required(jsonText(payload, "name"), "nombre");
-    const email = validEmail(required(jsonText(payload, "email"), "correo electrónico"));
+    const email = validEmail(
+      required(jsonText(payload, "email"), "correo electrónico")
+    );
     const phone = jsonText(payload, "phone").replace(/\D/g, "");
     const company = jsonText(payload, "company");
     const subject = required(jsonText(payload, "subject"), "asunto", 100);
     const message = required(jsonText(payload, "message"), "mensaje");
     const subjectLabel =
-      ({
-        commercial: "Consulta comercial",
-        general: "Información general",
-        other: "Otro motivo",
-      } as Record<string, string>)[subject] || subject;
+      (
+        {
+          commercial: "Consulta comercial",
+          general: "Información general",
+          other: "Otro motivo",
+        } as Record<string, string>
+      )[subject] || subject;
 
     await sendWithResend({
       site,
@@ -449,21 +517,31 @@ export async function handleCareersRequest(request: Request, site: FormSiteId) {
     await verifyTurnstile(request, text(form.get("turnstileToken")));
 
     const name = required(text(form.get("name")), "nombre");
-    const email = validEmail(required(text(form.get("email")), "correo electrónico"));
-    const phone = required(text(form.get("phone")).replace(/\D/g, ""), "teléfono");
+    const email = validEmail(
+      required(text(form.get("email")), "correo electrónico")
+    );
+    const phone = required(
+      text(form.get("phone")).replace(/\D/g, ""),
+      "teléfono"
+    );
     const city = required(text(form.get("city")), "ciudad");
     const area = required(text(form.get("area")), "área de interés", 100);
     const profile = required(text(form.get("profile")), "perfil");
     const accepted = text(form.get("data-policy-acceptance"));
     if (accepted !== "on" && accepted !== "true") {
-      throw new FormRequestError("Debes aceptar el tratamiento de datos personales.");
+      throw new FormRequestError(
+        "Debes aceptar el tratamiento de datos personales."
+      );
     }
 
     const resume = form.get("resume");
     if (!(resume instanceof File)) {
       throw new FormRequestError("Adjunta tu hoja de vida.");
     }
-    const attachment = await fileToAttachment(resume, ALLOWED_RESUME_EXTENSIONS);
+    const attachment = await fileToAttachment(
+      resume,
+      ALLOWED_RESUME_EXTENSIONS
+    );
 
     await sendWithResend({
       site,
@@ -490,8 +568,179 @@ export async function handleCareersRequest(request: Request, site: FormSiteId) {
           },
           { title: "Perfil o experiencia", content: profile },
         ],
+        footerNote: `La hoja de vida de ${name} se encuentra adjunta a este correo para su revisión.`,
+      }),
+    });
+
+    return jsonResponse({ ok: true });
+  } catch (error) {
+    return handleError(error);
+  }
+}
+
+export async function handleSuppliersRequest(
+  request: Request,
+  site: FormSiteId
+) {
+  try {
+    const form = await request.formData();
+    if (text(form.get("website"))) return jsonResponse({ ok: true });
+    await verifyTurnstile(request, text(form.get("turnstileToken")));
+
+    const supplierType = validChoice(
+      required(text(form.get("supplierType")), "tipo de proveedor", 40),
+      SUPPLIER_TYPES,
+      "tipo de proveedor"
+    );
+    const companyName = required(
+      text(form.get("companyName")),
+      "razón social",
+      160
+    );
+    const nit = validDigits(text(form.get("nit")), "NIT", 15);
+    const contactName = validPersonName(
+      text(form.get("contactName")),
+      "nombre del contacto"
+    );
+    const phone = validDigits(text(form.get("phone")), "teléfono", 15);
+    const email = validEmail(
+      required(text(form.get("email")), "correo electrónico", 254)
+    );
+
+    const accepted = text(form.get("data-policy-acceptance"));
+    if (accepted !== "on" && accepted !== "true") {
+      throw new FormRequestError(
+        "Debes aceptar el tratamiento de datos personales."
+      );
+    }
+
+    let detailSection: EmailSection;
+    let supplierTypeLabel: string;
+
+    if (supplierType === "merchandise") {
+      supplierTypeLabel = "Proveedor de mercancía";
+      const productCategory = validChoice(
+        required(
+          text(form.get("productCategory")),
+          "categoría de productos",
+          100
+        ),
+        SUPPLIER_PRODUCT_CATEGORIES,
+        "categoría de productos"
+      );
+      const brands = required(
+        text(form.get("brands")),
+        "marcas ofrecidas",
+        500
+      );
+      const productTypes = required(
+        text(form.get("productTypes")),
+        "tipo de productos",
+        1000
+      );
+      const marketPresence = validChoice(
+        required(
+          text(form.get("marketPresence")),
+          "presencia en el mercado colombiano",
+          10
+        ),
+        YES_NO_OPTIONS,
+        "presencia en el mercado colombiano"
+      );
+      const isCompetitor = validChoice(
+        required(text(form.get("isCompetitor")), "competencia de marcas", 10),
+        YES_NO_OPTIONS,
+        "competencia de marcas"
+      );
+      const distributionSegment = validChoice(
+        required(
+          text(form.get("distributionSegment")),
+          "segmento comercial",
+          100
+        ),
+        SUPPLIER_DISTRIBUTION_SEGMENTS,
+        "segmento comercial"
+      );
+
+      detailSection = {
+        title: "Oferta comercial",
+        fields: [
+          ["Categoría", productCategory],
+          ["Marcas ofrecidas", brands],
+          ["Presencia en Colombia", marketPresence],
+          ["Competencia de marcas representadas", isCompetitor],
+          ["Segmento de distribución", distributionSegment],
+        ],
+        content: productTypes,
+      };
+    } else {
+      supplierTypeLabel = "Proveedor de servicios";
+      const servicesDescription = required(
+        text(form.get("servicesDescription")),
+        "descripción de servicios",
+        2000
+      );
+      const companyLocation = required(
+        text(form.get("companyLocation")),
+        "ubicación de la compañía",
+        500
+      );
+      const websiteUrl = validWebUrl(
+        text(form.get("websiteUrl")),
+        "página web"
+      );
+
+      detailSection = {
+        title: "Servicios ofrecidos",
+        fields: [
+          ["Ubicación y cobertura", companyLocation],
+          ["Página web", websiteUrl],
+        ],
+        content: servicesDescription,
+      };
+    }
+
+    const portfolio = form.get("portfolio");
+    const attachments =
+      portfolio instanceof File && portfolio.size > 0
+        ? [await fileToAttachment(portfolio, ALLOWED_SUPPLIER_EXTENSIONS)]
+        : [];
+
+    await sendWithResend({
+      site,
+      kind: "suppliers",
+      subject: `[Proveedores] ${supplierTypeLabel} — ${companyName}`,
+      replyTo: email,
+      attachments,
+      html: renderEmail({
+        site,
+        eyebrow: "Nuevo registro de proveedor",
+        title: `${companyName} envió su información comercial`,
+        intro: `Se recibió un nuevo registro de proveedor desde el sitio web de ${getEmailBrand(site).name}.`,
+        summaryLabel: "Modalidad del registro",
+        summary: supplierTypeLabel,
+        sections: [
+          {
+            title: "Información de la empresa",
+            fields: [
+              ["Razón social", companyName],
+              ["NIT", nit],
+              ["Nombre del contacto", contactName],
+              ["Correo electrónico", email],
+              ["Teléfono", phone],
+            ],
+          },
+          detailSection,
+          {
+            title: "Portafolio o propuesta comercial",
+            content:
+              attachments.length > 0
+                ? `Se adjuntó el archivo ${attachments[0]?.filename}.`
+                : "No se adjuntó ningún archivo.",
+          },
+        ],
         footerNote:
-          `La hoja de vida de ${name} se encuentra adjunta a este correo para su revisión.`,
+          "La empresa aceptó el tratamiento de datos personales al enviar este registro. Puedes responder directamente a este correo para contactar a la persona registrada.",
       }),
     });
 
@@ -511,9 +760,14 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
     if (formValue(form, "website")) return jsonResponse({ ok: true });
     await verifyTurnstile(request, formValue(form, "turnstileToken"));
 
-    const email = validEmail(required(formValue(form, "email"), "correo electrónico"));
+    const email = validEmail(
+      required(formValue(form, "email"), "correo electrónico")
+    );
     const emailConfirm = validEmail(
-      required(formValue(form, "emailConfirm"), "confirmación del correo electrónico")
+      required(
+        formValue(form, "emailConfirm"),
+        "confirmación del correo electrónico"
+      )
     );
     if (email !== emailConfirm) {
       throw new FormRequestError("Los correos electrónicos no coinciden.");
@@ -530,8 +784,16 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
       "tipo de solicitud"
     );
     const asunto = required(formValue(form, "asunto"), "asunto", 150);
-    const objeto = required(formValue(form, "objeto"), "objeto de la solicitud", 2000);
-    const hechos = required(formValue(form, "hechos"), "hechos y razones", 4000);
+    const objeto = required(
+      formValue(form, "objeto"),
+      "objeto de la solicitud",
+      2000
+    );
+    const hechos = required(
+      formValue(form, "hechos"),
+      "hechos y razones",
+      4000
+    );
 
     if (tipoSolicitante === "natural") {
       validPersonName(formValue(form, "nombres"), "nombres");
@@ -541,10 +803,7 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
         PQRS_DOCUMENT_TYPES,
         "tipo de documento"
       );
-      validDigits(
-        formValue(form, "numeroDocumento"),
-        "número de documento"
-      );
+      validDigits(formValue(form, "numeroDocumento"), "número de documento");
     } else if (tipoSolicitante === "juridica") {
       required(formValue(form, "razonSocial"), "razón social");
       validDigits(formValue(form, "nit"), "NIT");
@@ -635,7 +894,9 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
     const proof = form.get("representationProof");
     if (proof instanceof File && proof.size > 0) files.push(proof);
     if (files.length > MAX_PQRS_FILES) {
-      throw new FormRequestError(`Solo puedes adjuntar hasta ${MAX_PQRS_FILES} archivos.`);
+      throw new FormRequestError(
+        `Solo puedes adjuntar hasta ${MAX_PQRS_FILES} archivos.`
+      );
     }
     const totalBytes = files.reduce((total, file) => total + file.size, 0);
     if (totalBytes > MAX_TOTAL_ATTACHMENT_BYTES) {
@@ -685,12 +946,18 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
                 "Representante",
                 `${formValue(form, "repNombres")} ${formValue(form, "repApellidos")}`.trim(),
               ],
-              ["Documento del representante", formValue(form, "repNumeroDocumento")],
+              [
+                "Documento del representante",
+                formValue(form, "repNumeroDocumento"),
+              ],
               [
                 "Apoderado",
                 `${formValue(form, "apoderadoNombres")} ${formValue(form, "apoderadoApellidos")}`.trim(),
               ],
-              ["Documento del apoderado", formValue(form, "apoderadoNumeroDocumento")],
+              [
+                "Documento del apoderado",
+                formValue(form, "apoderadoNumeroDocumento"),
+              ],
             ],
           },
           { title: "Objeto de la solicitud", content: objeto },
@@ -721,7 +988,10 @@ function handleError(error: unknown) {
   }
   console.error("Error inesperado procesando un formulario", error);
   return jsonResponse(
-    { ok: false, error: "No fue posible procesar la solicitud. Intenta de nuevo." },
+    {
+      ok: false,
+      error: "No fue posible procesar la solicitud. Intenta de nuevo.",
+    },
     500
   );
 }

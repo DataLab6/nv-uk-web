@@ -10,7 +10,7 @@ export const CUSTOMER_CHANNEL_IMAGES: Record<
     building: "/images/channels/minimercados.png",
     "package-check": "/images/channels/mayoristas-v2.png",
     briefcase: "/images/channels/institucional.png",
-    wine: "/images/channels/bares.png",
+    wine: "/images/channels/bares-20260825.png",
     users: "/images/channels/otros-20260730-v2.png",
   },
   unimarka: {
@@ -18,7 +18,7 @@ export const CUSTOMER_CHANNEL_IMAGES: Record<
     building: "/images/channels/minimercados.png",
     "package-check": "/images/channels/mayoristas-v2.png",
     briefcase: "/images/channels/institucional.png",
-    wine: "/images/channels/bares.png",
+    wine: "/images/channels/bares-20260825.png",
     users: "/images/channels/otros-20260730-v2.png",
   },
 };

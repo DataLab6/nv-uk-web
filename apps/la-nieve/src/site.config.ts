@@ -308,7 +308,7 @@ export const siteConfig = {
     eyebrow: "Juntos transformamos",
     title: "Somos el puente entre las marcas y tu negocio",
     description:
-      "En La Nieve entendemos el día a día de tiendas, supermercados y aliados comerciales. Por eso trabajamos para que nunca falte el producto correcto, en el momento correcto.",
+      "En Distribuciones La Nieve entendemos el día a día de tiendas, supermercados y aliados comerciales. Por eso trabajamos para que nunca falte el producto correcto, en el momento correcto.",
     image: {
       src: "/images/cliente-nieve.png",
       alt: "Cliente de Distribuciones La Nieve en su negocio",
@@ -477,6 +477,34 @@ export const siteConfig = {
       treatment: "photo",
     },
     imagePresentation: "inline",
+    heroImages: [
+      {
+        src: "/images/culture/people/hero-persona-1.jpeg",
+        alt: "Cliente de La Nieve en su establecimiento comercial",
+        width: 3024,
+        height: 4032,
+        treatment: "photo",
+        objectPosition: "50% 42%",
+      },
+      {
+        src: "/images/culture/people/hero-persona-2.jpeg",
+        alt: "Cliente y asesora comercial de La Nieve en Yopal",
+        width: 960,
+        height: 1280,
+        treatment: "photo",
+        objectPosition: "50% 28%",
+        visualScale: 1.06,
+        transformOrigin: "50% 15%",
+      },
+      {
+        src: "/images/culture/people/hero-persona-3.jpeg",
+        alt: "Clientes acompañados por La Nieve en su negocio",
+        width: 1200,
+        height: 1600,
+        treatment: "photo",
+        objectPosition: "50% 52%",
+      },
+    ],
     topics: [
       {
         icon: "trending-up",
@@ -528,6 +556,12 @@ export const siteConfig = {
     phone: "320 3414212",
     pendingMessage:
       "Para comunicarte, utiliza el teléfono, correo o redes sociales disponibles en esta página.",
+  },
+  suppliers: {
+    eyebrow: "Proveedores",
+    title: "Bienvenido al registro.",
+    description:
+      "Registra la información de tu empresa para iniciar el proceso como proveedor de Distribuciones La Nieve.",
   },
   careers: {
     eyebrow: "Trabaja con nosotros",

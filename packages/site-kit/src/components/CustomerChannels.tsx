@@ -45,6 +45,10 @@ export function CustomerChannels({ site }: { site: SiteConfig }) {
         >
           {site.channels.items.map((channel, index) => {
             const image = CUSTOMER_CHANNEL_IMAGES[site.id][channel.icon];
+            const displayTitle =
+              channel.title === "Minimercados y Supermercados"
+                ? "Minimercados\u00a0y Supermercados"
+                : channel.title;
 
             return (
               <li
@@ -71,7 +75,7 @@ export function CustomerChannels({ site }: { site: SiteConfig }) {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-1 text-base font-extrabold leading-tight text-foreground transition-transform duration-200 ease-out group-hover:-translate-y-[3px] sm:text-lg">
-                    {channel.title}
+                    {displayTitle}
                   </h3>
                 </div>
               </li>

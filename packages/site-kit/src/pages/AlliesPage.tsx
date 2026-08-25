@@ -43,6 +43,12 @@ export function AlliesPage({ site }: { site: SiteConfig }) {
       )}
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <RevealGroup className="mx-auto mb-10 max-w-4xl text-center sm:mb-12">
+          <p className="text-balance text-xl font-semibold leading-relaxed text-foreground sm:text-2xl">
+            Hoy hacen parte de nuestra historia y las representamos con orgullo
+            en cada rincón a los que llegamos.
+          </p>
+        </RevealGroup>
         <RevealGroup
           className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           stagger={0.05}

@@ -12,6 +12,7 @@ const PAGE_COPY_KEYS = {
   allies: "allies",
   culture: "culture",
   contact: "contact",
+  suppliers: "suppliers",
   careers: "careers",
   legal: "legal",
   dataPolicy: "dataPolicy",

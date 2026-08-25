@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { SiteConfig } from "../config/types";
+import { CulturePhotoHero } from "../components/CulturePhotoHero";
 import { CultureTopicCard } from "../components/CultureTopicCard";
-import { PageIntro } from "../components/PageIntro";
 import { RevealGroup } from "../components/RevealGroup";
 
 /**
@@ -13,6 +13,12 @@ export function CulturePage({ site }: { site: SiteConfig }) {
 
   return (
     <>
+      <CulturePhotoHero
+        images={site.culture.heroImages}
+        siteName={site.name}
+        copy={site.culture}
+      />
+
       {hasFeaturedImage && (
         <section
           aria-label={`Collage de ${site.name}`}
@@ -34,34 +40,8 @@ export function CulturePage({ site }: { site: SiteConfig }) {
         </section>
       )}
 
-      <PageIntro copy={site.culture} />
-
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <RevealGroup
-          className={
-            hasFeaturedImage
-              ? "mx-auto max-w-3xl text-center"
-              : "grid items-center gap-12 lg:grid-cols-2 lg:gap-20"
-          }
-        >
-          {!hasFeaturedImage && (
-            <figure className="relative overflow-hidden rounded-3xl border border-border bg-muted shadow-card">
-              <Image
-                src={site.culture.image.src}
-                alt={site.culture.image.alt}
-                width={site.culture.image.width}
-                height={site.culture.image.height}
-                quality={92}
-                sizes="(min-width: 1280px) 592px, (min-width: 1024px) 48vw, calc(100vw - 2rem)"
-                className="aspect-video w-full object-cover"
-              />
-              <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/35 via-transparent to-transparent"
-                aria-hidden="true"
-              />
-            </figure>
-          )}
-
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <RevealGroup className="mx-auto max-w-3xl text-center">
           <div>
             <span className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
               Contenido para crecer

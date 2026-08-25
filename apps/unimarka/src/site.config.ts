@@ -360,6 +360,38 @@ export const siteConfig = {
       treatment: "photo",
     },
     imagePresentation: "inline",
+    heroImages: [
+      {
+        src: "/images/culture/people/hero-persona-1.jpg",
+        alt: "Comerciante atendida por Unimarka en su tienda",
+        width: 2607,
+        height: 1739,
+        treatment: "photo",
+        objectPosition: "37% 15%",
+        visualScale: 1.1,
+        transformOrigin: "37% 10%",
+      },
+      {
+        src: "/images/culture/people/hero-persona-2.jpg",
+        alt: "Cliente de Unimarka presentando productos en su establecimiento",
+        width: 2650,
+        height: 1653,
+        treatment: "photo",
+        objectPosition: "63% 15%",
+        visualScale: 1.1,
+        transformOrigin: "63% 10%",
+      },
+      {
+        src: "/images/culture/people/hero-persona-3.jpg",
+        alt: "Cliente de Unimarka compartiendo su experiencia comercial",
+        width: 2629,
+        height: 1758,
+        treatment: "photo",
+        objectPosition: "58% 15%",
+        visualScale: 1.1,
+        transformOrigin: "58% 10%",
+      },
+    ],
     topics: [
       {
         icon: "trending-up",
@@ -412,6 +444,12 @@ export const siteConfig = {
     phone: "320-341-4212",
     pendingMessage:
       "Para comunicarte, utiliza el teléfono, correo o redes sociales disponibles en esta página.",
+  },
+  suppliers: {
+    eyebrow: "Proveedores",
+    title: "Bienvenido al registro.",
+    description:
+      "Registra la información de tu empresa para iniciar el proceso como proveedor de Unimarka.",
   },
   careers: {
     eyebrow: "Trabaja con nosotros",

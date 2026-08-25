@@ -1,0 +1,134 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: clamp(32rem, 72svh, 46rem);
+  overflow: hidden;
+  background: #fff;
+  isolation: isolate;
+}
+
+.panel {
+  position: absolute;
+  inset-block: 0;
+  overflow: hidden;
+  background: #0b2744;
+}
+
+.panelOne {
+  left: 0;
+  width: 34%;
+  clip-path: polygon(0 0, 100% 0, 86.75% 100%, 0 100%);
+}
+
+.panelTwo {
+  left: 29.5%;
+  width: 45%;
+  clip-path: polygon(10% 0, 88% 0, 100% 100%, 0 100%);
+}
+
+.panelThree {
+  left: 69.1%;
+  width: 30.9%;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 17.48% 100%);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background: rgba(5, 35, 70, 0.34);
+}
+
+.separator {
+  position: absolute;
+  top: -5%;
+  z-index: 20;
+  width: clamp(6px, 0.6vw, 10px);
+  height: 110%;
+  background: #fff;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.separatorOne {
+  left: 31.75%;
+  transform: skewX(-4deg);
+}
+
+.separatorTwo {
+  left: 71.8%;
+  transform: skewX(4deg);
+}
+
+@media (max-width: 1023px) {
+  .panelOne {
+    width: 34%;
+    clip-path: polygon(0 0, 100% 0, 91.18% 100%, 0 100%);
+  }
+
+  .panelTwo {
+    left: 31%;
+    width: 42%;
+    clip-path: polygon(7.14% 0, 92.86% 0, 100% 100%, 0 100%);
+  }
+
+  .panelThree {
+    left: 70%;
+    width: 30%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
+  }
+
+  .separatorOne {
+    left: 32.5%;
+    transform: skewX(-2deg);
+  }
+
+  .separatorTwo {
+    left: 71.5%;
+    transform: skewX(2deg);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    height: clamp(30rem, 68svh, 38rem);
+  }
+
+  .panelOne {
+    width: 33%;
+    clip-path: polygon(0 0, 100% 0, 95.45% 100%, 0 100%);
+  }
+
+  .panelTwo {
+    left: 31.5%;
+    width: 40%;
+    clip-path: polygon(3.75% 0, 96.25% 0, 100% 100%, 0 100%);
+  }
+
+  .panelThree {
+    left: 70%;
+    width: 30%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 5% 100%);
+  }
+
+  .separatorOne {
+    left: 32.25%;
+    transform: skewX(-0.75deg);
+  }
+
+  .separatorTwo {
+    left: 70.75%;
+    transform: skewX(0.75deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transition: none;
+  }
+}
