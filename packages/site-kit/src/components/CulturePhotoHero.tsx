@@ -43,9 +43,15 @@ export function CulturePhotoHero({
             className={styles.image}
             style={{
               objectPosition: image.objectPosition ?? "50% 50%",
-              transform: image.visualScale
-                ? `scale(${image.visualScale})`
-                : undefined,
+              transform:
+                [
+                  image.verticalOffset
+                    ? `translateY(${image.verticalOffset})`
+                    : "",
+                  image.visualScale ? `scale(${image.visualScale})` : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ") || undefined,
               transformOrigin: image.transformOrigin,
             }}
           />

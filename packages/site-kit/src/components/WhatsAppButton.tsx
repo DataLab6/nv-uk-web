@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { SiteConfig } from "../config/types";
+import styles from "./WhatsAppButton.module.css";
 
 function toWhatsAppNumber(phone: string) {
   const digits = phone.replace(/\D/g, "");
@@ -18,22 +19,41 @@ export function WhatsAppButton({ site }: { site: SiteConfig }) {
   );
 
   return (
-    <a
-      href={`https://wa.me/${phone}?text=${message}`}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={`Escribir a ${site.name} por WhatsApp`}
-      className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-40 inline-flex h-14 w-14 items-center justify-center gap-2 rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_rgba(15,23,42,0.22)] transition-[transform,filter,box-shadow] duration-200 hover:-translate-y-0.5 hover:brightness-95 hover:shadow-[0_14px_34px_rgba(15,23,42,0.28)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/35 motion-reduce:transform-none sm:bottom-6 sm:right-6 sm:w-auto sm:px-4"
-    >
-      <Image
-        src="/images/whatsapp.webp"
-        alt=""
-        width={32}
-        height={32}
-        className="h-8 w-8 object-contain"
-        aria-hidden="true"
-      />
-      <span className="hidden text-sm font-bold sm:inline">WhatsApp</span>
-    </a>
+    <div className={styles.clearance}>
+      <a
+        href={`https://wa.me/${phone}?text=${message}`}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`Escribir a ${site.name} por WhatsApp`}
+        className={styles.button}
+      >
+        <span className={styles.rotator} aria-hidden="true">
+          <span className={styles.iconFace}>
+            <Image
+              src="/images/whatsapp.webp"
+              alt=""
+              width={48}
+              height={48}
+              className={styles.icon}
+            />
+          </span>
+          <span className={styles.characterFace}>
+            <Image
+              src="/images/whatsapp-personaje.webp"
+              alt=""
+              width={176}
+              height={256}
+              className={styles.character}
+            />
+          </span>
+        </span>
+        <span className={styles.characterPrompt} aria-hidden="true">
+          Charla con Don Tulio
+        </span>
+        <span className={styles.label} aria-hidden="true">
+          WhatsApp
+        </span>
+      </a>
+    </div>
   );
 }

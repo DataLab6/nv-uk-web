@@ -75,6 +75,7 @@ export { ContactPage } from "./pages/ContactPage";
 export { SuppliersPage } from "./pages/SuppliersPage";
 export { CareersPage } from "./pages/CareersPage";
 export { LegalPage } from "./pages/LegalPage";
+export { EthicsCodePage } from "./pages/EthicsCodePage";
 export { DataPolicyPage } from "./pages/DataPolicyPage";
 export { PqrsPage } from "./pages/PqrsPage";
 export { PqrsFilingPage } from "./pages/PqrsFilingPage";

@@ -38,73 +38,67 @@ export function TurnstileWidget({ resetSignal = 0 }: TurnstileWidgetProps) {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<string | null>(null);
-  // Keep the first server and browser render identical. Turnstile is loaded
-  // after hydration because its script mutates the DOM by design.
-  const [isMounted, setIsMounted] = useState(false);
-  const [scriptReady, setScriptReady] = useState(false);
   const [token, setToken] = useState("");
   const [widgetError, setWidgetError] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
-    if (window.turnstile) setScriptReady(true);
-  }, []);
+    if (!siteKey) return;
 
-  useEffect(() => {
-    if (!siteKey || !isMounted || typeof document === "undefined") return;
-    if (window.turnstile) {
-      setScriptReady(true);
-      return;
-    }
+    let disposed = false;
+    const renderWidget = () => {
+      if (
+        disposed ||
+        !window.turnstile ||
+        !containerRef.current ||
+        widgetIdRef.current
+      ) {
+        return;
+      }
+
+      widgetIdRef.current = window.turnstile.render(containerRef.current, {
+        sitekey: siteKey,
+        callback: (nextToken) => {
+          setToken(nextToken);
+          setWidgetError(false);
+        },
+        "expired-callback": () => setToken(""),
+        "error-callback": () => {
+          setToken("");
+          setWidgetError(true);
+        },
+      });
+    };
+
+    if (window.turnstile) renderWidget();
 
     const existingScript = document.querySelector<HTMLScriptElement>(
       `script[src="${TURNSTILE_SCRIPT_SRC}"]`
     );
     const script = existingScript ?? document.createElement("script");
-    const onLoad = () => setScriptReady(true);
+    const onLoad = () => renderWidget();
     const onError = () => setWidgetError(true);
 
-    script.addEventListener("load", onLoad);
-    script.addEventListener("error", onError);
-    if (!existingScript) {
-      script.src = TURNSTILE_SCRIPT_SRC;
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
+    if (!window.turnstile) {
+      script.addEventListener("load", onLoad);
+      script.addEventListener("error", onError);
+      if (!existingScript) {
+        script.src = TURNSTILE_SCRIPT_SRC;
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+      }
     }
 
     return () => {
+      disposed = true;
       script.removeEventListener("load", onLoad);
       script.removeEventListener("error", onError);
-    };
-  }, [isMounted, siteKey]);
-
-  useEffect(() => {
-    if (!siteKey || !scriptReady || !window.turnstile || !containerRef.current) {
-      return;
-    }
-
-    const widgetId = window.turnstile.render(containerRef.current, {
-      sitekey: siteKey,
-      callback: (nextToken) => {
-        setToken(nextToken);
-        setWidgetError(false);
-      },
-      "expired-callback": () => setToken(""),
-      "error-callback": () => {
-        setToken("");
-        setWidgetError(true);
-      },
-    });
-    widgetIdRef.current = widgetId;
-
-    return () => {
       if (widgetIdRef.current && window.turnstile) {
         window.turnstile.remove(widgetIdRef.current);
         widgetIdRef.current = null;
       }
     };
-  }, [scriptReady, siteKey]);
+  }, [siteKey]);
 
   useEffect(() => {
     if (!resetSignal || !widgetIdRef.current || !window.turnstile) return;
@@ -113,7 +107,7 @@ export function TurnstileWidget({ resetSignal = 0 }: TurnstileWidgetProps) {
     window.turnstile.reset(widgetIdRef.current);
   }, [resetSignal]);
 
-  if (!siteKey || !isMounted) return null;
+  if (!siteKey) return null;
 
   return (
     <div className="mt-6" aria-label="Verificación de seguridad">
@@ -121,7 +115,8 @@ export function TurnstileWidget({ resetSignal = 0 }: TurnstileWidgetProps) {
       <input type="hidden" name="turnstileToken" value={token} readOnly />
       {widgetError ? (
         <p className="mt-2 text-xs font-semibold text-destructive" role="alert">
-          No fue posible cargar la verificación. Recarga la página e inténtalo de nuevo.
+          No fue posible cargar la verificación. Recarga la página e inténtalo
+          de nuevo.
         </p>
       ) : null}
     </div>

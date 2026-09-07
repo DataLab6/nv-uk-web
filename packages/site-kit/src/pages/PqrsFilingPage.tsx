@@ -24,6 +24,9 @@ import {
   PQRS_ATTACHMENT_RULES,
   PQRS_DOCUMENT_TYPES,
   PQRS_RESPONSE_TERMS_NOTE,
+  PQRS_RELATIONSHIPS,
+  PQRS_REQUEST_TYPES,
+  PQRS_SUBMISSION_NOTE,
 } from "../config/pqrsFilingContent";
 import type { SiteConfig } from "../config/types";
 import { TurnstileWidget } from "../components/TurnstileWidget";
@@ -33,12 +36,15 @@ import {
   sanitizeDigits,
   sanitizePersonName,
   sanitizePhone,
+  validatePqrsFields,
 } from "../lib/formValidation";
 
 type TipoSolicitante = "natural" | "juridica" | "apoderado";
 type PersonaRepresentadaTipo = "natural" | "juridica";
 
 interface FilingFormState {
+  relacion: string;
+  causal: string;
   tipoSolicitud: string;
   tipoSolicitante: TipoSolicitante;
   // Solicitante persona natural (también usado como "persona representada" cuando el
@@ -65,7 +71,6 @@ interface FilingFormState {
   emailConfirm: string;
   telefono: string;
   asunto: string;
-  objeto: string;
   hechos: string;
   aceptaTratamiento: boolean;
   aceptaRespuestaCorreo: boolean;
@@ -75,6 +80,8 @@ interface FilingFormState {
 function createInitialState(tipoSolicitud: string): FilingFormState {
   return {
     tipoSolicitud,
+    relacion: "",
+    causal: "",
     tipoSolicitante: "natural",
     nombres: "",
     apellidos: "",
@@ -95,7 +102,6 @@ function createInitialState(tipoSolicitud: string): FilingFormState {
     emailConfirm: "",
     telefono: "",
     asunto: "",
-    objeto: "",
     hechos: "",
     aceptaTratamiento: false,
     aceptaRespuestaCorreo: false,
@@ -162,25 +168,20 @@ function FieldError({ id, message }: { id: string; message?: string }) {
  */
 export function PqrsFilingPage({ site }: { site: SiteConfig }) {
   const requestTypes = useMemo(
-    () => site.pqrs.categories.map((category) => category.title),
-    [site.pqrs.categories]
+    () => PQRS_REQUEST_TYPES.map((category) => category.title as string),
+    []
   );
-  const [preselected, setPreselected] = useState<string | null>(null);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const tipo = params.get("tipo");
-    if (tipo && requestTypes.includes(tipo)) setPreselected(tipo);
-  }, [requestTypes]);
-
   const [form, setForm] = useState<FilingFormState>(() =>
     createInitialState(requestTypes[0] ?? "")
   );
   useEffect(() => {
-    if (preselected) {
-      setForm((current) => ({ ...current, tipoSolicitud: preselected }));
-    }
-  }, [preselected]);
+    const tipo = new URLSearchParams(window.location.search).get("tipo");
+    if (!tipo || !requestTypes.includes(tipo)) return;
+    const frame = requestAnimationFrame(() => {
+      setForm((current) => ({ ...current, tipoSolicitud: tipo, causal: "" }));
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [requestTypes]);
 
   const [attachments, setAttachments] = useState<File[]>([]);
   const [attachmentError, setAttachmentError] = useState<string | null>(null);
@@ -202,6 +203,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
     key: K,
     value: FilingFormState[K]
   ) {
+    setShowReview(false);
     let nextValue = value;
     if (typeof value === "string") {
       const fieldName = String(key);
@@ -211,7 +213,11 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
         nextValue = sanitizePersonName(value) as FilingFormState[K];
       }
     }
-    setForm((current) => ({ ...current, [key]: nextValue }));
+    setForm((current) => ({
+      ...current,
+      [key]: nextValue,
+      ...(key === "tipoSolicitud" ? { causal: "" } : {}),
+    }));
   }
 
   function handleFilesSelected(fileList: FileList | null) {
@@ -258,6 +264,28 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
 
   function validate(): Record<string, string> {
     const next: Record<string, string> = {};
+    const files = [
+      ...attachments,
+      ...(form.tipoSolicitante === "apoderado" && representationProof
+        ? [representationProof]
+        : []),
+    ];
+    const invalidFile = files.find(
+      (file) =>
+        !file.size ||
+        file.size > PQRS_ATTACHMENT_RULES.maxFileSizeBytes ||
+        !(
+          PQRS_ATTACHMENT_RULES.acceptedExtensions as readonly string[]
+        ).includes(`.${file.name.split(".").pop()?.toLowerCase()}`)
+    );
+    const fileError = invalidFile
+      ? `Revisa el formato y tamaño del archivo ${invalidFile.name}.`
+      : files.reduce((sum, file) => sum + file.size, 0) >
+          PQRS_ATTACHMENT_RULES.maxTotalSizeBytes
+        ? "El total de anexos, incluida la representación, supera 25 MB."
+        : null;
+    setAttachmentError(fileError);
+    if (fileError) next.attachments = fileError;
 
     if (!form.tipoSolicitud)
       next.tipoSolicitud = "Selecciona un tipo de solicitud.";
@@ -320,8 +348,6 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
     }
 
     if (!form.asunto.trim()) next.asunto = "Escribe un asunto.";
-    if (!form.objeto.trim())
-      next.objeto = "Describe el objeto de tu solicitud.";
     if (!form.hechos.trim())
       next.hechos = "Describe los hechos y razones de tu solicitud.";
 
@@ -334,7 +360,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
     if (!form.aceptaVeracidad)
       next.aceptaVeracidad = "Debes declarar que la información es veraz.";
 
-    return next;
+    return { ...next, ...validatePqrsFields({ ...form }) };
   }
 
   function focusFirstError(nextErrors: Record<string, string>) {
@@ -364,23 +390,30 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
 
   async function handleSend() {
     if (isSubmitting || submissionStatus === "success") return;
-    if (attachmentError) {
-      setSubmissionStatus("error");
-      setSubmissionMessage(attachmentError);
+    const nextErrors = validate();
+    if (Object.keys(nextErrors).length) {
+      setErrors(nextErrors);
+      setShowReview(false);
+      focusFirstError(nextErrors);
       return;
     }
-
     setIsSubmitting(true);
     setSubmissionStatus("idle");
     setSubmissionMessage("");
 
     try {
       const body = new FormData();
+      body.append(
+        "turnstileToken",
+        reviewRef.current?.querySelector<HTMLInputElement>(
+          'input[name="turnstileToken"]'
+        )?.value ?? ""
+      );
       for (const [key, value] of Object.entries(form)) {
         body.append(key, String(value));
       }
       for (const file of attachments) body.append("attachments", file);
-      if (representationProof) {
+      if (representationProof && form.tipoSolicitante === "apoderado") {
         body.append("representationProof", representationProof);
       }
 
@@ -393,12 +426,14 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
         error?: string;
       } | null;
       if (!response.ok || !result?.ok) {
-        throw new Error(result?.error || "No fue posible radicar la solicitud.");
+        throw new Error(
+          result?.error || "No fue posible radicar la solicitud."
+        );
       }
 
       setSubmissionStatus("success");
       setSubmissionMessage(
-        "Recibimos tu solicitud. La respuesta será enviada al correo registrado."
+        "Tu PQRS fue aceptada por el servicio de envío de correo. Este envío no genera un radicado oficial."
       );
     } catch (error) {
       setSubmissionStatus("error");
@@ -435,8 +470,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
         : maskDocument(form.numeroDocumento);
 
   const asuntoCounterId = useId();
-  const objetoCounterId = useId();
   const hechosCounterId = useId();
+  const requestContent =
+    PQRS_REQUEST_TYPES.find((type) => type.title === form.tipoSolicitud) ??
+    PQRS_REQUEST_TYPES[0];
 
   return (
     <>
@@ -458,10 +495,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
             PQRS
           </span>
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Radicación de PQRS
+            Envío de PQRS
           </h1>
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Registra tu petición, queja, reclamo o sugerencia
+            Presenta tu petición, queja, reclamo o solicitud
           </p>
 
           <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
@@ -480,6 +517,9 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
       </header>
 
       <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+        <p className="mb-8 text-sm text-muted-foreground">
+          {PQRS_SUBMISSION_NOTE}
+        </p>
         <form onSubmit={handleReview} noValidate className="space-y-8">
           {/* A. Tipo de solicitud */}
           <fieldset className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
@@ -516,6 +556,25 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
               id="tipoSolicitud-error"
               message={errors.tipoSolicitud}
             />
+            <label className="mt-4 block text-sm font-semibold text-card-foreground">
+              Relación con la empresa
+              <select
+                className={fieldClassName}
+                value={form.relacion}
+                onChange={(e) => update("relacion", e.target.value)}
+                ref={(el) => {
+                  fieldRefs.current.relacion = el;
+                }}
+                aria-invalid={Boolean(errors.relacion)}
+                aria-describedby="relacion-error"
+              >
+                <option value="">Selecciona una opción</option>
+                {PQRS_RELATIONSHIPS.map((relationship) => (
+                  <option key={relationship}>{relationship}</option>
+                ))}
+              </select>
+              <FieldError id="relacion-error" message={errors.relacion} />
+            </label>
           </fieldset>
 
           {/* B. Tipo de solicitante y datos condicionales */}
@@ -793,6 +852,20 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
 
                   {form.representadoTipo === "natural" ? (
                     <div className="mt-4 grid gap-5 sm:grid-cols-2">
+                      <label className="text-sm font-semibold text-card-foreground">
+                        Tipo de documento de la persona representada
+                        <select
+                          className={fieldClassName}
+                          value={form.tipoDocumento}
+                          onChange={(e) =>
+                            update("tipoDocumento", e.target.value)
+                          }
+                        >
+                          {PQRS_DOCUMENT_TYPES.map((type) => (
+                            <option key={type}>{type}</option>
+                          ))}
+                        </select>
+                      </label>
                       <label className="text-sm font-semibold text-card-foreground">
                         Nombres
                         <input
@@ -1081,6 +1154,9 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
               <label className="text-sm font-semibold text-card-foreground sm:col-span-2">
                 Número telefónico (opcional, dato complementario)
                 <input
+                  ref={(el) => {
+                    fieldRefs.current.telefono = el;
+                  }}
                   className={fieldClassName}
                   type="tel"
                   autoComplete="tel"
@@ -1092,6 +1168,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                     update("telefono", sanitizePhone(e.target.value))
                   }
                 />
+                <FieldError id="telefono-error" message={errors.telefono} />
               </label>
             </div>
             <p className="mt-5 flex items-center gap-2 rounded-xl bg-primary/5 px-4 py-3 text-sm font-semibold text-primary">
@@ -1133,30 +1210,29 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
             </label>
 
             <label className="mt-4 block text-sm font-semibold text-card-foreground">
-              Objeto de la solicitud
-              <textarea
+              {requestContent.causeLabel} (en tus palabras)
+              <input
                 ref={(el) => {
-                  fieldRefs.current.objeto = el;
+                  fieldRefs.current.causal = el;
                 }}
                 className={cn(
                   fieldClassName,
-                  "min-h-28 resize-y",
-                  errors.objeto && errorFieldClassName
+                  errors.causal && errorFieldClassName
                 )}
-                maxLength={2000}
-                placeholder="Explica claramente lo que esperas de la empresa."
-                value={form.objeto}
-                onChange={(e) => update("objeto", e.target.value)}
-                aria-invalid={Boolean(errors.objeto)}
-                aria-describedby={objetoCounterId}
+                maxLength={200}
+                value={form.causal}
+                onChange={(e) => update("causal", e.target.value)}
+                aria-invalid={Boolean(errors.causal)}
+                aria-describedby="causal-help causal-error"
               />
               <span
-                id={objetoCounterId}
-                className="mt-1 block text-right text-xs text-muted-foreground"
+                id="causal-help"
+                className="mt-2 block text-xs text-muted-foreground"
               >
-                {form.objeto.length}/2000
+                No necesitas elegir una causal de un catálogo: describe
+                brevemente el motivo.
               </span>
-              <FieldError id="objeto-error" message={errors.objeto} />
+              <FieldError id="causal-error" message={errors.causal} />
             </label>
 
             <label className="mt-4 block text-sm font-semibold text-card-foreground">
@@ -1171,7 +1247,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   errors.hechos && errorFieldClassName
                 )}
                 maxLength={4000}
-                placeholder="Describe los hechos, antecedentes y motivos que sustentan tu solicitud."
+                placeholder={requestContent.narrative}
                 value={form.hechos}
                 onChange={(e) => update("hechos", e.target.value)}
                 aria-invalid={Boolean(errors.hechos)}
@@ -1187,9 +1263,9 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
             </label>
 
             <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-              Describe los hechos de forma clara, cronológica y evita incluir
-              información sensible que no sea necesaria para resolver la
-              solicitud.
+              {requestContent.narrative} Describe los hechos de forma clara,
+              cronológica y evita incluir información sensible que no sea
+              necesaria para resolver la solicitud.
             </p>
           </fieldset>
 
@@ -1411,7 +1487,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                 aria-hidden="true"
               />
               <h2 className="text-xl font-bold text-foreground">
-                Revisa tu solicitud antes de radicarla
+                Revisa tu solicitud antes de enviarla
               </h2>
             </div>
 
@@ -1448,10 +1524,10 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
               </div>
               <div className="sm:col-span-2">
                 <dt className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
-                  Objeto de la solicitud
+                  Relación y motivo
                 </dt>
                 <dd className="mt-1 whitespace-pre-line text-foreground">
-                  {form.objeto}
+                  {form.relacion}: {form.causal}
                 </dd>
               </div>
               <div className="sm:col-span-2">
@@ -1470,7 +1546,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   {attachments.length > 0
                     ? attachments.map((f) => f.name).join(", ")
                     : "Ninguno"}
-                  {representationProof
+                  {representationProof && form.tipoSolicitante === "apoderado"
                     ? ` · Acreditación de representación: ${representationProof.name}`
                     : ""}
                 </dd>
@@ -1511,7 +1587,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   ? "Enviando…"
                   : submissionStatus === "success"
                     ? "Solicitud enviada"
-                    : "Radicar solicitud"}
+                    : "Enviar solicitud"}
               </button>
             </div>
 

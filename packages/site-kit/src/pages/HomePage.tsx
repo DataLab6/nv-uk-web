@@ -3,7 +3,6 @@ import { CustomerChannels } from "../components/CustomerChannels";
 import { Hero } from "../components/Hero";
 import { Innovation } from "../components/Innovation";
 import { Stats } from "../components/Stats";
-import { WhatsAppButton } from "../components/WhatsAppButton";
 import type { SiteConfig } from "../config/types";
 
 /**
@@ -18,7 +17,6 @@ export function HomePage({ site }: { site: SiteConfig }) {
       <Stats site={site} />
       <CustomerChannels site={site} />
       <Innovation site={site} />
-      <WhatsAppButton site={site} />
     </>
   );
 }

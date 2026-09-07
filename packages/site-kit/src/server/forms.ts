@@ -2,6 +2,11 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { loadEnvConfig } from "@next/env";
 import type { SiteConfig } from "../config/types";
+import {
+  PQRS_REQUEST_TYPES as PQRS_TYPES,
+  PQRS_ATTACHMENT_RULES,
+} from "../config/pqrsFilingContent";
+import { validatePqrsFields } from "../lib/formValidation";
 
 // Next normally loads environment files from the individual app directory.
 // This monorepo keeps the shared secret in the repository root, so resolve
@@ -39,7 +44,6 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_TEXT_LENGTH = 5000;
 const MAX_ATTACHMENT_BYTES = 10 * 1024 * 1024;
 const MAX_TOTAL_ATTACHMENT_BYTES = 25 * 1024 * 1024;
-const MAX_PQRS_FILES = 6;
 const ALLOWED_RESUME_EXTENSIONS = new Set([".pdf", ".doc", ".docx"]);
 const ALLOWED_SUPPLIER_EXTENSIONS = new Set([
   ".pdf",
@@ -56,12 +60,9 @@ const ALLOWED_PQRS_EXTENSIONS = new Set([
   ".jpeg",
   ".png",
 ]);
-const PQRS_REQUEST_TYPES = new Set([
-  "Peticiones",
-  "Quejas",
-  "Reclamos",
-  "Sugerencias",
-]);
+const PQRS_REQUEST_TYPES = new Set<string>(
+  PQRS_TYPES.map((type) => type.title)
+);
 const PQRS_APPLICANT_TYPES = new Set(["natural", "juridica", "apoderado"]);
 const PQRS_PERSON_TYPES = new Set(["natural", "juridica"]);
 const PQRS_DOCUMENT_TYPES = new Set([
@@ -91,6 +92,19 @@ const SUPPLIER_DISTRIBUTION_SEGMENTS = new Set([
 const YES_NO_OPTIONS = new Set(["Sí", "No"]);
 const PERSON_NAME_PATTERN = /^[\p{L}][\p{L}\s.'-]*$/u;
 const DIGITS_PATTERN = /^\d+$/;
+const CONTACT_TYPES = new Set(["general", "client"]);
+const GENERAL_CONTACT_SUBJECTS: Readonly<Record<string, string>> = {
+  commercial: "Consulta comercial",
+  general: "Información general",
+  other: "Otro motivo",
+};
+const CLIENT_CONTACT_SUBJECTS: Readonly<Record<string, string>> = {
+  orders: "Pedidos y entregas",
+  billing: "Facturación",
+  payments: "Cartera y pagos",
+  "customer-service": "Servicio al cliente",
+  "client-other": "Otro motivo como cliente",
+};
 
 class FormRequestError extends Error {
   readonly status: number;
@@ -458,43 +472,72 @@ export async function handleContactRequest(request: Request, site: FormSiteId) {
     if (jsonText(payload, "website")) return jsonResponse({ ok: true });
     await verifyTurnstile(request, jsonText(payload, "turnstileToken"));
 
-    const name = required(jsonText(payload, "name"), "nombre");
+    const contactType = validChoice(
+      required(jsonText(payload, "contactType"), "tipo de contacto", 20),
+      CONTACT_TYPES,
+      "tipo de contacto"
+    );
+    const isClient = contactType === "client";
+    const contactTypeLabel = isClient ? "Soy cliente" : "Contacto general";
+    const allowedSubjects = isClient
+      ? CLIENT_CONTACT_SUBJECTS
+      : GENERAL_CONTACT_SUBJECTS;
+    const name = required(jsonText(payload, "name"), "nombre", 120);
     const email = validEmail(
-      required(jsonText(payload, "email"), "correo electrónico")
+      required(jsonText(payload, "email"), "correo electrónico", 254)
     );
     const phone = jsonText(payload, "phone").replace(/\D/g, "");
-    const company = jsonText(payload, "company");
-    const subject = required(jsonText(payload, "subject"), "asunto", 100);
+    if (phone) validDigits(phone, "teléfono", 30);
+    const companyValue = jsonText(payload, "company");
+    const company = isClient
+      ? required(companyValue, "empresa o establecimiento", 160)
+      : companyValue
+        ? required(companyValue, "empresa o establecimiento", 160)
+        : "";
+    const city = isClient
+      ? required(jsonText(payload, "city"), "ciudad", 120)
+      : "";
+    const clientCodeValue = isClient ? jsonText(payload, "clientCode") : "";
+    const clientCode = clientCodeValue
+      ? required(clientCodeValue, "código de cliente", 80)
+      : "";
+    const subject = validChoice(
+      required(jsonText(payload, "subject"), "asunto", 100),
+      new Set(Object.keys(allowedSubjects)),
+      "asunto"
+    );
     const message = required(jsonText(payload, "message"), "mensaje");
-    const subjectLabel =
-      (
-        {
-          commercial: "Consulta comercial",
-          general: "Información general",
-          other: "Otro motivo",
-        } as Record<string, string>
-      )[subject] || subject;
+    const subjectLabel = allowedSubjects[subject];
 
     await sendWithResend({
       site,
       kind: "contact",
-      subject: `[Contacto] ${subjectLabel} — ${name}`,
+      subject: `[${isClient ? "Cliente" : "Contacto general"}] ${subjectLabel} — ${name}`,
       replyTo: email,
       html: renderEmail({
         site,
-        eyebrow: "Nuevo contacto",
-        title: `${name} quiere ponerse en contacto`,
-        intro: `Se recibió una consulta desde el sitio web de ${getEmailBrand(site).name}.`,
+        eyebrow: isClient ? "Solicitud de cliente" : "Nuevo contacto general",
+        title: isClient
+          ? `${name} solicita atención como cliente`
+          : `${name} quiere ponerse en contacto`,
+        intro: isClient
+          ? `Se recibió una solicitud de un cliente desde el sitio web de ${getEmailBrand(site).name}.`
+          : `Se recibió una consulta general desde el sitio web de ${getEmailBrand(site).name}.`,
         summaryLabel: "Motivo de contacto",
         summary: subjectLabel,
         sections: [
           {
-            title: "Información de contacto",
+            title: isClient
+              ? "Información del cliente"
+              : "Información de contacto",
             fields: [
+              ["Tipo de contacto", contactTypeLabel],
               ["Nombre", name],
               ["Correo electrónico", email],
               ["Teléfono", phone],
               ["Empresa o establecimiento", company],
+              ["Ciudad", city],
+              ["Código de cliente", clientCode],
             ],
           },
           { title: "Mensaje recibido", content: message },
@@ -760,6 +803,45 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
     if (formValue(form, "website")) return jsonResponse({ ok: true });
     await verifyTurnstile(request, formValue(form, "turnstileToken"));
 
+    const errors = validatePqrsFields(Object.fromEntries(form));
+    if (Object.keys(errors).length) {
+      return jsonResponse(
+        { ok: false, error: Object.values(errors)[0], errors },
+        400
+      );
+    }
+    // Exclude inactive identity branches from the email, even on crafted requests.
+    const applicant = formValue(form, "tipoSolicitante");
+    const natural =
+      applicant === "natural" ||
+      (applicant === "apoderado" &&
+        formValue(form, "representadoTipo") === "natural");
+    for (const key of [
+      "nombres",
+      "apellidos",
+      "tipoDocumento",
+      "numeroDocumento",
+      "razonSocial",
+      "nit",
+      "repNombres",
+      "repApellidos",
+      "repTipoDocumento",
+      "repNumeroDocumento",
+      "apoderadoNombres",
+      "apoderadoApellidos",
+      "apoderadoTipoDocumento",
+      "apoderadoNumeroDocumento",
+    ]) {
+      const active = key.startsWith("apoderado")
+        ? applicant === "apoderado"
+        : key.startsWith("rep")
+          ? applicant === "juridica"
+          : ["razonSocial", "nit"].includes(key)
+            ? !natural
+            : natural;
+      if (!active) form.delete(key);
+    }
+
     const email = validEmail(
       required(formValue(form, "email"), "correo electrónico")
     );
@@ -784,11 +866,8 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
       "tipo de solicitud"
     );
     const asunto = required(formValue(form, "asunto"), "asunto", 150);
-    const objeto = required(
-      formValue(form, "objeto"),
-      "objeto de la solicitud",
-      2000
-    );
+    const relacion = formValue(form, "relacion");
+    const causal = formValue(form, "causal");
     const hechos = required(
       formValue(form, "hechos"),
       "hechos y razones",
@@ -892,12 +971,13 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
       .getAll("attachments")
       .filter((value): value is File => value instanceof File);
     const proof = form.get("representationProof");
-    if (proof instanceof File && proof.size > 0) files.push(proof);
-    if (files.length > MAX_PQRS_FILES) {
+    if (files.length > PQRS_ATTACHMENT_RULES.maxFiles) {
       throw new FormRequestError(
-        `Solo puedes adjuntar hasta ${MAX_PQRS_FILES} archivos.`
+        `Solo puedes adjuntar hasta ${PQRS_ATTACHMENT_RULES.maxFiles} anexos.`
       );
     }
+    if (tipoSolicitante === "apoderado" && proof instanceof File)
+      files.push(proof);
     const totalBytes = files.reduce((total, file) => total + file.size, 0);
     if (totalBytes > MAX_TOTAL_ATTACHMENT_BYTES) {
       throw new FormRequestError("El tamaño total de los anexos supera 25 MB.");
@@ -908,10 +988,9 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
     const attachmentNames = files.length
       ? files.map((file) => file.name).join(", ")
       : "No se adjuntaron documentos";
-    const representedPerson =
-      formValue(form, "representadoTipo") === "juridica"
-        ? formValue(form, "razonSocial")
-        : `${formValue(form, "nombres")} ${formValue(form, "apellidos")}`.trim();
+    const representedPerson = !natural
+      ? formValue(form, "razonSocial")
+      : `${formValue(form, "nombres")} ${formValue(form, "apellidos")}`.trim();
 
     await sendWithResend({
       site,
@@ -931,17 +1010,36 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
             title: "Resumen de la solicitud",
             fields: [
               ["Tipo de solicitud", tipoSolicitud],
+              ["Relación con la empresa", relacion],
+              ["Motivo declarado (texto libre, sin catálogo aprobado)", causal],
+              [
+                "Estado del canal",
+                "Envío por correo; sin radicado oficial ni expediente persistido",
+              ],
               ["Tipo de solicitante", tipoSolicitante],
             ],
           },
           {
             title: "Datos del solicitante",
             fields: [
-              ["Persona representada", representedPerson],
+              [
+                tipoSolicitante === "apoderado"
+                  ? "Persona representada"
+                  : "Solicitante",
+                representedPerson,
+              ],
               ["Tipo de documento", formValue(form, "tipoDocumento")],
               ["Número de documento", formValue(form, "numeroDocumento")],
               ["Razón social", formValue(form, "razonSocial")],
               ["NIT", formValue(form, "nit")],
+              [
+                "Tipo de documento del representante",
+                formValue(form, "repTipoDocumento"),
+              ],
+              [
+                "Tipo de documento del apoderado",
+                formValue(form, "apoderadoTipoDocumento"),
+              ],
               [
                 "Representante",
                 `${formValue(form, "repNombres")} ${formValue(form, "repApellidos")}`.trim(),
@@ -960,7 +1058,6 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
               ],
             ],
           },
-          { title: "Objeto de la solicitud", content: objeto },
           { title: "Hechos y razones", content: hechos },
           {
             title: "Datos para la respuesta",

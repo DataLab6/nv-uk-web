@@ -19,14 +19,8 @@ export function createCorporateNavigation(
       label: "Contacto",
       href: "/contacto",
       page: "contact",
-      children: [
-        {
-          label: "Proveedores",
-          href: "/proveedores",
-          page: "suppliers",
-        },
-      ],
     },
+    { label: "Proveedores", href: "/proveedores", page: "suppliers" },
     {
       label: "Trabaja con nosotros",
       href: "/trabaja-con-nosotros",
@@ -37,6 +31,11 @@ export function createCorporateNavigation(
       href: "/legal",
       page: "legal",
       children: [
+        {
+          label: "Código de ética",
+          href: "/legal/codigo-de-etica",
+          page: "ethics",
+        },
         {
           label: "Tratamiento de datos",
           href: "/legal/tratamiento-de-datos",

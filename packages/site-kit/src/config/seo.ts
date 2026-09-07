@@ -45,8 +45,9 @@ const FREQUENCY_BY_PAGE: Partial<
  * Builds the sitemap directly from the real navigation tree, so it can never
  * list a route that doesn't actually exist in the site's own menu, nor drift
  * out of sync with it. Redirect-only legacy routes and the intentionally
- * unlinked, `noindex`d PQRS filing route are excluded by construction: they
- * are not part of `site.navigation`.
+ * unlinked, `noindex`d PQRS filing route is excluded by construction. The
+ * provisional ethics page is linked for review but explicitly filtered while
+ * its fictional content remains `noindex`.
  *
  * `lastModified` is intentionally omitted: this project has no reliable
  * per-page last-modified source (no CMS, no content timestamps), and
@@ -54,11 +55,13 @@ const FREQUENCY_BY_PAGE: Partial<
  * as changing on every deploy.
  */
 export function createSitemapEntries(site: SiteConfig): MetadataRoute.Sitemap {
-  return getSiteRoutes(site).map((item) => ({
-    url: new URL(item.href, site.siteUrl).toString(),
-    changeFrequency: FREQUENCY_BY_PAGE[item.page] ?? "monthly",
-    priority: PRIORITY_BY_PAGE[item.page] ?? 0.7,
-  }));
+  return getSiteRoutes(site)
+    .filter((item) => item.page !== "ethics")
+    .map((item) => ({
+      url: new URL(item.href, site.siteUrl).toString(),
+      changeFrequency: FREQUENCY_BY_PAGE[item.page] ?? "monthly",
+      priority: PRIORITY_BY_PAGE[item.page] ?? 0.7,
+    }));
 }
 
 /**

@@ -15,6 +15,7 @@ const PAGE_COPY_KEYS = {
   suppliers: "suppliers",
   careers: "careers",
   legal: "legal",
+  ethics: "ethics",
   dataPolicy: "dataPolicy",
   pqrs: "pqrs",
 } as const satisfies Record<SitePageKey, keyof SiteConfig>;

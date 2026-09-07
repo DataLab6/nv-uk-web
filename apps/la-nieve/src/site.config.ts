@@ -103,6 +103,70 @@ const laNieveBrandLogos = [
   brandLogo("Súper de Alimentos", "/brands/super-alimentos.png", 400, 201, 164),
 ] as const;
 
+function extractedAllyLogo(
+  id: string,
+  name: string,
+  width: number,
+  height: number,
+  displayWidth = 160,
+  visualScale?: number
+) {
+  return brandLogo(
+    name,
+    `/brands/allies-page/logo-${id}.webp`,
+    width,
+    height,
+    displayWidth,
+    visualScale
+  );
+}
+
+/** Catálogo completo exclusivo de la página Aliados comerciales. */
+const laNieveAlliesPageLogos = [
+  extractedAllyLogo("061", "Alpina", 600, 314, 178),
+  extractedAllyLogo("010", "Colgate", 400, 400, 156, 1.75),
+  extractedAllyLogo("056", "Vuse", 600, 188, 196, 1.08),
+  extractedAllyLogo("016", "Maggi", 400, 400, 136),
+  extractedAllyLogo("021", "Nestlé", 400, 400, 150, 1.65),
+  extractedAllyLogo("015", "Milo", 400, 400, 136),
+  extractedAllyLogo("018", "Nescafé", 400, 400, 154, 2),
+  extractedAllyLogo("006", "Palmolive", 600, 306, 188, 1.05),
+  extractedAllyLogo("004", "Suavitel", 400, 400, 144, 1.55),
+  extractedAllyLogo("003", "Axion", 400, 400, 136),
+  extractedAllyLogo("008", "Protex", 400, 400, 150, 2),
+  extractedAllyLogo("054", "San Jorge", 400, 400, 142),
+  extractedAllyLogo("035", "Dog Chow", 400, 400, 144, 1.1),
+  extractedAllyLogo("036", "Cat Chow", 600, 297, 160, 1.18),
+  extractedAllyLogo("022", "Saltinas", 400, 400, 144, 1.55),
+  extractedAllyLogo("017", "Klim", 400, 400, 136),
+  extractedAllyLogo("057", "Bon Yurt", 400, 400, 144, 1.1),
+  extractedAllyLogo("060", "Yogo Yogo", 400, 400, 142, 1.05),
+  extractedAllyLogo("019", "La Lechera", 400, 400, 144, 1.3),
+  extractedAllyLogo("002", "Fabuloso", 400, 400, 136),
+  extractedAllyLogo("012", "Ajax", 498, 400, 152, 1.05),
+  extractedAllyLogo("050", "Quaker", 600, 303, 172, 1.18),
+  extractedAllyLogo("043", "Haz de Oros", 375, 400, 140, 1.05),
+  extractedAllyLogo("044", "Pastas La Muñeca", 510, 400, 154, 1.2),
+  extractedAllyLogo("046", "Riquísimo", 600, 371, 190, 1.05),
+  extractedAllyLogo("029", "Babysec", 600, 366, 180, 1.08),
+  extractedAllyLogo("028", "Ladysoft", 600, 364, 186, 1.08),
+  extractedAllyLogo("027", "Elite Profesional", 600, 365, 188, 1.08),
+  extractedAllyLogo("039", "Felix", 449, 400, 150, 1.05),
+  extractedAllyLogo("011", "Speed Stick", 400, 400, 142, 1.2),
+  extractedAllyLogo("014", "Lady Speed Stick", 510, 400, 150, 1.7),
+  extractedAllyLogo("048", "P.A.N.", 400, 400, 138, 1.8),
+  extractedAllyLogo("055", "Gel'hada", 600, 290, 182, 1.1),
+  extractedAllyLogo("023", "Nestum", 400, 400, 144, 1.6),
+  extractedAllyLogo("020", "Fitness", 400, 400, 148, 1.5),
+  extractedAllyLogo("038", "Alpo", 478, 400, 140, 1.22),
+  extractedAllyLogo("037", "Gatsy", 400, 400, 136, 1.05),
+  extractedAllyLogo("045", "Pastas San Remo", 412, 400, 152, 1.1),
+  extractedAllyLogo("047", "Harina La Americana", 600, 157, 194, 1.08),
+  extractedAllyLogo("058", "Glacitas", 600, 344, 188, 1.12),
+  extractedAllyLogo("059", "Baby Soft", 400, 400, 140, 1.8),
+  extractedAllyLogo("049", "Aunt Jemima", 600, 344, 188, 1.05),
+] as const;
+
 function advertisingCampaign(
   id: string,
   name: string,
@@ -389,7 +453,7 @@ export const siteConfig = {
     eyebrow: "Clientes por canal",
     title: "Soluciones para cada tipo de negocio",
     description:
-      "La arquitectura organiza la información comercial en los seis canales definidos para el sitio.",
+      "La arquitectura organiza la información comercial en los cinco canales definidos para el sitio.",
     items: [
       {
         icon: "store",
@@ -408,12 +472,6 @@ export const siteConfig = {
         title: "Mayoristas",
         description:
           "Contenido comercial destinado a operaciones de compra y distribución mayorista.",
-      },
-      {
-        icon: "briefcase",
-        title: "Institucional",
-        description:
-          "Un canal preparado para comunicar soluciones orientadas a organizaciones.",
       },
       {
         icon: "wine",
@@ -458,9 +516,9 @@ export const siteConfig = {
   },
   allies: {
     eyebrow: "Aliados comerciales",
-    title: "Marcas que hacen parte de esta historia",
+    title: "Aliados que hacen parte de esta historia",
     description: "Conoce las marcas aliadas de Distribuciones La Nieve.",
-    items: laNieveBrandLogos,
+    items: laNieveAlliesPageLogos,
     logos: laNieveBrandLogos,
     advertisements: laNieveAdvertisements,
   },
@@ -492,17 +550,17 @@ export const siteConfig = {
         width: 960,
         height: 1280,
         treatment: "photo",
-        objectPosition: "50% 28%",
+        objectPosition: "50% 14%",
         visualScale: 1.06,
         transformOrigin: "50% 15%",
       },
       {
-        src: "/images/culture/people/hero-persona-3.jpeg",
-        alt: "Clientes acompañados por La Nieve en su negocio",
-        width: 1200,
-        height: 1600,
+        src: "/images/culture/people/hero-persona-3-romart-colgate-camisa.jpeg",
+        alt: "Colaborador de La Nieve junto a un aliado comercial",
+        width: 960,
+        height: 1280,
         treatment: "photo",
-        objectPosition: "50% 52%",
+        objectPosition: "50% 42%",
       },
     ],
     topics: [
@@ -581,6 +639,12 @@ export const siteConfig = {
     title: "Transparencia y atención responsable",
     description:
       "Consulta la política de tratamiento de datos y la información sobre PQRS de Distribuciones La Nieve.",
+  },
+  ethics: {
+    eyebrow: "Demostración · contenido provisional",
+    title: "Código de ética — borrador no aprobado",
+    description:
+      "Propuesta ficticia para explorar principios y pautas de conducta empresarial. No constituye una política de Distribuciones La Nieve.",
   },
   dataPolicy: {
     eyebrow: "Tratamiento de datos",

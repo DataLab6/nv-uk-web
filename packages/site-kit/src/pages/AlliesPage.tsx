@@ -2,6 +2,7 @@ import { ImageIcon } from "lucide-react";
 import type { SiteAlly, SiteConfig } from "../config/types";
 import { AdvertisingShowcase } from "../components/AdvertisingShowcase";
 import { AllyLogo } from "../components/AllyLogo";
+import { AlliesLogoGrid } from "../components/AlliesLogoGrid";
 import { PageIntro } from "../components/PageIntro";
 import { RevealGroup } from "../components/RevealGroup";
 
@@ -21,6 +22,48 @@ function getAllyInitials(ally: SiteAlly) {
  */
 export function AlliesPage({ site }: { site: SiteConfig }) {
   const hasAdvertising = site.allies.advertisements.length > 0;
+  const logoGridClassName = "flex flex-wrap justify-center";
+  const logoStageClassName =
+    "flex h-28 w-full items-center justify-center overflow-hidden dark:rounded-2xl dark:bg-white/90 dark:px-4 dark:py-3";
+  const allyCards = site.allies.items.map((ally) => (
+    <article
+      key={ally.name}
+      data-ally-card="true"
+      className="group flex min-h-56 min-w-0 w-full flex-col items-center justify-center border-b border-border px-2 py-8 text-center sm:w-1/2 sm:px-4 lg:w-1/3 xl:w-1/4"
+    >
+      {ally.image ? (
+        <div className={logoStageClassName} data-ally-logo-stage="true">
+          <AllyLogo
+            name={ally.name}
+            image={ally.image}
+            className="h-20 transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transform-none"
+            displayWidth={ally.displayWidth}
+            visualScale={ally.visualScale}
+            sizes={`${ally.displayWidth ?? 160}px`}
+          />
+        </div>
+      ) : (
+        <div
+          className="relative flex h-24 w-full max-w-48 items-center justify-center rounded-xl border border-dashed border-primary/35 bg-primary/5"
+          aria-label={`Espacio reservado para el logotipo de ${ally.name}`}
+        >
+          <span className="text-2xl font-black tracking-tight text-primary transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none">
+            {getAllyInitials(ally)}
+          </span>
+          <ImageIcon
+            className="absolute right-3 top-3 h-4 w-4 text-muted-foreground/60"
+            aria-hidden="true"
+          />
+        </div>
+      )}
+      <h2 className="mt-3 text-sm font-bold leading-snug text-foreground sm:text-base">
+        {ally.name}
+      </h2>
+      {!ally.image && (
+        <p className="mt-1 text-xs text-muted-foreground">Logotipo pendiente</p>
+      )}
+    </article>
+  ));
 
   return (
     <>
@@ -49,51 +92,9 @@ export function AlliesPage({ site }: { site: SiteConfig }) {
             en cada rincón a los que llegamos.
           </p>
         </RevealGroup>
-        <RevealGroup
-          className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-          stagger={0.05}
-        >
-          {site.allies.items.map((ally) => (
-            <article
-              key={ally.name}
-              className="group flex min-h-56 min-w-0 flex-col items-center justify-center border-b border-border px-2 py-8 text-center"
-            >
-              {ally.image ? (
-                <div className="flex h-24 w-full items-center justify-center dark:rounded-2xl dark:bg-white/90 dark:px-4 dark:py-3">
-                  <AllyLogo
-                    name={ally.name}
-                    image={ally.image}
-                    className="h-20 transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transform-none"
-                    displayWidth={ally.displayWidth}
-                    visualScale={ally.visualScale}
-                    sizes={`${ally.displayWidth ?? 160}px`}
-                  />
-                </div>
-              ) : (
-                <div
-                  className="relative flex h-24 w-full max-w-48 items-center justify-center rounded-xl border border-dashed border-primary/35 bg-primary/5"
-                  aria-label={`Espacio reservado para el logotipo de ${ally.name}`}
-                >
-                  <span className="text-2xl font-black tracking-tight text-primary transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none">
-                    {getAllyInitials(ally)}
-                  </span>
-                  <ImageIcon
-                    className="absolute right-3 top-3 h-4 w-4 text-muted-foreground/60"
-                    aria-hidden="true"
-                  />
-                </div>
-              )}
-              <h2 className="mt-3 text-sm font-bold leading-snug text-foreground sm:text-base">
-                {ally.name}
-              </h2>
-              {!ally.image && (
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Logotipo pendiente
-                </p>
-              )}
-            </article>
-          ))}
-        </RevealGroup>
+        <AlliesLogoGrid className={logoGridClassName}>
+          {allyCards}
+        </AlliesLogoGrid>
       </section>
     </>
   );

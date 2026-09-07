@@ -155,7 +155,7 @@ export function Navigation({ site }: { site: SiteConfig }) {
                 {item.children && item.children.length > 0 && (
                   <div
                     className={cn(
-                      "invisible pointer-events-none absolute right-0 top-full w-72 translate-y-2 opacity-0 transition-[opacity,transform,visibility] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100",
+                      "invisible pointer-events-none absolute right-0 top-full w-72 opacity-0 transition-[opacity,visibility] duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100 motion-reduce:transition-none",
                       dismissedHref === item.href &&
                         "invisible! pointer-events-none! opacity-0!"
                     )}

@@ -12,6 +12,23 @@ import { isValidEmail, sanitizePhone } from "../lib/formValidation";
 const fieldClassName =
   "mt-2 min-h-12 min-w-0 w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground shadow-sm transition-[border-color,box-shadow] placeholder:text-muted-foreground/75 hover:border-primary/35 focus:border-primary focus:ring-2 focus:ring-primary/20";
 
+const CONTACT_SUBJECTS = {
+  general: [
+    { value: "commercial", label: "Consulta comercial" },
+    { value: "general", label: "Información general" },
+    { value: "other", label: "Otro motivo" },
+  ],
+  client: [
+    { value: "orders", label: "Pedidos y entregas" },
+    { value: "billing", label: "Facturación" },
+    { value: "payments", label: "Cartera y pagos" },
+    { value: "customer-service", label: "Servicio al cliente" },
+    { value: "client-other", label: "Otro motivo como cliente" },
+  ],
+} as const;
+
+type ContactType = keyof typeof CONTACT_SUBJECTS;
+
 const SOCIAL_NETWORKS = [
   {
     key: "linkedin",
@@ -141,6 +158,7 @@ function DirectChannel({
  * the corporate channels that are present in each site's configuration.
  */
 export function ContactPage({ site }: { site: SiteConfig }) {
+  const [contactType, setContactType] = useState<ContactType>("general");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
@@ -174,6 +192,7 @@ export function ContactPage({ site }: { site: SiteConfig }) {
       }
 
       formElement.reset();
+      setContactType("general");
       setSubmitStatus("success");
       setSubmitMessage("Recibimos tu mensaje. Te responderemos por correo.");
     } catch (error) {
@@ -219,7 +238,47 @@ export function ContactPage({ site }: { site: SiteConfig }) {
                 Escríbenos
               </h2>
 
-              <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              <fieldset className="mt-8 min-w-0">
+                <legend className="text-sm font-semibold text-card-foreground">
+                  Tipo de contacto
+                </legend>
+                <div className="mt-2 grid grid-cols-2 gap-1 rounded-xl border border-input bg-muted/50 p-1">
+                  {(
+                    [
+                      ["general", "Contacto general"],
+                      ["client", "Soy cliente"],
+                    ] as const
+                  ).map(([value, label]) => (
+                    <label
+                      key={value}
+                      className={
+                        "relative flex min-h-12 min-w-0 cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-center text-sm font-semibold transition-[background-color,color,box-shadow] focus-within:ring-2 focus-within:ring-primary/30 " +
+                        (contactType === value
+                          ? "bg-primary text-primary-foreground shadow-sm"
+                          : "text-muted-foreground hover:bg-background/70 hover:text-foreground")
+                      }
+                    >
+                      <input
+                        className="sr-only"
+                        type="radio"
+                        name="contactType"
+                        value={value}
+                        checked={contactType === value}
+                        onChange={() => {
+                          setContactType(value);
+                          setSubmitStatus("idle");
+                          setSubmitMessage("");
+                        }}
+                        disabled={isSubmitting}
+                        required
+                      />
+                      <span>{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
                 <label className="text-sm font-semibold text-card-foreground">
                   Nombre completo
                   <input
@@ -280,12 +339,41 @@ export function ContactPage({ site }: { site: SiteConfig }) {
                     name="company"
                     autoComplete="organization"
                     placeholder="Nombre del negocio"
+                    required={contactType === "client"}
                   />
                 </label>
+
+                {contactType === "client" ? (
+                  <>
+                    <label className="text-sm font-semibold text-card-foreground">
+                      Ciudad
+                      <input
+                        className={fieldClassName}
+                        type="text"
+                        name="city"
+                        autoComplete="address-level2"
+                        placeholder="Ciudad del establecimiento"
+                        required
+                      />
+                    </label>
+
+                    <label className="text-sm font-semibold text-card-foreground">
+                      Código de cliente (opcional)
+                      <input
+                        className={fieldClassName}
+                        type="text"
+                        name="clientCode"
+                        autoComplete="off"
+                        placeholder="Código asignado"
+                      />
+                    </label>
+                  </>
+                ) : null}
 
                 <label className="text-sm font-semibold text-card-foreground sm:col-span-2">
                   Asunto
                   <select
+                    key={contactType}
                     className={fieldClassName}
                     name="subject"
                     defaultValue=""
@@ -294,9 +382,11 @@ export function ContactPage({ site }: { site: SiteConfig }) {
                     <option value="" disabled>
                       Selecciona una opción
                     </option>
-                    <option value="commercial">Consulta comercial</option>
-                    <option value="general">Información general</option>
-                    <option value="other">Otro motivo</option>
+                    {CONTACT_SUBJECTS[contactType].map(({ value, label }) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
                   </select>
                 </label>
 
@@ -323,7 +413,10 @@ export function ContactPage({ site }: { site: SiteConfig }) {
                 }
                 aria-live="polite"
               >
-                <p>{submitMessage || "Completa los campos para enviarnos tu mensaje."}</p>
+                <p>
+                  {submitMessage ||
+                    "Completa los campos para enviarnos tu mensaje."}
+                </p>
               </div>
 
               <TurnstileWidget resetSignal={turnstileResetSignal} />

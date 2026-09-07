@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "",
   },
   images: {
-    qualities: [75, 92],
+    qualities: [75, 90, 92],
   },
   turbopack: {
     root: path.resolve(__dirname, "../.."),

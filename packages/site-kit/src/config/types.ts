@@ -35,6 +35,7 @@ export type SitePageKey =
   | "suppliers"
   | "careers"
   | "legal"
+  | "ethics"
   | "dataPolicy"
   | "pqrs";
 
@@ -83,6 +84,8 @@ export interface SiteCultureTopic extends SiteFeature {
 export interface SiteCultureHeroImage extends SiteImageConfig {
   /** Acercamiento sutil para ajustar el encuadre dentro del panel inclinado. */
   readonly visualScale?: number;
+  /** Desplaza la foto completa sin alterar el punto focal del recorte. */
+  readonly verticalOffset?: string;
   readonly transformOrigin?: string;
 }
 
@@ -263,6 +266,8 @@ export interface SiteConfig {
     readonly image: SiteImageConfig;
   };
   readonly legal: SitePageCopy;
+  /** Publicly visible draft content; it must remain clearly marked as provisional and unapproved. */
+  readonly ethics: SitePageCopy;
   readonly dataPolicy: SitePageCopy & {
     readonly applicability: string;
     readonly documentId: SiteDataPolicyDocumentId | null;

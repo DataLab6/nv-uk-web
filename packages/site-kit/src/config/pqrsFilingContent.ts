@@ -4,6 +4,47 @@
  * each `site.config.ts` and is read directly from `SiteConfig` by the page.
  */
 
+export const PQRS_RELATIONSHIPS = ["Cliente", "Proveedor", "Otro"] as const;
+
+// Guidance, not an approved Customer Service cause catalog.
+export const PQRS_REQUEST_TYPES = [
+  {
+    title: "Petición",
+    icon: "file-text",
+    description: "Pide información u orientación relacionada con la empresa.",
+    causeLabel: "Tema de la petición",
+    narrative:
+      "Indica qué información necesitas y los antecedentes de tu petición.",
+  },
+  {
+    title: "Queja",
+    icon: "megaphone",
+    description: "Cuéntanos una inconformidad con la atención recibida.",
+    causeLabel: "Motivo de la queja",
+    narrative:
+      "Relata qué ocurrió en la atención, cuándo y por qué presentas la queja.",
+  },
+  {
+    title: "Reclamo",
+    icon: "shield",
+    description: "Pide revisar una inconformidad con productos o servicios.",
+    causeLabel: "Motivo del reclamo",
+    narrative:
+      "Describe el producto o servicio, la inconformidad y la solución que esperas. Incluye la referencia del pedido o factura si la conoces.",
+  },
+  {
+    title: "Solicitud",
+    icon: "handshake",
+    description: "Solicita una gestión o un trámite de la empresa.",
+    causeLabel: "Gestión solicitada",
+    narrative:
+      "Describe la gestión que necesitas y las circunstancias que permiten atenderla.",
+  },
+] as const;
+
+export const PQRS_SUBMISSION_NOTE =
+  "El formulario envía tu PQRS por correo al equipo de atención. No genera un número de radicado ni permite consultar un expediente en línea.";
+
 export const PQRS_DOCUMENT_TYPES = [
   "Cédula de ciudadanía",
   "Cédula de extranjería",
@@ -13,10 +54,7 @@ export const PQRS_DOCUMENT_TYPES = [
 ] as const;
 
 /**
- * UI-only reference limits for the attachments picker. No backend exists yet
- * to confirm these values (see docs/progress.md); they only bound the
- * interface so it behaves reasonably, and must be revisited once a real
- * upload/storage integration is defined.
+ * Shared limits for email attachments, including representation proof in the total.
  */
 export const PQRS_ATTACHMENT_RULES = {
   acceptedExtensions: [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"],
