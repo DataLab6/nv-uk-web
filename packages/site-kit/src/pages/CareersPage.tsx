@@ -14,7 +14,7 @@ const fieldClassName =
   "mt-2 min-h-12 min-w-0 w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground shadow-sm transition-[border-color,box-shadow] placeholder:text-muted-foreground/75 hover:border-primary/35 focus:border-primary focus:ring-2 focus:ring-primary/20";
 
 const actionClassName =
-  "inline-flex min-h-12 items-center justify-center rounded-xl bg-primary px-5 py-3 text-center font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex min-h-12 cursor-pointer items-center justify-center rounded-xl bg-primary px-5 py-3 text-center font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-60";
 
 const DEMO_JOBS = [
   {
@@ -181,8 +181,8 @@ export function CareersPage({ site }: { site: SiteConfig }) {
           <p className="mt-1">
             Estas ofertas contienen datos ficticios para mostrar cómo funciona
             la bolsa de trabajo. No hay procesos de selección abiertos asociados
-            a estas tarjetas. Puedes enviar tu perfil por el canal real de
-            postulación espontánea.
+            a estas tarjetas. Puedes enviar tu perfil por el canal real de envío
+            de currículum.
           </p>
         </div>
         <ul className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -226,9 +226,9 @@ export function CareersPage({ site }: { site: SiteConfig }) {
               Tu talento también tiene espacio aquí
             </h3>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              La postulación espontánea es nuestro canal real para recibir tu
-              hoja de vida. Compártenos tu experiencia para futuras
-              oportunidades, sin vincularte a una oferta de demostración.
+              Este es nuestro canal real para recibir tu currículum. Compártenos
+              tu experiencia para futuras oportunidades, sin vincularte a una
+              oferta de demostración.
             </p>
           </div>
           <button
@@ -239,7 +239,7 @@ export function CareersPage({ site }: { site: SiteConfig }) {
             aria-expanded={isFormOpen && !selectedJob}
             onClick={() => openApplication(null)}
           >
-            Postulación espontánea
+            Danos tu currículum
           </button>
         </div>
       </section>
@@ -280,7 +280,7 @@ export function CareersPage({ site }: { site: SiteConfig }) {
                 id="careers-form-title"
                 ref={formTitleRef}
                 tabIndex={-1}
-                className="mt-6 scroll-mt-32 rounded-sm text-3xl font-bold tracking-tight text-card-foreground focus:outline-2 focus:outline-offset-4 focus:outline-primary"
+                className="mt-6 scroll-mt-32 rounded-sm text-3xl font-bold tracking-tight text-card-foreground focus:outline-none"
               >
                 Perfil laboral
               </h2>
@@ -292,20 +292,20 @@ export function CareersPage({ site }: { site: SiteConfig }) {
                 <p className="font-bold">
                   {selectedJob
                     ? `Demostración: ${selectedJob.title}`
-                    : "Postulación espontánea real"}
+                    : "Danos tu currículum"}
                 </p>
                 <p className="mt-2 text-muted-foreground">
                   {selectedJob
                     ? "Esta oferta es ficticia y no admite postulaciones. Preseleccionamos su área para explorar el formulario; no se enviarán datos en este modo."
-                    : "Tu perfil se enviará al equipo de selección para futuras oportunidades, sin asociarlo a una vacante específica."}
+                    : "Tu currículum se enviará al equipo de selección para futuras oportunidades, sin asociarlo a una vacante específica."}
                 </p>
                 {selectedJob && (
                   <button
                     type="button"
-                    className="mt-3 min-h-11 rounded px-1 font-semibold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    className="mt-3 min-h-11 cursor-pointer rounded px-1 font-semibold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                     onClick={() => openApplication(null)}
                   >
-                    Cambiar a postulación espontánea real
+                    Cambiar a envío de currículum
                   </button>
                 )}
               </div>
@@ -500,7 +500,7 @@ export function CareersPage({ site }: { site: SiteConfig }) {
               <button
                 type="submit"
                 disabled={isSubmitting || !!selectedJob}
-                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition-[filter,transform] hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-wait disabled:opacity-65 sm:w-auto"
+                className="mt-6 inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition-[filter,transform] hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-wait disabled:opacity-65 sm:w-auto"
               >
                 <Send className="h-4 w-4" aria-hidden="true" />
                 {selectedJob
