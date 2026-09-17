@@ -25,7 +25,7 @@ export function validatePqrsFields(form: Record<string, unknown>) {
     PQRS_REQUEST_TYPES.map((type) => type.title)
   );
   choice("relacion", PQRS_RELATIONSHIPS);
-  choice("tipoSolicitante", ["natural", "juridica", "apoderado"]);
+  choice("tipoSolicitante", ["natural", "juridica"]);
   required("asunto", 150);
   required("causal", 200);
   required("hechos", 4000);
@@ -41,14 +41,7 @@ export function validatePqrsFields(form: Record<string, unknown>) {
     required(`${prefix}NumeroDocumento`, 30, /^\d+$/);
   };
   const applicant = value("tipoSolicitante");
-  if (applicant === "apoderado") {
-    choice("representadoTipo", ["natural", "juridica"]);
-    identity("apoderado");
-  }
-  if (
-    applicant === "natural" ||
-    (applicant === "apoderado" && value("representadoTipo") === "natural")
-  ) {
+  if (applicant === "natural") {
     required("nombres", 120, /^[\p{L}][\p{L}\s.'-]*$/u);
     required("apellidos", 120, /^[\p{L}][\p{L}\s.'-]*$/u);
     choice("tipoDocumento", PQRS_DOCUMENT_TYPES);

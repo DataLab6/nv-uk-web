@@ -214,12 +214,17 @@ export const siteConfig = {
     points: [
       {
         icon: "store",
-        title: "Consumo masivo",
+        title: "Impulsamos tu tienda",
         description: "",
       },
       {
-        icon: "building",
-        title: "Productos institucionales",
+        icon: "handshake",
+        title: "Aliados de las marcas",
+        description: "",
+      },
+      {
+        icon: "package-check",
+        title: "Servicio de principio a fin",
         description: "",
       },
     ],

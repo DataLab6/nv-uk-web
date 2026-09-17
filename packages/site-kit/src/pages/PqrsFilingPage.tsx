@@ -39,33 +39,25 @@ import {
   validatePqrsFields,
 } from "../lib/formValidation";
 
-type TipoSolicitante = "natural" | "juridica" | "apoderado";
-type PersonaRepresentadaTipo = "natural" | "juridica";
+type TipoSolicitante = "natural" | "juridica";
 
 interface FilingFormState {
   relacion: string;
   causal: string;
   tipoSolicitud: string;
   tipoSolicitante: TipoSolicitante;
-  // Solicitante persona natural (también usado como "persona representada" cuando el
-  // solicitante es un apoderado y la persona representada es natural).
+  // Solicitante persona natural.
   nombres: string;
   apellidos: string;
   tipoDocumento: string;
   numeroDocumento: string;
-  // Solicitante persona jurídica (también reutilizado si la persona representada es jurídica).
+  // Solicitante persona jurídica.
   razonSocial: string;
   nit: string;
   repNombres: string;
   repApellidos: string;
   repTipoDocumento: string;
   repNumeroDocumento: string;
-  // Identidad propia del apoderado/representante (distinta de la persona representada).
-  representadoTipo: PersonaRepresentadaTipo;
-  apoderadoNombres: string;
-  apoderadoApellidos: string;
-  apoderadoTipoDocumento: string;
-  apoderadoNumeroDocumento: string;
   // Contacto y contenido.
   email: string;
   emailConfirm: string;
@@ -93,11 +85,6 @@ function createInitialState(tipoSolicitud: string): FilingFormState {
     repApellidos: "",
     repTipoDocumento: PQRS_DOCUMENT_TYPES[0],
     repNumeroDocumento: "",
-    representadoTipo: "natural",
-    apoderadoNombres: "",
-    apoderadoApellidos: "",
-    apoderadoTipoDocumento: PQRS_DOCUMENT_TYPES[0],
-    apoderadoNumeroDocumento: "",
     email: "",
     emailConfirm: "",
     telefono: "",
@@ -132,7 +119,6 @@ const errorFieldClassName = "border-destructive focus:border-destructive";
 const NUMERIC_FORM_FIELDS = new Set([
   "numeroDocumento",
   "repNumeroDocumento",
-  "apoderadoNumeroDocumento",
   "nit",
   "telefono",
 ]);
@@ -142,8 +128,6 @@ const PERSON_NAME_FORM_FIELDS = new Set([
   "apellidos",
   "repNombres",
   "repApellidos",
-  "apoderadoNombres",
-  "apoderadoApellidos",
 ]);
 
 function FieldError({ id, message }: { id: string; message?: string }) {
@@ -185,9 +169,6 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
 
   const [attachments, setAttachments] = useState<File[]>([]);
   const [attachmentError, setAttachmentError] = useState<string | null>(null);
-  const [representationProof, setRepresentationProof] = useState<File | null>(
-    null
-  );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showReview, setShowReview] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -264,12 +245,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
 
   function validate(): Record<string, string> {
     const next: Record<string, string> = {};
-    const files = [
-      ...attachments,
-      ...(form.tipoSolicitante === "apoderado" && representationProof
-        ? [representationProof]
-        : []),
-    ];
+    const files = attachments;
     const invalidFile = files.find(
       (file) =>
         !file.size ||
@@ -282,7 +258,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
       ? `Revisa el formato y tamaño del archivo ${invalidFile.name}.`
       : files.reduce((sum, file) => sum + file.size, 0) >
           PQRS_ATTACHMENT_RULES.maxTotalSizeBytes
-        ? "El total de anexos, incluida la representación, supera 25 MB."
+        ? "El total de anexos supera 25 MB."
         : null;
     setAttachmentError(fileError);
     if (fileError) next.attachments = fileError;
@@ -290,16 +266,11 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
     if (!form.tipoSolicitud)
       next.tipoSolicitud = "Selecciona un tipo de solicitud.";
 
-    if (
-      form.tipoSolicitante === "natural" ||
-      form.tipoSolicitante === "apoderado"
-    ) {
-      if (form.tipoSolicitante === "natural") {
-        if (!form.nombres.trim()) next.nombres = "Ingresa tus nombres.";
-        if (!form.apellidos.trim()) next.apellidos = "Ingresa tus apellidos.";
-        if (!form.numeroDocumento.trim())
-          next.numeroDocumento = "Ingresa tu número de documento.";
-      }
+    if (form.tipoSolicitante === "natural") {
+      if (!form.nombres.trim()) next.nombres = "Ingresa tus nombres.";
+      if (!form.apellidos.trim()) next.apellidos = "Ingresa tus apellidos.";
+      if (!form.numeroDocumento.trim())
+        next.numeroDocumento = "Ingresa tu número de documento.";
     }
 
     if (form.tipoSolicitante === "juridica") {
@@ -312,28 +283,6 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
         next.repApellidos = "Ingresa los apellidos del representante.";
       if (!form.repNumeroDocumento.trim())
         next.repNumeroDocumento = "Ingresa el documento del representante.";
-    }
-
-    if (form.tipoSolicitante === "apoderado") {
-      if (form.representadoTipo === "natural") {
-        if (!form.nombres.trim())
-          next.nombres = "Ingresa los nombres de la persona representada.";
-        if (!form.apellidos.trim())
-          next.apellidos = "Ingresa los apellidos de la persona representada.";
-        if (!form.numeroDocumento.trim())
-          next.numeroDocumento =
-            "Ingresa el documento de la persona representada.";
-      } else {
-        if (!form.razonSocial.trim())
-          next.razonSocial = "Ingresa la razón social representada.";
-        if (!form.nit.trim()) next.nit = "Ingresa el NIT representado.";
-      }
-      if (!form.apoderadoNombres.trim())
-        next.apoderadoNombres = "Ingresa tus nombres como apoderado.";
-      if (!form.apoderadoApellidos.trim())
-        next.apoderadoApellidos = "Ingresa tus apellidos como apoderado.";
-      if (!form.apoderadoNumeroDocumento.trim())
-        next.apoderadoNumeroDocumento = "Ingresa tu número de documento.";
     }
 
     if (!form.email.trim()) {
@@ -413,10 +362,6 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
         body.append(key, String(value));
       }
       for (const file of attachments) body.append("attachments", file);
-      if (representationProof && form.tipoSolicitante === "apoderado") {
-        body.append("representationProof", representationProof);
-      }
-
       const response = await fetch("/api/forms/pqrs", {
         method: "POST",
         body,
@@ -452,22 +397,13 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
     if (form.tipoSolicitante === "juridica") {
       return `${form.razonSocial || "—"} (NIT ${maskDocument(form.nit)}) · Representante: ${form.repNombres} ${form.repApellidos}`.trim();
     }
-    if (form.tipoSolicitante === "apoderado") {
-      const representado =
-        form.representadoTipo === "natural"
-          ? `${form.nombres} ${form.apellidos}`.trim()
-          : `${form.razonSocial} (NIT ${maskDocument(form.nit)})`;
-      return `${representado} · Apoderado: ${form.apoderadoNombres} ${form.apoderadoApellidos}`;
-    }
     return `${form.nombres} ${form.apellidos}`.trim();
   }, [form]);
 
   const documentoResumen =
-    form.tipoSolicitante === "apoderado"
-      ? maskDocument(form.apoderadoNumeroDocumento)
-      : form.tipoSolicitante === "juridica"
-        ? maskDocument(form.repNumeroDocumento)
-        : maskDocument(form.numeroDocumento);
+    form.tipoSolicitante === "juridica"
+      ? maskDocument(form.repNumeroDocumento)
+      : maskDocument(form.numeroDocumento);
 
   const asuntoCounterId = useId();
   const hechosCounterId = useId();
@@ -583,12 +519,11 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
               Tipo de solicitante
             </legend>
 
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {(
                 [
                   { value: "natural", label: "Persona natural" },
                   { value: "juridica", label: "Persona jurídica" },
-                  { value: "apoderado", label: "Apoderado o representante" },
                 ] as const
               ).map((option) => (
                 <label
@@ -812,293 +747,6 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                 </label>
               </div>
             )}
-
-            {form.tipoSolicitante === "apoderado" && (
-              <div className="mt-6 space-y-6">
-                <div>
-                  <p className="text-sm font-semibold text-card-foreground">
-                    Datos de la persona representada
-                  </p>
-                  <div className="mt-3 flex gap-3">
-                    {(
-                      [
-                        { value: "natural", label: "Persona natural" },
-                        { value: "juridica", label: "Persona jurídica" },
-                      ] as const
-                    ).map((option) => (
-                      <label
-                        key={option.value}
-                        className={cn(
-                          "flex min-h-11 cursor-pointer items-center justify-center rounded-lg border px-4 text-sm font-semibold transition-colors",
-                          form.representadoTipo === option.value
-                            ? "border-primary bg-primary/10 text-primary"
-                            : "border-border text-foreground hover:border-primary/40"
-                        )}
-                      >
-                        <input
-                          type="radio"
-                          name="representadoTipo"
-                          value={option.value}
-                          checked={form.representadoTipo === option.value}
-                          onChange={() =>
-                            update("representadoTipo", option.value)
-                          }
-                          className="sr-only"
-                        />
-                        {option.label}
-                      </label>
-                    ))}
-                  </div>
-
-                  {form.representadoTipo === "natural" ? (
-                    <div className="mt-4 grid gap-5 sm:grid-cols-2">
-                      <label className="text-sm font-semibold text-card-foreground">
-                        Tipo de documento de la persona representada
-                        <select
-                          className={fieldClassName}
-                          value={form.tipoDocumento}
-                          onChange={(e) =>
-                            update("tipoDocumento", e.target.value)
-                          }
-                        >
-                          {PQRS_DOCUMENT_TYPES.map((type) => (
-                            <option key={type}>{type}</option>
-                          ))}
-                        </select>
-                      </label>
-                      <label className="text-sm font-semibold text-card-foreground">
-                        Nombres
-                        <input
-                          ref={(el) => {
-                            fieldRefs.current.nombres = el;
-                          }}
-                          className={cn(
-                            fieldClassName,
-                            errors.nombres && errorFieldClassName
-                          )}
-                          type="text"
-                          value={form.nombres}
-                          onChange={(e) => update("nombres", e.target.value)}
-                          aria-invalid={Boolean(errors.nombres)}
-                        />
-                        <FieldError
-                          id="nombres-error"
-                          message={errors.nombres}
-                        />
-                      </label>
-                      <label className="text-sm font-semibold text-card-foreground">
-                        Apellidos
-                        <input
-                          ref={(el) => {
-                            fieldRefs.current.apellidos = el;
-                          }}
-                          className={cn(
-                            fieldClassName,
-                            errors.apellidos && errorFieldClassName
-                          )}
-                          type="text"
-                          value={form.apellidos}
-                          onChange={(e) => update("apellidos", e.target.value)}
-                          aria-invalid={Boolean(errors.apellidos)}
-                        />
-                        <FieldError
-                          id="apellidos-error"
-                          message={errors.apellidos}
-                        />
-                      </label>
-                      <label className="text-sm font-semibold text-card-foreground sm:col-span-2">
-                        Número de documento
-                        <input
-                          ref={(el) => {
-                            fieldRefs.current.numeroDocumento = el;
-                          }}
-                          className={cn(
-                            fieldClassName,
-                            errors.numeroDocumento && errorFieldClassName
-                          )}
-                          type="text"
-                          inputMode="numeric"
-                          pattern="[0-9]*"
-                          maxLength={30}
-                          value={form.numeroDocumento}
-                          onChange={(e) =>
-                            update("numeroDocumento", e.target.value)
-                          }
-                          aria-invalid={Boolean(errors.numeroDocumento)}
-                        />
-                        <FieldError
-                          id="numeroDocumento-error"
-                          message={errors.numeroDocumento}
-                        />
-                      </label>
-                    </div>
-                  ) : (
-                    <div className="mt-4 grid gap-5 sm:grid-cols-2">
-                      <label className="text-sm font-semibold text-card-foreground">
-                        Razón social
-                        <input
-                          ref={(el) => {
-                            fieldRefs.current.razonSocial = el;
-                          }}
-                          className={cn(
-                            fieldClassName,
-                            errors.razonSocial && errorFieldClassName
-                          )}
-                          type="text"
-                          value={form.razonSocial}
-                          onChange={(e) =>
-                            update("razonSocial", e.target.value)
-                          }
-                          aria-invalid={Boolean(errors.razonSocial)}
-                        />
-                        <FieldError
-                          id="razonSocial-error"
-                          message={errors.razonSocial}
-                        />
-                      </label>
-                      <label className="text-sm font-semibold text-card-foreground">
-                        NIT
-                        <input
-                          ref={(el) => {
-                            fieldRefs.current.nit = el;
-                          }}
-                          className={cn(
-                            fieldClassName,
-                            errors.nit && errorFieldClassName
-                          )}
-                          type="text"
-                          inputMode="numeric"
-                          pattern="[0-9]*"
-                          maxLength={30}
-                          value={form.nit}
-                          onChange={(e) => update("nit", e.target.value)}
-                          aria-invalid={Boolean(errors.nit)}
-                        />
-                        <FieldError id="nit-error" message={errors.nit} />
-                      </label>
-                    </div>
-                  )}
-                </div>
-
-                <div className="border-t border-border pt-6">
-                  <p className="text-sm font-semibold text-card-foreground">
-                    Datos del apoderado o representante
-                  </p>
-                  <div className="mt-4 grid gap-5 sm:grid-cols-2">
-                    <label className="text-sm font-semibold text-card-foreground">
-                      Nombres
-                      <input
-                        ref={(el) => {
-                          fieldRefs.current.apoderadoNombres = el;
-                        }}
-                        className={cn(
-                          fieldClassName,
-                          errors.apoderadoNombres && errorFieldClassName
-                        )}
-                        type="text"
-                        value={form.apoderadoNombres}
-                        onChange={(e) =>
-                          update("apoderadoNombres", e.target.value)
-                        }
-                        aria-invalid={Boolean(errors.apoderadoNombres)}
-                      />
-                      <FieldError
-                        id="apoderadoNombres-error"
-                        message={errors.apoderadoNombres}
-                      />
-                    </label>
-                    <label className="text-sm font-semibold text-card-foreground">
-                      Apellidos
-                      <input
-                        ref={(el) => {
-                          fieldRefs.current.apoderadoApellidos = el;
-                        }}
-                        className={cn(
-                          fieldClassName,
-                          errors.apoderadoApellidos && errorFieldClassName
-                        )}
-                        type="text"
-                        value={form.apoderadoApellidos}
-                        onChange={(e) =>
-                          update("apoderadoApellidos", e.target.value)
-                        }
-                        aria-invalid={Boolean(errors.apoderadoApellidos)}
-                      />
-                      <FieldError
-                        id="apoderadoApellidos-error"
-                        message={errors.apoderadoApellidos}
-                      />
-                    </label>
-                    <label className="text-sm font-semibold text-card-foreground">
-                      Tipo de documento
-                      <select
-                        className={fieldClassName}
-                        value={form.apoderadoTipoDocumento}
-                        onChange={(e) =>
-                          update("apoderadoTipoDocumento", e.target.value)
-                        }
-                      >
-                        {PQRS_DOCUMENT_TYPES.map((type) => (
-                          <option key={type} value={type}>
-                            {type}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                    <label className="text-sm font-semibold text-card-foreground">
-                      Número de documento
-                      <input
-                        ref={(el) => {
-                          fieldRefs.current.apoderadoNumeroDocumento = el;
-                        }}
-                        className={cn(
-                          fieldClassName,
-                          errors.apoderadoNumeroDocumento && errorFieldClassName
-                        )}
-                        type="text"
-                        inputMode="numeric"
-                        pattern="[0-9]*"
-                        maxLength={30}
-                        value={form.apoderadoNumeroDocumento}
-                        onChange={(e) =>
-                          update("apoderadoNumeroDocumento", e.target.value)
-                        }
-                        aria-invalid={Boolean(errors.apoderadoNumeroDocumento)}
-                      />
-                      <FieldError
-                        id="apoderadoNumeroDocumento-error"
-                        message={errors.apoderadoNumeroDocumento}
-                      />
-                    </label>
-                  </div>
-
-                  <label className="mt-5 block text-sm font-semibold text-card-foreground">
-                    Documento que acredita la representación (opcional)
-                    <input
-                      className={cn(
-                        fieldClassName,
-                        "min-h-14 cursor-pointer p-2"
-                      )}
-                      type="file"
-                      accept={PQRS_ATTACHMENT_RULES.acceptAttribute}
-                      onChange={(e) =>
-                        setRepresentationProof(e.target.files?.[0] ?? null)
-                      }
-                    />
-                  </label>
-                  {representationProof && (
-                    <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-                      <Paperclip
-                        className="h-4 w-4 shrink-0"
-                        aria-hidden="true"
-                      />
-                      {representationProof.name} (
-                      {formatBytes(representationProof.size)})
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
           </fieldset>
 
           {/* C. Datos de contacto */}
@@ -1210,7 +858,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
             </label>
 
             <label className="mt-4 block text-sm font-semibold text-card-foreground">
-              {requestContent.causeLabel} (en tus palabras)
+              Explique su requerimiento
               <input
                 ref={(el) => {
                   fieldRefs.current.causal = el;
@@ -1229,8 +877,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                 id="causal-help"
                 className="mt-2 block text-xs text-muted-foreground"
               >
-                No necesitas elegir una causal de un catálogo: describe
-                brevemente el motivo.
+                Describe brevemente el requerimiento en tus palabras.
               </span>
               <FieldError id="causal-error" message={errors.causal} />
             </label>
@@ -1524,7 +1171,7 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
               </div>
               <div className="sm:col-span-2">
                 <dt className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
-                  Relación y motivo
+                  Relación y requerimiento
                 </dt>
                 <dd className="mt-1 whitespace-pre-line text-foreground">
                   {form.relacion}: {form.causal}
@@ -1546,9 +1193,6 @@ export function PqrsFilingPage({ site }: { site: SiteConfig }) {
                   {attachments.length > 0
                     ? attachments.map((f) => f.name).join(", ")
                     : "Ninguno"}
-                  {representationProof && form.tipoSolicitante === "apoderado"
-                    ? ` · Acreditación de representación: ${representationProof.name}`
-                    : ""}
                 </dd>
               </div>
               <div className="sm:col-span-2">

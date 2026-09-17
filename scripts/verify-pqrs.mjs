@@ -113,6 +113,7 @@ for (const brand of ["la-nieve", "unimarka"]) {
       const email = sent.at(-1);
       assert.equal(email.reply_to, base.email);
       assert.ok(email.html.includes(relacion));
+      assert.ok(email.html.includes("Requerimiento explicado"));
       assert.ok(email.html.includes("&lt;script&gt;"));
       assert.ok(!email.html.includes("INACTIVE"));
       assert.ok(!email.html.includes("Objeto de la solicitud"));
@@ -142,27 +143,23 @@ for (const patch of [
   assert.equal(sent.length, before);
   cases++;
 }
-for (const tipoSolicitante of ["juridica", "apoderado"]) {
-  for (const representadoTipo of ["natural", "juridica"]) {
-    const values = {
-      ...base,
-      tipoSolicitante,
-      representadoTipo,
-      razonSocial: "Empresa",
-      nit: "123",
-      repNombres: "Ana",
-      repApellidos: "Perez",
-      repTipoDocumento: base.tipoDocumento,
-      repNumeroDocumento: "123",
-      apoderadoNombres: "Ana",
-      apoderadoApellidos: "Perez",
-      apoderadoTipoDocumento: base.tipoDocumento,
-      apoderadoNumeroDocumento: "123",
-    };
-    assert.equal((await submit(values)).status, 200);
-    cases++;
-  }
-}
+const legalEntity = {
+  ...base,
+  tipoSolicitante: "juridica",
+  razonSocial: "Empresa",
+  nit: "123",
+  repNombres: "Ana",
+  repApellidos: "Perez",
+  repTipoDocumento: base.tipoDocumento,
+  repNumeroDocumento: "123",
+};
+assert.equal((await submit(legalEntity)).status, 200);
+cases++;
+assert.equal(
+  (await submit({ ...base, tipoSolicitante: "apoderado" })).status,
+  400
+);
+cases++;
 assert.equal((await submit({ ...base, turnstileToken: "" })).status, 400);
 assert.equal(
   (

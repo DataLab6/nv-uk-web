@@ -63,8 +63,7 @@ const ALLOWED_PQRS_EXTENSIONS = new Set([
 const PQRS_REQUEST_TYPES = new Set<string>(
   PQRS_TYPES.map((type) => type.title)
 );
-const PQRS_APPLICANT_TYPES = new Set(["natural", "juridica", "apoderado"]);
-const PQRS_PERSON_TYPES = new Set(["natural", "juridica"]);
+const PQRS_APPLICANT_TYPES = new Set(["natural", "juridica"]);
 const PQRS_DOCUMENT_TYPES = new Set([
   "Cédula de ciudadanía",
   "Cédula de extranjería",
@@ -72,7 +71,7 @@ const PQRS_DOCUMENT_TYPES = new Set([
   "Permiso especial de permanencia",
   "Otro",
 ]);
-const SUPPLIER_TYPES = new Set(["merchandise", "services"]);
+const SUPPLIER_TYPES = new Set(["merchandise"]);
 const SUPPLIER_PRODUCT_CATEGORIES = new Set([
   "Alimentos y bebidas",
   "Aseo del hogar",
@@ -170,19 +169,6 @@ function validPersonName(value: string, label: string) {
     );
   }
   return normalized;
-}
-
-function validWebUrl(value: string, label: string) {
-  if (!value) return "";
-
-  try {
-    const url = new URL(value);
-    if (url.protocol !== "http:" && url.protocol !== "https:")
-      throw new Error();
-    return value;
-  } catch {
-    throw new FormRequestError(`El campo ${label} no contiene una URL válida.`);
-  }
 }
 
 function escapeHtml(value: string) {
@@ -630,7 +616,7 @@ export async function handleSuppliersRequest(
     if (text(form.get("website"))) return jsonResponse({ ok: true });
     await verifyTurnstile(request, text(form.get("turnstileToken")));
 
-    const supplierType = validChoice(
+    validChoice(
       required(text(form.get("supplierType")), "tipo de proveedor", 40),
       SUPPLIER_TYPES,
       "tipo de proveedor"
@@ -657,91 +643,51 @@ export async function handleSuppliersRequest(
       );
     }
 
-    let detailSection: EmailSection;
-    let supplierTypeLabel: string;
+    const supplierTypeLabel = "Proveedor de mercancía";
+    const productCategory = validChoice(
+      required(
+        text(form.get("productCategory")),
+        "categoría de productos",
+        100
+      ),
+      SUPPLIER_PRODUCT_CATEGORIES,
+      "categoría de productos"
+    );
+    const brands = required(text(form.get("brands")), "marcas ofrecidas", 500);
+    const productTypes = required(
+      text(form.get("productTypes")),
+      "tipo de productos",
+      1000
+    );
+    const marketPresence = validChoice(
+      required(
+        text(form.get("marketPresence")),
+        "presencia en el mercado colombiano",
+        10
+      ),
+      YES_NO_OPTIONS,
+      "presencia en el mercado colombiano"
+    );
+    const distributionSegment = validChoice(
+      required(
+        text(form.get("distributionSegment")),
+        "segmento comercial",
+        100
+      ),
+      SUPPLIER_DISTRIBUTION_SEGMENTS,
+      "segmento comercial"
+    );
 
-    if (supplierType === "merchandise") {
-      supplierTypeLabel = "Proveedor de mercancía";
-      const productCategory = validChoice(
-        required(
-          text(form.get("productCategory")),
-          "categoría de productos",
-          100
-        ),
-        SUPPLIER_PRODUCT_CATEGORIES,
-        "categoría de productos"
-      );
-      const brands = required(
-        text(form.get("brands")),
-        "marcas ofrecidas",
-        500
-      );
-      const productTypes = required(
-        text(form.get("productTypes")),
-        "tipo de productos",
-        1000
-      );
-      const marketPresence = validChoice(
-        required(
-          text(form.get("marketPresence")),
-          "presencia en el mercado colombiano",
-          10
-        ),
-        YES_NO_OPTIONS,
-        "presencia en el mercado colombiano"
-      );
-      const isCompetitor = validChoice(
-        required(text(form.get("isCompetitor")), "competencia de marcas", 10),
-        YES_NO_OPTIONS,
-        "competencia de marcas"
-      );
-      const distributionSegment = validChoice(
-        required(
-          text(form.get("distributionSegment")),
-          "segmento comercial",
-          100
-        ),
-        SUPPLIER_DISTRIBUTION_SEGMENTS,
-        "segmento comercial"
-      );
-
-      detailSection = {
-        title: "Oferta comercial",
-        fields: [
-          ["Categoría", productCategory],
-          ["Marcas ofrecidas", brands],
-          ["Presencia en Colombia", marketPresence],
-          ["Competencia de marcas representadas", isCompetitor],
-          ["Segmento de distribución", distributionSegment],
-        ],
-        content: productTypes,
-      };
-    } else {
-      supplierTypeLabel = "Proveedor de servicios";
-      const servicesDescription = required(
-        text(form.get("servicesDescription")),
-        "descripción de servicios",
-        2000
-      );
-      const companyLocation = required(
-        text(form.get("companyLocation")),
-        "ubicación de la compañía",
-        500
-      );
-      const websiteUrl = validWebUrl(
-        text(form.get("websiteUrl")),
-        "página web"
-      );
-
-      detailSection = {
-        title: "Servicios ofrecidos",
-        fields: [
-          ["Ubicación y cobertura", companyLocation],
-          ["Página web", websiteUrl],
-        ],
-        content: servicesDescription,
-      };
-    }
+    const detailSection: EmailSection = {
+      title: "Oferta comercial",
+      fields: [
+        ["Categoría", productCategory],
+        ["Marcas ofrecidas", brands],
+        ["Presencia en Colombia", marketPresence],
+        ["Segmento de distribución", distributionSegment],
+      ],
+      content: productTypes,
+    };
 
     const portfolio = form.get("portfolio");
     const attachments =
@@ -812,10 +758,7 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
     }
     // Exclude inactive identity branches from the email, even on crafted requests.
     const applicant = formValue(form, "tipoSolicitante");
-    const natural =
-      applicant === "natural" ||
-      (applicant === "apoderado" &&
-        formValue(form, "representadoTipo") === "natural");
+    const natural = applicant === "natural";
     for (const key of [
       "nombres",
       "apellidos",
@@ -827,18 +770,12 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
       "repApellidos",
       "repTipoDocumento",
       "repNumeroDocumento",
-      "apoderadoNombres",
-      "apoderadoApellidos",
-      "apoderadoTipoDocumento",
-      "apoderadoNumeroDocumento",
     ]) {
-      const active = key.startsWith("apoderado")
-        ? applicant === "apoderado"
-        : key.startsWith("rep")
-          ? applicant === "juridica"
-          : ["razonSocial", "nit"].includes(key)
-            ? !natural
-            : natural;
+      const active = key.startsWith("rep")
+        ? applicant === "juridica"
+        : ["razonSocial", "nit"].includes(key)
+          ? !natural
+          : natural;
       if (!active) form.delete(key);
     }
 
@@ -903,55 +840,6 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
         formValue(form, "repNumeroDocumento"),
         "documento del representante"
       );
-    } else if (tipoSolicitante === "apoderado") {
-      const representadoTipo = validChoice(
-        required(
-          formValue(form, "representadoTipo"),
-          "tipo de persona representada",
-          40
-        ),
-        PQRS_PERSON_TYPES,
-        "tipo de persona representada"
-      );
-      if (representadoTipo === "natural") {
-        validPersonName(
-          formValue(form, "nombres"),
-          "nombres de la persona representada"
-        );
-        validPersonName(
-          formValue(form, "apellidos"),
-          "apellidos de la persona representada"
-        );
-        validChoice(
-          formValue(form, "tipoDocumento"),
-          PQRS_DOCUMENT_TYPES,
-          "tipo de documento de la persona representada"
-        );
-        validDigits(
-          formValue(form, "numeroDocumento"),
-          "documento de la persona representada"
-        );
-      } else if (representadoTipo === "juridica") {
-        required(formValue(form, "razonSocial"), "razón social representada");
-        validDigits(formValue(form, "nit"), "NIT representado");
-      }
-      validPersonName(
-        formValue(form, "apoderadoNombres"),
-        "nombres del apoderado"
-      );
-      validPersonName(
-        formValue(form, "apoderadoApellidos"),
-        "apellidos del apoderado"
-      );
-      validChoice(
-        formValue(form, "apoderadoTipoDocumento"),
-        PQRS_DOCUMENT_TYPES,
-        "tipo de documento del apoderado"
-      );
-      validDigits(
-        formValue(form, "apoderadoNumeroDocumento"),
-        "documento del apoderado"
-      );
     }
 
     const telefono = formValue(form, "telefono");
@@ -970,14 +858,11 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
     const files = form
       .getAll("attachments")
       .filter((value): value is File => value instanceof File);
-    const proof = form.get("representationProof");
     if (files.length > PQRS_ATTACHMENT_RULES.maxFiles) {
       throw new FormRequestError(
         `Solo puedes adjuntar hasta ${PQRS_ATTACHMENT_RULES.maxFiles} anexos.`
       );
     }
-    if (tipoSolicitante === "apoderado" && proof instanceof File)
-      files.push(proof);
     const totalBytes = files.reduce((total, file) => total + file.size, 0);
     if (totalBytes > MAX_TOTAL_ATTACHMENT_BYTES) {
       throw new FormRequestError("El tamaño total de los anexos supera 25 MB.");
@@ -1011,7 +896,7 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
             fields: [
               ["Tipo de solicitud", tipoSolicitud],
               ["Relación con la empresa", relacion],
-              ["Motivo declarado (texto libre, sin catálogo aprobado)", causal],
+              ["Requerimiento explicado", causal],
               [
                 "Estado del canal",
                 "Envío por correo; sin radicado oficial ni expediente persistido",
@@ -1022,12 +907,7 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
           {
             title: "Datos del solicitante",
             fields: [
-              [
-                tipoSolicitante === "apoderado"
-                  ? "Persona representada"
-                  : "Solicitante",
-                representedPerson,
-              ],
+              ["Solicitante", representedPerson],
               ["Tipo de documento", formValue(form, "tipoDocumento")],
               ["Número de documento", formValue(form, "numeroDocumento")],
               ["Razón social", formValue(form, "razonSocial")],
@@ -1037,24 +917,12 @@ export async function handlePqrsRequest(request: Request, site: FormSiteId) {
                 formValue(form, "repTipoDocumento"),
               ],
               [
-                "Tipo de documento del apoderado",
-                formValue(form, "apoderadoTipoDocumento"),
-              ],
-              [
                 "Representante",
                 `${formValue(form, "repNombres")} ${formValue(form, "repApellidos")}`.trim(),
               ],
               [
                 "Documento del representante",
                 formValue(form, "repNumeroDocumento"),
-              ],
-              [
-                "Apoderado",
-                `${formValue(form, "apoderadoNombres")} ${formValue(form, "apoderadoApellidos")}`.trim(),
-              ],
-              [
-                "Documento del apoderado",
-                formValue(form, "apoderadoNumeroDocumento"),
               ],
             ],
           },

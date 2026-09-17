@@ -42,6 +42,7 @@ export function CulturePhotoHero({
             sizes={imageSizes[index]}
             className={styles.image}
             style={{
+              objectFit: image.fit ?? "cover",
               objectPosition: image.objectPosition ?? "50% 50%",
               transform:
                 [

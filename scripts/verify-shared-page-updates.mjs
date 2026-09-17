@@ -15,6 +15,7 @@ for (const app of ["la-nieve", "unimarka"]) {
     ethics,
     pqrs,
     filing,
+    suppliers,
     dataPolicy,
     sitemap,
   ] = await Promise.all([
@@ -26,6 +27,7 @@ for (const app of ["la-nieve", "unimarka"]) {
     readPage(path.join("legal", "codigo-de-etica.html")),
     readPage(path.join("legal", "pqrs.html")),
     readPage(path.join("legal", "pqrs", "radicacion.html")),
+    readPage("proveedores.html"),
     readPage(path.join("legal", "tratamiento-de-datos.html")),
     readPage("sitemap.xml.body"),
   ]);
@@ -41,8 +43,13 @@ for (const app of ["la-nieve", "unimarka"]) {
   assert.match(careers, /Demostración: no son vacantes reales/);
   assert.match(careers, /Postulación espontánea/);
   assert.match(filing, /Hechos y razones/);
+  assert.match(filing, /Explique su requerimiento/);
+  assert.doesNotMatch(filing, /Apoderado o representante/);
   assert.doesNotMatch(filing, /Objetivo de la solicitud/);
   assert.doesNotMatch(filing, /Objeto de la solicitud/);
+  assert.match(suppliers, /Quiero ser proveedor de mercancía/);
+  assert.doesNotMatch(suppliers, /Proveedor de servicios/);
+  assert.doesNotMatch(suppliers, /Es competencia de alguna/);
   assert.match(ethics, /Borrador ficticio, provisional y no aprobado/);
   assert.match(ethics, /noindex/);
   assert.doesNotMatch(sitemap, /codigo-de-etica/);

@@ -162,7 +162,6 @@ const laNieveAlliesPageLogos = [
   extractedAllyLogo("037", "Gatsy", 400, 400, 136, 1.05),
   extractedAllyLogo("045", "Pastas San Remo", 412, 400, 152, 1.1),
   extractedAllyLogo("047", "Harina La Americana", 600, 157, 194, 1.08),
-  extractedAllyLogo("058", "Glacitas", 600, 344, 188, 1.12),
   extractedAllyLogo("059", "Baby Soft", 400, 400, 140, 1.8),
   extractedAllyLogo("049", "Aunt Jemima", 600, 344, 188, 1.05),
 ] as const;
@@ -173,7 +172,7 @@ function advertisingCampaign(
   src: string,
   width: number,
   height: number,
-  logo: SiteBrandLogo,
+  logo: SiteBrandLogo | undefined,
   variant: SiteAdvertisingVariant,
   orientation: SiteAdvertisingOrientation = "media-left",
   mainProportion: SiteAdvertisingProportion = 65,
@@ -185,7 +184,7 @@ function advertisingCampaign(
     variant,
     orientation,
     mainProportion,
-    logo,
+    ...(logo ? { logo } : {}),
     main: {
       src,
       alt: `Pieza publicitaria de ${name}`,
@@ -234,9 +233,9 @@ const laNieveAdvertisementCatalog = [
   advertisingCampaign(
     "nestle-alimentos",
     "Nestlé Alimentos",
-    "/images/advertising/nestle-alimentos.png",
-    1774,
-    887,
+    "/images/advertising/nestle-alimentos-20260914.jpg",
+    1600,
+    800,
     laNieveBrandLogos[2],
     "split",
     "media-left",
@@ -285,9 +284,9 @@ const laNieveAdvertisementCatalog = [
   advertisingCampaign(
     "rama",
     "Rama",
-    "/images/advertising/rama.png",
-    1717,
-    916,
+    "/images/advertising/rama-20260914.jpg",
+    1600,
+    854,
     laNieveBrandLogos[11],
     "split",
     "media-right",
@@ -303,6 +302,42 @@ const laNieveAdvertisementCatalog = [
     "split",
     "media-left",
     70
+  ),
+  advertisingCampaign(
+    "aceite-oleoflor",
+    "Aceite Oleoflor",
+    "/images/advertising/aceite-oleoflor-20260914.jpg",
+    1600,
+    800,
+    undefined,
+    "landscape"
+  ),
+  advertisingCampaign(
+    "aseo-softys",
+    "Aseo Softys",
+    "/images/advertising/aseo-softys-20260914.jpg",
+    1600,
+    800,
+    laNieveBrandLogos[8],
+    "landscape"
+  ),
+  advertisingCampaign(
+    "diana",
+    "Diana",
+    "/images/advertising/diana-20260914.png",
+    1600,
+    800,
+    laNieveBrandLogos[12],
+    "landscape"
+  ),
+  advertisingCampaign(
+    "licor-llanero",
+    "Aguardiente Llanero",
+    "/images/advertising/licor-llanero-20260914.jpg",
+    1600,
+    800,
+    laNieveBrandLogos[14],
+    "landscape"
   ),
 ] as const;
 
@@ -555,12 +590,13 @@ export const siteConfig = {
         transformOrigin: "50% 15%",
       },
       {
-        src: "/images/culture/people/hero-persona-3-romart-colgate-camisa.jpeg",
-        alt: "Colaborador de La Nieve junto a un aliado comercial",
+        src: "/images/culture/people/hero-persona-3-tv-molinos-atlantico-villavicencio.jpeg",
+        alt: "Asesora de La Nieve y cliente de Molinos del Atlántico en Villavicencio",
         width: 960,
         height: 1280,
         treatment: "photo",
-        objectPosition: "50% 42%",
+        objectPosition: "50% 50%",
+        fit: "contain",
       },
     ],
     topics: [

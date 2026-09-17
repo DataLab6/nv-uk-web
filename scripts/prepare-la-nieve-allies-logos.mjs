@@ -18,7 +18,7 @@ const outputDirectory = path.join(
 );
 
 // logo-001 contiene únicamente una textura. Los SVG de tipo `path` restantes
-// son recortes auxiliares vacíos; estos son los 42 elementos con marca visible.
+// son recortes auxiliares vacíos; estos son los 41 elementos aprobados.
 const logoIds = [
   "002",
   "003",
@@ -58,7 +58,6 @@ const logoIds = [
   "055",
   "056",
   "057",
-  "058",
   "059",
   "060",
   "061",

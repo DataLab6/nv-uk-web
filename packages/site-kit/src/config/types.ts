@@ -82,6 +82,8 @@ export interface SiteCultureTopic extends SiteFeature {
 }
 
 export interface SiteCultureHeroImage extends SiteImageConfig {
+  /** Permite conservar la foto completa cuando el sujeto no debe recortarse. */
+  readonly fit?: "contain" | "cover";
   /** Acercamiento sutil para ajustar el encuadre dentro del panel inclinado. */
   readonly visualScale?: number;
   /** Desplaza la foto completa sin alterar el punto focal del recorte. */

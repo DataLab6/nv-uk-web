@@ -50,7 +50,6 @@ const expectedOrder = [
   "037",
   "045",
   "047",
-  "058",
   "059",
   "049",
 ];
@@ -85,12 +84,12 @@ const allyLogoStages =
 assert.deepEqual(
   renderedOrder,
   expectedOrder,
-  "La página debe presentar las 42 marcas en el orden editorial aprobado"
+  "La página debe presentar las 41 marcas en el orden editorial aprobado"
 );
 
 assert.equal(
   allyLogoStages.length,
-  42,
+  41,
   "Cada logo debe tener una zona visual independiente del texto"
 );
 for (const stage of allyLogoStages) {
@@ -118,7 +117,7 @@ assert.match(
 );
 assert.equal(
   (alliesHtml.match(/data-ally-card="true"/g) ?? []).length,
-  42,
+  41,
   "Cada logo debe participar individualmente en la aparición progresiva"
 );
 assert.equal(

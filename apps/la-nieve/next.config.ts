@@ -10,6 +10,7 @@ loadEnvConfig(
 );
 
 const nextConfig: NextConfig = {
+  transpilePackages: ["@corporativo/site-kit"],
   env: {
     NEXT_PUBLIC_TURNSTILE_SITE_KEY:
       process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "",

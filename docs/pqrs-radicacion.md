@@ -2,9 +2,9 @@
 
 ## Decision implementada
 
-Ambas marcas usan PqrsPage, PqrsFilingPage y handlePqrsRequest compartidos. La relacion (Cliente, Proveedor, Otro) es independiente de la identidad legal (natural, juridica, apoderado). Se conservan identificacion, contacto, representacion y autorizaciones. Se elimina Objeto/Objetivo de la solicitud; Hechos y razones es el unico relato extenso.
+Ambas marcas usan PqrsPage, PqrsFilingPage y handlePqrsRequest compartidos. La relacion (Cliente, Proveedor, Otro) es independiente de la identidad legal (natural o juridica). Se conservan identificacion, contacto y autorizaciones. Se elimina Objeto/Objetivo de la solicitud; Hechos y razones es el unico relato extenso.
 
-Los tipos son Peticion, Queja, Reclamo y Solicitud (con tildes en interfaz). Cada variante cambia la etiqueta del motivo y la orientacion del relato. El motivo es texto libre obligatorio, no una lista de causales oficiales. No se encontro un estudio ni un catalogo aprobado de Servicio al Cliente en las fuentes revisadas. No se atribuye aprobacion a las orientaciones implementadas ni se impide enviar por falta de catalogo.
+Los tipos son Peticion, Queja, Reclamo y Solicitud (con tildes en interfaz). Todos usan el campo de texto libre obligatorio "Explique su requerimiento" y cada variante orienta el relato. No se encontro un estudio ni un catalogo aprobado de Servicio al Cliente en las fuentes revisadas. No se atribuye aprobacion a las orientaciones implementadas ni se impide enviar por falta de catalogo.
 
 Propuesta PARA VALIDACION, no desplegada como catalogo: Peticion: informacion/orientacion; Queja: atencion/trato; Reclamo: producto/entrega/facturacion; Solicitud: gestion documental/tramite. Servicio al Cliente debe definir alcance, codigos, diferencias Peticion/Solicitud, pertinencia por cliente/proveedor/otro, responsable y version del catalogo. Conservar siempre motivo libre para casos no clasificados; no exigir factura ni datos comerciales desconocidos para recibir una PQRS.
 
@@ -12,7 +12,7 @@ Propuesta PARA VALIDACION, no desplegada como catalogo: Peticion: informacion/or
 
 El endpoint envia por Resend al destinatario configurado por marca; no hay registro de expediente, consulta de estado, acuse automatico al solicitante ni radicado persistido. HTTP 200 significa aceptacion del envio por el proveedor de correo, no entrega confirmada, lectura ni radicacion oficial. La interfaz lo explica y no genera numeros aleatorios. Los indicadores de disponibilidad existentes se respetan.
 
-El correo incluye marca, relacion, tipo, motivo declarado libre, identidad activa, contacto, relato, anexos y declaraciones. Se excluyen identidades de ramas inactivas y se escapa HTML. El token de Turnstile se recoge del bloque de revision y se verifica en servidor. Validacion compartida controla opciones, campos, limites y autorizaciones tanto antes de revisar/enviar como en servidor. El servidor sigue siendo autoritativo para adjuntos.
+El correo incluye marca, relacion, tipo, requerimiento explicado, identidad activa, contacto, relato, anexos y declaraciones. Se excluyen identidades de ramas inactivas y se escapa HTML. El token de Turnstile se recoge del bloque de revision y se verifica en servidor. Validacion compartida controla opciones, campos, limites y autorizaciones tanto antes de revisar/enviar como en servidor. El servidor sigue siendo autoritativo para adjuntos.
 
 Revisar antes de produccion RESEND_PQRS_TO_LA_NIEVE y RESEND_PQRS_TO_UNIMARKA: el mecanismo existente permite destinatario de pruebas y fallback. Aprobar remitente/dominio, responsables, seguridad, retencion y terminos juridicos. No se alteraron configuraciones ajenas ni se conecto una BD exploratoria.
 

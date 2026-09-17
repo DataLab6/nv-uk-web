@@ -12,7 +12,6 @@ export const PQRS_REQUEST_TYPES = [
     title: "Petición",
     icon: "file-text",
     description: "Pide información u orientación relacionada con la empresa.",
-    causeLabel: "Tema de la petición",
     narrative:
       "Indica qué información necesitas y los antecedentes de tu petición.",
   },
@@ -20,7 +19,6 @@ export const PQRS_REQUEST_TYPES = [
     title: "Queja",
     icon: "megaphone",
     description: "Cuéntanos una inconformidad con la atención recibida.",
-    causeLabel: "Motivo de la queja",
     narrative:
       "Relata qué ocurrió en la atención, cuándo y por qué presentas la queja.",
   },
@@ -28,7 +26,6 @@ export const PQRS_REQUEST_TYPES = [
     title: "Reclamo",
     icon: "shield",
     description: "Pide revisar una inconformidad con productos o servicios.",
-    causeLabel: "Motivo del reclamo",
     narrative:
       "Describe el producto o servicio, la inconformidad y la solución que esperas. Incluye la referencia del pedido o factura si la conoces.",
   },
@@ -36,7 +33,6 @@ export const PQRS_REQUEST_TYPES = [
     title: "Solicitud",
     icon: "handshake",
     description: "Solicita una gestión o un trámite de la empresa.",
-    causeLabel: "Gestión solicitada",
     narrative:
       "Describe la gestión que necesitas y las circunstancias que permiten atenderla.",
   },
@@ -54,7 +50,7 @@ export const PQRS_DOCUMENT_TYPES = [
 ] as const;
 
 /**
- * Shared limits for email attachments, including representation proof in the total.
+ * Shared limits for email attachments.
  */
 export const PQRS_ATTACHMENT_RULES = {
   acceptedExtensions: [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"],

@@ -11,7 +11,7 @@ export const LA_NIEVE_TIMELINE = [
     period: "Actualidad",
     isCurrent: true,
     description:
-      "Hoy con orgullo con operación en el 47 % de país,  seguimos consolidándonos como una de las distribuidoras de mayor impacto, proyectándonos día a día hacia un crecimiento constante y sostenido, guiados por nuestros valores y por el compromiso de quienes hacen parte de nuestra historia."
+      "Hoy con orgullo con operación en el 47 % del país,  seguimos consolidándonos como una de las distribuidoras de mayor impacto, proyectándonos día a día hacia un crecimiento constante y sostenido, guiados por nuestros valores y por el compromiso de quienes hacen parte de nuestra historia."
   },
 ] as const satisfies readonly SiteTimelineMilestone[];
 
@@ -27,6 +27,6 @@ export const UNIMARKA_TIMELINE = [
     period: "Actualidad",
     isCurrent: true,
     description:
-      "Hoy con orgullo con operación en el 31 % de país,  seguimos consolidándonos como una de las distribuidoras de mayor impacto, proyectándonos día a día hacia un crecimiento constante y sostenido, guiados por nuestros valores y por el compromiso de quienes hacen parte de nuestra historia."
+      "Hoy con orgullo con operación en el 31 % del país,  seguimos consolidándonos como una de las distribuidoras de mayor impacto, proyectándonos día a día hacia un crecimiento constante y sostenido, guiados por nuestros valores y por el compromiso de quienes hacen parte de nuestra historia."
   },
 ] as const satisfies readonly SiteTimelineMilestone[];
