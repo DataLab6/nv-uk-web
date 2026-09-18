@@ -74,7 +74,11 @@ export function WarehouseMap({
           aria-label={`Mapa de Colombia con las zonas de operación de ${brand} resaltadas`}
         >
           <image
-            href="/images/warehouses/coverage.png"
+            href={
+              site === "unimarka"
+                ? "/images/warehouses/coverage-v2.png"
+                : "/images/warehouses/coverage.png"
+            }
             width="1600"
             height="1600"
           />
