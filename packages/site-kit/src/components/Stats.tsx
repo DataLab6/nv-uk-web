@@ -25,18 +25,11 @@ export function Stats({ site }: { site: SiteConfig }) {
         <div className="rounded-[2.5rem] bg-brand-primary bg-gradient-to-br from-brand-primary to-[color-mix(in_srgb,var(--brand-primary)_78%,black)] px-6 py-10 text-white shadow-card sm:px-10 lg:px-14">
           <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
             <div ref={contentRef} className="min-w-0 max-w-lg">
-              {site.id === "la-nieve" && (
-                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white/70">
-                  Nuestra cobertura
-                </span>
-              )}
               <h2
                 id="home-stats-title"
-                className="mt-3 text-[1.75rem] font-bold leading-tight tracking-tight text-white sm:text-[2rem]"
+                className="text-[1.75rem] font-bold leading-tight tracking-tight text-white sm:text-[2rem]"
               >
-                {site.id === "unimarka"
-                  ? "Cobertura nacional"
-                  : "Presencia en Colombia"}
+                {site.stats.title}
               </h2>
               <dl className="mt-8 grid grid-cols-2 gap-x-5 border-t border-white/20 pt-7 sm:mt-10 sm:gap-x-8 sm:pt-8">
                 {departments && (
