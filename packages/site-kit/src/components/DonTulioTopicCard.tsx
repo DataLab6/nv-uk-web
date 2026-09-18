@@ -31,8 +31,17 @@ const advice = {
   },
 };
 
-function TulioScene({ variant }: { variant: "greeting" | "shelf" | "advice" }) {
-  const transparent = variant !== "greeting";
+type PresenterMedia = { name: string; video: string; poster: string };
+
+function TulioScene({
+  variant,
+  media,
+}: {
+  variant: "greeting" | "shelf" | "advice";
+  media?: PresenterMedia;
+}) {
+  const character = media?.name ?? "Don Tulio";
+  const transparent = !!media || variant !== "greeting";
   const name = variant === "shelf" ? "estante" : "consejo";
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -53,8 +62,8 @@ function TulioScene({ variant }: { variant: "greeting" | "shelf" | "advice" }) {
     >
       {failed ? (
         <Image
-          src="/images/whatsapp-personaje.webp"
-          alt="Don Tulio"
+          src={media?.poster ?? "/images/whatsapp-personaje.webp"}
+          alt={character}
           fill
           sizes="180px"
           className="object-contain"
@@ -64,16 +73,18 @@ function TulioScene({ variant }: { variant: "greeting" | "shelf" | "advice" }) {
           ref={videoRef}
           className={transparent ? styles.transparentVideo : styles.video}
           src={
-            transparent
+            media?.video ??
+            (transparent
               ? `/videos/don-tulio-${name}-v2.webm`
-              : "/videos/don-tulio.mp4"
+              : "/videos/don-tulio.mp4")
           }
           poster={
-            transparent
+            media?.poster ??
+            (transparent
               ? `/images/culture/don-tulio-${name}-v2.png`
-              : "/images/whatsapp-personaje.webp"
+              : "/images/whatsapp-personaje.webp")
           }
-          aria-label="Animación de Don Tulio acompañando el consejo escrito"
+          aria-label={`Animación de ${character} acompañando el consejo escrito`}
           muted
           playsInline
           preload="none"
@@ -95,8 +106,8 @@ function TulioScene({ variant }: { variant: "greeting" | "shelf" | "advice" }) {
           }}
           aria-label={
             playing
-              ? "Pausar animación de Don Tulio"
-              : "Reproducir animación de Don Tulio"
+              ? `Pausar animación de ${character}`
+              : `Reproducir animación de ${character}`
           }
         >
           {playing ? "Ⅱ Pausar" : "▷ Animar"}
@@ -111,12 +122,15 @@ export function DonTulioTopicCard({
   selected,
   onSelect,
   animation = "greeting",
+  media,
 }: {
   topic: SiteCultureTopic;
   selected: boolean;
   onSelect: () => void;
   animation?: "greeting" | "shelf" | "advice";
+  media?: PresenterMedia;
 }) {
+  const character = media?.name ?? "Don Tulio";
   const id = useId();
   const cardRef = useTiltCard<HTMLElement>({ maxTilt: 3, scale: 1.01 });
   const tip = advice[topic.icon as keyof typeof advice] ?? advice.lightbulb;
@@ -139,7 +153,7 @@ export function DonTulioTopicCard({
           type="button"
           className={styles.sceneButton}
           onClick={onSelect}
-          aria-label={`${selected ? "Cerrar" : "Ver"} consejo de Don Tulio: ${topic.title}`}
+          aria-label={`${selected ? "Cerrar" : "Ver"} consejo de ${character}: ${topic.title}`}
           aria-expanded={selected}
           aria-controls={id}
         />
@@ -147,14 +161,14 @@ export function DonTulioTopicCard({
           <>
             <div className={styles.shade} />
             <div className={styles.bubble} aria-hidden="true">
-              <span>Don Tulio te recomienda</span>
+              <span>{character} te recomienda</span>
               <p>{tip.message}</p>
             </div>
-            <TulioScene variant={animation} />
+            <TulioScene variant={animation} media={media} />
           </>
         ) : (
           <span className={styles.badge}>
-            Un tip con Don Tulio <span aria-hidden="true">↗</span>
+            Un tip con {character} <span aria-hidden="true">↗</span>
           </span>
         )}
       </div>
@@ -175,11 +189,13 @@ export function DonTulioTopicCard({
           aria-expanded={selected}
           aria-controls={id}
         >
-          {selected ? "Cerrar consejo" : "Ver consejo de Don Tulio"}
+          {selected ? "Cerrar consejo" : `Ver consejo de ${character}`}
           <span aria-hidden="true">{selected ? "−" : "+"}</span>
         </button>
         <div id={id} hidden={!selected} className={styles.detail}>
-          <p className="sr-only">Don Tulio te recomienda: {tip.message}</p>
+          <p className="sr-only">
+            {character} te recomienda: {tip.message}
+          </p>
           <h3 className="font-bold text-card-foreground">{tip.action}</h3>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             {tip.detail}
