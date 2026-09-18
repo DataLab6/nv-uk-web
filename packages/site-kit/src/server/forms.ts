@@ -291,6 +291,10 @@ function renderEmail(options: {
 }
 
 function getRecipient(kind: FormKind, site: FormSiteId) {
+  // Dedicated destination for the La Nieve contact form.
+  if (site === "la-nieve" && kind === "contact") {
+    return "datalab6@lanieve.co";
+  }
   const siteKey = site === "la-nieve" ? "LA_NIEVE" : "UNIMARKA";
   const kindKey = kind.toUpperCase();
   return (

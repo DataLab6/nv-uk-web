@@ -1,0 +1,195 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: var(--card);
+  box-shadow: 0 4px 18px #00000005;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+.card:hover {
+  border-color: var(--primary);
+  box-shadow:
+    0 20px 25px -5px #0000001a,
+    0 8px 10px -6px #0000001a;
+}
+.selected {
+  border-color: var(--primary);
+  box-shadow: 0 12px 35px color-mix(in srgb, var(--primary) 14%, transparent);
+}
+.scene {
+  flex-shrink: 0;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--muted);
+  isolation: isolate;
+}
+.photo {
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.card:hover .photo {
+  transform: scale(1.025);
+}
+.sceneButton {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+.sceneButton:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: -5px;
+}
+.badge {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  background: #ffffffed;
+  color: #15354b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  pointer-events: none;
+}
+.shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #102d4670, transparent);
+  pointer-events: none;
+}
+.presenter {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 48%;
+  height: 100%;
+  z-index: 2;
+  animation: arrive 0.45s ease-out both;
+  pointer-events: none;
+}
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% center;
+  mask-image: linear-gradient(to right, transparent, black 12%);
+}
+.transparentPresenter {
+  width: 56%;
+}
+.transparentVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+}
+.bubble {
+  position: absolute;
+  left: 5%;
+  top: 8%;
+  width: 51%;
+  z-index: 3;
+  padding: clamp(0.65rem, 1.4vw, 1rem);
+  border-radius: 1rem 1rem 0.2rem 1rem;
+  background: #fff;
+  color: #16344a;
+  box-shadow: 0 8px 25px #0002;
+  pointer-events: none;
+  animation: arrive 0.35s ease-out both;
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  bottom: 12px;
+  border-left: 12px solid white;
+  border-top: 10px solid transparent;
+}
+.bubble span {
+  display: block;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 800;
+  color: #466071;
+}
+.bubble p {
+  margin-top: 0.5rem;
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
+  font-weight: 750;
+  line-height: 1.4;
+}
+.playback {
+  position: absolute;
+  bottom: 0.65rem;
+  right: 0.65rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  background: #15354bee;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.85rem 0 0.2rem;
+  border-top: 1px solid var(--border);
+  color: var(--primary);
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.toggle:focus-visible,
+.playback:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}
+.detail {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--primary) 6%, var(--card));
+  border-radius: 0.75rem;
+  border-left: 3px solid var(--primary);
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .presenter,
+  .bubble {
+    animation: none;
+  }
+  .card,
+  .photo {
+    transition: none;
+  }
+  .card:hover .photo {
+    transform: none;
+  }
+}

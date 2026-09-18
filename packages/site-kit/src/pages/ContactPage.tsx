@@ -158,6 +158,7 @@ function DirectChannel({
  * the corporate channels that are present in each site's configuration.
  */
 export function ContactPage({ site }: { site: SiteConfig }) {
+  const simplified = site.id === "la-nieve" || site.id === "unimarka";
   const [contactType, setContactType] = useState<ContactType>("general");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
@@ -233,54 +234,73 @@ export function ContactPage({ site }: { site: SiteConfig }) {
               </span>
               <h2
                 id="contact-form-title"
-                className="mt-6 text-3xl font-bold tracking-tight text-card-foreground"
+                className={
+                  simplified
+                    ? "sr-only"
+                    : "mt-6 text-3xl font-bold tracking-tight text-card-foreground"
+                }
               >
-                Escríbenos
+                {simplified ? "Formulario de contacto" : "Escríbenos"}
               </h2>
 
-              <fieldset className="mt-8 min-w-0">
-                <legend className="text-sm font-semibold text-card-foreground">
-                  Tipo de contacto
-                </legend>
-                <div className="mt-2 grid grid-cols-2 gap-1 rounded-xl border border-input bg-muted/50 p-1">
-                  {(
-                    [
-                      ["general", "Contacto general"],
-                      ["client", "Soy cliente"],
-                    ] as const
-                  ).map(([value, label]) => (
-                    <label
-                      key={value}
-                      className={
-                        "relative flex min-h-12 min-w-0 cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-center text-sm font-semibold transition-[background-color,color,box-shadow] focus-within:ring-2 focus-within:ring-primary/30 " +
-                        (contactType === value
-                          ? "bg-primary text-primary-foreground shadow-sm"
-                          : "text-muted-foreground hover:bg-background/70 hover:text-foreground")
-                      }
-                    >
-                      <input
-                        className="sr-only"
-                        type="radio"
-                        name="contactType"
-                        value={value}
-                        checked={contactType === value}
-                        onChange={() => {
-                          setContactType(value);
-                          setSubmitStatus("idle");
-                          setSubmitMessage("");
-                        }}
-                        disabled={isSubmitting}
-                        required
-                      />
-                      <span>{label}</span>
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
+              {simplified ? (
+                <>
+                  <input type="hidden" name="contactType" value="general" />
+                  <input type="hidden" name="subject" value="general" />
+                </>
+              ) : (
+                <fieldset className="mt-8 min-w-0">
+                  <legend className="text-sm font-semibold text-card-foreground">
+                    Tipo de contacto
+                  </legend>
+                  <div className="mt-2 grid grid-cols-2 gap-1 rounded-xl border border-input bg-muted/50 p-1">
+                    {(
+                      [
+                        ["general", "Contacto general"],
+                        ["client", "Soy cliente"],
+                      ] as const
+                    ).map(([value, label]) => (
+                      <label
+                        key={value}
+                        className={
+                          "relative flex min-h-12 min-w-0 cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-center text-sm font-semibold transition-[background-color,color,box-shadow] focus-within:ring-2 focus-within:ring-primary/30 " +
+                          (contactType === value
+                            ? "bg-primary text-primary-foreground shadow-sm"
+                            : "text-muted-foreground hover:bg-background/70 hover:text-foreground")
+                        }
+                      >
+                        <input
+                          className="sr-only"
+                          type="radio"
+                          name="contactType"
+                          value={value}
+                          checked={contactType === value}
+                          onChange={() => {
+                            setContactType(value);
+                            setSubmitStatus("idle");
+                            setSubmitMessage("");
+                          }}
+                          disabled={isSubmitting}
+                          required
+                        />
+                        <span>{label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+              )}
 
               <div className="mt-6 grid gap-5 sm:grid-cols-2">
                 <label className="text-sm font-semibold text-card-foreground">
                   Nombre completo
+                  {simplified && (
+                    <span
+                      className="ml-1 text-red-600 dark:text-red-400"
+                      aria-hidden="true"
+                    >
+                      *
+                    </span>
+                  )}
                   <input
                     className={fieldClassName}
                     type="text"
@@ -293,6 +313,14 @@ export function ContactPage({ site }: { site: SiteConfig }) {
 
                 <label className="text-sm font-semibold text-card-foreground">
                   Correo electrónico
+                  {simplified && (
+                    <span
+                      className="ml-1 text-red-600 dark:text-red-400"
+                      aria-hidden="true"
+                    >
+                      *
+                    </span>
+                  )}
                   <input
                     className={fieldClassName}
                     type="email"
@@ -331,67 +359,80 @@ export function ContactPage({ site }: { site: SiteConfig }) {
                   />
                 </label>
 
-                <label className="text-sm font-semibold text-card-foreground">
-                  Empresa o establecimiento
-                  <input
-                    className={fieldClassName}
-                    type="text"
-                    name="company"
-                    autoComplete="organization"
-                    placeholder="Nombre del negocio"
-                    required={contactType === "client"}
-                  />
-                </label>
-
-                {contactType === "client" ? (
+                {!simplified && (
                   <>
                     <label className="text-sm font-semibold text-card-foreground">
-                      Ciudad
+                      Empresa o establecimiento
                       <input
                         className={fieldClassName}
                         type="text"
-                        name="city"
-                        autoComplete="address-level2"
-                        placeholder="Ciudad del establecimiento"
-                        required
+                        name="company"
+                        autoComplete="organization"
+                        placeholder="Nombre del negocio"
+                        required={contactType === "client"}
                       />
                     </label>
 
-                    <label className="text-sm font-semibold text-card-foreground">
-                      Código de cliente (opcional)
-                      <input
+                    {contactType === "client" ? (
+                      <>
+                        <label className="text-sm font-semibold text-card-foreground">
+                          Ciudad
+                          <input
+                            className={fieldClassName}
+                            type="text"
+                            name="city"
+                            autoComplete="address-level2"
+                            placeholder="Ciudad del establecimiento"
+                            required
+                          />
+                        </label>
+
+                        <label className="text-sm font-semibold text-card-foreground">
+                          Código de cliente (opcional)
+                          <input
+                            className={fieldClassName}
+                            type="text"
+                            name="clientCode"
+                            autoComplete="off"
+                            placeholder="Código asignado"
+                          />
+                        </label>
+                      </>
+                    ) : null}
+
+                    <label className="text-sm font-semibold text-card-foreground sm:col-span-2">
+                      Asunto
+                      <select
+                        key={contactType}
                         className={fieldClassName}
-                        type="text"
-                        name="clientCode"
-                        autoComplete="off"
-                        placeholder="Código asignado"
-                      />
+                        name="subject"
+                        defaultValue=""
+                        required
+                      >
+                        <option value="" disabled>
+                          Selecciona una opción
+                        </option>
+                        {CONTACT_SUBJECTS[contactType].map(
+                          ({ value, label }) => (
+                            <option key={value} value={value}>
+                              {label}
+                            </option>
+                          )
+                        )}
+                      </select>
                     </label>
                   </>
-                ) : null}
-
-                <label className="text-sm font-semibold text-card-foreground sm:col-span-2">
-                  Asunto
-                  <select
-                    key={contactType}
-                    className={fieldClassName}
-                    name="subject"
-                    defaultValue=""
-                    required
-                  >
-                    <option value="" disabled>
-                      Selecciona una opción
-                    </option>
-                    {CONTACT_SUBJECTS[contactType].map(({ value, label }) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-
+                )}
                 <label className="text-sm font-semibold text-card-foreground sm:col-span-2">
                   Mensaje
+                  {simplified && (
+                    <span
+                      className="ml-1 text-red-600 dark:text-red-400"
+                      aria-hidden="true"
+                    >
+                      *
+                    </span>
+                  )}
                   <textarea
                     className={fieldClassName + " min-h-36 resize-y"}
                     name="message"
@@ -404,7 +445,9 @@ export function ContactPage({ site }: { site: SiteConfig }) {
               <div
                 id="contact-form-status"
                 className={
-                  "mt-5 leading-relaxed " +
+                  (simplified && !submitMessage
+                    ? "sr-only "
+                    : "mt-5 leading-relaxed ") +
                   (submitStatus === "error"
                     ? "text-sm text-destructive"
                     : submitStatus === "success"
@@ -415,7 +458,9 @@ export function ContactPage({ site }: { site: SiteConfig }) {
               >
                 <p>
                   {submitMessage ||
-                    "Completa los campos para enviarnos tu mensaje."}
+                    (simplified
+                      ? ""
+                      : "Completa los campos para enviarnos tu mensaje.")}
                 </p>
               </div>
 
@@ -435,7 +480,7 @@ export function ContactPage({ site }: { site: SiteConfig }) {
                 disabled={isSubmitting}
                 className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition-[filter,transform] hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-wait disabled:opacity-65 sm:w-auto"
               >
-                <Send className="h-4 w-4" aria-hidden="true" />
+                {!simplified && <Send className="h-4 w-4" aria-hidden="true" />}
                 {isSubmitting ? "Enviando…" : "Enviar mensaje"}
               </button>
             </form>

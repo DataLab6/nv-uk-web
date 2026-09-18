@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { SiteConfig } from "../config/types";
 import { CulturePhotoHero } from "../components/CulturePhotoHero";
+import { CultureTopics } from "../components/CultureTopics";
 import { CultureTopicCard } from "../components/CultureTopicCard";
 import { RevealGroup } from "../components/RevealGroup";
 
@@ -8,6 +9,7 @@ import { RevealGroup } from "../components/RevealGroup";
  * Editorial route prepared for commercial tips and educational resources.
  */
 export function CulturePage({ site }: { site: SiteConfig }) {
+  const hasDonTulio = site.id === "la-nieve";
   const hasFeaturedImage =
     site.culture.imagePresentation === "featured-before-intro";
 
@@ -57,17 +59,29 @@ export function CulturePage({ site }: { site: SiteConfig }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-              Categorías
+              {hasDonTulio ? "Consejos de Don Tulio" : "Categorías"}
             </span>
             <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-              Una biblioteca de valor para nuestros clientes
+              {hasDonTulio
+                ? "Un buen consejo hace crecer tu negocio"
+                : "Una biblioteca de valor para nuestros clientes"}
             </h2>
+            {hasDonTulio && (
+              <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                Elige una tarjeta y deja que Don Tulio te acompañe con una idea
+                para poner en práctica.
+              </p>
+            )}
           </div>
-          <RevealGroup className="grid gap-6 md:grid-cols-3" stagger={0.1}>
-            {site.culture.topics.map((topic) => (
-              <CultureTopicCard key={topic.title} topic={topic} />
-            ))}
-          </RevealGroup>
+          {hasDonTulio ? (
+            <CultureTopics topics={site.culture.topics} />
+          ) : (
+            <RevealGroup className="grid gap-6 md:grid-cols-3" stagger={0.1}>
+              {site.culture.topics.map((topic) => (
+                <CultureTopicCard key={topic.title} topic={topic} />
+              ))}
+            </RevealGroup>
+          )}
         </div>
       </section>
     </>

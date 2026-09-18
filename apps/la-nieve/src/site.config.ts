@@ -75,14 +75,6 @@ const laNieveBrandLogos = [
   ),
   brandLogo("Levapan", "/brands/levapan.png", 1200, 1200, 100, 1.4),
   brandLogo("Softys", "/brands/softys.png", 410, 222, 154),
-  brandLogo(
-    "Alimentos Polar",
-    "/brands/alimentos-polar.png",
-    300,
-    300,
-    104,
-    1.25
-  ),
   brandLogo("Incauca", "/brands/incauca.png", 1536, 1024, 136, 1.4),
   brandLogo("Rama", "/brands/rama.png", 260, 130, 164),
   brandLogo(
@@ -92,7 +84,6 @@ const laNieveBrandLogos = [
     148,
     138
   ),
-  brandLogo("Alicorp", "/brands/alicorp.png", 3840, 1095, 188),
   brandLogo(
     "Unidad de Licores del Meta",
     "/brands/unidad-licores-meta.png",
@@ -144,7 +135,6 @@ const laNieveAlliesPageLogos = [
   extractedAllyLogo("019", "La Lechera", 400, 400, 144, 1.3),
   extractedAllyLogo("002", "Fabuloso", 400, 400, 136),
   extractedAllyLogo("012", "Ajax", 498, 400, 152, 1.05),
-  extractedAllyLogo("050", "Quaker", 600, 303, 172, 1.18),
   extractedAllyLogo("043", "Haz de Oros", 375, 400, 140, 1.05),
   extractedAllyLogo("044", "Pastas La Muñeca", 510, 400, 154, 1.2),
   extractedAllyLogo("046", "Riquísimo", 600, 371, 190, 1.05),
@@ -154,7 +144,6 @@ const laNieveAlliesPageLogos = [
   extractedAllyLogo("039", "Felix", 449, 400, 150, 1.05),
   extractedAllyLogo("011", "Speed Stick", 400, 400, 142, 1.2),
   extractedAllyLogo("014", "Lady Speed Stick", 510, 400, 150, 1.7),
-  extractedAllyLogo("048", "P.A.N.", 400, 400, 138, 1.8),
   extractedAllyLogo("055", "Gel'hada", 600, 290, 182, 1.1),
   extractedAllyLogo("023", "Nestum", 400, 400, 144, 1.6),
   extractedAllyLogo("020", "Fitness", 400, 400, 148, 1.5),
@@ -163,7 +152,6 @@ const laNieveAlliesPageLogos = [
   extractedAllyLogo("045", "Pastas San Remo", 412, 400, 152, 1.1),
   extractedAllyLogo("047", "Harina La Americana", 600, 157, 194, 1.08),
   extractedAllyLogo("059", "Baby Soft", 400, 400, 140, 1.8),
-  extractedAllyLogo("049", "Aunt Jemima", 600, 344, 188, 1.05),
 ] as const;
 
 function advertisingCampaign(
@@ -287,7 +275,7 @@ const laNieveAdvertisementCatalog = [
     "/images/advertising/rama-20260914.jpg",
     1600,
     854,
-    laNieveBrandLogos[11],
+    laNieveBrandLogos[10],
     "split",
     "media-right",
     60
@@ -298,7 +286,7 @@ const laNieveAdvertisementCatalog = [
     "/images/advertising/incauca.png",
     1717,
     916,
-    laNieveBrandLogos[10],
+    laNieveBrandLogos[9],
     "split",
     "media-left",
     70
@@ -327,7 +315,7 @@ const laNieveAdvertisementCatalog = [
     "/images/advertising/diana-20260914.png",
     1600,
     800,
-    laNieveBrandLogos[12],
+    laNieveBrandLogos[11],
     "landscape"
   ),
   advertisingCampaign(
@@ -336,7 +324,7 @@ const laNieveAdvertisementCatalog = [
     "/images/advertising/licor-llanero-20260914.jpg",
     1600,
     800,
-    laNieveBrandLogos[14],
+    laNieveBrandLogos[12],
     "landscape"
   ),
 ] as const;
@@ -409,12 +397,12 @@ export const siteConfig = {
     description:
       "En Distribuciones La Nieve entendemos el día a día de tiendas, supermercados y aliados comerciales. Por eso trabajamos para que nunca falte el producto correcto, en el momento correcto.",
     image: {
-      src: "/images/cliente-nieve.png",
-      alt: "Cliente de Distribuciones La Nieve en su negocio",
-      width: 1642,
-      height: 958,
+      src: "/images/cliente-entrega-nieve-20260918.png",
+      alt: "Comerciante recibiendo una entrega de La Nieve en su tienda",
+      width: 1448,
+      height: 1086,
       treatment: "photo",
-      objectPosition: "left center",
+      objectPosition: "40% center",
     },
     points: [
       {
