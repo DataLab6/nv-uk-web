@@ -121,15 +121,11 @@ export function AlliesPage({ site }: { site: SiteConfig }) {
             Hoy hacen parte de nuestra historia y las representamos con orgullo
             en cada rincón a los que llegamos.
           </p>
-          <p className="mt-4 text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            
-          </p>
+          <p className="mt-4 text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground"></p>
         </RevealGroup>
         <div className="space-y-14" data-commercial-houses="true">
           {allyGroups.map((house) => {
             const headingId = getCommercialHouseId(house.name);
-            const brandCountLabel =
-              house.items.length === 1 ? "marca" : "marcas";
 
             return (
               <section
@@ -138,22 +134,12 @@ export function AlliesPage({ site }: { site: SiteConfig }) {
                 className="border-t border-border pt-8 first:border-t-0 first:pt-0"
                 data-commercial-house={house.name}
               >
-                <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                      Casa comercial
-                    </p>
-                    <h2
-                      id={headingId}
-                      className="mt-1 text-2xl font-black tracking-tight text-foreground sm:text-3xl"
-                    >
-                      {house.name}
-                    </h2>
-                  </div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {house.items.length} {brandCountLabel}
-                  </p>
-                </div>
+                <h2
+                  id={headingId}
+                  className="mb-5 text-2xl font-black tracking-tight text-foreground sm:text-3xl"
+                >
+                  {house.name}
+                </h2>
                 <AlliesLogoGrid className={logoGridClassName}>
                   {house.items.map(renderAllyCard)}
                 </AlliesLogoGrid>
